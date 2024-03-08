@@ -16,23 +16,22 @@
   <meta name="author" content="bradin">
   <meta name="keywords" content="">
   
-    <meta name="description" content="8 串口通信 通信的基本概念 串行通信 使用一条数据线，将数据一位一位地依次传输，每一位数据占 据一个固定的时间长度。其只需要少数几条线就可以在系统间交换信息，特别适 用于计算机与计算机、计算机与外设之间的远距离通信。 并行通信 将数据字节的各位用多条数据线同时进行传送，通常是 8 位、16 位、32 位等数据一起传输。控制简单、传输速度快；由于传输线较多，长距离传送时成本高且接收">
+    <meta name="description" content="终于告一段落了。1&#x2F;224 3.93&#x2F;4，前后打点，手续提交，尘埃落定。 最近常常漫无目的散步，尤其傍晚，看天幕的红色褪去，听心灵的声音归附宁静。无休止的未知和无休止的漂泊里，我如何知道我想要什么呢？ 这一路似乎并无太多成功的时候，从sju的疫情开始，追逐成了主旋律，心灵在忙乱中寻求闲暇，一次次看到命运的无力，两年多的训练和坚持，CPhOF秋日折戟；半年时间竭尽全力的追赶文化课，终究在最后的夏">
 <meta property="og:type" content="article">
-<meta property="og:title" content="51单片机（三）">
-<meta property="og:url" content="http://example.com/2024/01/30/51%E5%8D%95%E7%89%87%E6%9C%BA%EF%BC%88%E4%B8%89%EF%BC%89/index.html">
+<meta property="og:title" content="随笔-旅途的开始">
+<meta property="og:url" content="http://example.com/2024/03/08/%E9%9A%8F%E7%AC%94/index.html">
 <meta property="og:site_name" content="鸭蛋仙人的博客">
-<meta property="og:description" content="8 串口通信 通信的基本概念 串行通信 使用一条数据线，将数据一位一位地依次传输，每一位数据占 据一个固定的时间长度。其只需要少数几条线就可以在系统间交换信息，特别适 用于计算机与计算机、计算机与外设之间的远距离通信。 并行通信 将数据字节的各位用多条数据线同时进行传送，通常是 8 位、16 位、32 位等数据一起传输。控制简单、传输速度快；由于传输线较多，长距离传送时成本高且接收">
+<meta property="og:description" content="终于告一段落了。1&#x2F;224 3.93&#x2F;4，前后打点，手续提交，尘埃落定。 最近常常漫无目的散步，尤其傍晚，看天幕的红色褪去，听心灵的声音归附宁静。无休止的未知和无休止的漂泊里，我如何知道我想要什么呢？ 这一路似乎并无太多成功的时候，从sju的疫情开始，追逐成了主旋律，心灵在忙乱中寻求闲暇，一次次看到命运的无力，两年多的训练和坚持，CPhOF秋日折戟；半年时间竭尽全力的追赶文化课，终究在最后的夏">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2024-01-30T07:22:47.688Z">
-<meta property="article:modified_time" content="2024-02-19T11:33:27.455Z">
+<meta property="article:published_time" content="2024-03-08T14:52:38.538Z">
+<meta property="article:modified_time" content="2024-03-08T15:55:30.880Z">
 <meta property="article:author" content="bradin">
-<meta property="article:tag" content="51单片机">
-<meta property="article:tag" content="嵌入式">
+<meta property="article:tag" content="随笔">
 <meta name="twitter:card" content="summary_large_image">
   
   
   
-  <title>51单片机（三） - 鸭蛋仙人的博客</title>
+  <title>随笔-旅途的开始 - 鸭蛋仙人的博客</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -198,7 +197,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="51单片机（三）"></span>
+            <span id="subtitle" data-typed-text="随笔-旅途的开始"></span>
           
         </div>
 
@@ -209,8 +208,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2024-01-30 15:22" pubdate>
-          2024年1月30日 下午
+        <time datetime="2024-03-08 22:52" pubdate>
+          2024年3月8日 晚上
         </time>
       </span>
     
@@ -221,7 +220,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          873 字
+          542 字
         
       </span>
     
@@ -232,7 +231,7 @@
         
         
         
-          8 分钟
+          5 分钟
         
       </span>
     
@@ -269,60 +268,27 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">51单片机（三）</h1>
+            <h1 id="seo-header">随笔-旅途的开始</h1>
             
             
               <div class="markdown-body">
                 
-                <h2 id="串口通信">8 串口通信</h2>
-<h3 id="通信的基本概念">通信的基本概念</h3>
-<p><strong>串行通信</strong>
-使用一条数据线，将数据一位一位地依次传输，每一位数据占
-据一个固定的时间长度。其只需要少数几条线就可以在系统间交换信息，特别适
-用于计算机与计算机、计算机与外设之间的远距离通信。<br />
-<strong>并行通信</strong>
-将数据字节的各位用多条数据线同时进行传送，通常是 8 位、16 位、32
-位等数据一起传输。控制简单、传输速度快；由于传输线较多，长距离传送时成本高且接收方的各位同时接收存在困难，抗干扰能力差。
-<strong>异步通信</strong>
-异步通信是指通信的发送与接收设备使用各自的时钟控制数据的发送和接
-收过程。为使双方的收发协调，要求发送和接收设备的时钟尽可能一致。
-异步通信是以字符（构成的帧）为单位进行传输，字符与字符之间的间隙（时
-间间隔）是任意的，但每个字符中的各位是以固定的时间传送的，即字符之间不
-一定有“位间隔”的整数倍的关系，但同一字符内的各位之间的距离均为“ 位
-间隔”的整数倍。如下图所示：<br />
-<img
-src="https://picst.sunbangyan.cn/2024/02/01/0c54c179b959c354a1f7ad4b0aae6ae8.jpeg" srcset="/img/loading.gif" lazyload /></p>
-<p><strong>同步通信</strong>
-同步通信时要建立发送方时钟对接收方时钟的直接控制，使双方达到完全同
-步。此时，传输数据的位之间的距离均为“位间隔”的整数倍，同时传送的字符
-间不留间隙，即保持位同步关系，也保持字符同步关系。发送方对接收方的同步
-可以通过两种方法实现。<br />
-<img
-src="https://picdm.sunbangyan.cn/2024/02/01/cf1a5919bea388120ab120ee50efb104.jpeg" srcset="/img/loading.gif" lazyload /><br />
-<strong>单工通信</strong>
-单工是指数据传输仅能沿一个方向，不能实现反向传输。<br />
-<strong>半双工通信</strong>
-数据传输可以沿两个方向，但需要分时进行。（共用一根线）<br />
-<strong>双工通信</strong> 数据可以同时进行双向传输。 ### 通信速率<br />
-<strong>比特率</strong>
-比特率是每秒钟传输二进制代码的位数，单位是：位／秒（ bps）。如
-每秒钟传送 240 个字符，而每个字符格式包含 10 位(1 个起始位、1 个停止位、
-8 个数据位)，这时的比特率为：<br />
-<span class="math inline">\(10 位×240 个/秒 = 2400 bps\)</span><br />
-<strong>波特率</strong> 它表示每秒钟传输了多少个码元。而
-码元是通信信号调制的概念，通信中常用时间间隔相同的符号来表示一个二进制
-数字，这样的信号称为码元。如常见的通信传输中，用 0V 表示数字 0，5V 表
-示数字 1，那么一个码元可以表示两种状态 0 和 1，所以一个码元等于一个二
-进制比特位，此时波特率的大小与比特率一致；如果在通信传输中，有 0V、2V、
-4V 以及 6V 分别表示二进制数 00、 01、 10、 11，那么每个码元可以表示四
-种状态，即两个二进制比特位，所以码元数是二进制比特位数的一半，这个时候
-的波特率为比特率的一半。由于很多常见的通信中一个码元都是表示两种状态，
-所以我们常常直接以波特率来表示比特率。<br />
-### 相关寄存器 串口通信的接口标准有很多，常用的是 RS-232 和
-RS-485，下面是相关的寄存器。<br />
-串口控制寄存器SCON<br />
-<img
-src="https://krseoul.imgtbl.com/i/2024/02/16/65cf20b9908b8.png" srcset="/img/loading.gif" lazyload /></p>
+                <p>终于告一段落了。1/224 3.93/4，前后打点，手续提交，尘埃落定。<br />
+最近常常漫无目的散步，尤其傍晚，看天幕的红色褪去，听心灵的声音归附宁静。无休止的未知和无休止的漂泊里，我如何知道我想要什么呢？<br />
+这一路似乎并无太多成功的时候，从sju的疫情开始，追逐成了主旋律，心灵在忙乱中寻求闲暇，一次次看到命运的无力，两年多的训练和坚持，CPhOF秋日折戟；半年时间竭尽全力的追赶文化课，终究在最后的夏天结束了最后的梦，一路上的荣耀和赞歌，坚忍与苦闷啊，无人问津的训练，万众瞩目的登场，可惜没能上演少年期望的绝地翻盘的好戏，一场梦被武汉大学一张轻飘飘的纸宣告死刑，另一段咬牙坚持的信念在一个并不喧嚣的夏日轻轻飞走，未曾留下一丝痕迹。<br />
+#### 不如意事常八九，可与语人无二三。
+现在回想这已然发生的一切，总会想起一句谚语：“我曾踏足山巅，也曾陷入低谷，二者皆让我受益良多”。或许，通往幸福的道路只有一条，那就是用一颗平淡的心，对待我们能力范围之外的事情，对于往事，我已无悔，那种竭尽全力向着目标奔跑的样子，无论何时想起都会觉得漂亮。珍惜当下，用心体会命运所给予的。直面生活的变数
+在命运面前做一个自由的灵魂。</p>
+<p>穷极一生填不满雄心壮志<br />
+何不把答案交给远方？<br />
+虽然现实中<br />
+有太多我们无法轻易改变的事实<br />
+有太多我们无奈接受的结果<br />
+但我们可以选择一颗善良的心<br />
+一个干净的灵魂<br />
+带着这些出发我们无所惧怕<br />
+新的旅途又要开始了，我会珍惜这一路上的每一个故事 正所谓： ####
+人生如逆旅，我亦是行人。</p>
 
                 
               </div>
@@ -341,12 +307,12 @@ src="https://krseoul.imgtbl.com/i/2024/02/16/65cf20b9908b8.png" srcset="/img/loa
     
       <span class="category-chain">
         
-  <a href="/categories/%E5%8D%95%E7%89%87%E6%9C%BA/" class="category-chain-item">单片机</a>
+  <a href="/categories/%E9%97%B2%E6%9A%87%E4%B9%8B%E4%BD%99/" class="category-chain-item">闲暇之余</a>
   
   
     <span>></span>
     
-  <a href="/categories/%E5%8D%95%E7%89%87%E6%9C%BA/51%E5%8D%95%E7%89%87%E6%9C%BA/" class="category-chain-item">51单片机</a>
+  <a href="/categories/%E9%97%B2%E6%9A%87%E4%B9%8B%E4%BD%99/%E9%9A%8F%E7%AC%94/" class="category-chain-item">随笔</a>
   
   
 
@@ -363,9 +329,7 @@ src="https://krseoul.imgtbl.com/i/2024/02/16/65cf20b9908b8.png" srcset="/img/loa
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/tags/51%E5%8D%95%E7%89%87%E6%9C%BA/" class="print-no-link">#51单片机</a>
-      
-        <a href="/tags/%E5%B5%8C%E5%85%A5%E5%BC%8F/" class="print-no-link">#嵌入式</a>
+        <a href="/tags/%E9%9A%8F%E7%AC%94/" class="print-no-link">#随笔</a>
       
     </div>
   
@@ -377,8 +341,8 @@ src="https://krseoul.imgtbl.com/i/2024/02/16/65cf20b9908b8.png" srcset="/img/loa
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>51单片机（三）</div>
-      <div>http://example.com/2024/01/30/51单片机（三）/</div>
+      <div>随笔-旅途的开始</div>
+      <div>http://example.com/2024/03/08/随笔/</div>
     </div>
     <div class="license-meta">
       
@@ -390,7 +354,7 @@ src="https://krseoul.imgtbl.com/i/2024/02/16/65cf20b9908b8.png" srcset="/img/loa
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2024年1月30日</div>
+          <div>2024年3月8日</div>
         </div>
       
       
@@ -422,18 +386,12 @@ src="https://krseoul.imgtbl.com/i/2024/02/16/65cf20b9908b8.png" srcset="/img/loa
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2024/02/06/%E7%AE%97%E6%B3%95%E7%AB%9E%E8%B5%9B%E9%9B%86%E8%AE%AD%E7%AC%94%E8%AE%B0%EF%BC%88%E4%B8%80%EF%BC%89/" title="算法竞赛集训笔记（一）stl">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">算法竞赛集训笔记（一）stl</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2024/01/25/51%E5%8D%95%E7%89%87%E6%9C%BA%EF%BC%88%E4%BA%8C%EF%BC%89/" title="51单片机（二）">
-                        <span class="hidden-mobile">51单片机（二）</span>
+                      <a href="/2024/03/08/ROS%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E4%B8%80%EF%BC%89/" title="">
+                        <span class="hidden-mobile"></span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>

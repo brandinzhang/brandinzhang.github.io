@@ -16,12 +16,12 @@
   <meta name="author" content="bradin">
   <meta name="keywords" content="">
   
-    <meta name="description" content="易错总结1.遇到麻烦的模拟就耐心敲代码吧。诸如某年某月某日类型题目2.数组的下标注意是i还是j，这里敲快了经常容易错，排序如果出了问题，debug时候可以先看看是否某一步脚标出问题3.用 int temp作交换，注意赋值操作有没有写反4.计数器每一回合清零，位置是不是放对了。if包含对象是否正确？5 .当你调用数据的时候，这个数据是否已经发生了不期望的改变。是否有需要再开辟一块内存存放原来数据6.">
+    <meta name="description" content="易错总结 1.遇到麻烦的模拟就耐心敲代码吧。诸如某年某月某日类型题目 2.数组的下标注意是i还是j，这里敲快了经常容易错，排序如果出了问题，debug时候可以先看看是否某一步脚标出问题 3.用int temp作交换，注意赋值操作有没有写反 4.计数器每一回合清零，位置是不是放对了。 if包含对象是否正确？ 5 .当你调用数据的时候，这个数据是否已经发生了不期望的改变。是否有需要再开辟一块">
 <meta property="og:type" content="article">
 <meta property="og:title" content="易错总结">
 <meta property="og:url" content="http://example.com/2023/12/25/%E6%98%93%E9%94%99%E6%80%BB%E7%BB%93/index.html">
 <meta property="og:site_name" content="鸭蛋仙人的博客">
-<meta property="og:description" content="易错总结1.遇到麻烦的模拟就耐心敲代码吧。诸如某年某月某日类型题目2.数组的下标注意是i还是j，这里敲快了经常容易错，排序如果出了问题，debug时候可以先看看是否某一步脚标出问题3.用 int temp作交换，注意赋值操作有没有写反4.计数器每一回合清零，位置是不是放对了。if包含对象是否正确？5 .当你调用数据的时候，这个数据是否已经发生了不期望的改变。是否有需要再开辟一块内存存放原来数据6.">
+<meta property="og:description" content="易错总结 1.遇到麻烦的模拟就耐心敲代码吧。诸如某年某月某日类型题目 2.数组的下标注意是i还是j，这里敲快了经常容易错，排序如果出了问题，debug时候可以先看看是否某一步脚标出问题 3.用int temp作交换，注意赋值操作有没有写反 4.计数器每一回合清零，位置是不是放对了。 if包含对象是否正确？ 5 .当你调用数据的时候，这个数据是否已经发生了不期望的改变。是否有需要再开辟一块">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2023-12-25T12:25:06.000Z">
 <meta property="article:modified_time" content="2023-12-25T12:25:20.962Z">
@@ -272,9 +272,17 @@
             
               <div class="markdown-body">
                 
-                <h2 id="易错总结"><a href="#易错总结" class="headerlink" title="易错总结"></a>易错总结</h2><p>1.遇到麻烦的模拟就耐心敲代码吧。诸如某年某月某日类型题目<br>2.数组的下标注意是i还是j，这里敲快了经常容易错，排序如果出了问题，debug时候可以先看看是否某一步脚标出问题<br>3.用<code> int temp</code>作交换，注意赋值操作有没有写反<br>4.计数器每一回合清零，位置是不是放对了。<br>if包含对象是否正确？<br>5 .当你调用数据的时候，这个数据是否已经发生了不期望的改变。是否有需要再开辟一块内存存放原来数据<br>6.<code> scanf(&quot;%s&quot;,str)</code>遇到空格会停止，应当使用<code> char str[100]; gets(str);</code> str字符数组存储了一整行<br>7 .一个很细节的点，strlen（）返回的类型是无符号整形，因此不能用int与之作比较，这是考虑到负数的情况，比较时负号会被转义！，因此涉及到0附近的截止时，我们应当特判&gt;&#x3D;0,否则会发生runtime error错误<br>考虑下面一个strlen（str）&gt;&#x3D;4的情况</p>
+                <h2 id="易错总结">易错总结</h2>
+<p>1.遇到麻烦的模拟就耐心敲代码吧。诸如某年某月某日类型题目
+2.数组的下标注意是i还是j，这里敲快了经常容易错，排序如果出了问题，debug时候可以先看看是否某一步脚标出问题
+3.用<code>int temp</code>作交换，注意赋值操作有没有写反
+4.计数器每一回合清零，位置是不是放对了。 if包含对象是否正确？ 5
+.当你调用数据的时候，这个数据是否已经发生了不期望的改变。是否有需要再开辟一块内存存放原来数据
+6.<code>scanf("%s",str)</code>遇到空格会停止，应当使用<code>char str[100]; gets(str);</code>
+str字符数组存储了一整行 7
+.一个很细节的点，strlen（）返回的类型是无符号整形，因此不能用int与之作比较，这是考虑到负数的情况，比较时负号会被转义！，因此涉及到0附近的截止时，我们应当特判&gt;=0,否则会发生runtime
+error错误 考虑下面一个strlen（str）&gt;=4的情况</p>
 <figure class="highlight axapta"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs axapta"><span class="hljs-keyword">for</span>(i=strlen(<span class="hljs-built_in">str</span>)<span class="hljs-number">-2</span>;i&gt;=strlen(<span class="hljs-built_in">str</span>)<span class="hljs-number">-4</span>;i--)    <span class="hljs-comment">//错误的</span><br>	&#123;<br>		<span class="hljs-keyword">sum</span>+=<span class="hljs-built_in">str</span>[i]-<span class="hljs-string">&#x27;0&#x27;</span>;<br>	&#125;<br><span class="hljs-keyword">for</span>(i=strlen(<span class="hljs-built_in">str</span>)<span class="hljs-number">-2</span>;i&gt;=strlen(<span class="hljs-built_in">str</span>)<span class="hljs-number">-4</span>&amp;&amp;i&gt;=<span class="hljs-number">0</span>;i--)    <span class="hljs-comment">//正确的</span><br>	&#123;<br>		<span class="hljs-keyword">sum</span>+=<span class="hljs-built_in">str</span>[i]-<span class="hljs-string">&#x27;0&#x27;</span>;<br>	&#125;<br></code></pre></td></tr></table></figure>
-
 <p>8.单个点爆掉，考虑临界或者特殊情况。</p>
 
                 
