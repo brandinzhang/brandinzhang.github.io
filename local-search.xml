@@ -4,6 +4,33 @@
   
   
   <entry>
+    <title>ng机器学习week2</title>
+    <link href="/2024/03/11/ng%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0week2/"/>
+    <url>/2024/03/11/ng%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0week2/</url>
+    
+    <content type="html"><![CDATA[<h2 id="多维情况下矢量化">多维情况下矢量化</h2><p>在实际情境中，预测一个y值通常需要很多x值，因此上一节公式可以改写为<span class="math display">\[f_{\overrightarrow{w},b}(\overrightarrow{x} )=w_{1} x_{1}+w_{2}x_{2}+···+w_{n}x_{n}+b \]</span>也即 <span class="math display">\[ f_{\overrightarrow{w},b}(\overrightarrow{x} )=\overrightarrow{w} ·\overrightarrow{x}+b \]</span>我们可以定义两个矢量 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np<br>w=np.array([<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">1</span>,<span class="hljs-number">2</span>])<br>x=np.array([<span class="hljs-number">3</span>,<span class="hljs-number">4</span>,<span class="hljs-number">5</span>,<span class="hljs-number">6</span>])<br>b=<span class="hljs-number">2</span><br>f=np.dot(w,x)+b  <span class="hljs-comment"># 矢量点乘</span><br></code></pre></td></tr></table></figure> 这个运算速度是比for循环要快得多的自然地，我们需要考虑多维情况下如何实现迭代，一维式子改写为 <spanclass="math display">\[w_{j} =w_{j} -\alpha \frac{\partial }{\partialw_{j}}J(\overrightarrow{w},b) \]</span><br /><span class="math display">\[  b =b -\alpha \frac{\partial }{\partialb}J(\overrightarrow{w},b) \]</span> 带入J求偏导项 <spanclass="math display">\[ J(\overrightarrow{w},b)=\frac{1}{2m}\sum_{i=1}^{m} (f_{w,x}(\overrightarrow{x^{(i)}})-\overrightarrow{y}^{(i)}  )^{2 }\]</span><span class="math display">\[ \frac{\partial }{\partialw_{j}}J(\overrightarrow{w},b)=\frac{1}{2m} \sum_{i=1}^{m}2(f_{w,x}(\overrightarrow{x^{(i)}})-\overrightarrow{y}^{(i)}  )\frac{\partial}{\partial w_{j}} f_{w,x}( \overrightarrow{x^{(i)}})\]</span> <spanclass="math display">\[= \frac{1}{2m} \sum_{i=1}^{m}2(f_{w,x}(\overrightarrow{x^{(i)}})-\overrightarrow{y}^{(i)}  )\frac{\partial}{\partial w_{j}}(\overrightarrow{w} ·\overrightarrow{x^{(i)}}+b)\]</span> <span class="math display">\[= \frac{1}{m}\sum_{i=1}^{m}(f_{w,x}(\overrightarrow{x^{(i)}})-\overrightarrow{y}^{(i)}  )x_{j}^{(i)}  \]</span> 最终得出 <span class="math display">\[ w_{j} =w_{j}-\alpha \frac{1}{m} \sum_{i=1}^{m}(f_{w,x}(\overrightarrow{x^{(i)}})-\overrightarrow{y}^{(i)}  )x_{j}^{(i)}\]</span> 同理可得 <span class="math display">\[ b =b -\alpha\frac{1}{m} \sum_{i=1}^{m}(f_{w,x}(\overrightarrow{x^{(i)}})-\overrightarrow{y}^{(i)}  ) \]</span></p><h2 id="特征缩放">特征缩放</h2>]]></content>
+    
+    
+    <categories>
+      
+      <category>AI</category>
+      
+      <category>机器学习</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>机器学习</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>机器学习常用库函数</title>
     <link href="/2024/03/11/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%B8%B8%E7%94%A8%E5%BA%93%E5%87%BD%E6%95%B0/"/>
     <url>/2024/03/11/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%B8%B8%E7%94%A8%E5%BA%93%E5%87%BD%E6%95%B0/</url>
@@ -78,9 +105,9 @@
     
     <tags>
       
-      <tag>嵌入式</tag>
-      
       <tag>Ros</tag>
+      
+      <tag>嵌入式</tag>
       
     </tags>
     
@@ -194,9 +221,9 @@
     
     <tags>
       
-      <tag>51单片机</tag>
-      
       <tag>嵌入式</tag>
+      
+      <tag>51单片机</tag>
       
     </tags>
     
@@ -223,9 +250,9 @@
     
     <tags>
       
-      <tag>51单片机</tag>
-      
       <tag>嵌入式</tag>
+      
+      <tag>51单片机</tag>
       
     </tags>
     
@@ -275,9 +302,9 @@
     
     <tags>
       
-      <tag>51单片机</tag>
-      
       <tag>嵌入式</tag>
+      
+      <tag>51单片机</tag>
       
     </tags>
     

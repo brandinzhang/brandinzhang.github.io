@@ -16,21 +16,22 @@
   <meta name="author" content="bradin">
   <meta name="keywords" content="">
   
-    <meta property="og:type" content="article">
-<meta property="og:title" content="ROS笔记（一）">
-<meta property="og:url" content="http://example.com/2024/03/08/ROS%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E4%B8%80%EF%BC%89/index.html">
+    <meta name="description" content="多维情况下矢量化 在实际情境中，预测一个y值通常需要很多x值，因此上一节公式可以改写为 \[f_{\overrightarrow{w},b} (\overrightarrow{x} )&#x3D;w_{1} x_{1}+w_{2}x_{2}+···+w_{n}x_{n}+b \] 也即 \[ f_{\overrightarrow{w},b} (\overrightarrow{x} )&#x3D;\overr">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ng机器学习week2">
+<meta property="og:url" content="http://example.com/2024/03/11/ng%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0week2/index.html">
 <meta property="og:site_name" content="鸭蛋仙人的博客">
+<meta property="og:description" content="多维情况下矢量化 在实际情境中，预测一个y值通常需要很多x值，因此上一节公式可以改写为 \[f_{\overrightarrow{w},b} (\overrightarrow{x} )&#x3D;w_{1} x_{1}+w_{2}x_{2}+···+w_{n}x_{n}+b \] 也即 \[ f_{\overrightarrow{w},b} (\overrightarrow{x} )&#x3D;\overr">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2024-03-08T13:08:33.390Z">
-<meta property="article:modified_time" content="2024-03-10T15:25:34.129Z">
+<meta property="article:published_time" content="2024-03-11T13:04:39.999Z">
+<meta property="article:modified_time" content="2024-03-11T14:20:09.362Z">
 <meta property="article:author" content="bradin">
-<meta property="article:tag" content="Ros">
-<meta property="article:tag" content="嵌入式">
+<meta property="article:tag" content="机器学习">
 <meta name="twitter:card" content="summary_large_image">
   
   
   
-  <title>ROS笔记（一） - 鸭蛋仙人的博客</title>
+  <title>ng机器学习week2 - 鸭蛋仙人的博客</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -196,7 +197,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="ROS笔记（一）"></span>
+            <span id="subtitle" data-typed-text="ng机器学习week2"></span>
           
         </div>
 
@@ -207,8 +208,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2024-03-08 21:08" pubdate>
-          2024年3月8日 晚上
+        <time datetime="2024-03-11 21:04" pubdate>
+          2024年3月11日 晚上
         </time>
       </span>
     
@@ -219,7 +220,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          0 字
+          114 字
         
       </span>
     
@@ -267,12 +268,43 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">ROS笔记（一）</h1>
+            <h1 id="seo-header">ng机器学习week2</h1>
             
             
               <div class="markdown-body">
                 
-                
+                <h2 id="多维情况下矢量化">多维情况下矢量化</h2>
+<p>在实际情境中，预测一个y值通常需要很多x值，因此上一节公式可以改写为
+<span class="math display">\[f_{\overrightarrow{w},b}
+(\overrightarrow{x} )=w_{1} x_{1}+w_{2}x_{2}+···+w_{n}x_{n}+b \]</span>
+也即 <span class="math display">\[ f_{\overrightarrow{w},b}
+(\overrightarrow{x} )=\overrightarrow{w} ·\overrightarrow{x}+b \]</span>
+我们可以定义两个矢量 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np<br>w=np.array([<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">1</span>,<span class="hljs-number">2</span>])<br>x=np.array([<span class="hljs-number">3</span>,<span class="hljs-number">4</span>,<span class="hljs-number">5</span>,<span class="hljs-number">6</span>])<br>b=<span class="hljs-number">2</span><br>f=np.dot(w,x)+b  <span class="hljs-comment"># 矢量点乘</span><br></code></pre></td></tr></table></figure> 这个运算速度是比for循环要快得多的
+自然地，我们需要考虑多维情况下如何实现迭代，一维式子改写为 <span
+class="math display">\[w_{j} =w_{j} -\alpha \frac{\partial }{\partial
+w_{j}}J(\overrightarrow{w},b) \]</span><br />
+<span class="math display">\[  b =b -\alpha \frac{\partial }{\partial
+b}J(\overrightarrow{w},b) \]</span> 带入J求偏导项 <span
+class="math display">\[ J(\overrightarrow{w},b)=\frac{1}{2m}
+\sum_{i=1}^{m} (f_{w,x}(
+\overrightarrow{x^{(i)}})-\overrightarrow{y}^{(i)}  )^{2 }\]</span>
+<span class="math display">\[ \frac{\partial }{\partial
+w_{j}}J(\overrightarrow{w},b)=\frac{1}{2m} \sum_{i=1}^{m}2(f_{w,x}(
+\overrightarrow{x^{(i)}})-\overrightarrow{y}^{(i)}  )\frac{\partial
+}{\partial w_{j}} f_{w,x}( \overrightarrow{x^{(i)}})\]</span> <span
+class="math display">\[= \frac{1}{2m} \sum_{i=1}^{m}2(f_{w,x}(
+\overrightarrow{x^{(i)}})-\overrightarrow{y}^{(i)}  )\frac{\partial
+}{\partial w_{j}}(\overrightarrow{w} ·\overrightarrow{x^{(i)}}+b)
+\]</span> <span class="math display">\[= \frac{1}{m}
+\sum_{i=1}^{m}(f_{w,x}(
+\overrightarrow{x^{(i)}})-\overrightarrow{y}^{(i)}  )x_{j}
+^{(i)}  \]</span> 最终得出 <span class="math display">\[ w_{j} =w_{j}
+-\alpha \frac{1}{m} \sum_{i=1}^{m}(f_{w,x}(
+\overrightarrow{x^{(i)}})-\overrightarrow{y}^{(i)}  )x_{j}
+^{(i)}\]</span> 同理可得 <span class="math display">\[ b =b -\alpha
+\frac{1}{m} \sum_{i=1}^{m}(f_{w,x}(
+\overrightarrow{x^{(i)}})-\overrightarrow{y}^{(i)}  ) \]</span></p>
+<h2 id="特征缩放">特征缩放</h2>
 
                 
               </div>
@@ -291,12 +323,12 @@
     
       <span class="category-chain">
         
-  <a href="/categories/EE/" class="category-chain-item">EE</a>
+  <a href="/categories/AI/" class="category-chain-item">AI</a>
   
   
     <span>></span>
     
-  <a href="/categories/EE/ROS/" class="category-chain-item">ROS</a>
+  <a href="/categories/AI/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" class="category-chain-item">机器学习</a>
   
   
 
@@ -313,9 +345,7 @@
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/tags/Ros/" class="print-no-link">#Ros</a>
-      
-        <a href="/tags/%E5%B5%8C%E5%85%A5%E5%BC%8F/" class="print-no-link">#嵌入式</a>
+        <a href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" class="print-no-link">#机器学习</a>
       
     </div>
   
@@ -327,8 +357,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>ROS笔记（一）</div>
-      <div>http://example.com/2024/03/08/ROS学习笔记（一）/</div>
+      <div>ng机器学习week2</div>
+      <div>http://example.com/2024/03/11/ng机器学习week2/</div>
     </div>
     <div class="license-meta">
       
@@ -340,7 +370,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2024年3月8日</div>
+          <div>2024年3月11日</div>
         </div>
       
       
@@ -372,18 +402,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2024/03/09/ng%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%EF%BC%88%E4%B8%80%EF%BC%89/" title="ng机器学习week1">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">ng机器学习week1</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2024/03/07/c++%E8%AF%BE%E5%A0%82%E7%AC%94%E8%AE%B0/" title="c++课堂笔记">
-                        <span class="hidden-mobile">c++课堂笔记</span>
+                      <a href="/2024/03/11/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%B8%B8%E7%94%A8%E5%BA%93%E5%87%BD%E6%95%B0/" title="机器学习常用库函数">
+                        <span class="hidden-mobile">机器学习常用库函数</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
@@ -440,6 +464,12 @@
 
 
   
+
+
+  
+  
+
+
 
 
 
@@ -633,6 +663,49 @@
 
 
   <script>Fluid.plugins.imageCaption();</script>
+
+  
+      <script>
+        if (!window.MathJax) {
+          window.MathJax = {
+            tex    : {
+              inlineMath: { '[+]': [['$', '$']] }
+            },
+            loader : {
+              load: ['ui/lazy']
+            },
+            options: {
+              renderActions: {
+                insertedScript: [200, () => {
+                  document.querySelectorAll('mjx-container').forEach(node => {
+                    let target = node.parentNode;
+                    if (target.nodeName.toLowerCase() === 'li') {
+                      target.parentNode.classList.add('has-jax');
+                    }
+                  });
+                }, '', false]
+              }
+            }
+          };
+        } else {
+          MathJax.startup.document.state(0);
+          MathJax.texReset();
+          MathJax.typeset();
+          MathJax.typesetPromise();
+        }
+
+        Fluid.events.registerRefreshCallback(function() {
+          if ('MathJax' in window && MathJax.startup.document && typeof MathJax.startup.document.state === 'function') {
+            MathJax.startup.document.state(0);
+            MathJax.texReset();
+            MathJax.typeset();
+            MathJax.typesetPromise();
+          }
+        });
+      </script>
+    
+
+  <script  src="https://lib.baomitu.com/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
 
   <script  src="/js/local-search.js" ></script>
 
