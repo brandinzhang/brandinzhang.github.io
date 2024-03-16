@@ -24,7 +24,7 @@
 <meta property="og:description" content="numpy.array 基本性质 12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849505152535455565758596061626364import numpy as np# 从列表创建一维数组  a &#x3D; np.array([1, 2, 3, 4, 5])">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2024-03-11T07:30:42.553Z">
-<meta property="article:modified_time" content="2024-03-11T08:46:09.665Z">
+<meta property="article:modified_time" content="2024-03-16T10:32:20.485Z">
 <meta property="article:author" content="bradin">
 <meta property="article:tag" content="机器学习">
 <meta property="article:tag" content="python">
@@ -288,24 +288,7 @@
 <p>pandas.read_csv() 是 Pandas 库中用于读取 CSV 文件并将其转换为
 DataFrame 的函数。CSV（Comma-Separated
 Values）是一种常见的文件格式，用于存储表格数据，如电子表格或数据库。以下是
-pandas.read_csv() 函数的详细用法说明： ```python import pandas as pd</p>
-<h1 id="假设-csv-文件使用分号作为分隔符并且没有标题行">假设 CSV
-文件使用分号作为分隔符，并且没有标题行</h1>
-<p>data = """<br />
-A;B;C<br />
-1;2;3<br />
-4;5;6<br />
-7;8;9<br />
-"""</p>
-<h1 id="读取-csv-文件指定分隔符和列名">读取 CSV
-文件，指定分隔符和列名</h1>
-<p>df = pd.read_csv('data.csv', sep=';', names=['ColumnA', 'ColumnB',
-'ColumnC'])</p>
-<p>print(df) #
-header设置，如果设置header，则指明开始行的位置。header=None则意味着没有起始行，自动补齐0
-1 2···
-#我们不应该在数据读取上化肥太多时间，此部分更详细用法需要时直接搜索或ai即可。
-···</p>
+pandas.read_csv() 函数的详细用法说明： <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> pandas <span class="hljs-keyword">as</span> pd  <br>  <br><span class="hljs-comment"># 假设 CSV 文件使用分号作为分隔符，并且没有标题行  </span><br>data = <span class="hljs-string">&quot;&quot;&quot;  </span><br><span class="hljs-string">A;B;C  </span><br><span class="hljs-string">1;2;3  </span><br><span class="hljs-string">4;5;6  </span><br><span class="hljs-string">7;8;9  </span><br><span class="hljs-string">&quot;&quot;&quot;</span>   <br>  <br><span class="hljs-comment"># 读取 CSV 文件，指定分隔符和列名  </span><br>df = pd.read_csv(<span class="hljs-string">&#x27;data.csv&#x27;</span>, sep=<span class="hljs-string">&#x27;;&#x27;</span>, names=[<span class="hljs-string">&#x27;ColumnA&#x27;</span>, <span class="hljs-string">&#x27;ColumnB&#x27;</span>, <span class="hljs-string">&#x27;ColumnC&#x27;</span>])  <br>  <br><span class="hljs-built_in">print</span>(df)<br><span class="hljs-comment"># header设置，如果设置header，则指明开始行的位置。header=None则意味着没有起始行，自动补齐0 1 2···</span><br><span class="hljs-comment">#我们不应该在数据读取上化肥太多时间，此部分更详细用法需要时直接搜索或ai即可。</span><br></code></pre></td></tr></table></figure></p>
 
                 
               </div>
