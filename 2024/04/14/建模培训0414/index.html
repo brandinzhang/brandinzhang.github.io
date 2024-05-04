@@ -18,21 +18,19 @@
   
     <meta name="description" content="一笔画问题 对于一个节点，联通数目必须为偶数才可以做到有去有回，而由于一笔画图形的特性，每一个节点都可以做为一笔画的起点，因此，每一个节点都应该有偶数条边相连。 旅行商 能否从这个图上任一顶点出发，经过每个顶点一次且仅一次而回到出发顶点。 覆盖监控问题 能否从这个图选择尽量少的点，使得所有的其余点都和该点集有路径连接。 支配集仓库问题 能否将图中点集分类，使得每一类点集都没有路径连接">
 <meta property="og:type" content="article">
-<meta property="og:title" content="建模培训0414">
+<meta property="og:title" content="建模培训0414-图论">
 <meta property="og:url" content="http://example.com/2024/04/14/%E5%BB%BA%E6%A8%A1%E5%9F%B9%E8%AE%AD0414/index.html">
 <meta property="og:site_name" content="鸭蛋仙人的博客">
 <meta property="og:description" content="一笔画问题 对于一个节点，联通数目必须为偶数才可以做到有去有回，而由于一笔画图形的特性，每一个节点都可以做为一笔画的起点，因此，每一个节点都应该有偶数条边相连。 旅行商 能否从这个图上任一顶点出发，经过每个顶点一次且仅一次而回到出发顶点。 覆盖监控问题 能否从这个图选择尽量少的点，使得所有的其余点都和该点集有路径连接。 支配集仓库问题 能否将图中点集分类，使得每一类点集都没有路径连接">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://img2.imgtp.com/2024/04/14/m7VUzBw9.png">
 <meta property="article:published_time" content="2024-04-14T10:44:20.302Z">
-<meta property="article:modified_time" content="2024-04-25T14:16:20.807Z">
+<meta property="article:modified_time" content="2024-04-26T14:47:49.534Z">
 <meta property="article:author" content="bradin">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://img2.imgtp.com/2024/04/14/m7VUzBw9.png">
   
   
   
-  <title>建模培训0414 - 鸭蛋仙人的博客</title>
+  <title>建模培训0414-图论 - 鸭蛋仙人的博客</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -198,7 +196,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="建模培训0414"></span>
+            <span id="subtitle" data-typed-text="建模培训0414-图论"></span>
           
         </div>
 
@@ -221,7 +219,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          1k 字
+          780 字
         
       </span>
     
@@ -232,7 +230,7 @@
         
         
         
-          9 分钟
+          7 分钟
         
       </span>
     
@@ -269,7 +267,7 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">建模培训0414</h1>
+            <h1 id="seo-header">建模培训0414-图论</h1>
             
             
               <div class="markdown-body">
@@ -324,22 +322,19 @@ V}d^{-}\big(\nu\big)=\big|E|\)</span></p>
 河西渡过河到河东，由于船小，一次只能带一物
 过河，并且，狼与羊，羊与菜不能独处，给出渡 河方法。</p>
 <p>用四维0-1向量表示（人，狼，羊，菜）的在西岸
-状态，（在西岸则分量取1，否则取0.）共2^4=16种状态由题设，状态（0,1,1,0）,(0,0,1,1),(0,1,1,1)是不允许的，从而对应状态（1,0,0,1），(1,1,0,0),(1,0,0,0)也是不允许的.建立图即可。</p>
+状态，（在西岸则分量取1，否则取0.）共2^4=16种状态由题设，状态（0,1,1,0）,(0,0,1,1),(0,1,1,1)是不允许的，从而对应状态（1,0,0,1），(1,1,0,0),(1,0,0,0)也是不允许的.建立图即可。
+<figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs matlab"><br><br><br><br><br><br></code></pre></td></tr></table></figure></p>
 <p>例2、有3名商人各带1个仆人过河，小船只能容纳
 两个人，由他们自己划船。仆人们约定，在河的任
 一岸，一旦仆人的人数比商人多，就杀人越货。
-如何乘船的大权掌握在商人们手里，问商人们 怎么样才能安全过河?
-<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs routeros">引进三维状态向量(x, y, z)   <br>x-此岸商人数目    &#123;0, 1, 2, 3&#125;   <br>y-此岸随从数目    &#123;0, 1, 2, 3&#125;   <br>z-船所在岸        &#123;1-此岸, 0-彼岸&#125;  <br><br>容许状态集合： <br>S=&#123;(x, y, z)|<span class="hljs-attribute">x</span>=0, <span class="hljs-attribute">y</span>=0, 1, 2, 3; <span class="hljs-attribute">x</span>=3,  <span class="hljs-attribute">y</span>=0, 1, 2, 3; <span class="hljs-attribute">x</span>=1, <span class="hljs-attribute">y</span>=1; <span class="hljs-attribute">x</span>=2, <span class="hljs-attribute">y</span>=2;&#125;<br><br></code></pre></td></tr></table></figure> 允许的状态图如下 <img
+如何乘船的大权掌握在商人们手里，问商人们 怎么样才能安全过河?</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs routeros">引进三维状态向量(x, y, z)   <br>x-此岸商人数目    &#123;0, 1, 2, 3&#125;   <br>y-此岸随从数目    &#123;0, 1, 2, 3&#125;   <br>z-船所在岸        &#123;1-此岸, 0-彼岸&#125;  <br><br>容许状态集合： <br>S=&#123;(x, y, z)|<span class="hljs-attribute">x</span>=0, <span class="hljs-attribute">y</span>=0, 1, 2, 3; <span class="hljs-attribute">x</span>=3,  <span class="hljs-attribute">y</span>=0, 1, 2, 3; <span class="hljs-attribute">x</span>=1, <span class="hljs-attribute">y</span>=1; <span class="hljs-attribute">x</span>=2, <span class="hljs-attribute">y</span>=2;&#125;<br><br></code></pre></td></tr></table></figure>
+<p>允许的状态图如下 <img
 src="https://xkf-upload.oss-cn-hangzhou.aliyuncs.com/t/chat_img_c/797989530/14804/202404/58/968e8d8ac588fe91de6b0610bb66e9.png" srcset="/img/loading.gif" lazyload
 alt="图便宜" /> 允许走法如下 <img
 src="https://xkf-upload.oss-cn-hangzhou.aliyuncs.com/t/chat_img_c/797989530/14804/202404/a7/d8cf957db7cbb78b8df94a33078a21.png" srcset="/img/loading.gif" lazyload /></p>
-<p>例3：从长方体中经6次截断切割切出一个已知尺寸、位置预定的长方体(两长方体对应表面平行)，设水平切割单位面积费用是垂直切割单位面积费用r倍.当先后两次切割的平面不平行时，因调整刀具需额外费用e.试设计各面加工次序(称“切割方式”)方法，使加工费用最少.</p>
-<p>直接写三维有向图暴力dp。</p>
-<p>例4（设备更新问题）某企业每年年初,都要作出决定,如果继续使用旧设备,要付维修费；若购买一台新设备,要付购买费.试制定一个5年更新计划,使总支出最少.
-已知设备在每年年初的购买费分别为11,11, 12,12,13.
-使用不同时间设备所需的维修费分别为5,6,8,11,18.
-建立有向图，考虑v1到v6的最短路径。</p>
-<p><img src="https://img2.imgtp.com/2024/04/14/m7VUzBw9.png" srcset="/img/loading.gif" lazyload /></p>
+<h3 id="matlab实现">matlab实现</h3>
+<figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs matlab"><br><br><br></code></pre></td></tr></table></figure>
 
                 
               </div>
@@ -385,7 +380,7 @@ src="https://xkf-upload.oss-cn-hangzhou.aliyuncs.com/t/chat_img_c/797989530/1480
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>建模培训0414</div>
+      <div>建模培训0414-图论</div>
       <div>http://example.com/2024/04/14/建模培训0414/</div>
     </div>
     <div class="license-meta">
@@ -440,8 +435,8 @@ src="https://xkf-upload.oss-cn-hangzhou.aliyuncs.com/t/chat_img_c/797989530/1480
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2024/03/21/%E9%A2%84%E5%A4%87%E7%9F%A5%E8%AF%86/" title="dl-muli-预备知识">
-                        <span class="hidden-mobile">dl-muli-预备知识</span>
+                      <a href="/2024/03/27/MATLAB%E7%AC%94%E8%AE%B0/" title="matlab语法">
+                        <span class="hidden-mobile">matlab语法</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
