@@ -16,23 +16,23 @@
   <meta name="author" content="bradin">
   <meta name="keywords" content="">
   
-    <meta name="description" content="最近科技英语阅读课上要写ppt，误打误撞最后搞了这样一个话题。原本是想探讨一些计算机图形学的内容，但跟小组成员聊着聊着就变成了这样一个奇怪的话题-色彩心理学。写点搜集到的信息和心中所想吧。 深度学习如此成熟的今天，我们总想量化世界上的各种现象，客观的现象往往预测起来要比涉及到人主观想的东西要简单的多。不巧的是心理学与色彩量化就是这样一个相当主观的问题。 要说怎么量化？ 这倒是简单，由于RGB">
+    <meta name="description" content="食堂新品捏   食堂新品  吃吃吃方糕  gcsw是一场酣畅淋漓的赤石，好在队友都很靠谱">
 <meta property="og:type" content="article">
-<meta property="og:title" content="5月随笔">
+<meta property="og:title" content="基于人眼色彩对比敏感度的一种算法思考">
 <meta property="og:url" content="http://example.com/2024/05/13/%E6%BC%AB%E8%AF%9Dcv%E4%B8%8E%E5%BF%83%E7%90%86%E5%88%86%E6%9E%90/index.html">
 <meta property="og:site_name" content="鸭蛋仙人的博客">
-<meta property="og:description" content="最近科技英语阅读课上要写ppt，误打误撞最后搞了这样一个话题。原本是想探讨一些计算机图形学的内容，但跟小组成员聊着聊着就变成了这样一个奇怪的话题-色彩心理学。写点搜集到的信息和心中所想吧。 深度学习如此成熟的今天，我们总想量化世界上的各种现象，客观的现象往往预测起来要比涉及到人主观想的东西要简单的多。不巧的是心理学与色彩量化就是这样一个相当主观的问题。 要说怎么量化？ 这倒是简单，由于RGB">
+<meta property="og:description" content="食堂新品捏   食堂新品  吃吃吃方糕  gcsw是一场酣畅淋漓的赤石，好在队友都很靠谱">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://www.freeimg.cn/i/2024/05/13/66421aabf2b2b.jpg">
 <meta property="article:published_time" content="2024-05-13T13:21:47.035Z">
-<meta property="article:modified_time" content="2024-05-26T14:12:16.476Z">
+<meta property="article:modified_time" content="2024-06-05T16:29:06.608Z">
 <meta property="article:author" content="bradin">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://www.freeimg.cn/i/2024/05/13/66421aabf2b2b.jpg">
   
   
   
-  <title>5月随笔 - 鸭蛋仙人的博客</title>
+  <title>基于人眼色彩对比敏感度的一种算法思考 - 鸭蛋仙人的博客</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -198,7 +198,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="5月随笔"></span>
+            <span id="subtitle" data-typed-text="基于人眼色彩对比敏感度的一种算法思考"></span>
           
         </div>
 
@@ -221,7 +221,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          901 字
+          32 字
         
       </span>
     
@@ -232,7 +232,7 @@
         
         
         
-          8 分钟
+          1 分钟
         
       </span>
     
@@ -269,27 +269,12 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">5月随笔</h1>
+            <h1 id="seo-header">基于人眼色彩对比敏感度的一种算法思考</h1>
             
             
               <div class="markdown-body">
                 
-                <p>最近科技英语阅读课上要写ppt，误打误撞最后搞了这样一个话题。原本是想探讨一些计算机图形学的内容，但跟小组成员聊着聊着就变成了这样一个奇怪的话题-色彩心理学。写点搜集到的信息和心中所想吧。<br />
-深度学习如此成熟的今天，我们总想量化世界上的各种现象，客观的现象往往预测起来要比涉及到人主观想的东西要简单的多。不巧的是心理学与色彩量化就是这样一个相当主观的问题。</p>
-<h3 id="要说怎么量化">要说怎么量化？</h3>
-<p>这倒是简单，由于RGB三原色的存在，我们处理一个图像的时候把RGB投射到一个三维空间，使用诸如聚类算法等模型即可量化了，甚至matlab是有分析主要色彩的工具包的</p>
-<h3 id="选取特征工程">选取特征工程？</h3>
-<p>从色彩心理学角度来想，色彩本身的占比固然重要，然而其他因素也不可忽视，诸如</p>
-<h4 id="色彩的对比">色彩的对比</h4>
-<p>红配绿，赛狗屁这样的谚语存在是有意义的</p>
-<h4 id="色彩的过渡">色彩的过渡</h4>
-<p>从一个主要聚类到另一个主要聚类的过程中，过渡点的分布如果在我们给定的定义下在数学上充分多，那就可以说是平滑的过渡，反之则是尖锐的过渡</p>
-<h4 id="被测试人群">被测试人群</h4>
-<p>不同色彩对于不同宗教，文化的人群意义显然不同，在不否认有些色彩感受是人类共性的同时，我们也应该注意到一些色彩对于人类有特殊的意义。比如红色之于中国。然而越是这样主观的话题，越是难以量化的，某种意义上他变成了一个形而上学的问题。如果我们有一个足够大的神经网络，或许可以把人的各种经历作为参数全都放进去，然后得到完全正确的心理结果预测？这从伦理上首先行不通，现在的训练动辄成千上万数据量，很难想象为了获取一个人的数据要把这可怜的伙计累成什么样子。回到现实，我们只能社会调查，从大量平均之后的统计结果中得到一些一般性质的结论。</p>
-<p>这种时候我总会有一个危险的想法，每个人都是一个训练好的大规模生物神经网络，同样的画是同样的参数（好吧，或许因为每个人的视力问题略有差异，我有时候想，散光的人岂不是眼睛自带一个卷积核？），每个人会得到不同的结果。结果里面共性的部分是因为人类几千年进化训练出了一堆共性的相同的参数，结果里面不同的部分就是生物多样性的体现，那点不一样的参数造就了各种各样的人。</p>
-<p>好奇的我把上面的文本丢给了chat，她夸了夸我，然后给我提供了做ppt的建议。好吧，人们总说chat上下文本注意力不尽人意，但我看来至少比我强，我在写到这里的时候，已经忘记我要做ppt这件事，准备去黑暗地牢跟sai吃烧烤喝啤酒了。这下<strong>Attention
-is all my need</strong>了</p>
-<h3 id="食堂新品捏">食堂新品捏</h3>
+                <h3 id="食堂新品捏">食堂新品捏</h3>
 <figure>
 <img src="https://www.freeimg.cn/i/2024/05/13/66421aabf2b2b.jpg" srcset="/img/loading.gif" lazyload
 alt="食堂新品" />
@@ -320,7 +305,7 @@ src="https://www.freeimg.cn/i/2024/05/13/66421b72469fa.jpg" srcset="/img/loading
     
       <span class="category-chain">
         
-  <a href="/categories/%E6%8A%80%E6%9C%AF%E6%BC%AB%E8%AF%9D/" class="category-chain-item">技术漫话</a>
+  <a href="/categories/idea%E9%9A%8F%E7%AC%94/" class="category-chain-item">idea随笔</a>
   
   
 
@@ -340,7 +325,7 @@ src="https://www.freeimg.cn/i/2024/05/13/66421b72469fa.jpg" srcset="/img/loading
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>5月随笔</div>
+      <div>基于人眼色彩对比敏感度的一种算法思考</div>
       <div>http://example.com/2024/05/13/漫话cv与心理分析/</div>
     </div>
     <div class="license-meta">
@@ -380,29 +365,6 @@ src="https://www.freeimg.cn/i/2024/05/13/66421b72469fa.jpg" srcset="/img/loading
 
 
 
-              
-                <div class="post-prevnext my-3">
-                  <article class="post-prev col-6">
-                    
-                    
-                      <a href="/2024/05/18/testt/" title="">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile"></span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
-                  </article>
-                  <article class="post-next col-6">
-                    
-                    
-                      <a href="/2024/04/16/c++%E7%AC%94%E8%AE%B0/" title="c++课堂笔记">
-                        <span class="hidden-mobile">c++课堂笔记</span>
-                        <span class="visible-mobile">下一篇</span>
-                        <i class="iconfont icon-arrowright"></i>
-                      </a>
-                    
-                  </article>
-                </div>
               
             </div>
 
