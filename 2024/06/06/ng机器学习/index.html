@@ -16,22 +16,24 @@
   <meta name="author" content="bradin">
   <meta name="keywords" content="">
   
-    <meta name="description" content="2  3  4  5  6  7  8  9  10  11  12  13  14">
+    <meta name="description" content="softmax用于多分类   11  这样选取有很多好处，我们常用负对数形式表示此回归的loss，也即">
 <meta property="og:type" content="article">
-<meta property="og:title" content="高数梳理">
-<meta property="og:url" content="http://example.com/2024/06/06/%E9%AB%98%E6%95%B0%E7%AC%94%E8%AE%B0/index.html">
+<meta property="og:title" content="ng机器学习week4">
+<meta property="og:url" content="http://example.com/2024/06/06/ng%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/index.html">
 <meta property="og:site_name" content="鸭蛋仙人的博客">
-<meta property="og:description" content="2  3  4  5  6  7  8  9  10  11  12  13  14">
+<meta property="og:description" content="softmax用于多分类   11  这样选取有很多好处，我们常用负对数形式表示此回归的loss，也即">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2024-06-05T16:05:03.654Z">
-<meta property="article:modified_time" content="2024-06-08T15:27:41.621Z">
+<meta property="og:image" content="https://www.freeimg.cn/i/2024/06/06/6661d9175aa64.png">
+<meta property="article:published_time" content="2024-06-06T15:00:59.349Z">
+<meta property="article:modified_time" content="2024-06-06T15:50:17.721Z">
 <meta property="article:author" content="bradin">
-<meta property="article:tag" content="数学">
+<meta property="article:tag" content="机器学习">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://www.freeimg.cn/i/2024/06/06/6661d9175aa64.png">
   
   
   
-  <title>高数梳理 - 鸭蛋仙人的博客</title>
+  <title>ng机器学习week4 - 鸭蛋仙人的博客</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -197,7 +199,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="高数梳理"></span>
+            <span id="subtitle" data-typed-text="ng机器学习week4"></span>
           
         </div>
 
@@ -208,8 +210,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2024-06-06 00:05" pubdate>
-          2024年6月6日 凌晨
+        <time datetime="2024-06-06 23:00" pubdate>
+          2024年6月6日 晚上
         </time>
       </span>
     
@@ -220,7 +222,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          0 字
+          31 字
         
       </span>
     
@@ -268,59 +270,18 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">高数梳理</h1>
+            <h1 id="seo-header">ng机器学习week4</h1>
             
             
               <div class="markdown-body">
                 
-                <p>2 <a
-target="_blank" rel="noopener" href="https://www.freeimg.cn/i/2024/06/06/66608ee9e223e.jpg"><img
-src="https://www.freeimg.cn/i/2024/06/06/66608ee9e223e.jpg" srcset="/img/loading.gif" lazyload
-alt="1" /></a> 3 <a
-target="_blank" rel="noopener" href="https://www.freeimg.cn/i/2024/06/06/66608eea705d2.jpg"><img
-src="https://www.freeimg.cn/i/2024/06/06/66608eea705d2.jpg" srcset="/img/loading.gif" lazyload
-alt="1836d142572eb6f93f48cc9d6973289.jpg" /></a> 4 <a
-target="_blank" rel="noopener" href="https://www.freeimg.cn/i/2024/06/06/66608eea93f67.jpg"><img
-src="https://www.freeimg.cn/i/2024/06/06/66608eea93f67.jpg" srcset="/img/loading.gif" lazyload
-alt="6c9cf4b1ee3af26709ca0557dcc85ef.jpg" /></a></p>
-<p>5 <a
-target="_blank" rel="noopener" href="https://www.freeimg.cn/i/2024/06/06/66608eea9860b.jpg"><img
-src="https://www.freeimg.cn/i/2024/06/06/66608eea9860b.jpg" srcset="/img/loading.gif" lazyload
-alt="53c308f467bcd4c5e659a60d388add3.jpg" /></a></p>
-<p>6 <a
-target="_blank" rel="noopener" href="https://www.freeimg.cn/i/2024/06/06/66608eea9f75b.jpg"><img
-src="https://www.freeimg.cn/i/2024/06/06/66608eea9f75b.jpg" srcset="/img/loading.gif" lazyload
-alt="e13d54a2a0e1f9d099cea3101a9174a.jpg" /></a></p>
-<p>7 <a
-target="_blank" rel="noopener" href="https://www.freeimg.cn/i/2024/06/06/66608eea94177.jpg"><img
-src="https://www.freeimg.cn/i/2024/06/06/66608eea94177.jpg" srcset="/img/loading.gif" lazyload
-alt="71eec761c59643b40e810d220d983dd.jpg" /></a> 8 <a
-target="_blank" rel="noopener" href="https://www.freeimg.cn/i/2024/06/06/66608eeacb04f.jpg"><img
-src="https://www.freeimg.cn/i/2024/06/06/66608eeacb04f.jpg" srcset="/img/loading.gif" lazyload
-alt="42fb1f77ab610a81d5e3e4056f4c455.jpg" /></a> 9 <a
-target="_blank" rel="noopener" href="https://www.freeimg.cn/i/2024/06/06/66608eeb58001.jpg"><img
-src="https://www.freeimg.cn/i/2024/06/06/66608eeb58001.jpg" srcset="/img/loading.gif" lazyload
-alt="4a468a547d2b3f0fa5c3757bfbe4244.jpg" /></a></p>
-<p>10 <a
-target="_blank" rel="noopener" href="https://www.freeimg.cn/i/2024/06/06/66608eec66630.jpg"><img
-src="https://www.freeimg.cn/i/2024/06/06/66608eec66630.jpg" srcset="/img/loading.gif" lazyload
-alt="f9821774194806e45c39a9732642db7.jpg" /></a></p>
-<p>11 <a
-target="_blank" rel="noopener" href="https://www.freeimg.cn/i/2024/06/06/66608eec5f917.jpg"><img
-src="https://www.freeimg.cn/i/2024/06/06/66608eec5f917.jpg" srcset="/img/loading.gif" lazyload
-alt="de3b599548e8ca4dc7c7ed60fcf4f15.jpg" /></a></p>
-<p>12 <a
-target="_blank" rel="noopener" href="https://www.freeimg.cn/i/2024/06/06/66608eec67a6a.jpg"><img
-src="https://www.freeimg.cn/i/2024/06/06/66608eec67a6a.jpg" srcset="/img/loading.gif" lazyload
-alt="cf49990ec82d312662c3104115227cc.jpg" /></a></p>
-<p>13 <a
-target="_blank" rel="noopener" href="https://www.freeimg.cn/i/2024/06/06/66608eec5b8a8.jpg"><img
-src="https://www.freeimg.cn/i/2024/06/06/66608eec5b8a8.jpg" srcset="/img/loading.gif" lazyload
-alt="2213487e5c821da6744d2d85dbebea5.jpg" /></a></p>
-<p>14 <a
-target="_blank" rel="noopener" href="https://www.freeimg.cn/i/2024/06/06/66608eec4dfff.jpg"><img
-src="https://www.freeimg.cn/i/2024/06/06/66608eec4dfff.jpg" srcset="/img/loading.gif" lazyload
-alt="5c58acbb0eb0c4f3ce7849480d9d7a9.jpg" /></a></p>
+                <h3 id="softmax用于多分类">softmax用于多分类</h3>
+<figure>
+<img src="https://www.freeimg.cn/i/2024/06/06/6661d9175aa64.png" srcset="/img/loading.gif" lazyload
+alt="11" />
+<figcaption aria-hidden="true">11</figcaption>
+</figure>
+<p>这样选取有很多好处，我们常用负对数形式表示此回归的loss，也即</p>
 
                 
               </div>
@@ -339,12 +300,12 @@ alt="5c58acbb0eb0c4f3ce7849480d9d7a9.jpg" /></a></p>
     
       <span class="category-chain">
         
-  <a href="/categories/%E6%95%B0%E5%AD%A6/" class="category-chain-item">数学</a>
+  <a href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" class="category-chain-item">机器学习</a>
   
   
     <span>></span>
     
-  <a href="/categories/%E6%95%B0%E5%AD%A6/%E5%BE%AE%E7%A7%AF%E5%88%86/" class="category-chain-item">微积分</a>
+  <a href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/ng%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" class="category-chain-item">ng机器学习</a>
   
   
 
@@ -361,7 +322,7 @@ alt="5c58acbb0eb0c4f3ce7849480d9d7a9.jpg" /></a></p>
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/tags/%E6%95%B0%E5%AD%A6/" class="print-no-link">#数学</a>
+        <a href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" class="print-no-link">#机器学习</a>
       
     </div>
   
@@ -373,8 +334,8 @@ alt="5c58acbb0eb0c4f3ce7849480d9d7a9.jpg" /></a></p>
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>高数梳理</div>
-      <div>http://example.com/2024/06/06/高数笔记/</div>
+      <div>ng机器学习week4</div>
+      <div>http://example.com/2024/06/06/ng机器学习/</div>
     </div>
     <div class="license-meta">
       
@@ -418,9 +379,9 @@ alt="5c58acbb0eb0c4f3ce7849480d9d7a9.jpg" /></a></p>
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2024/06/06/ng%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" title="ng机器学习week4">
+                      <a href="/2024/06/08/%E7%9F%A9%E9%98%B5%E5%88%86%E8%A7%A3%E6%96%B9%E6%B3%95/" title="矩阵分解">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">ng机器学习week4</span>
+                        <span class="hidden-mobile">矩阵分解</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -428,8 +389,8 @@ alt="5c58acbb0eb0c4f3ce7849480d9d7a9.jpg" /></a></p>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2024/04/16/c++%E7%AC%94%E8%AE%B0/" title="c++课堂笔记">
-                        <span class="hidden-mobile">c++课堂笔记</span>
+                      <a href="/2024/06/06/%E9%AB%98%E6%95%B0%E7%AC%94%E8%AE%B0/" title="高数梳理">
+                        <span class="hidden-mobile">高数梳理</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
@@ -486,6 +447,12 @@ alt="5c58acbb0eb0c4f3ce7849480d9d7a9.jpg" /></a></p>
 
 
   
+
+
+  
+  
+
+
 
 
 
@@ -679,6 +646,49 @@ alt="5c58acbb0eb0c4f3ce7849480d9d7a9.jpg" /></a></p>
 
 
   <script>Fluid.plugins.imageCaption();</script>
+
+  
+      <script>
+        if (!window.MathJax) {
+          window.MathJax = {
+            tex    : {
+              inlineMath: { '[+]': [['$', '$']] }
+            },
+            loader : {
+              load: ['ui/lazy']
+            },
+            options: {
+              renderActions: {
+                insertedScript: [200, () => {
+                  document.querySelectorAll('mjx-container').forEach(node => {
+                    let target = node.parentNode;
+                    if (target.nodeName.toLowerCase() === 'li') {
+                      target.parentNode.classList.add('has-jax');
+                    }
+                  });
+                }, '', false]
+              }
+            }
+          };
+        } else {
+          MathJax.startup.document.state(0);
+          MathJax.texReset();
+          MathJax.typeset();
+          MathJax.typesetPromise();
+        }
+
+        Fluid.events.registerRefreshCallback(function() {
+          if ('MathJax' in window && MathJax.startup.document && typeof MathJax.startup.document.state === 'function') {
+            MathJax.startup.document.state(0);
+            MathJax.texReset();
+            MathJax.typeset();
+            MathJax.typesetPromise();
+          }
+        });
+      </script>
+    
+
+  <script  src="https://lib.baomitu.com/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
 
   <script  src="/js/local-search.js" ></script>
 

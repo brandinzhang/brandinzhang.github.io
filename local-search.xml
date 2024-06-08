@@ -4,6 +4,60 @@
   
   
   <entry>
+    <title>矩阵分解</title>
+    <link href="/2024/06/08/%E7%9F%A9%E9%98%B5%E5%88%86%E8%A7%A3%E6%96%B9%E6%B3%95/"/>
+    <url>/2024/06/08/%E7%9F%A9%E9%98%B5%E5%88%86%E8%A7%A3%E6%96%B9%E6%B3%95/</url>
+    
+    <content type="html"><![CDATA[<p>1 <img src="https://www.freeimg.cn/i/2024/06/08/6664781cb1c53.jpg"alt="134f115b53546f316a236d2bee50694.jpg" /> 2 <imgsrc="https://www.freeimg.cn/i/2024/06/08/6664781c8cb5c.jpg"alt="293895b714db264c8ba7504aa4f9b87.jpg" /> 3 <imgsrc="https://www.freeimg.cn/i/2024/06/08/6664781c8adaa.jpg"alt="263950eefa3879a72a0c48232ba198f.jpg" /> 4 <imgsrc="https://www.freeimg.cn/i/2024/06/08/6664781c529e1.jpg"alt="1310a110b3104d94351998f4e5ba963.jpg" /></p>]]></content>
+    
+    
+    <categories>
+      
+      <category>数学</category>
+      
+      <category>矩阵分析</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>数学</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>ng机器学习week4</title>
+    <link href="/2024/06/06/ng%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/"/>
+    <url>/2024/06/06/ng%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/</url>
+    
+    <content type="html"><![CDATA[<h3 id="softmax用于多分类">softmax用于多分类</h3><figure><img src="https://www.freeimg.cn/i/2024/06/06/6661d9175aa64.png"alt="11" /><figcaption aria-hidden="true">11</figcaption></figure><p>这样选取有很多好处，我们常用负对数形式表示此回归的loss，也即</p>]]></content>
+    
+    
+    <categories>
+      
+      <category>机器学习</category>
+      
+      <category>ng机器学习</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>机器学习</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>高数梳理</title>
     <link href="/2024/06/06/%E9%AB%98%E6%95%B0%E7%AC%94%E8%AE%B0/"/>
     <url>/2024/06/06/%E9%AB%98%E6%95%B0%E7%AC%94%E8%AE%B0/</url>
