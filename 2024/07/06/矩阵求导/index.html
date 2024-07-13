@@ -24,7 +24,7 @@
 <meta property="og:description" content="前言：两种布局  分子布局：就是分子是列向量形式，分母是行向量的形式 \[\frac{\partial\boldsymbol{f}_{2\times1}(\boldsymbol{x})}{\partial\boldsymbol{x}_{3\times1}^T}&#x3D;\begin{bmatrix}\frac{\partial f_1}{\partial x_1}&amp;\frac{\partia">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2024-07-06T13:04:57.083Z">
-<meta property="article:modified_time" content="2024-07-10T15:59:50.583Z">
+<meta property="article:modified_time" content="2024-07-13T14:51:11.764Z">
 <meta property="article:author" content="bradin">
 <meta property="article:tag" content="数学">
 <meta name="twitter:card" content="summary_large_image">
@@ -395,13 +395,15 @@ class="math inline">\(\sum_{ij}A_{ij}B_{ij}C_{ij}\)</span></p></li>
 <li><p>若标量函数f是矩阵X经加减乘法、逆、行列式、逐元素函数等运算构成，则使用相应的运算法则对f求微分，再使用迹技巧给df套上迹并将其它项交换至dX左侧，对照导数与微分的联系<span
 class="math inline">\(df=\mathrm{tr}\left(\frac{\partial f}{\partial
 X}^TdX\right)\)</span>即可求得导数.<span
-class="math inline">\(ati.常常利用性质4，5来进行tr内部的顺序交换。\)</span>
-## 求解一些经典问题</p></li>
-<li><p><span
+class="math inline">\(ati.常常利用性质4，5来进行tr内部的顺序交换。\)</span></p></li>
+</ul>
+<h2 id="求解一些经典问题">求解一些经典问题</h2>
+<ul>
+<li><span
 class="math inline">\(f=\boldsymbol{a}^TX\boldsymbol{b}\text{,求}\frac{\partial
 f}{\partial X}\)</span> 其中<span
 class="math inline">\(a,b\)</span>为列向量，<span
-class="math inline">\(X\)</span>为矩阵。</p></li>
+class="math inline">\(X\)</span>为矩阵。</li>
 </ul>
 <p><span class="math display">\[df=a^{T}dXb\\df=tr(a^{T}dX
 b)=tr(ba^{T}dX)\\\frac{\partial f}{\partial
