@@ -16,22 +16,24 @@
   <meta name="author" content="bradin">
   <meta name="keywords" content="">
   
-    <meta name="description" content="前言：两种布局  分子布局：就是分子是列向量形式，分母是行向量的形式 \[\frac{\partial\boldsymbol{f}_{2\times1}(\boldsymbol{x})}{\partial\boldsymbol{x}_{3\times1}^T}&#x3D;\begin{bmatrix}\frac{\partial f_1}{\partial x_1}&amp;\frac{\partia">
+    <meta name="description" content="step1 评价矩阵标准化+归一化 已有正向化处理之后的矩阵 \(\begin{aligned}&amp; X&#x3D;\begin{bmatrix}x_{11}&amp;x_{12}&amp;\cdots&amp;x_{1m}\\x_{21}&amp;x_{22}&amp;\cdots&amp;x_{2m}\\\varvdots&amp;\varvdots&amp;\ddots&amp;\varvd">
 <meta property="og:type" content="article">
-<meta property="og:title" content="矩阵求导技巧">
-<meta property="og:url" content="http://example.com/2024/07/08/%E6%95%B0%E5%AD%A6/%E7%9F%A9%E9%98%B5%E6%B1%82%E5%AF%BC/index.html">
+<meta property="og:title" content="TOPSIS模版&#x2F;灰色关联度分析">
+<meta property="og:url" content="http://example.com/2024/07/27/%E6%95%B0%E5%AD%A6%E5%BB%BA%E6%A8%A1/TOPSIS/index.html">
 <meta property="og:site_name" content="鸭蛋仙人的博客">
-<meta property="og:description" content="前言：两种布局  分子布局：就是分子是列向量形式，分母是行向量的形式 \[\frac{\partial\boldsymbol{f}_{2\times1}(\boldsymbol{x})}{\partial\boldsymbol{x}_{3\times1}^T}&#x3D;\begin{bmatrix}\frac{\partial f_1}{\partial x_1}&amp;\frac{\partia">
+<meta property="og:description" content="step1 评价矩阵标准化+归一化 已有正向化处理之后的矩阵 \(\begin{aligned}&amp; X&#x3D;\begin{bmatrix}x_{11}&amp;x_{12}&amp;\cdots&amp;x_{1m}\\x_{21}&amp;x_{22}&amp;\cdots&amp;x_{2m}\\\varvdots&amp;\varvdots&amp;\ddots&amp;\varvd">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2024-07-07T16:00:00.000Z">
-<meta property="article:modified_time" content="2024-07-16T03:14:22.519Z">
+<meta property="og:image" content="https://pic.imge.cc/2024/07/27/66a498d945fc0.png">
+<meta property="article:published_time" content="2024-07-27T06:14:51.662Z">
+<meta property="article:modified_time" content="2024-07-27T07:09:29.602Z">
 <meta property="article:author" content="bradin">
 <meta property="article:tag" content="数学">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://pic.imge.cc/2024/07/27/66a498d945fc0.png">
   
   
   
-  <title>矩阵求导技巧 - 鸭蛋仙人的博客</title>
+  <title>TOPSIS模版/灰色关联度分析 - 鸭蛋仙人的博客</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -197,7 +199,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="矩阵求导技巧"></span>
+            <span id="subtitle" data-typed-text="TOPSIS模版/灰色关联度分析"></span>
           
         </div>
 
@@ -208,8 +210,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2024-07-08 00:00" pubdate>
-          2024年7月8日 凌晨
+        <time datetime="2024-07-27 14:14" pubdate>
+          2024年7月27日 下午
         </time>
       </span>
     
@@ -220,7 +222,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          710 字
+          382 字
         
       </span>
     
@@ -231,7 +233,7 @@
         
         
         
-          6 分钟
+          4 分钟
         
       </span>
     
@@ -268,260 +270,65 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">矩阵求导技巧</h1>
+            <h1 id="seo-header">TOPSIS模版/灰色关联度分析</h1>
             
             
               <div class="markdown-body">
                 
-                <h1 id="前言两种布局">前言：两种布局</h1>
+                <h1 id="step1-评价矩阵标准化归一化">step1 评价矩阵标准化+归一化</h1>
+<p>已有正向化处理之后的矩阵 <span
+class="math inline">\(\begin{aligned}&amp;
+X=\begin{bmatrix}x_{11}&amp;x_{12}&amp;\cdots&amp;x_{1m}\\x_{21}&amp;x_{22}&amp;\cdots&amp;x_{2m}\\\varvdots&amp;\varvdots&amp;\ddots&amp;\varvdots\\x_{21}&amp;\cdots&amp;x_{2m}\end{bmatrix}\end{aligned}\)</span></p>
+<p>设标准化的矩阵为<span class="math inline">\(Z\)</span>,那么<span
+class="math inline">\(Z\)</span>中的每一个元素：<span
+class="math inline">\(\tilde{z}_{ij}=\frac{x_{ij}}{\sqrt{\sum_{i=1}^nx_{ij}^2}}\)</span></p>
+<p>得到标准化矩阵 <span
+class="math display">\[\tilde{Z}=\begin{bmatrix}\tilde{z}_{11}&amp;\tilde{z}_{12}&amp;\cdots&amp;\tilde{z}_{1m}\\\tilde{z}_{21}&amp;\tilde{z}_{22}&amp;\cdots&amp;\tilde{z}_{2m}\\\vdots&amp;\vdots&amp;\ddots&amp;\vdots\\\tilde{z}_{n1}&amp;\tilde{z}_{n2}&amp;\cdots&amp;\tilde{z}_{nm}\end{bmatrix}\]</span></p>
+<p>标准化之后记得 <span
+class="math display">\[\frac{x-\min}{\max-\min}\]</span> 进行归一化</p>
+<h1 id="step2-用优劣解打分">step2 用优劣解打分</h1>
+<p>上一步得到了矩阵 <span
+class="math display">\[Z=\begin{bmatrix}z_{11}&amp;z_{12}&amp;\cdots&amp;z_{1m}\\z_{21}&amp;z_{22}&amp;\cdots&amp;z_{2m}\\\varvdots&amp;\varvdots&amp;\ddots&amp;\varvdots\\z_{n1}&amp;z_{n2}&amp;\cdots&amp;z_{nm}\end{bmatrix}\]</span></p>
+<p>寻找每一个评价指标中出现的最大值与最小值，写成向量的形式，也就是</p>
+<p><span
+class="math display">\[Z^+=(Z_1^+,Z_2^+,\cdotp\cdotp\cdotp,Z_m^+)=(\max\{z_{11},z_{21},\cdotp\cdotp\cdotp,z_{n1}\},\max\{z_{12},z_{22},\cdotp\cdotp\cdotp,z_{n2}\},\cdotp\cdotp\cdotp,\max\{z_{1m},z_{2m},\cdotp\cdotp\cdotp,z_{nm}\})\\Z^-=(Z_1^-,Z_2^-,\cdotp\cdotp\cdotp,Z_m^-)=(\min\left\{z_{11},z_{21},\cdotp\cdotp\cdotp,z_{n1}\right\},\min\left\{z_{12},z_{22},\cdotp\cdotp\cdotp,z_{n2}\right\},\cdotp\cdotp\cdotp,\min\left\{z_{1m},z_{2m},\cdotp\cdotp\cdotp,z_{nm}\right\})\]</span></p>
+<p>遍历每一个评价对象，计算它每个指标相对于所有对象中该指标最大值的距离，<span
+class="math inline">\(D_i^+=\sqrt{\sum_{j=1}^m(Z_j^+-z_{ij})^2}(i=1,2,...,n)\)</span>，</p>
+<p>同样的计算与最小值的距离<span
+class="math inline">\(D_i^-=\sqrt{\sum_{j=1}^m\left(Z_j^--z_{ij}\right)^2}\)</span>，</p>
+<p>然后取<span
+class="math inline">\(S_i=\frac{D_i^-}{D_i^++D_i^-}\)</span>作为该对象得分。</p>
+<h1 id="对比">对比</h1>
+<figure>
+<img src="https://pic.imge.cc/2024/07/27/66a498d945fc0.png" srcset="/img/loading.gif" lazyload
+alt="1722063061332.png" />
+<figcaption aria-hidden="true">1722063061332.png</figcaption>
+</figure>
+<h1 id="灰色关联度分析">灰色关联度分析</h1>
+<h1 id="step1确定评价序列">step1确定评价序列</h1>
 <ul>
-<li>分子布局：就是分子是列向量形式，分母是行向量的形式 <span
-class="math display">\[\frac{\partial\boldsymbol{f}_{2\times1}(\boldsymbol{x})}{\partial\boldsymbol{x}_{3\times1}^T}=\begin{bmatrix}\frac{\partial
-f_1}{\partial x_1}&amp;\frac{\partial f_1}{\partial
-x_2}&amp;\frac{\partial f_1}{\partial x_3}\\\frac{\partial f_2}{\partial
-x_1}&amp;\frac{\partial f_2}{\partial x_2}&amp;\frac{\partial
-f_2}{\partial x_3}\end{bmatrix}_{2\times3}\]</span></li>
-<li>分母布局，就是就是分母是列向量形式，分子是行向量的形式 <span
-class="math display">\[\frac{\partial\boldsymbol{f}_{2\times1}^T(\boldsymbol{x})}{\partial\boldsymbol{x}_{3\times1}}=\begin{bmatrix}\frac{\partial
-f_1}{\partial x_1}&amp;\frac{\partial f_2}{\partial x_1}\\\frac{\partial
-f_1}{\partial x_2}&amp;\frac{\partial f_2}{\partial x_2}\\\frac{\partial
-f_1}{\partial x_3}&amp;\frac{\partial f_2}{\partial
-x_3}\end{bmatrix}_{3\times2}\]</span>
-两种布局取个人喜好，求导结果只相差一个转置</li>
-</ul>
-<h1 id="标量对矩阵的求导">标量对矩阵的求导</h1>
-<h2 id="定义">定义</h2>
-<p>回忆如何表示一个标量的微分，显然，<span
-class="math inline">\(df\)</span>就是所有自变量变化引起的函数变化的总和，也就是
-<span class="math display">\[df=\sum_{i=1}^n\frac{\partial f}{\partial
-x_i}dx_i\]</span></p>
-<ul>
-<li><span class="math inline">\(dx\)</span>为标量时，<span
-class="math inline">\(df\)</span>可以表示为 <span
-class="math display">\[df=f^{\prime}(x)dx\]</span></li>
-<li><span class="math inline">\(dx\)</span>为向量时，<span
-class="math inline">\(df\)</span>可以表示为 <span
-class="math display">\[df=\sum_{i=1}^n\frac{\partial f}{\partial
-x_i}dx_i=\frac{\partial
-f}{\partial\boldsymbol{x}}^Td\boldsymbol{x}\]</span> 其中<span
-class="math inline">\(\frac{\partial
-f}{\partial\boldsymbol{x}}^T\)</span>为<span
-class="math inline">\(f\)</span>的梯度(行向量)，全微分<span
-class="math inline">\(df\)</span>是导数<span
-class="math inline">\(\frac{\partial f}{\partial
-x}\)</span>与微分向量<span class="math inline">\(dx\)</span>的内积<br />
+<li>参考数列(母序列):能反映系统行为特征的数据序列.记作<span
+class="math inline">\(x_0\)</span><br />
 </li>
-<li><span class="math inline">\(dX\)</span>为矩阵时，借助矩阵的迹，<span
-class="math inline">\(df\)</span>可以表示为 <span
-class="math display">\[df=\sum_{i=1}^m\sum_{j=1}^n\frac{\partial
-f}{\partial X_{ij}}dX_{ij}=\mathrm{tr}\left(\frac{\partial f}{\partial
-X}^TdX\right)\]</span> 其中全微分<span
-class="math inline">\(df\)</span>是导数<span
-class="math inline">\(\frac{\partial f}{\partial
-X}\)</span>与微分矩阵<span
-class="math inline">\(dX\)</span>的内积，我们也由此自然地得出了矩阵对标量求导时的分子布局定义：标量f对矩阵原位逐个元素求导后取装置。<br />
-附：上式证明。 <span class="math display">\[Proof.\begin{aligned}
-\mathrm{d}f(\boldsymbol{X})&amp; =\frac{\partial f}{\partial
-x_{11}}\mathrm{d}x_{11}+\frac{\partial f}{\partial
-x_{12}}\mathrm{d}x_{12}+\cdots+\frac{\partial f}{\partial
-x_{1n}}\mathrm{d}x_{1n} \\
-&amp;+\frac{\partial f}{\partial x_{21}}\mathrm{d}x_{21}+\frac{\partial
-f}{\partial x_{22}}\mathrm{d}x_{22}+\cdots+\frac{\partial f}{\partial
-x_{2n}}\mathrm{d}x_{2n} \\
-&amp;+\ldots \\
-&amp;+\frac{\partial f}{\partial x_{m1}}\mathrm{d}x_{m1}+\frac{\partial
-f}{\partial x_{m2}}\mathrm{d}x_{m2}+\cdots+\frac{\partial f}{\partial
-x_{mn}}\mathrm{d}x_{mn} \\
-df=&amp;tr(\begin{bmatrix}\frac{\partial f}{\partial
-x_{11}}&amp;\frac{\partial f}{\partial
-x_{21}}&amp;\cdots&amp;\frac{\partial f}{\partial
-x_{m1}}\\\frac{\partial f}{\partial x_{12}}&amp;\frac{\partial
-f}{\partial x_{22}}&amp;\cdots&amp;\frac{\partial f}{\partial
-x_{m2}}\\\vdots&amp;\vdots&amp;\vdots&amp;\vdots\\\frac{\partial
-f}{\partial x_{1n}}&amp;\frac{\partial f}{\partial
-x_{2n}}&amp;\cdots&amp;\frac{\partial f}{\partial
-x_{mn}}\end{bmatrix}_{n\times
-m}\begin{bmatrix}\mathrm{d}x_{11}&amp;\mathrm{d}x_{12}&amp;\cdots&amp;\mathrm{d}x_{1n}\\\mathrm{d}x_{21}&amp;\mathrm{d}x_{22}&amp;\cdots&amp;\mathrm{d}x_{2n}\\\vdots&amp;\vdots&amp;\vdots&amp;\vdots\\\mathrm{d}x_{m1}&amp;\mathrm{d}x_{m2}&amp;\cdots&amp;\mathrm{d}x_{mn}\end{bmatrix}_{m\times
-n})
-\end{aligned}\]</span></li>
+<li>比较数列：子序列影响系统行为的因素组成的数据序列.记作<span
+class="math inline">\(x_i\left(i=1,2,...,n\right)\)</span></li>
 </ul>
-<h2 id="矩阵微分的性质">矩阵微分的性质</h2>
-<ul>
-<li>1.加减法：<span class="math inline">\(d(X\pm Y)=dX\pm
-dY\)</span>;矩阵乘法：<span
-class="math inline">\(d(XY)=(dX)Y+XdY\)</span>;转置： <span
-class="math inline">\(d(X^T)=(dX)^T\)</span>;迹：<span
-class="math inline">\(dtr(X)=tr(dX)\)</span>。<br />
-<span class="math display">\[ Proof.略\]</span></li>
-<li>2.逆：<span
-class="math inline">\(dX^{-1}=-X^{-1}dXX^{-1}\)</span>。此式可在<span
-class="math inline">\(XX^-1=I\)</span>两侧求微分来证明。</li>
-<li>3.行列式：<span
-class="math inline">\(d|X|=\operatorname{tr}(X^{*}dX)\)</span>,其中<span
-class="math inline">\(X^{*}\)</span>表示X的伴随矩阵，在X可逆时又可以写作<span
-class="math inline">\(d|X|=|X|\)</span>tr<span
-class="math inline">\((X^{-1}dX)\)</span>。此式可用Laplace展开来证明</li>
-<li>4.逐元素乘法：<span class="math inline">\(d(X\odot Y)=dX\odot
-Y+X\odot dY\)</span>,<span
-class="math inline">\(\odot\)</span>表示尺寸相同的矩阵X，Y逐元素相乘。</li>
-<li>5.逐元素函数：<span
-class="math inline">\(d\sigma(X)=\sigma^{\prime}(X)\odot
-dX\)</span>,<span
-class="math inline">\(\sigma(X)=[\sigma(X_{ij})]\)</span>是逐元素标量函数运算，
+<p>例如结婚率就是参考数列，房价、人均收入、女性失业数就是比较数列.</p>
+<p>可以这样理解，参考数列就类似于因变量<span
+class="math inline">\(y\)</span>,比较数列是自变量<span
+class="math inline">\(x.\)</span></p>
+<h1
+id="step2数据预处理归一化或标准化">step2数据预处理/归一化或标准化</h1>
+<p>比如都除以平均值，或者采用之前定义的标准化方法。</p>
+<h1 id="step3确定灰色关联系数">step3确定灰色关联系数</h1>
+<p><span
+class="math inline">\(\text{定义两级最小差}a=\min_s\min_t|x_0(t)-x_s(t)|,\text{两级最大差}b=\max_s\max_t|x_0(t)-x_s(t)|.\)</span></p>
+<p>其实就是计算一整个表格与某一个标准序列的的差，然后取最大与最小</p>
+<p>对表中每一个元素求 <span
+class="math display">\[\gamma(x_0(k),x_i(k))=\frac{a+\rho
+b}{|x_0(k)-x_i(k)|+\rho b}\]</span> 各个指标取平均值就得到灰色关联度
 <span
-class="math display">\[\left.\begin{aligned}X=\begin{bmatrix}X_{11}&amp;X_{12}\\X_{21}&amp;X_{22}\end{bmatrix},d\sin(X)=\begin{bmatrix}\cos
-X_{11}dX_{11}&amp;\cos X_{12}dX_{12}\\\cos X_{21}dX_{21}&amp;\cos
-X_{22}dX_{22}\end{bmatrix}=\cos(X)\odot
-dX\end{aligned}\right.\]</span></li>
-</ul>
-<h2 id="迹运算技巧">迹运算技巧</h2>
-<ul>
-<li><p>1.标量套上迹：<span
-class="math inline">\(a=\operatorname{tr}(a)\)</span></p></li>
-<li><p>2.转置：tr<span
-class="math inline">\((A^T)=\operatorname{tr}(A).\)</span></p></li>
-<li><p>3.线性：<span class="math inline">\(\operatorname{tr}(A\pm
-B)=\operatorname{tr}(A)\pm\operatorname{tr}(B).\)</span></p></li>
-<li><p>4.矩阵乘法交换：<span
-class="math inline">\(\operatorname{tr}(AB)=\operatorname{tr}(BA)\)</span>,其中<span
-class="math inline">\(A\)</span>与<span
-class="math inline">\(B^T\)</span>尺寸相同。两侧都等于<span
-class="math inline">\(\sum_i,jA_{ij}B_{ji}\)</span></p></li>
-<li><p>5.矩阵乘法/逐元素乘法交换：<span
-class="math inline">\(\operatorname{tr}(A^T(B\odot
-C))=\operatorname{tr}((A\odot B)^TC)\)</span>,其中<span
-class="math inline">\(A,B,C\)</span>尺寸相同。两侧都等于<span
-class="math inline">\(\sum_{ij}A_{ij}B_{ij}C_{ij}\)</span></p></li>
-<li><p>若标量函数f是矩阵X经加减乘法、逆、行列式、逐元素函数等运算构成，则使用相应的运算法则对f求微分，再使用迹技巧给df套上迹并将其它项交换至dX左侧，对照导数与微分的联系<span
-class="math inline">\(df=\mathrm{tr}\left(\frac{\partial f}{\partial
-X}^TdX\right)\)</span>即可求得导数.<span
-class="math inline">\(ati.常常利用性质4，5来进行tr内部的顺序交换。\)</span></p></li>
-</ul>
-<h2 id="求解一些经典问题">求解一些经典问题</h2>
-<ul>
-<li><span
-class="math inline">\(f=\boldsymbol{a}^TX\boldsymbol{b}\text{,求}\frac{\partial
-f}{\partial X}\)</span> 其中<span
-class="math inline">\(a,b\)</span>为列向量，<span
-class="math inline">\(X\)</span>为矩阵。</li>
-</ul>
-<p><span class="math display">\[df=a^{T}dXb\\df=tr(a^{T}dX
-b)=tr(ba^{T}dX)\\\frac{\partial f}{\partial
-x}=(ba^{T})^{T}=ab^{T}\]</span></p>
-<ul>
-<li><span
-class="math inline">\(f=\boldsymbol{a}^T\exp(X\boldsymbol{b})\)</span>,求<span
-class="math inline">\(\frac{\partial f}{\partial X}\)</span>。其中<span
-class="math inline">\(\boldsymbol{a}\)</span>是<span
-class="math inline">\(m\times1\)</span>列向量，<span
-class="math inline">\(X\)</span>是<span class="math inline">\(m\times
-n\)</span>矩阵，<span
-class="math inline">\(\boldsymbol{b}\)</span>是<span
-class="math inline">\(n\times1\)</span>列向
-量，exp表示逐元素求指数，<span
-class="math inline">\(f\)</span>是标量。</li>
-</ul>
-<p><span class="math display">\[
-\begin{aligned}  
-df &amp;= a^{T}(\exp(Xb) \odot d(Xb)) \\  
-df &amp;= \text{tr}(a^{T}[\exp(Xb) \odot d(Xb)]) \\  
-df &amp;= \text{tr}((a^{T} \odot \exp(Xb))^{T}d(Xb)) \\  
-df &amp;= \text{tr}(b(a \odot \exp(Xb))^TdX) = \text{tr}(((a \odot
-\exp(Xb))b^T)^TdX) \\  
-=&gt;\frac{\partial f}{\partial X} &amp;= (\boldsymbol{a} \odot
-\exp(X\boldsymbol{b}))\boldsymbol{b}^T  
-\end{aligned} \]</span></p>
-<ul>
-<li><p><span
-class="math inline">\(f=\operatorname{tr}(Y^TMY),Y=\sigma(WX)\)</span>,求<span
-class="math inline">\(\frac{\partial f}{\partial X}\)</span>。其中<span
-class="math inline">\(W\)</span>是<span class="math inline">\(l\times
-m\)</span>矩阵，<span class="math inline">\(X\)</span>是<span
-class="math inline">\(m\times n\)</span>矩阵，<span
-class="math inline">\(Y\)</span> 是<span class="math inline">\(l\times
-n\)</span>矩阵，<span class="math inline">\(M\)</span>是<span
-class="math inline">\(l\times l\)</span>对称矩阵，<span
-class="math inline">\(\sigma\)</span>是逐元素函数，<span
-class="math inline">\(f\)</span>是标量。 <span class="math display">\[
-\begin{aligned}  
-df &amp;= \operatorname{tr}((dY)^TMY) + \operatorname{tr}(Y^TMdY) \\  
-&amp;= \operatorname{tr}(Y^TM^TdY) + \operatorname{tr}(Y^TMdY) \\  
-&amp;= \operatorname{tr}(Y^T(M+M^T)dY) \\  
-\frac{\partial f}{\partial Y} &amp;= (M+M^T)Y = 2MY \\  
-df &amp;= \operatorname{tr}\left(\frac{\partial f}{\partial
-Y}^TdY\right) \\  
-df &amp;= \operatorname{tr}\left(\frac{\partial f}{\partial
-Y}^T(\sigma^{\prime}(WX)\odot(WdX))\right) \\  
-&amp;= \operatorname{tr}\left(\left(\frac{\partial f}{\partial
-Y}\odot\sigma^{\prime}(WX)\right)^TWdX\right) \\  
-\frac{\partial f}{\partial X} &amp;= W^T\left(\frac{\partial f}{\partial
-Y}\odot\sigma^{\prime}(WX)\right) =
-W^T\left((2M\sigma(WX))\odot\sigma^{\prime}(WX)\right)  
-\end{aligned} \]</span></p></li>
-<li><p><span
-class="math inline">\(l=\|X\boldsymbol{w}-\boldsymbol{y}\|^2\)</span>,求<span
-class="math inline">\(\boldsymbol{w}\)</span>的最小二乘估计，即求<span
-class="math inline">\(\frac{\partial
-l}{\partial\boldsymbol{w}}\)</span>的零点。其中<span
-class="math inline">\(\boldsymbol{y}\)</span>是<span
-class="math inline">\(m\times1\)</span> 列向量，<span
-class="math inline">\(X\)</span>是<span class="math inline">\(m\times
-n\)</span>矩阵，<span
-class="math inline">\(\boldsymbol{w}\)</span>是<span
-class="math inline">\(n\times1\)</span>列向量，<span
-class="math inline">\(l\)</span>是标量。</p></li>
-</ul>
-<p><span class="math display">\[
-\begin{aligned}
-l
-&amp;=(X\boldsymbol{w}-\boldsymbol{y})^T(X\boldsymbol{w}-\boldsymbol{y})
-\\dl
-&amp;=(Xd\boldsymbol{w})^T(X\boldsymbol{w}-\boldsymbol{y})+(X\boldsymbol{w}-\boldsymbol{y})^T(Xd\boldsymbol{w})
-\\dl &amp;=2(X\boldsymbol{w}-\boldsymbol{y})^TXd\boldsymbol{w}
-\end{aligned}
-\]</span> 对照导数与微分的联系<span
-class="math inline">\(dl=\frac{\partial
-l}{\partial\boldsymbol{w}}^Td\boldsymbol{u}\)</span> ,得到<span
-class="math inline">\(\frac{\partial
-l}{\partial\boldsymbol{w}}=2X^T(X\boldsymbol{w}-\boldsymbol{y})\)</span>。<span
-class="math inline">\(\frac{\partial
-l}{\partial\boldsymbol{w}}=\mathbf{0}\)</span>即<span
-class="math inline">\(X^TX\boldsymbol{w}=X^T\boldsymbol{y}\)</span>,得到<span
-class="math inline">\(\boldsymbol{w}\)</span>的最小二乘估计为 <span
-class="math inline">\(\boldsymbol{w}=(X^TX)^{-1}X^T\boldsymbol{y}.\)</span>
-- 例 7[ 二 层 神 经 网 络 ] : <span class="math inline">\(l= -
-\boldsymbol{y}^T\log\)</span>softmax<span class="math inline">\((
-W_2\sigma ( W_1\boldsymbol{x}) )\)</span>, 求<span
-class="math inline">\(\frac {\partial l}{\partial W_1}\)</span>和 <span
-class="math inline">\(\frac {\partial l}{\partial W_2}\)</span>。其 中
-<span
-class="math inline">\(\boldsymbol{y}\)</span>是除一个元素为1外其它示素为0的的<span
-class="math inline">\(m\times 1\)</span>列向量, <span
-class="math inline">\(W_2\)</span> 是 <span
-class="math inline">\(m\times n\)</span>矩 阵 <span
-class="math inline">\(W_2\)</span> 貝 <span
-class="math inline">\(n\times n\)</span>矩 阵 <span
-class="math inline">\(\boldsymbol{a}\)</span>号 <span
-class="math inline">\(n\times 1\)</span> 个元素为1外其它元素为0的的<span
-class="math inline">\(m\times1\)</span>列向量，<span
-class="math inline">\(W_2\)</span>是<span class="math inline">\(m\times
-p\)</span>矩阵，<span class="math inline">\(W_1\)</span>是<span
-class="math inline">\(p\times n\)</span>矩阵，<span
-class="math inline">\(\boldsymbol{x}\)</span>是<span
-class="math inline">\(n\times1\)</span> 列向量，<span
-class="math inline">\(l\)</span>是标量；log表示自然对数ln，softmax<span
-class="math inline">\(( \boldsymbol{a}) = \frac {\exp ( \boldsymbol{a})
-}{1^T\exp ( \boldsymbol{a}) }\)</span>同上，<span
-class="math inline">\(\sigma\)</span>是逐元素sigmoid函数<span
-class="math inline">\(\sigma(a)=\frac1{1+\exp(-a)}\text{。}\)</span></p>
-<h1 id="矩阵对矩阵求导">矩阵对矩阵求导</h1>
-<h2 id="引入一些概念">引入一些概念</h2>
-<ul>
-<li>Kronecker 积 <span
-class="math display">\[\boldsymbol{A}\otimes\boldsymbol{B}=\left[a_{ij}\boldsymbol{B}\right]_{i=1,j=1}^{m,n}=\begin{bmatrix}a_{11}\boldsymbol{B}&amp;\cdots&amp;a_{1n}\boldsymbol{B}\\\vdots&amp;\ddots&amp;\vdots\\a_{m1}\boldsymbol{B}&amp;\cdots&amp;a_{mn}\boldsymbol{B}\end{bmatrix}\]</span>
-Kronecker积也称直积(direct product)或者张量积(tensor product)。
-知乎文章：https://zhuanlan.zhihu.com/p/24863977</li>
-</ul>
+class="math display">\[\gamma(x_0,x_i)=\frac1n\sum_{k=1}^n\gamma(x_0(k),x_i(k))\]</span></p>
 
                 
               </div>
@@ -540,15 +347,8 @@ Kronecker积也称直积(direct product)或者张量积(tensor product)。
     
       <span class="category-chain">
         
-  <a href="/categories/%E6%95%B0%E5%AD%A6/" class="category-chain-item">数学</a>
+  <a href="/categories/%E6%95%B0%E5%AD%A6%E5%BB%BA%E6%A8%A1/" class="category-chain-item">数学建模</a>
   
-  
-    <span>></span>
-    
-  <a href="/categories/%E6%95%B0%E5%AD%A6/%E7%9F%A9%E9%98%B5%E5%88%86%E6%9E%90/" class="category-chain-item">矩阵分析</a>
-  
-  
-
   
 
       </span>
@@ -574,8 +374,8 @@ Kronecker积也称直积(direct product)或者张量积(tensor product)。
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>矩阵求导技巧</div>
-      <div>http://example.com/2024/07/08/数学/矩阵求导/</div>
+      <div>TOPSIS模版/灰色关联度分析</div>
+      <div>http://example.com/2024/07/27/数学建模/TOPSIS/</div>
     </div>
     <div class="license-meta">
       
@@ -587,7 +387,7 @@ Kronecker积也称直积(direct product)或者张量积(tensor product)。
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2024年7月8日</div>
+          <div>2024年7月27日</div>
         </div>
       
       
@@ -619,9 +419,9 @@ Kronecker积也称直积(direct product)或者张量积(tensor product)。
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2024/07/12/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/ng%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" title="ng-决策树">
+                      <a href="/2024/07/27/%E6%95%B0%E5%AD%A6%E5%BB%BA%E6%A8%A1/%E6%95%B4%E6%95%B0%E4%B8%8E%E9%9D%9E%E7%BA%BF%E6%80%A7%E8%A7%84%E5%88%92/" title="整数与非线性规划模版">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">ng-决策树</span>
+                        <span class="hidden-mobile">整数与非线性规划模版</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -629,8 +429,8 @@ Kronecker积也称直积(direct product)或者张量积(tensor product)。
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2024/07/06/%E6%95%B0%E5%AD%A6%E5%BB%BA%E6%A8%A1/%E8%A7%84%E5%88%92%E7%B1%BB%E9%97%AE%E9%A2%98/" title="线性规划">
-                        <span class="hidden-mobile">线性规划</span>
+                      <a href="/2024/07/26/%E6%95%B0%E5%AD%A6%E5%BB%BA%E6%A8%A1/%E7%86%B5%E6%9D%83%E6%B3%95/" title="熵权法模版">
+                        <span class="hidden-mobile">熵权法模版</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
