@@ -4,12 +4,37 @@
   
   
   <entry>
-    <title></title>
-    <link href="/2024/07/27/%E6%95%B0%E5%AD%A6%E5%BB%BA%E6%A8%A1/%E7%BD%91%E7%BB%9C%E6%9C%80%E5%A4%A7%E6%B5%81/"/>
-    <url>/2024/07/27/%E6%95%B0%E5%AD%A6%E5%BB%BA%E6%A8%A1/%E7%BD%91%E7%BB%9C%E6%9C%80%E5%A4%A7%E6%B5%81/</url>
+    <title>8月plan</title>
+    <link href="/2024/08/03/%E8%AE%A1%E5%88%92/"/>
+    <url>/2024/08/03/%E8%AE%A1%E5%88%92/</url>
     
-    <content type="html"><![CDATA[]]></content>
+    <content type="html"><![CDATA[<h1 id="八月计划表">八月计划表</h1><h2 id="总体目标">总体目标:</h2><ul><li>【<strong>隔日</strong>】提升代码水平到普及组一等奖/提高组二等奖</li><li>【<strong>隔日</strong>】提升数学分析水平，稳定省一前列</li><li>【<strong>每日</strong>】扎实机器学习功底，本月结束时有基本的知识储备量，可以开始阅读组内和顶会论文</li><li>【<strong>每日</strong>】坚持英语阅读，提升口语能力以及词汇量和听力</li></ul><h2 id="学习材料">学习材料</h2><ul><li>对应练习：切ABC前四总计100道+，学习jiangly代码。平台上以赛代练，打高强度高质量模拟赛</li></ul><p>目标完成情况:</p><ul><li>对应练习:CMC集训跟进，有余力则刷绿书，保持不断思考</li></ul><p>目标完成情况:</p><ul><li>对应练习:白板推导每日听课，指数族分布前八系列+优化理论20节</li></ul><p>目标完成情况:</p><ul><li>对应练习:百词斩坚持刷单词，刷英文字幕生活大爆炸</li></ul><h2 id="结果检验">结果检验</h2><ul><li>洛谷入门赛可以ak/atcoder beginner contest稳定切4/5题</li><li>CMC真题检验</li><li>内化于心即可，无量化指标</li><li>看bigbang无障碍</li></ul><h2 id="会当凌绝顶一览众山小">会当凌绝顶，一览众山小</h2><p>我终将要登上山的顶峰，放眼望去，众山竟然显得如此渺小</p>]]></content>
     
+    
+    <categories>
+      
+      <category>计划</category>
+      
+    </categories>
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>插值算法</title>
+    <link href="/2024/07/27/%E6%95%B0%E5%AD%A6%E5%BB%BA%E6%A8%A1/%E5%B7%AE%E5%80%BC%E7%AE%97%E6%B3%95/"/>
+    <url>/2024/07/27/%E6%95%B0%E5%AD%A6%E5%BB%BA%E6%A8%A1/%E5%B7%AE%E5%80%BC%E7%AE%97%E6%B3%95/</url>
+    
+    <content type="html"><![CDATA[<h2 id="插值法定理">插值法定理</h2><p>[定理]设有<spanclass="math inline">\(n+1\)</span>个互不相同的节点<spanclass="math inline">\(( x_i, y_i)\)</span> <span class="math inline">\((i= 0, 1, 2, . . . , n)\)</span>则存在唯一的多项式： <spanclass="math inline">\(\varphi_n(x)=a_0+a_1x+a_2x^2+...+a_nx^n\)</span>,使得<spanclass="math inline">\(\varphi _n( x_j) = y_j\)</span> <spanclass="math inline">\(( j= 0, 1, 2, . . . n) .\)</span> <spanclass="math display">\[\begin{aligned}&amp;\text{证}\begin{cases}a_0+a_1x_0+a_2x_0^2+...+a_nx_0^n=y_0\\a_0+a_1x_1+a_2x_1^2+...+a_nx_1^n=y_1\\...\\a_0+a_1x_n+a_2x_n^2+...+a_nx_n^n=y_n&amp;\end{cases}\text{,令:}A=\begin{bmatrix}1&amp;x_0&amp;\cdots&amp;x_0^n\\1&amp;x_1&amp;\cdots&amp;x_1^n\\\vdots&amp;\vdots&amp;\cdots&amp;\vdots\\1&amp;x_n&amp;\cdots&amp;x_n^n\end{bmatrix}\quadX=\begin{bmatrix}a_0\\a_1\\\vdots\\a_n\end{bmatrix}\quadY=\begin{bmatrix}y_0\\y_1\\\vdots\\y_n\end{bmatrix}\\&amp;\text{一}\end{aligned}\]</span>又<span class="math inline">\(|A|\)</span>为范德蒙行列式，很明显<spanclass="math inline">\(r(A)=n\)</span>,即矩阵<spanclass="math inline">\(A\)</span>可逆，则对于方程组<spanclass="math inline">\(AX=Y\)</span>有且仅有一个解. 从而<spanclass="math inline">\(\varphi_n(x)=a_0+a_1x+a_2x^2+...+a_nx^n\)</span>唯一存在，证毕.</p><h2 id="拉格朗日插值法">拉格朗日插值法</h2><ul><li>二维的，对于点 <spanclass="math inline">\((x_1.y_1),(x_2,y_2)\)</span> <spanclass="math display">\[f(x)=\frac{x-x_2}{x_1-x_2}y_1+\frac{x-x_1}{x_2-x_1}y_2\]</span></li><li>三维的， <spanclass="math display">\[f(x)=\frac{\left(x-x_2\right)\left(x-x_3\right)}{\left(x_1-x_2\right)\left(x_1-x_3\right)}y_1+\frac{\left(x-x_1\right)\left(x-x_3\right)}{\left(x_2-x_1\right)\left(x_2-x_3\right)}y_2+\frac{\left(x-x_1\right)\left(x-x_2\right)}{\left(x_3-x_1\right)\left(x_3-x_2\right)}y_3\]</span></li><li>任意的</li></ul><p>拉格朗日插值的基函数为</p><p><span class="math display">\[l_i(x)=\frac{\left(x-x_0\right)\cdots\left(x-x_{i-1}\right)\left(x-x_{i+1}\right)\cdots\left(x-x_n\right)}{\left(x_i-x_0\right)\cdots\left(x_i-x_{i-1}\right)\left(x_i-x_{i+1}\right)\cdots\left(x_i-x_n\right)}\]</span></p><p>插值函数为</p><p><spanclass="math display">\[L_n(x)=\sum_{i=0}^ny_il_i(x)=\sum_{i=0}^ny_i\left(\prod_{j=0,j\neqi}^n\frac{x-x_j}{x_i-x_j}\right).\]</span></p><h2 id="牛顿插值法">牛顿插值法</h2><p>观察基本思路 <spanclass="math display">\[f_1(x)=f(x_0)+b_1(x-x_0)\]</span> 可以解得：<spanclass="math inline">\(f_1(x)=f(x_0)+\frac{f(x_1)-f(x_0)}{x_1-x_0}(x-x_0)\)</span><br />再考虑后一个点进行修正， <spanclass="math display">\[f_2(x)=f_1(x)+b_2(x-x_0)\left(x-x_1\right)\text{,令}f_2(x_2)=f(x_2)\]</span></p><p>解得</p><p><spanclass="math display">\[f_2(x)=f(x_0)+\frac{f(x_1)-f(x_0)}{x_1-x_0}(x-x_0)+\frac{\left[\frac{f(x_2)-f(x_1)}{x_2-x_1}\right]-\left[\frac{f(x_1)-f(x_0)}{x_1-x_0}\right]}{x_2-x_0}(x-x_0)(x-x_1)\]</span></p><p>为便于书写，引入均差的概念，</p><p>其中，两个系数 <spanclass="math display">\[b_1=\frac{f(x_1)-f(x_0)}{x_1-x_0},b_2=\frac{\left[\frac{f(x_2)-f(x_1)}{x_2-x_1}\right]-\left[\frac{f(x_1)-f(x_0)}{x_1-x_0}\right]}{x_2-x_0}\]</span>成为均差</p><p><span class="math inline">\(b_1\)</span>称为一阶均差，一般形式为<spanclass="math display">\[f[x_i,x_j]=\frac{f(x_i)-f(x_j)}{x_i-x_j},i\neqj\]</span> <spanclass="math inline">\(b_2\)</span>称为二阶均差，一般形式为 <spanclass="math display">\[f[x_i,x_j,x_k]=\frac{f[i,j]\boldsymbol{-}f[j,k]}{x_i\boldsymbol{-}x_k},i\neqj\neq k \]</span></p><p>由此可以写出牛顿插值函数，</p><p><span class="math display">\[\begin{aligned}f(x)=&amp; f(x_0)+f[x_0,x_1](x-x_0) \\&amp;+f[x_0,x_1,x_2]\left(x-x_0\right)\left(x-x_1\right)+\cdotp\cdotp\cdotp\\&amp;+f\begin{bmatrix}x_0,x_1,\cdotp\cdotp\cdotp,x_{n-2},x_{n-1}\end{bmatrix}(x-x_0)(x-x_1)\cdots(x-x_{n-2})(x-x_{n-1})\\&amp;+f\left[x_{0},x_{1},\cdotp\cdotp\cdotp,x_{n-1},x_{n}\right]\left(x-x_{0}\right)\left(x-x_{1}\right)\cdotp\cdotp\cdotp\left(x-x_{n-1}\right)\left(x-x_{n}\right)\end{aligned}\]</span></p><h2 id="埃米尔特插值法">埃米尔特插值法</h2>]]></content>
+    
+    
+    <categories>
+      
+      <category>数学建模</category>
+      
+    </categories>
     
     
   </entry>
@@ -572,9 +597,9 @@
     
     <tags>
       
-      <tag>机器学习</tag>
-      
       <tag>python</tag>
+      
+      <tag>机器学习</tag>
       
     </tags>
     
@@ -923,8 +948,6 @@
     
     
     <categories>
-      
-      <category>闲暇之余</category>
       
       <category>随笔</category>
       
