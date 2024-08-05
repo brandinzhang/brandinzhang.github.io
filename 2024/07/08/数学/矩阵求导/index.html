@@ -24,7 +24,7 @@
 <meta property="og:description" content="前言：两种布局  分子布局：就是分子是列向量形式，分母是行向量的形式 \[\frac{\partial\boldsymbol{f}_{2\times1}(\boldsymbol{x})}{\partial\boldsymbol{x}_{3\times1}^T}&#x3D;\begin{bmatrix}\frac{\partial f_1}{\partial x_1}&amp;\frac{\partia">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2024-07-07T16:00:00.000Z">
-<meta property="article:modified_time" content="2024-07-16T03:14:22.519Z">
+<meta property="article:modified_time" content="2024-08-05T12:39:47.275Z">
 <meta property="article:author" content="bradin">
 <meta property="article:tag" content="数学">
 <meta name="twitter:card" content="summary_large_image">
@@ -220,7 +220,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          710 字
+          679 字
         
       </span>
     
@@ -488,8 +488,9 @@ class="math inline">\(\frac{\partial
 l}{\partial\boldsymbol{w}}=\mathbf{0}\)</span>即<span
 class="math inline">\(X^TX\boldsymbol{w}=X^T\boldsymbol{y}\)</span>,得到<span
 class="math inline">\(\boldsymbol{w}\)</span>的最小二乘估计为 <span
-class="math inline">\(\boldsymbol{w}=(X^TX)^{-1}X^T\boldsymbol{y}.\)</span>
-- 例 7[ 二 层 神 经 网 络 ] : <span class="math inline">\(l= -
+class="math inline">\(\boldsymbol{w}=(X^TX)^{-1}X^T\boldsymbol{y}.\)</span></p>
+<ul>
+<li>神经网络 : <span class="math inline">\(l= -
 \boldsymbol{y}^T\log\)</span>softmax<span class="math inline">\((
 W_2\sigma ( W_1\boldsymbol{x}) )\)</span>, 求<span
 class="math inline">\(\frac {\partial l}{\partial W_1}\)</span>和 <span
@@ -513,14 +514,7 @@ class="math inline">\(l\)</span>是标量；log表示自然对数ln，softmax<sp
 class="math inline">\(( \boldsymbol{a}) = \frac {\exp ( \boldsymbol{a})
 }{1^T\exp ( \boldsymbol{a}) }\)</span>同上，<span
 class="math inline">\(\sigma\)</span>是逐元素sigmoid函数<span
-class="math inline">\(\sigma(a)=\frac1{1+\exp(-a)}\text{。}\)</span></p>
-<h1 id="矩阵对矩阵求导">矩阵对矩阵求导</h1>
-<h2 id="引入一些概念">引入一些概念</h2>
-<ul>
-<li>Kronecker 积 <span
-class="math display">\[\boldsymbol{A}\otimes\boldsymbol{B}=\left[a_{ij}\boldsymbol{B}\right]_{i=1,j=1}^{m,n}=\begin{bmatrix}a_{11}\boldsymbol{B}&amp;\cdots&amp;a_{1n}\boldsymbol{B}\\\vdots&amp;\ddots&amp;\vdots\\a_{m1}\boldsymbol{B}&amp;\cdots&amp;a_{mn}\boldsymbol{B}\end{bmatrix}\]</span>
-Kronecker积也称直积(direct product)或者张量积(tensor product)。
-知乎文章：https://zhuanlan.zhihu.com/p/24863977</li>
+class="math inline">\(\sigma(a)=\frac1{1+\exp(-a)}\text{。}\)</span></li>
 </ul>
 
                 

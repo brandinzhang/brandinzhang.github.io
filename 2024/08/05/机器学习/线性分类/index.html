@@ -16,22 +16,26 @@
   <meta name="author" content="bradin">
   <meta name="keywords" content="">
   
-    <meta name="description" content="pytorch.tensor 123456789101112131415161718192021222324252627282930313233343536373839404142434445 import torch x&#x3D;torch.arange(12) print(x) # tensor([ 0,  1,  2,  3,  4,  5,  6,  7,  8,  9, 10, 11])pri">
+    <meta name="description" content="综述：线性分类包括什么？ 对于分类任务，线性回归模型就无能为力了，但是我们可以在线性模型的函数进行后再加入一层激活函数，下面总结了常见的线性分类模型   1722854281733.png    1722854303847.png  下面我们依次介绍几种线性分类模型 硬输出：感知机 我们要解决的问题是：二分类\(N\)个样本点\((x_{i},y_{i})\)，其中\(x_">
 <meta property="og:type" content="article">
-<meta property="og:title" content="dl-muli-预备知识">
-<meta property="og:url" content="http://example.com/2024/03/21/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E9%A2%84%E5%A4%87%E7%9F%A5%E8%AF%86/index.html">
+<meta property="og:title" content="线性分类">
+<meta property="og:url" content="http://example.com/2024/08/05/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E7%BA%BF%E6%80%A7%E5%88%86%E7%B1%BB/index.html">
 <meta property="og:site_name" content="鸭蛋仙人的博客">
-<meta property="og:description" content="pytorch.tensor 123456789101112131415161718192021222324252627282930313233343536373839404142434445 import torch x&#x3D;torch.arange(12) print(x) # tensor([ 0,  1,  2,  3,  4,  5,  6,  7,  8,  9, 10, 11])pri">
+<meta property="og:description" content="综述：线性分类包括什么？ 对于分类任务，线性回归模型就无能为力了，但是我们可以在线性模型的函数进行后再加入一层激活函数，下面总结了常见的线性分类模型   1722854281733.png    1722854303847.png  下面我们依次介绍几种线性分类模型 硬输出：感知机 我们要解决的问题是：二分类\(N\)个样本点\((x_{i},y_{i})\)，其中\(x_">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2024-03-21T10:12:27.576Z">
-<meta property="article:modified_time" content="2024-06-05T16:00:26.207Z">
+<meta property="og:image" content="https://www.freeimg.cn/i/2024/08/05/66b0aba23af5e.png">
+<meta property="og:image" content="https://www.freeimg.cn/i/2024/08/05/66b0aba1dbb3c.png">
+<meta property="og:image" content="https://www.freeimg.cn/i/2024/08/05/66b0ac3260027.png">
+<meta property="article:published_time" content="2024-08-05T10:32:51.705Z">
+<meta property="article:modified_time" content="2024-08-05T15:12:11.720Z">
 <meta property="article:author" content="bradin">
 <meta property="article:tag" content="机器学习">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://www.freeimg.cn/i/2024/08/05/66b0aba23af5e.png">
   
   
   
-  <title>dl-muli-预备知识 - 鸭蛋仙人的博客</title>
+  <title>线性分类 - 鸭蛋仙人的博客</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -197,7 +201,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="dl-muli-预备知识"></span>
+            <span id="subtitle" data-typed-text="线性分类"></span>
           
         </div>
 
@@ -208,8 +212,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2024-03-21 18:12" pubdate>
-          2024年3月21日 晚上
+        <time datetime="2024-08-05 18:32" pubdate>
+          2024年8月5日 晚上
         </time>
       </span>
     
@@ -220,7 +224,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          128 字
+          576 字
         
       </span>
     
@@ -231,7 +235,7 @@
         
         
         
-          2 分钟
+          5 分钟
         
       </span>
     
@@ -268,14 +272,129 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">dl-muli-预备知识</h1>
+            <h1 id="seo-header">线性分类</h1>
             
             
               <div class="markdown-body">
                 
-                <h2 id="pytorch.tensor">pytorch.tensor</h2>
-<p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><code class="hljs python"> <span class="hljs-keyword">import</span> torch<br> x=torch.arange(<span class="hljs-number">12</span>)<br> <span class="hljs-built_in">print</span>(x)<br> <span class="hljs-comment"># tensor([ 0,  1,  2,  3,  4,  5,  6,  7,  8,  9, 10, 11])</span><br><span class="hljs-built_in">print</span>(x.shape) <span class="hljs-comment">#torch.Size([12])</span><br><span class="hljs-comment"># 展示张量的形状</span><br><br><span class="hljs-comment">#转换形状</span><br>nx=x.reshape(<span class="hljs-number">3</span>,<span class="hljs-number">4</span>)<br><span class="hljs-built_in">print</span>(nx)<br><span class="hljs-comment"># tensor([[ 0,  1,  2,  3],</span><br><span class="hljs-comment">#        [ 4,  5,  6,  7],</span><br><span class="hljs-comment">#        [ 8,  9, 10, 11]]) </span><br><span class="hljs-comment">#将行或列某一个改为-1可以自动计算填充</span><br><br>x = torch.tensor([<span class="hljs-number">1.0</span>, <span class="hljs-number">2</span>, <span class="hljs-number">4</span>, <span class="hljs-number">8</span>])<br>y = torch.tensor([<span class="hljs-number">2</span>, <span class="hljs-number">2</span>, <span class="hljs-number">2</span>, <span class="hljs-number">2</span>])<br>x + y, x - y, x * y, x / y, x ** y  <span class="hljs-comment"># **运算符是求幂运算</span><br><span class="hljs-comment">#* 运行结果</span><br><span class="hljs-comment">#(tensor([ 3.,  4.,  6., 10.]),</span><br><span class="hljs-comment"># tensor([-1.,  0.,  2.,  6.]),</span><br> <span class="hljs-comment">#tensor([ 2.,  4.,  8., 16.]),</span><br> <span class="hljs-comment">#tensor([0.5000, 1.0000, 2.0000, 4.0000]),</span><br> <span class="hljs-comment">#tensor([ 1.,  4., 16., 64.]))</span><br><br><span class="hljs-comment"># 初始化方法</span><br>torch.zeros((<span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>))<br><span class="hljs-string">&#x27;&#x27;&#x27;</span><br><span class="hljs-string">运行结果</span><br><span class="hljs-string">tensor([[[0., 0., 0., 0.],</span><br><span class="hljs-string"> [0., 0., 0., 0.],</span><br><span class="hljs-string"> [0., 0., 0., 0.]],</span><br><span class="hljs-string"> [[0., 0., 0., 0.],</span><br><span class="hljs-string"> [0., 0., 0., 0.],</span><br><span class="hljs-string"> [0., 0., 0., 0.]]])</span><br><span class="hljs-string"> </span><br><span class="hljs-string"> &#x27;&#x27;&#x27;</span><br> torch.ones((<span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>)) <span class="hljs-comment">#所有元素设置为1</span><br> torch.randn(<span class="hljs-number">3</span>, <span class="hljs-number">4</span>) <span class="hljs-comment">#创建一个形状为（3,4）的张量。其中的每个元素都从均值为0、标准差为1的标准高斯分布（正态分布）中随机采样。</span><br> torch.tensor([[<span class="hljs-number">2</span>, <span class="hljs-number">1</span>, <span class="hljs-number">4</span>, <span class="hljs-number">3</span>], [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>], [<span class="hljs-number">4</span>, <span class="hljs-number">3</span>, <span class="hljs-number">2</span>, <span class="hljs-number">1</span>]])<br> <span class="hljs-string">&#x27;&#x27;&#x27;</span><br><span class="hljs-string">tensor([[2, 1, 4, 3],</span><br><span class="hljs-string"> [1, 2, 3, 4],</span><br><span class="hljs-string"> [4, 3, 2, 1]])</span><br><span class="hljs-string"> &#x27;&#x27;&#x27;</span><br></code></pre></td></tr></table></figure> ## pytorch数学运算</p>
-<p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs python">x = torch.tensor([<span class="hljs-number">1.0</span>, <span class="hljs-number">2</span>, <span class="hljs-number">4</span>, <span class="hljs-number">8</span>])<br> y = torch.tensor([<span class="hljs-number">2</span>, <span class="hljs-number">2</span>, <span class="hljs-number">2</span>, <span class="hljs-number">2</span>])<br> x + y, x- y, x * y, x / y, x ** y <span class="hljs-comment"># **运算符是求幂运算</span><br> <span class="hljs-comment">##上述运算思想都是按元素的计算方式</span><br><span class="hljs-string">&#x27;&#x27;&#x27;</span><br><span class="hljs-string">(tensor([ 3., 4., 6., 10.]),</span><br><span class="hljs-string"> tensor([-1., 0., 2., 6.]),</span><br><span class="hljs-string"> tensor([ 2., 4., 8., 16.]),</span><br><span class="hljs-string"> tensor([0.5000, 1.0000, 2.0000, 4.0000]),</span><br><span class="hljs-string"> tensor([ 1., 4., 16., 64.]))</span><br><span class="hljs-string">&#x27;&#x27;&#x27;</span><br><span class="hljs-comment">## 连结</span><br><br></code></pre></td></tr></table></figure></p>
+                <h1 id="综述线性分类包括什么">综述：线性分类包括什么？</h1>
+<p>对于分类任务，线性回归模型就无能为力了，但是我们可以在线性模型的函数进行后再加入一层激活函数，下面总结了常见的线性分类模型</p>
+<figure>
+<img src="https://www.freeimg.cn/i/2024/08/05/66b0aba23af5e.png" srcset="/img/loading.gif" lazyload
+alt="1722854281733.png" />
+<figcaption aria-hidden="true">1722854281733.png</figcaption>
+</figure>
+<figure>
+<img src="https://www.freeimg.cn/i/2024/08/05/66b0aba1dbb3c.png" srcset="/img/loading.gif" lazyload
+alt="1722854303847.png" />
+<figcaption aria-hidden="true">1722854303847.png</figcaption>
+</figure>
+<p>下面我们依次介绍几种线性分类模型</p>
+<h1 id="硬输出感知机">硬输出：感知机</h1>
+<p>我们要解决的问题是：二分类<span
+class="math inline">\(N\)</span>个样本点<span
+class="math inline">\((x_{i},y_{i})\)</span>，其中<span
+class="math inline">\(x_{i}\in R^p\)</span><br />
+引入： <span
+class="math display">\[sign(a)=\left\{\begin{matrix}+1,a\geq0\\-1,a&lt;0\end{matrix}\right.\]</span></p>
+<p>感知机的思路是把线性回归的结果填充到激活函数中：<br />
+<span class="math display">\[f(x)=sign(w^Tx)\]</span></p>
+<p>这样<span class="math inline">\(f(x)\)</span>即为预测结果。<br />
+此时，问题变为如何求解<span
+class="math inline">\(w\)</span>。我们使用梯度下降的策略，那么自然的需要引入loss函数。为了引入合适的loss函数，做一些必要的讨论</p>
+<p>我们考虑一个被正确分类的点<span
+class="math inline">\((x_i,y_i)\)</span>，若 <span
+class="math inline">\(w^Tx_i&gt;0\)</span>，则 <span
+class="math inline">\(y_i=+1\)</span>,若<span
+class="math inline">\(w^Tx_i&lt;0\)</span>，则 <span
+class="math inline">\(y_i=-1\)</span>,因此对于正确分类的点<span
+class="math inline">\((x_i,y_i)\)</span>，总有<span
+class="math inline">\(y_iw^Tx_i&gt;0\)</span></p>
+<figure>
+<img src="https://www.freeimg.cn/i/2024/08/05/66b0ac3260027.png" srcset="/img/loading.gif" lazyload
+alt="1722854448587.png" />
+<figcaption aria-hidden="true">1722854448587.png</figcaption>
+</figure>
+<p>综上所述，我们引入形如下式的loss函数 <span class="math display">\[
+L(w)=\sum_{x_i\in\mathcal{D}_{wrong}}-y_iw^Tx_i \]</span></p>
+<p>应用梯度下降法可得</p>
+<p><span class="math display">\[\frac\partial{\partial
+w}L(w)=\sum_{x_i\in\mathcal{D}_{wrong}}-y_ix_i\]</span></p>
+<p><span class="math display">\[w^{t+1}\leftarrow w^t+\lambda
+y_ix_i\]</span></p>
+<h1 id="硬输出线性判别">硬输出：线性判别</h1>
+<p>在 LDA
+中，我们的基本想法是选定一个方向，将试验样本顺着这个方向投影，投影后的数据需要满足两个条件，从而可以更好地分类：</p>
+<ol type="1">
+<li>相同类内部的试验样本距离接近。</li>
+<li>不同类别之间的距离较大。 <img
+src="https://www.freeimg.cn/i/2024/08/05/66b0c31f97bac.png" srcset="/img/loading.gif" lazyload
+alt="1722860317231.png" /></li>
+</ol>
+<p>引入x顺着w方向的投影(有正有负的标量)</p>
+<p><span class="math display">\[z=w^T\cdot
+x(=|w|\cdot|x|\cos\theta)\]</span></p>
+<p>假设属于两类<span
+class="math inline">\(C_1,C_2\)</span>的样本点数量是<span
+class="math inline">\(N_1,N_2\)</span>,我们采用方差矩阵来表征两个类内的总体分布</p>
+<p><span class="math display">\[\begin{aligned}
+&amp;C_1:Var_z[C_1]
+=\frac1{N_1}\sum_{i=1}^{N_1}(z_i-\overline{z_{c1}})(z_i-\overline{z_{c1}})^T
+\\
+&amp;=\frac1{N_1}\sum_{i=1}^{N_1}(w^Tx_i-\frac1{N_1}\sum_{j=1}^{N_1}w^Tx_j)(w^Tx_i-\frac1{N_1}\sum_{j=1}^{N_1}w^Tx_j)^T
+\\
+&amp;=w^T\frac1{N_1}\sum_{i=1}^{N_1}(x_i-\overline{x_{c1}})(x_i-\overline{x_{c1}})^Tw
+\\
+&amp;=w^TS_1w \\
+&amp;C_2:Var_z[C_2]
+=\frac1{N_2}\sum_{i=1}^{N_2}(z_i-\overline{z_{c2}})(z_i-\overline{z_{c2}})^T
+\\
+&amp;=w^TS_2w
+\end{aligned}\]</span></p>
+<p>其中<span
+class="math inline">\(S_1,S_2\)</span>就定义为两个类的方差矩阵，我们想让类内距离小，必然希望两个类的类内距离都是小的，为此定义类内距离函数为
+<span
+class="math display">\[Var_z[C_1]+Var_z[C_2]=w^T(S_1+S_2)w\]</span></p>
+<p>同时定义类间距离为</p>
+<p><span class="math display">\[\begin{aligned}
+(\overline{z_{c1}}-\overline{z_{c2}})^2&amp;
+=(\frac1{N_1}\sum_{i=1}^{N_1}w^Tx_i-\frac1{N_2}\sum_{i=1}^{N_2}w^Tx_i)^2
+\\
+&amp;=(w^T(\overline{x_{c1}}-\overline{x_{c2}}))^2 \\
+&amp;=w^T(\overline{x_{c1}}-\overline{x_{c2}})(\overline{x_{c1}}-\overline{x_{c2}})^Tw
+\end{aligned}\]</span></p>
+<p>用两个值相除作为损失函数，我们要求的<span
+class="math inline">\(w\)</span>就是</p>
+<p><span class="math display">\[\begin{aligned}
+\hat{w}=argmax J(w)&amp;
+=argmax\frac{(\overline{z_{c1}}-\overline{z_{c2}})^2}{Var_z[C_1]+Var_z[C_2]}
+\\
+&amp;=argmax\frac{w^T(\overline{x_{c1}}-\overline{x_{c2}})(\overline{x_{c1}}-\overline{x_{c2}})^Tw}{w^T(S_1+S_2)w}
+\\
+&amp;=\underset{w}{\operatorname*{argmax}}\frac{w^TS_bw}{w^TS_ww}
+\end{aligned}\]</span></p>
+<p>显然，我们并不需要知道<span
+class="math inline">\(w\)</span>的具体大小，我们只需要知道<span
+class="math inline">\(w\)</span>的方向即可，对损失函数求导</p>
+<p><span class="math display">\[\frac\partial{\partial
+w}J(w)=0\]</span></p>
+<p><span class="math display">\[\begin{aligned}&amp;\Longrightarrow
+S_bw(w^TS_ww)=(w^TS_bw)S_ww\\&amp;\Longrightarrow w\propto
+S_w^{-1}S_bw=S_w^{-1}(\overline{x_{c1}}-\overline{x_{c2}})(\overline{x_{c1}}-\overline{x_{c2}})^Tw\propto
+S_w^{-1}(\overline{x_{c1}}-\overline{x_{c2}})\end{aligned}\]</span></p>
+<p><span
+class="math inline">\(S_w^{-1}(\overline{x_{c1}}-\overline{x_{c2}})\)</span>就是<span
+class="math inline">\(w\)</span>的方向，再进行归一化即可。 <span
+class="math inline">\(w^Tx=0\)</span>就是我们的决策边界</p>
+<h1 id="软输出逻辑回归">软输出：逻辑回归</h1>
+<p>对于一次观测，获得分类<span
+class="math inline">\(y\)</span>的概率为(假定<span
+class="math inline">\(C_1=1,C_2=0\)</span> ): <span
+class="math display">\[p(y|x)=p_1^yp_0^{1-y}\]</span> 那么对于<span
+class="math inline">\(N\)</span>次独立全同的观测 MLE为： <span
+class="math display">\[\hat{w}=argmax_wJ(w)=argmax_w\sum_{i=1}^N(y_i\log
+p_1+(1-y_i)\log p_0)\]</span></p>
+<p>接着使用梯度下降推导即可，我们相当于在这里直接导出了交叉熵函数</p>
 
                 
               </div>
@@ -299,7 +418,7 @@
   
     <span>></span>
     
-  <a href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/pytorch/" class="category-chain-item">pytorch</a>
+  <a href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E7%99%BD%E6%9D%BF%E6%8E%A8%E5%AF%BC/" class="category-chain-item">白板推导</a>
   
   
 
@@ -328,8 +447,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>dl-muli-预备知识</div>
-      <div>http://example.com/2024/03/21/机器学习/预备知识/</div>
+      <div>线性分类</div>
+      <div>http://example.com/2024/08/05/机器学习/线性分类/</div>
     </div>
     <div class="license-meta">
       
@@ -341,7 +460,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2024年3月21日</div>
+          <div>2024年8月5日</div>
         </div>
       
       
@@ -373,18 +492,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2024/03/27/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/MATLAB%E7%AC%94%E8%AE%B0/" title="matlab">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">matlab</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2024/03/17/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/ng%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0week3/" title="ng-逻辑回归">
-                        <span class="hidden-mobile">ng-逻辑回归</span>
+                      <a href="/2024/08/03/%E8%AE%A1%E5%88%92/" title="8月plan">
+                        <span class="hidden-mobile">8月plan</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
