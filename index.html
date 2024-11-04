@@ -238,15 +238,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/2024/09/07/%E6%95%B0%E5%AD%A6/%E5%87%B8%E4%BC%98%E5%8C%96/%E6%97%A0%E7%BA%A6%E6%9D%9F%E4%BC%98%E5%8C%96/" target="_self">
-          无约束优化算法
+        <a href="/2024/11/04/%E6%96%87%E7%8C%AE/safe-screening/GAP/" target="_self">
+          GAP
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/2024/09/07/%E6%95%B0%E5%AD%A6/%E5%87%B8%E4%BC%98%E5%8C%96/%E6%97%A0%E7%BA%A6%E6%9D%9F%E4%BC%98%E5%8C%96/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/2024/11/04/%E6%96%87%E7%8C%AE/safe-screening/GAP/" target="_self">
         <div>
-          复习：强凸四个等价定义 梯度下降 梯度下降 最速下降 不计算梯度的下降 坐标轮换 块坐标下降 牛顿算法 牛顿 拟牛顿
+          动态筛选的提出 以往的安全筛选法则，都是脱离训练过程所存在的筛选。我们称之为静态筛选规则(We will refer to such safe rules as static safe rules)他大致分为全局的(利用\(\lambda_0\))和递归的(加速筛选一系列\(\lambda\)),动态筛选规则为我们提供了新的思路。作者用简单的伪代码为我们展示了何为动态筛选：(字典D就是上篇里
         </div>
       </a>
 
@@ -254,8 +254,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2024-09-07 23:57" pubdate>
-              2024-09-07
+            <time datetime="2024-11-04 19:25" pubdate>
+              2024-11-04
             </time>
           </div>
         
@@ -270,12 +270,12 @@
     
       <span class="category-chain">
         
-  <a href="/categories/%E6%95%B0%E5%AD%A6/" class="category-chain-item">数学</a>
+  <a href="/categories/%E6%96%87%E7%8C%AE/" class="category-chain-item">文献</a>
   
   
     <span>></span>
     
-  <a href="/categories/%E6%95%B0%E5%AD%A6/%E5%87%B8%E4%BC%98%E5%8C%96/" class="category-chain-item">凸优化</a>
+  <a href="/categories/%E6%96%87%E7%8C%AE/ml%E7%90%86%E8%AE%BA/" class="category-chain-item">ml理论</a>
   
   
 
@@ -289,12 +289,160 @@
           </div>
         
         
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h2 class="index-header">
+        
+        <a href="/2024/11/04/%E6%96%87%E7%8C%AE/safe-screening/safe/" target="_self">
+          safe
+        </a>
+      </h2>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2024/11/04/%E6%96%87%E7%8C%AE/safe-screening/safe/" target="_self">
+        <div>
+          本文介绍了一种在 l1 惩罚最小二乘法回归（或 LASSO）问题中消除特征（变量）的快速方法。消除特征可大幅缩短运行时间，尤其是在惩罚参数值较大的情况下。这个方法不是启发式的：它只消除在求解 LASSO 问题后保证不存在的特征。特征消除步骤易于并行化，可以独立测试每个特征的消除情况。此外，与求解 LASSO 问题相比，这一方法的计算量可以忽略不计--大致相当于单梯度步骤。这个方法扩展了现
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2024-11-04 19:24" pubdate>
+              2024-11-04
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E6%96%87%E7%8C%AE/" class="category-chain-item">文献</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/%E6%96%87%E7%8C%AE/ml%E7%90%86%E8%AE%BA/" class="category-chain-item">ml理论</a>
+  
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h2 class="index-header">
+        
+        <a href="/2024/11/04/%E7%AE%97%E6%B3%95/%E5%9F%BA%E7%A1%80%E6%A8%A1%E7%89%88/" target="_self">
+          基础算法模版
+        </a>
+      </h2>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2024/11/04/%E7%AE%97%E6%B3%95/%E5%9F%BA%E7%A1%80%E6%A8%A1%E7%89%88/" target="_self">
+        <div>
+          快排 123456#include&lt;algorithm&gt;int main()&#123;    sort(a,a+n);    //数组首指针，数组首指针+数组size&#125; 归并排序 所谓归并，先递归，再合并。递归的解决两个子数组的排序的子问题，再合并出最终答案。 12345678910111213141516171819202122232425262728//用于存放
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2024-11-04 19:21" pubdate>
+              2024-11-04
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E7%AE%97%E6%B3%95/" class="category-chain-item">算法</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
           <div class="post-meta">
             <i class="iconfont icon-tags"></i>
             
-              <a href="/tags/%E6%95%B0%E5%AD%A6/">#数学</a>
+              <a href="/tags/%E7%AE%97%E6%B3%95%E7%AB%9E%E8%B5%9B/">#算法竞赛</a>
             
           </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h2 class="index-header">
+        
+        <a href="/2024/09/24/%E6%96%87%E7%8C%AE/multi-task-learning/%E7%BB%BC%E8%BF%B0/" target="_self">
+          
+        </a>
+      </h2>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2024/09/24/%E6%96%87%E7%8C%AE/multi-task-learning/%E7%BB%BC%E8%BF%B0/" target="_self">
+        <div>
+          
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2024-09-24 19:58" pubdate>
+              2024-09-24
+            </time>
+          </div>
+        
+        
         
       </div>
     </article>
@@ -687,210 +835,6 @@
             <i class="iconfont icon-tags"></i>
             
               <a href="/tags/%E8%AE%BA%E6%96%87%E5%86%99%E4%BD%9C/">#论文写作</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h2 class="index-header">
-        
-        <a href="/2024/08/09/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E4%BC%98%E5%8C%96%E7%AE%97%E6%B3%95/" target="_self">
-          优化算法
-        </a>
-      </h2>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/2024/08/09/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E4%BC%98%E5%8C%96%E7%AE%97%E6%B3%95/" target="_self">
-        <div>
-          优化算法概论 理想的优化算法有以下几个特点  数值解 \(\{x_k\}_{k=0}^{\infty}\)的迭代，实际中操作使用有限次，满足一定条件停止迭代即可 单调性，满足\(f(x_{k+1})&lt;f(x_{k-m})\)就很好，但是往往碰到螺旋下降的情况 策略 ：\(x_k\)如何到\(x_{k+1}\)?  线搜索方法 \[x_{k+1}=x_k+\alpha_kp_k
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2024-08-09 14:49" pubdate>
-              2024-08-09
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" class="category-chain-item">机器学习</a>
-  
-  
-    <span>></span>
-    
-  <a href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E7%99%BD%E6%9D%BF%E6%8E%A8%E5%AF%BC/" class="category-chain-item">白板推导</a>
-  
-  
-
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/">#机器学习</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h2 class="index-header">
-        
-        <a href="/2024/08/07/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E6%94%AF%E6%8C%81%E5%90%91%E9%87%8F%E6%9C%BA/" target="_self">
-          支持向量机
-        </a>
-      </h2>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/2024/08/07/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E6%94%AF%E6%8C%81%E5%90%91%E9%87%8F%E6%9C%BA/" target="_self">
-        <div>
-          基本思想 支持向量机的基本思想就是用一个超平面来划分一群点，达到二分类效果。寻找超平面过程中。我们使用最小化间隔的思想，使得svm具有鲁棒性。 硬间隔SVM 欲分类点记为\({(x_i,y_i)}_{i=1}^N\)共N个，预测结果\(y_i\)取值为0，1 我们的判别模型可以表示为 \[f(w)=sign(w^Tx+b) \] 其中\(w^Tx+b=0\)就是1划分所用的超平面，因此约束
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2024-08-07 15:47" pubdate>
-              2024-08-07
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" class="category-chain-item">机器学习</a>
-  
-  
-    <span>></span>
-    
-  <a href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E7%99%BD%E6%9D%BF%E6%8E%A8%E5%AF%BC/" class="category-chain-item">白板推导</a>
-  
-  
-
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/">#机器学习</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h2 class="index-header">
-        
-        <a href="/2024/08/06/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E9%99%8D%E7%BB%B4/" target="_self">
-          降维
-        </a>
-      </h2>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/2024/08/06/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E9%99%8D%E7%BB%B4/" target="_self">
-        <div>
-          协方差矩阵 方差：单个向量/变量序列 \[\mathrm{Var(a)=\frac{1}{m}.\sum_{i=1}^{m}~(a_{i}-\mu)^{2}}\] 对于质心系的坐标，可以直接写为 \[\mathrm{Var(a)=\frac{1}{m}.\sum_{i=1}^{m}~a_{i}^{2}}\] 协方差(covariance)：两个向量 协方差用来描述两个向量之间的相关性，在
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2024-08-06 19:27" pubdate>
-              2024-08-06
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" class="category-chain-item">机器学习</a>
-  
-  
-    <span>></span>
-    
-  <a href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E7%99%BD%E6%9D%BF%E6%8E%A8%E5%AF%BC/" class="category-chain-item">白板推导</a>
-  
-  
-
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/">#机器学习</a>
             
           </div>
         
