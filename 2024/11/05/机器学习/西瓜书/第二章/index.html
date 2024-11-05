@@ -16,27 +16,28 @@
   <meta name="author" content="bradin">
   <meta name="keywords" content="">
   
-    <meta name="description" content="本文介绍了一种在 l1 惩罚最小二乘法回归（或 LASSO）问题中消除特征（变量）的快速方法。消除特征可大幅缩短运行时间，尤其是在惩罚参数值较大的情况下。这个方法不是启发式的：它只消除在求解 LASSO 问题后保证不存在的特征。特征消除步骤易于并行化，可以独立测试每个特征的消除情况。此外，与求解 LASSO 问题相比，这一方法的计算量可以忽略不计--大致相当于单梯度步骤。这个方法扩展了现">
+    <meta name="description" content="2.1经验误差和过拟合 误差error：实际预测输出与真是输出之间的差异，在训练集上的误差成为训练误差training error或经验误差empirical error，在新样本上的误差成为泛化误差generalization error， 训练的最终目标是获得较小的泛化误差 机器学习算法的难点在于克服过拟合 2.2评估方法 2.2.1留出法 直接将数据集D划分为两个互斥的集合，">
 <meta property="og:type" content="article">
-<meta property="og:title" content="safe">
-<meta property="og:url" content="http://example.com/2024/11/04/%E6%96%87%E7%8C%AE/safe-screening/safe/index.html">
+<meta property="og:title" content="西瓜书第二章">
+<meta property="og:url" content="http://example.com/2024/11/05/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E8%A5%BF%E7%93%9C%E4%B9%A6/%E7%AC%AC%E4%BA%8C%E7%AB%A0/index.html">
 <meta property="og:site_name" content="鸭蛋仙人的博客">
-<meta property="og:description" content="本文介绍了一种在 l1 惩罚最小二乘法回归（或 LASSO）问题中消除特征（变量）的快速方法。消除特征可大幅缩短运行时间，尤其是在惩罚参数值较大的情况下。这个方法不是启发式的：它只消除在求解 LASSO 问题后保证不存在的特征。特征消除步骤易于并行化，可以独立测试每个特征的消除情况。此外，与求解 LASSO 问题相比，这一方法的计算量可以忽略不计--大致相当于单梯度步骤。这个方法扩展了现">
+<meta property="og:description" content="2.1经验误差和过拟合 误差error：实际预测输出与真是输出之间的差异，在训练集上的误差成为训练误差training error或经验误差empirical error，在新样本上的误差成为泛化误差generalization error， 训练的最终目标是获得较小的泛化误差 机器学习算法的难点在于克服过拟合 2.2评估方法 2.2.1留出法 直接将数据集D划分为两个互斥的集合，">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://img.picui.cn/free/2024/11/04/6728dce65c095.png">
-<meta property="og:image" content="https://img.picui.cn/free/2024/11/05/672a25b365af6.png">
-<meta property="og:image" content="https://img.picui.cn/free/2024/11/05/672a25d6e2967.png">
-<meta property="article:published_time" content="2024-11-04T11:24:32.386Z">
-<meta property="article:modified_time" content="2024-11-05T14:04:32.356Z">
+<meta property="og:image" content="https://www.helloimg.com/i/2024/11/05/672a3580d8581.png">
+<meta property="og:image" content="https://www.helloimg.com/i/2024/11/05/672a374d524a3.png">
+<meta property="og:image" content="https://www.helloimg.com/i/2024/11/05/672a3f51379fe.png">
+<meta property="article:published_time" content="2024-11-05T14:18:07.781Z">
+<meta property="article:modified_time" content="2024-11-05T15:57:04.837Z">
 <meta property="article:author" content="bradin">
+<meta property="article:tag" content="机器学习">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://img.picui.cn/free/2024/11/04/6728dce65c095.png">
+<meta name="twitter:image" content="https://www.helloimg.com/i/2024/11/05/672a3580d8581.png">
   
   
     <meta name="referrer" content="no-referrer-when-downgrade">
   
   
-  <title>safe - 鸭蛋仙人的博客</title>
+  <title>西瓜书第二章 - 鸭蛋仙人的博客</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -214,7 +215,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="safe"></span>
+            <span id="subtitle" data-typed-text="西瓜书第二章"></span>
           
         </div>
 
@@ -225,8 +226,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2024-11-04 19:24" pubdate>
-          2024年11月4日 晚上
+        <time datetime="2024-11-05 22:18" pubdate>
+          2024年11月5日 晚上
         </time>
       </span>
     
@@ -237,7 +238,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          1.3k 字
+          3k 字
         
       </span>
     
@@ -248,7 +249,7 @@
         
         
         
-          11 分钟
+          25 分钟
         
       </span>
     
@@ -293,150 +294,145 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">safe</h1>
+            <h1 id="seo-header">西瓜书第二章</h1>
             
             
               <div class="markdown-body">
                 
-                <p>本文介绍了一种在 l1 惩罚最小二乘法回归（或
-LASSO）问题中消除特征（变量）的快速方法。消除特征可大幅缩短运行时间，尤其是在惩罚参数值较大的情况下。这个方法不是启发式的：它只消除在求解
-LASSO
-问题后保证不存在的特征。特征消除步骤易于并行化，可以独立测试每个特征的消除情况。此外，与求解
-LASSO
-问题相比，这一方法的计算量可以忽略不计--大致相当于单梯度步骤。这个方法扩展了现有
-LASSO
-算法的范围，使其可以处理以前无法处理的更大数据集。本文展示了如何将此方法扩展到一般的
-l1 惩罚凸问题，并介绍了稀疏支持向量机和逻辑回归问题的初步结果。</p>
-<h2 id="insight">insight</h2>
-<p>作者几乎是单纯的从数学角度提出了这一巧妙的方法，着实令人佩服，后面无论多少文章在本质上都是对此方法的改进。</p>
-<h2 id="核心理论">核心理论</h2>
-<p>先定义一下本文用到的符号 - 训练的data：<span
-class="math inline">\(X=\left(a_{1},\ldots,a_{m}\right)^{T}\in\mathbb{R}^{m\times
-n}\)</span>，每一行为一个样本，因此每一列即为一个特征。 -
-lasso原问题：<span class="math inline">\(\mathcal{P}(\lambda) :
-\phi(\lambda):=\min_w\frac12\left\|Xw-y\right\|_2^2+\lambda\left\|w\right\|_1\)</span>
-- lasso对偶问题：<span
-class="math inline">\(\mathcal{D}(\lambda)~:~\phi(\lambda):=\max_{\theta}~G(\theta)~:~\left|\theta^Tx_k\right|\leq\lambda,~k=1,\ldots,n\)</span>，其中<span
-class="math inline">\(\begin{aligned}G(\theta)=\frac{1}{2}\left\|y\right\|_{2}^{2}-\frac{1}{2}\left\|\theta+y\right\|_{2}^{2}\end{aligned}\)</span>，<span
-class="math inline">\(\theta\)</span>是求解对偶问题中引入的量，表示残差：“<span
-class="math inline">\(Xw-y\)</span>”</p>
-<p>这全部的奥妙就在这约束条件<span
-class="math inline">\(~\left|\theta^Tx_k\right|\leq\lambda\)</span>上了，不难的凸优化分析即可告诉我们：<span
-class="math inline">\(\left|\theta^{\star
-T}x_k\right|&lt;\lambda\Rightarrow\left(w^\star\right)_k=0\)</span>，也就是说对于满足这样的判断的w分量，我们可以断言其为0，从而断言此分量对应的那一列特征是无用的，可以剔除掉。然而我们只有求解完lasso才能做出上面的断言呀，如何在求解开始之前预先识别并剔除无用特征呢？作者为此提出了一种通用策略：</p>
-<p>开始将策略之前先做一些必要的铺垫，我们不难发现<span
-class="math inline">\(\lambda\)</span>越大，得到的解的稀疏程度越大，取恰好使得<span
-class="math inline">\(w=0\)</span>的<span
-class="math inline">\(\lambda\)</span>为<span
-class="math inline">\(\lambda_0\)</span>,根据我们的筛选规则，不难看出<span
-class="math inline">\(\begin{aligned}\lambda_0=\max_{1\leq j\leq n}
-|y^Tx_j|=\|X^Ty\|_\infty.\end{aligned}\)</span>，对应的<span
-class="math inline">\(\theta_0^\star=-y\)</span></p>
-<h3 id="第一步">第一步</h3>
-<p>尽管在开始训练前，我们无法精确找到最优解<span
-class="math inline">\(\theta^*\)</span>,但是可以尝试构建一个必定包含<span
-class="math inline">\(\theta^*\)</span>的集合<span
-class="math inline">\(\Theta\)</span>，如果我们可以验证<span
-class="math inline">\(\forall\theta\in\Theta\)</span>,均有<span
-class="math inline">\(|\theta^Tx_k|&lt;\lambda\)</span>,那么也可以断言第k个特征无效。，因此构建一个尽量小的<span
-class="math inline">\(\Theta\)</span>即可。作者采用的策略是构建两个必定包含<span
-class="math inline">\(\theta^*\)</span>的集合<span
-class="math inline">\(\Theta_1,\Theta_2\)</span>,取二者交集作为<span
-class="math inline">\(\Theta\)</span>,定义</p>
-<p>注意到对偶问题<span
-class="math inline">\(G(\theta)\)</span>,任取一个可行点（比如上面提到的<span
-class="math inline">\(\lambda_0系列\)</span>）得到<span
-class="math inline">\(\gamma:={G}(\theta_s)\)</span>，可以构建出一个球形约束区域
-<span class="math display">\[\begin{aligned}\Theta_1:=\{\theta \mid
-G(\theta)\geq\gamma\}\end{aligned}\]</span> （对于<span
-class="math inline">\(\gamma\)</span>的得到作者采用了对偶缩放的技巧，这不是重点，暂且按下不谈）
-作者用一阶条件构建了第二个区域 <span
-class="math display">\[\Theta_{2}:=\begin{Bmatrix}\theta|&amp;g^{T}(\theta-\theta_{0}^{\star})\leq0\end{Bmatrix}\]</span></p>
-<h3 id="第二步">第二步</h3>
-<p>可以舍弃的特征的指标集合可以表示为 <span
-class="math display">\[\mathcal{E}=\{k\mid\lambda&gt;\max(P(\gamma,x_k),P(\gamma,-x_k)\}\]</span>
-其中 <span class="math display">\[P(\gamma,x_k):=\max_\theta x_k^T\theta
-: G(\theta)\geq\gamma,
-g^T\left(\theta-\theta_0^\star\right)\geq0.\]</span>
-可以用凸优化方法求出这个问题的封闭解。 如果我们有某个<span
-class="math inline">\(\lambda\)</span>下对应的最优解<span
-class="math inline">\(w\)</span>,两个区域是不难构建的，即使我们没有某个<span
-class="math inline">\(\lambda\)</span>下对应的最优解<span
-class="math inline">\(w\)</span>，我们也可以选择恰好使得<span
-class="math inline">\(w=0\)</span>的<span
-class="math inline">\(\lambda_0\)</span>，在这种情况下，解集还可以有一个优雅地表达，
+                <h1 id="经验误差和过拟合">2.1经验误差和过拟合</h1>
+<p>误差error：实际预测输出与真是输出之间的差异，在训练集上的误差成为训练误差training
+error或经验误差empirical
+error，在新样本上的误差成为泛化误差generalization error，
+训练的最终目标是获得较小的泛化误差<br />
+机器学习算法的难点在于克服过拟合</p>
+<h1 id="评估方法">2.2评估方法</h1>
+<h2 id="留出法">2.2.1留出法</h2>
+<p>直接将数据集D划分为两个互斥的集合，其中一个集合作为训练集S,另一个作为测试集T。</p>
+<p>从釆样(sampling)的角度来看数据集的划分过程，一般进行保留类别比例的釆样方式，也就是“分层采样”
+(stratified sampling)。</p>
+<p>单次使用留出法得到的估计结果往往不够稳定可靠，在使用留出法时，一般要采用若干次随机划分、重复进行实验评估后取平均值作为留出法的评估结果。</p>
+<p>测试集较小时，评估结果的方差较大；训练集小时，评估结果的偏差较大，常见做法
+2/3 ~ 4/5 的样本作为训练集，剩余样本用于测试。事实上不咋用这个方法。</p>
+<h2 id="交叉验证法">2.2.2交叉验证法</h2>
+<ul>
+<li><p>思路：将数据集划分为k个大小相似的互斥子集，每次用k-1个子集的并集作为训练集，余下的那个子集作为测试集，如此进行k次测试，最终用上全部的数据。</p></li>
+<li><p>p 次 k
+折交叉验证：:与留出法相似，将数据集D划分为k个子集同样存在多种划分方式。为减小因样本划分不同而引入的差别，k折交叉验证通常要随机使用不同的划分重复p次，最终的评估结果是这p次k折交叉验证结果的均值，例如常见的有“10次10折交叉验证</p></li>
+<li><p>特例:当k和数据集数量一致时，称之为留一法（Leave One
+Out）简称：LOO</p></li>
+</ul>
+<h2 id="自助法">2.2.3自助法</h2>
+<p>留出法和交叉验证法中，由于保留了一部分样本用于测试，因此实际评估的模型所使用的训练集在大小上比D小，而留一法的计算复杂度又太高。若希望评估用训练集全集D训练出的模型，可以使用自助法(bootstrapping)，其在数据集较小、难以有效划分训练/测试集时很有用。</p>
+<p>给定包含 m 个样本的数据集D
+,我们对它进行采样产生数据集D’：每次随机从D中挑选一个样本,将其拷贝放入D’,然后再将该样本放回初始数据集D中,使得该样本在下次釆样时仍有可能被釆到；这个过程重复执行m次后，我们就得到了包含m
+个样本的数据集D,这就是自助釆样的结果。很有可能的，D中有一部分样本会在D中多次出现，而另一部分样本不出现。从数学期望的角度可以做一个简单的估计，样本在m次采样中始终不被釆到的概率是<span
+class="math inline">\((1 -\frac1m)^m\)</span>,取m趋于正无穷极限的得到
 <span
-class="math display">\[\lambda&gt;\rho_k\lambda_{\mathrm{max}}\]</span>
-其中<span
-class="math inline">\(\rho_k=\frac{\left\|y\right\|_2\left\|x_k\right\|_2+\left|y^Tx_k\right|}{\left\|y\right\|_2\left\|x_k\right\|_2+\lambda_{\max}}.\)</span></p>
-<h2 id="算法">算法</h2>
-<p>以上分析可以产生两种算法，解决两类问题</p>
-<h3 id="safe-for-reducing-memory-limit-problems">SAFE for reducing
-memory limit problems</h3>
+class="math display">\[\lim_{m\mapsto\infty}\left(1-\frac1m\right)^m\mapsto\frac1e\approx0.368\]</span></p>
+<p>通过自助釆样，从数学期望的角度来看，初始数据集D中约有36.8%的样本未出现在釆样数据集D中。于是可将D用作训练集,D’用作测试集。这样，实际评估的模型与期望评估的模型都使用m个训练样本，而我们仍有数据总量约1/3的、没在训练集中出现的样本用于测试。</p>
+<h2 id="调参与最终模型">2.2.4调参与最终模型</h2>
+<ul>
+<li><p>小数据集，数据不好划分的时候，用自助法</p></li>
+<li><p>大部分时候，用k折</p></li>
+<li><p>如何调参？:网格搜索参数</p></li>
+<li><p>以上只是为了对比模型好坏，选出来最好模型后，最后提交给客户的模型参数应该是用训练集全集D训练出来的</p></li>
+</ul>
+<h1 id="性能度量">2.3性能度量</h1>
+<p>对学习器的泛化性能进行评估，不仅需要有效可行的实验估计方法，还需要有衡量模型泛化能力的评价标准，这就是性能度量（performance
+measure）</p>
+<p>回归问题常用均方误差做，下面着重讲一下分类问题的效果评估</p>
+<h2 id="查准率查全率f1">2.3.2 查准率/查全率/F1</h2>
 <p><img
-src="https://img.picui.cn/free/2024/11/04/6728b19c0d5f6.png" srcset="/img/loading.gif" lazyload /></p>
-<h3 id="recursive-safe-for-the-lasso">Recursive SAFE for the Lasso</h3>
-<p><img
-src="https://img.picui.cn/free/2024/11/04/6728b19bc20c1.png" srcset="/img/loading.gif" lazyload /></p>
-<h2 id="拓展">拓展</h2>
-<p>作者对更一般的带l1正则化的凸优化问题给出了解析，包括logistics回归，稀疏支持向量机等等。
-<img src="https://img.picui.cn/free/2024/11/04/6728dce65c095.png" srcset="/img/loading.gif" lazyload
-alt="在这里插入图片描述" /></p>
-<h2 id="实验">实验</h2>
-<p>对于有内存限制下的求解问题，SAFE表现出色，圆满完成了限制内存的任务
-在不同lassosolver的实验中，safe方法均表现出了较好的提前筛选效果。 <img
-src="https://img.picui.cn/free/2024/11/04/6728b19ad0d75.png" srcset="/img/loading.gif" lazyload
-alt="在这里插入图片描述" /> <img
-src="https://img.picui.cn/free/2024/11/04/6728b19b4446a.png" srcset="/img/loading.gif" lazyload
-alt="在这里插入图片描述" /></p>
-<h1 id="改进strong-rules">改进：strong rules</h1>
-<p>stong
-rules提出的强规则并非万无一失，但在实践中很少失效。这些规则非常简单，并可辅以对
-KarushKuhn-Tucker (KKT)
-条件的简单检查，以确保提供凸问题的精确解。这些规则为各种统计优化问题节省了大量计算时间和内存。</p>
-<p>本文符号定义：<span class="math inline">\(\hat{\boldsymbol{\beta}
-}=\underset{\boldsymbol{\beta} }{\operatorname*{argmin} }
-\frac{1}{2}\|\mathbf{y}-
-\mathbf{X}\boldsymbol{\beta}\|_2^2+\lambda\|\boldsymbol{\beta}\|_1,\)</span></p>
-<p>上一篇文章的筛选规则可以写为 <span
-class="math display">\[|\mathbf{x}_j^T\mathbf{y}|&lt;\lambda-\|\mathbf{x}_j\|_2\|\mathbf{y}\|_2\frac{\lambda_{\max}-\lambda}{\lambda_{\max}
-},\]</span> 如果我们对X进行了归一化，上面的式子可以进一步写为 <span
-class="math display">\[\lambda-\|\mathbf{y}\|_{2}\frac{\lambda_{\max}-\lambda}{\lambda_{\max}
-}\]</span> 作者采取了大胆的缩放，定义<span
-class="math inline">\(\mathbf{r}=\mathbf{y}-\mathbf{X}\hat{\boldsymbol{\beta}
-}(\lambda_0),\)</span> <span
-class="math display">\[|\mathbf{x}_j^T\mathbf{r}|&lt;2\lambda-\lambda_0.\]</span>
-作者进行了一系列分析来阐述他的动机和上述式子几乎不会失误，尽管效果惊人的显著，不过他毕竟还是不安全的。后续工作也几乎不再与此工作进行比较，因此不再赘述。</p>
-<h1
-id="slores适用于logistic回归的强且安全的筛选法则">slores，适用于logistic回归的强且安全的筛选法则</h1>
-<p>要注意slores是针对于逻辑回归提出的，也正因如此才能利用上强凸性，
-原问题： <span class="math display">\[\min_{\beta,c}
-\frac1m\sum_{i=1}^m\log(1+\exp(-\langle\beta,\bar{\mathbf{x}
-}_i\rangle-b_ic))+\lambda\|\beta\|_1,\]</span> 对偶问题·，定义<span
-class="math inline">\(f(y)=y\log(y)+(1-y)\log(1-y)\text{ for
-}y\in(0,1)\)</span> <span class="math display">\[\min_\theta
-\left\{g(\theta)=\frac1m\sum_{i=1}^mf(\theta_i): \|\bar{\mathbf{X}
-}^T\theta\|_\infty\leq
-m\lambda,\langle\theta,\mathbf{b}\rangle=0,\theta\in\mathcal{C}\right\}\]</span></p>
-<p>针对于逻辑回归的筛选规则可以表达为 <span
-class="math display">\[T(\theta_\lambda^*,\bar{\mathbf{x}
-}^j):=\max_{\theta\in\mathcal{A}_\lambda}|\langle\theta,\bar{\mathbf{x}
-}^j\rangle|&lt;m\lambda\Rightarrow[\beta_\lambda^*]_j=0.\]</span></p>
-<p>下面就是构建区域了，作者利用强凸性构建了一个理论上和实践上都很紧的球形区域
-<span
-class="math display">\[\|\theta_\lambda^*-\theta_{\lambda_0}^*\|_2^2\leq\frac
-m2\left[g\left(\frac\lambda{\lambda_0}\theta_{\lambda_0}^*\right)-g(\theta_{\lambda_0}^*)+\left(1-\frac\lambda{\lambda_0}\right)\langle\nabla
-g(\theta_{\lambda_0}^*),\theta_{\lambda_0}^*\rangle\right]\]</span>
-并结合其他的一些必要条件做出了部分约束，求出了筛选规则的闭式解，效果显著</p>
+src="https://img.picui.cn/free/2024/11/05/672a31185e980.png" srcset="/img/loading.gif" lazyload /></p>
+<p>分类问题目的是什么？从一堆瓜中找出来所有的好瓜，你用自己的模型找出来了一堆瓜，不过其中有好有坏<br />
+你找出来的瓜有多少是好瓜？由此定义了<strong>查准率
+P（precision）</strong><br />
+<span class="math display">\[P=\frac{TP}{TP+FP}\]</span>
+所有好瓜里面你挑出来了多少？由此定义了<strong>查全率 R（recall）&amp;
+召回率</strong> <span class="math display">\[R=\frac{TP}{TP+FN}\]</span>
+查准率和查全率是一对矛盾的度量.
+一般来说，查准率高时，查全率往往偏低；而查全率高时，查准率往往偏低.例如，若希望将好瓜尽可能多地选出来，
+则可通过增加选瓜的数量来实现，如果将所有西瓜都选上，那么所有的好瓜也必然都被选上了，但这样查准率就会较低；若希望选出的瓜中好瓜比例尽可能高，则可只挑选最有把握的瓜，但这样就难免会漏掉不少好瓜，使得查全率较低.通常只有在一些简单任务中，才可能使查全率和查准率都很高.</p>
+<p>我们可以画个图（其实就是收益曲线） <img
+src="https://img.picui.cn/free/2024/11/05/672a32883c348.png" srcset="/img/loading.gif" lazyload />
+怎么判断模型好坏？图中BC好判断，AB如何判断？<br />
+引入一个综合考虑查准率、查全率的性能度量：平衡点(Break-Event
+Point,简称BEP)，是查准率=查全率时的取值。这个值越大性能越好。</p>
+<p>但BEP还是过于简化了些，更常用的是F1度量，一个基于查准率与查全率的调和平均</p>
+<p><span class="math display">\[F1=\frac{2\times P\times
+R}{P+R}=\frac{2\times TP}{\text{样例总数}+TP-TN}\]</span></p>
+<p>若任务场景是对查重率或查准率某一个有更高要求，可以对二者加以不同的权重，即F1度量的一般形式——Fβ
+<span class="math display">\[F_{\beta}=\frac{(1+\beta^{2})\times P\times
+R}{(\beta^{2}\times P)+R}\]</span> 其中β&gt;
+0度量了查全率对查准率的相对重要性[VanRijsbergen, 1979]。β=
+1时退化为标准的F1; β&gt; 1时查全率有更大影响；β&lt;
+1时查准率有更大影响。</p>
+<h2 id="roc-与-auc">2.3.3 ROC 与 AUC</h2>
+<p>换了个说法让人一懵，细细一想只不过是另一种作图方式，定义<br />
+- 纵轴是好瓜的查全率（真正例率），即好瓜里面有多大比例被挑了出来<br />
+-
+横轴是坏瓜的查全率（假正例率），即坏瓜里面有多大比例被不小心挑出来了。</p>
+<p>画个图是这样的</p>
 <figure>
-<img src="https://img.picui.cn/free/2024/11/05/672a25b365af6.png" srcset="/img/loading.gif" lazyload
-alt="在这里插入图片描述" />
-<figcaption aria-hidden="true">在这里插入图片描述</figcaption>
+<img src="https://www.helloimg.com/i/2024/11/05/672a3580d8581.png" srcset="/img/loading.gif" lazyload
+alt="1730819590980.png" />
+<figcaption aria-hidden="true">1730819590980.png</figcaption>
 </figure>
-<p><img src="https://img.picui.cn/free/2024/11/05/672a25d6e2967.png" srcset="/img/loading.gif" lazyload
-alt="在这里插入图片描述" /> <img
-src="https://img.picui.cn/free/2024/11/05/672a25d6eeaf6.png" srcset="/img/loading.gif" lazyload
-alt="在这里插入图片描述" /></p>
+<p>最理想的情况肯定是坐标(0,1),好瓜全都挑出来了，坏瓜没有粗心选出来一个。同理最差情况是坐标(1,0).对角线实际上就是随机抽样。ROC围成的面积成为AUC，一般认为AUC越大模型效果越好</p>
+<h2 id="代价敏感错误率与代价曲线">2.3.4 代价敏感错误率与代价曲线</h2>
+<p>分类问题中的错误可以分为两种，不小心选了坏瓜，漏选了好瓜，有时候这两种错误我们更重视某一种，因此自然地为二者引入不同的cost权重
+<img src="https://www.helloimg.com/i/2024/11/05/672a374d524a3.png" srcset="/img/loading.gif" lazyload
+alt="1730820050659.png" /><br />
+如此一来，上面的ROC曲线就不管用了，考虑引入权重作图。<br />
+这一块不太好理解，我写一下个人的阐述<br />
+横轴为正例概率代价，其实是假设我们的模型就是随机取样，对总代价的归一化度量
+<span class="math display">\[P(+)cost=\frac{p\times cost_{01}}{p\times
+cost_{01}+(1-p)\times cost_{10}}\]</span>
+纵轴为运用了我们提出的模型之后，代价的归一化度量 <span
+class="math display">\[cost_{norm}=\frac{\mathrm{FNR}\times p\times
+cost_{01}+\mathrm{FPR}\times(1-p)\times cost_{10}}{p\times
+cost_{01}+(1-p)\times cost_{10}}\]</span>
+自然可以理解，某一点的坐标纵坐标小于横坐标才能说明模型是有效的，纵坐标越比横坐标小就越有效，为此取无穷条曲线的下包络，围城面积越小则认为模型效果越好。个人感觉此处应该是有严格的数学证明推导这些统计意义。</p>
+<h1 id="比较检验">2.4比较检验</h1>
+<p>我挺不喜欢这一部分的内容，这也是统计学总是被机器学习大佬诟病的一点--花了太多精力在各种推断与检验上，不过作为学生基本知识该有还是得有。再此我只做简单的了解，写论文最后需要用的时候再学。</p>
+<p>统计假设检验(hypothesis
+test)为我们进行学习器性能比较提供了重要依据。</p>
+<p>为什么这么说？我们上面提出了很多度量模型效果的标准，倘若在某种标准下模型A的泛化效果比B好，我们就可以断言A这个模型一定在此任务中优于B吗？显然不是。在这个测试集上A优于B，换个测试集就说不定了。大千世界无奇不有。</p>
+<p>比较检验解决的就是这样的问题，我们用统计学方法探讨A的泛化性能是否在统计意义上优于B？以及这个结论的把握有多大。</p>
+<h2 id="假设检验">2.4.1假设检验</h2>
+<p>及其不常用，而且周的阐述疑似有误，这里贴一个讨论博客 <a
+target="_blank" rel="noopener" href="https://www.zhihu.com/question/287895170">周志华《机器学习》38页关于二项检验的公式(2.27)是否有误？7
+个回答 默认排序 politer politer 教师 49 人赞同了该回答</a></p>
+<h2 id="friedman检验与nemenyi后续检验">2.4.4
+Friedman检验与Nemenyi后续检验</h2>
+<p>交叉验证t检验和McNemar检验都是在一个数据集上比较两个算法的性能，而在很多时候，我们会在一组数据集上对多个算法进行比较.当有多个算法参与比较时，这时候可以使用基于算法排序的
+Friedman 检验。</p>
+<h1 id="方差与偏差">2.5方差与偏差</h1>
+<p>泛化误差可分解为偏差、方差与噪声之和： <span
+class="math display">\[E(f;D)=bias^2\left(\boldsymbol{x}\right)+var\left(\boldsymbol{x}\right)+\varepsilon^2\]</span></p>
+<h4 id="偏差bias">偏差（Bias）</h4>
+<ul>
+<li><p><strong>含义</strong>：偏差衡量的是你的模型预测的平均值与真实房价之间的偏离程度。它反映了模型对数据的拟合能力。</p></li>
+<li><p><strong>例子</strong>：以房价预测为例子，如果你使用的模型非常简单（比如线性回归），它可能无法捕捉到房价与特征之间的复杂关系，导致预测结果普遍偏低或偏高。这就是高偏差的情况，意味着模型欠拟合，没有充分利用数据中的信息。</p></li>
+<li><p><strong>影响</strong>：高偏差会导致模型在训练集和测试集上的表现都不好，因为模型没有学习到数据的真实分布。</p></li>
+</ul>
+<h4 id="方差variance">方差（Variance）</h4>
+<ul>
+<li><p><strong>含义</strong>：方差衡量的是当你使用不同的训练集（但大小相同）来训练模型时，模型性能（如预测准确度）的变化程度。它反映了数据扰动对模型性能的影响。</p></li>
+<li><p><strong>例子</strong>：如果你使用的模型非常复杂（比如深度神经网络），它可能会过度拟合训练集，即记住训练集中的每一个细节，而不是学习到一般的规律。这样，当模型遇到新的测试数据时，它的预测结果可能会因为训练集的微小变化而大幅波动。这就是高方差的情况。</p></li>
+<li><p><strong>影响</strong>：高方差会导致模型在训练集上表现很好，但在测试集上表现很差，因为模型过于依赖训练集的具体细节，而不是数据的真实分布。</p></li>
+</ul>
+<h4 id="噪声noise">噪声（Noise）</h4>
+<ul>
+<li><p><strong>含义</strong>：噪声是数据本身固有的、无法通过学习算法来减少的误差。它表示了在当前任务上，任何学习算法所能达到的期望泛化误差的下界。</p></li>
+<li><p><strong>例子</strong>：在房价预测中，噪声可能来自于房屋价格的随机波动、数据收集过程中的误差、或者某些无法量化的特征（如房屋的“风水”好坏）。这些因素都会导致房价的不确定性，使得即使是最优的模型也无法完全准确地预测房价。</p></li>
+<li><p><strong>影响</strong>：噪声限制了模型性能的上限。无论模型多么复杂或精细，它都无法超越噪声所设定的泛化误差下界。</p></li>
+</ul>
+<figure>
+<img src="https://www.helloimg.com/i/2024/11/05/672a3f51379fe.png" srcset="/img/loading.gif" lazyload
+alt="1730822103884.png" />
+<figcaption aria-hidden="true">1730822103884.png</figcaption>
+</figure>
 
                 
               </div>
@@ -455,12 +451,12 @@ alt="在这里插入图片描述" /></p>
     
       <span class="category-chain">
         
-  <a href="/categories/%E6%96%87%E7%8C%AE/" class="category-chain-item">文献</a>
+  <a href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" class="category-chain-item">机器学习</a>
   
   
     <span>></span>
     
-  <a href="/categories/%E6%96%87%E7%8C%AE/ml%E7%90%86%E8%AE%BA/" class="category-chain-item">ml理论</a>
+  <a href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E8%A5%BF%E7%93%9C%E4%B9%A6/" class="category-chain-item">西瓜书</a>
   
   
 
@@ -474,6 +470,13 @@ alt="在这里插入图片描述" /></p>
     </div>
   
   
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" class="print-no-link">#机器学习</a>
+      
+    </div>
+  
 </div>
 
 
@@ -482,8 +485,8 @@ alt="在这里插入图片描述" /></p>
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>safe</div>
-      <div>http://example.com/2024/11/04/文献/safe-screening/safe/</div>
+      <div>西瓜书第二章</div>
+      <div>http://example.com/2024/11/05/机器学习/西瓜书/第二章/</div>
     </div>
     <div class="license-meta">
       
@@ -495,7 +498,7 @@ alt="在这里插入图片描述" /></p>
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2024年11月4日</div>
+          <div>2024年11月5日</div>
         </div>
       
       
@@ -527,18 +530,12 @@ alt="在这里插入图片描述" /></p>
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2024/11/04/%E6%96%87%E7%8C%AE/safe-screening/GAP/" title="GAP">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">GAP</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2024/11/04/%E7%AE%97%E6%B3%95/%E5%9F%BA%E7%A1%80%E6%A8%A1%E7%89%88/" title="基础算法模版">
-                        <span class="hidden-mobile">基础算法模版</span>
+                      <a href="/2024/11/04/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E8%A5%BF%E7%93%9C%E4%B9%A6/%E7%AC%AC%E4%B8%80%E7%AB%A0/" title="西瓜书第一章">
+                        <span class="hidden-mobile">西瓜书第一章</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
