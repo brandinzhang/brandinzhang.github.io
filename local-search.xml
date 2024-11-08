@@ -4,6 +4,85 @@
   
   
   <entry>
+    <title>西瓜书第四章</title>
+    <link href="/2024/11/08/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E8%A5%BF%E7%93%9C%E4%B9%A6/%E7%AC%AC%E5%9B%9B%E7%AB%A0/"/>
+    <url>/2024/11/08/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E8%A5%BF%E7%93%9C%E4%B9%A6/%E7%AC%AC%E5%9B%9B%E7%AB%A0/</url>
+    
+    <content type="html"><![CDATA[<h1 id="基本流程">4.1基本流程</h1><p>决策树模仿人类的决策处理机制，利用树结构进行预测</p><h1 id="划分选择">4.2划分选择</h1><p>决策树的关键在于划分选择，也就是选择合适的划分标准，使得树的节点包含类别的纯度越来越高</p><p>下面给出几种常用的划分依据 ## 4.2.1 信息增益引入信息熵来度量样本集合的纯度，假设当前样本集合<spanclass="math inline">\(D\)</span>中第<spanclass="math inline">\(k\)</span>类样本所占的比例为<spanclass="math inline">\(p_k\)</span>,则定义此集合的信息熵为 <spanclass="math display">\[\operatorname{Ent}(D)=-\sum_{k=1}^{|\mathcal{Y}|}p_k\log_2p_k.\]</span> 利用属性<spanclass="math inline">\(a\)</span>对样本进行划分之后的信息增益定义为 <spanclass="math display">\[\mathrm{Gain}(D,a)=\mathrm{Ent}(D)-\sum_{v=1}^V\frac{|D^v|}{|D|}\mathrm{Ent}(D^v)\]</span>## 4.2.2 增益率有了信息增益还不够，如果我们将类似于编号之类的东西也作为划分依据，他的信息增益可以很大，但是不具有泛化能力，也就是说信息增益对可以取值的数目较多的属性有偏好，为了解决这个问题，引入信息增益率<span class="math display">\[\text{Gainratio}(D,a)=\frac{\mathrm{Gain}(D,a)}{\mathrm{IV}(a)},\\\text{其中}\\\mathrm{IV}(a)=-\sum_{v=1}^{V}\frac{|D^{v}|}{|D|}\log_{2}\frac{|D^{v}|}{|D|}\]</span>称为属性a的固有值，a的可取值越多，固有值越大，增益率对分类效果好同时可取值数目少的特征有所偏好</p><h2 id="基尼系数">4.2.3基尼系数</h2><p>定义基尼值为随机抽取两个值，类别标记不一致的概率 <spanclass="math display">\[\begin{aligned}\operatorname{Gini}(D)&amp;=\sum_{k=1}^{|\mathcal{Y}|}\sum_{k^{\prime}\neqk}p_{k}p_{k^{\prime}}\\&amp;=1-\sum_{k=1}^{|\mathcal{Y}|}p_{k}^{2}.\end{aligned}\]</span> 相应的，定义划分之后的基尼系数 <spanclass="math display">\[\mathrm{Gini_index}(D,a)=\sum_{v=1}^V\frac{|D^v|}{|D|_.}\mathrm{Gini}(D^v)\]</span>我们选取使得基尼系数最小的特征作为划分依据</p><h1 id="剪枝">4.3剪枝</h1><p>剪枝的思路大致分为两种，预剪枝，后剪枝，剪枝是决策树防止过拟合的主要方法</p><h1 id="连续与缺失值">4.4 连续与缺失值</h1><h2 id="如何处理连续值">4.4.1 如何处理连续值？</h2><p>连续值的可取值数目不再有限，我们一般把出现的属性数值排序，然后利用二分或者什么其他方法搜索使得信息增益最大的分界点。<span class="math display">\[\begin{aligned}\mathrm{Gain}(D,a)&amp; =\max_{t\in T_{a}} \mathrm{Gain}(D,a,t) \\&amp;=\max_{t\in T_a}\mathrm{Ent}(D)-\sum_{\lambda\in\{-,+\}}\frac{|D_t^\lambda|}{|D|}\mathrm{Ent}(D_t^\lambda)\end{aligned}\]</span></p><h2 id="如何处理缺失值">4.4.2 如何处理缺失值？</h2><p>如何在属性值缺失的情况下进行数据划分？</p><p>核心的处理思路就是用无缺样本代替总体来进行计算</p><h1 id="多变量决策树">4.5多变量决策树</h1><p>多变量决策树 (multivariate decision tree) 的非叶结点是形如<spanclass="math inline">\(\sum_{i=1}^dw_ia_i=t\)</span>的线性分类器，不再仅对某个属性，而是对所有属性的线性组合进行测试，其中<spanclass="math inline">\(w_i,t\)</span>都可以通过样本学习得到</p>]]></content>
+    
+    
+    <categories>
+      
+      <category>机器学习</category>
+      
+      <category>西瓜书</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>机器学习</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>西瓜书第三章</title>
+    <link href="/2024/11/08/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E8%A5%BF%E7%93%9C%E4%B9%A6/%E7%AC%AC%E4%B8%89%E7%AB%A0/"/>
+    <url>/2024/11/08/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E8%A5%BF%E7%93%9C%E4%B9%A6/%E7%AC%AC%E4%B8%89%E7%AB%A0/</url>
+    
+    <content type="html"><![CDATA[<h1 id="基本形式">3.1基本形式</h1><p><spanclass="math display">\[f(\boldsymbol{x})=\boldsymbol{w}^\mathrm{T}\boldsymbol{x}+b\]</span></p><p>线性模型形式简单，易于建模，蕴含着机器学习中重要的思想，而且可解释性强，</p><h1 id="线性回归">3.2线性回归</h1><p><span class="math display">\[\begin{aligned}(w^*,b^*)&amp;=\arg\min_{(w,b)}\sum_{i=1}^m\left(f\left(x_i\right)-y_i\right)^2 \\&amp;=\arg\min_{(w,b)}\sum_{i=1}^m(y_i-wx_i-b)^2 .\end{aligned}\]</span></p><p>求导之后可以得到简单的封闭解，拓展到矩阵形式也是一样的。</p><p>任何函数内套上一层线性回归，称之为广义线性模型 <spanclass="math display">\[y=g^{-1}(\boldsymbol{w}^\mathrm{T}\boldsymbol{x}+b)\]</span></p><h1 id="对数几率回归">3.3对数几率回归</h1><p><spanclass="math display">\[y=\frac1{1+e^{-(\boldsymbol{w}^\mathrm{T}\boldsymbol{x}+b)}}.\]</span></p><p>这是sigmod函数，一般取y=0.5位分界判断点，上一个式子可以改写成 <spanclass="math display">\[\ln\fracy{1-y}=\boldsymbol{w}^\mathrm{T}\boldsymbol{x}+b .\]</span>也就是说我们在用线性回归去学习对数几率，显然有 <spanclass="math display">\[p(y=1\mid\boldsymbol{x})=\frac{e^{\boldsymbol{w}^\mathrm{T}\boldsymbol{x}+b}}{1+e^{\boldsymbol{w}^\mathrm{T}\boldsymbol{x}+b}},\\p(y=0\mid\boldsymbol{x})=\frac{1}{1+e^{\boldsymbol{w}^\mathrm{T}\boldsymbol{x}+b}}.\]</span> 用极大似然法、或者对偶理论，可以得到需要去最优化的函数 <spanclass="math display">\[\ell(\boldsymbol{\beta})=\sum_{i=1}^m\left(-y_i\boldsymbol{\beta}^\mathrm{T}\hat{\boldsymbol{x}}_i+\ln\left(1+e^{\boldsymbol{\beta}^\mathrm{T}\hat{\boldsymbol{x}}_i}\right)\right)\]</span></p><h1 id="线性判别">3.4线性判别</h1><p>LDA 的思想非常朴素：给定训练样例集，设法将样例投影到一条直线上，使得同类样例的投影点尽可能接近、异类样例的投影点尽可能远离；在对新样本进行分类时，将其投影到同样的这条直线上，再根据投影点的位置来确定新样本的类别.图3.3 给出了一个二维示意图.</p><p><img src="https://www.freeimg.cn/i/2024/11/06/672b878797fb2.webp"alt="1730905988970.png" /> 具体的推导可以参见暑期的统计机器学习笔记</p><h1 id="多分类学习">3.5多分类学习</h1><ul><li>一对一（OvO）：将N个类别两两配对，产生<spanclass="math inline">\(N*(N-1)/2\)</span>个二分类任务，最终的结果通过每个二分类器投票产生</li><li>一对其余（OvR）：将一个类别作为正例，将其他类别作为反例来训练N个分类器，最终结果由置信度最大的一个分类器决定</li><li>多对多（MvM）：常用纠错输出码方法（ECOC），训练时编码，对N个类别进行M次划分，训练M个二分类器。测试时解码，使用M个分类器对其预测，将生成的编码与每个类别的编码比较，距离最小的即为预测结果</li></ul><figure><img src="https://www.freeimg.cn/i/2024/11/06/672b8bcb6690b.webp"alt="1730907077041.png" /><figcaption aria-hidden="true">1730907077041.png</figcaption></figure><h1 id="类别不平衡问题">3.6类别不平衡问题</h1><p>常用三种解决方法</p><ul><li>欠采样 (undersampling):也称下采样，去除一些比例高的数据</li><li>过采样 (oversampling):也称上采样，通过插值增加一些比例少的数据</li><li>阈值移动 (threshold-moving):用原始训练集训练，但在预测时令<spanclass="math inline">\(\frac{y^{\prime}}{1-y^{\prime}}=\frac{y}{1-y}\times\frac{\text{反例数量}}{\text{正例数量}}\)</span></li></ul><p>第三条的意义在于，我们往往假设训练集是真实样本的无偏采样，因此判断阈值应当是大于观测几率的。</p>]]></content>
+    
+    
+    <categories>
+      
+      <category>机器学习</category>
+      
+      <category>西瓜书</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>机器学习</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>2.数据结构模版</title>
+    <link href="/2024/11/06/%E7%AE%97%E6%B3%95/2%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E6%A8%A1%E7%89%88/"/>
+    <url>/2024/11/06/%E7%AE%97%E6%B3%95/2%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E6%A8%A1%E7%89%88/</url>
+    
+    <content type="html"><![CDATA[<h1 id="链表">链表</h1><h2 id="单链表">单链表</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-type">const</span> <span class="hljs-type">int</span> N = <span class="hljs-number">1e5</span>+<span class="hljs-number">10</span>;<br><span class="hljs-type">int</span> e[N],en[N],idx=<span class="hljs-number">1</span>,head=<span class="hljs-number">-1</span>;<br><span class="hljs-comment">// e[]存元素data，en[]存元素指向的元素的脚标,idx为当前开辟到的内存脚标，head始终指向头结点的指针</span><br><span class="hljs-comment">//更新头结点</span><br><span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">add_to_head</span><span class="hljs-params">(<span class="hljs-type">int</span> x)</span></span><br><span class="hljs-function"></span>&#123;<br>    en[idx]=head;<br>    e[idx]=x;<br>    head=idx;<br>    idx++;<br>&#125;<br><span class="hljs-comment">//删除第k个插入的数后面的数</span><br><span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">del</span><span class="hljs-params">(<span class="hljs-type">int</span> k)</span></span><br><span class="hljs-function"></span>&#123;<br>    en[k]=en[en[k]];<br>&#125;<br><span class="hljs-comment">//第k个数后面插入一个数</span><br><span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">insert</span><span class="hljs-params">(<span class="hljs-type">int</span> k,<span class="hljs-type">int</span> x)</span></span><br><span class="hljs-function"></span>&#123;<br>    e[idx]=x;<br>    en[idx]=en[k];<br>    en[k]=idx;<br>    idx++;<br>&#125;<br></code></pre></td></tr></table></figure><h2 id="双链表">双链表</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs c++"><br><br><br><br><br><br></code></pre></td></tr></table></figure>]]></content>
+    
+    
+    <categories>
+      
+      <category>算法</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>算法竞赛</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>西瓜书第二章</title>
     <link href="/2024/11/05/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E8%A5%BF%E7%93%9C%E4%B9%A6/%E7%AC%AC%E4%BA%8C%E7%AB%A0/"/>
     <url>/2024/11/05/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E8%A5%BF%E7%93%9C%E4%B9%A6/%E7%AC%AC%E4%BA%8C%E7%AB%A0/</url>
@@ -100,7 +179,7 @@
   
   
   <entry>
-    <title>基础算法模版</title>
+    <title>1.基础算法模版</title>
     <link href="/2024/11/04/%E7%AE%97%E6%B3%95/%E5%9F%BA%E7%A1%80%E6%A8%A1%E7%89%88/"/>
     <url>/2024/11/04/%E7%AE%97%E6%B3%95/%E5%9F%BA%E7%A1%80%E6%A8%A1%E7%89%88/</url>
     
@@ -922,9 +1001,9 @@
     
     <tags>
       
-      <tag>c++</tag>
-      
       <tag>算法竞赛</tag>
+      
+      <tag>c++</tag>
       
     </tags>
     
@@ -1005,9 +1084,9 @@
     
     <tags>
       
-      <tag>c++</tag>
-      
       <tag>算法竞赛</tag>
+      
+      <tag>c++</tag>
       
     </tags>
     
@@ -1034,9 +1113,9 @@
     
     <tags>
       
-      <tag>c++</tag>
-      
       <tag>算法竞赛</tag>
+      
+      <tag>c++</tag>
       
     </tags>
     
