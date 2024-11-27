@@ -54,19 +54,6 @@
   
   
   <entry>
-    <title></title>
-    <link href="/2024/11/21/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/dasd/"/>
-    <url>/2024/11/21/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/dasd/</url>
-    
-    <content type="html"><![CDATA[<p>老师您好，我是之前在暑假期间曾与您沟通过的信电学院学生，目前升至大二年级。自上次与您交流以来，我意识到自己在步入科研之前，尚需巩固许多<strong>理论知识</strong>，并加强<strong>文献阅读</strong>。为此，在过去的四个月里，我充分利用课余时间进行相关学习，现将我的学习进展向您汇报：</p><h2 id="学习进度">学习进度</h2><p><strong>理论知识学习</strong>：</p><ol type="1"><li><p><strong>数学</strong>：我系统地学习了必要的数学知识，并做了对应的latex笔记。我通过中科大的网课学习了凸优化。结合我们课题组的研究方向，我特别重视了对偶理论与技巧的研习，并补充了矩阵分析、矩阵求导以及概率论等相关知识，期望为后续研究打下基础。</p></li><li><p><strong>机器学习理论</strong>：我研读了机器学习的经典书籍和许多博客文章，系统学习了许多机器学习知识。包括逻辑回归、支持向量机（SVM）、决策树、正则化技术、聚类分析、降维方法等核心模型与思想。</p></li><li><p><strong>代码</strong>：通过Python，我实现了部分经典机器学习算法，并在不同数据集上进行了实验验证，加深了我对各种算法的理解与掌握。</p></li></ol><p><strong>文献</strong>：</p><p>开学后近两个多月来，由于课程实在太多，周一到周五白天几乎天天满课，所以我学习速度有点放缓，不过我仍利用每日晚上的空闲时间进行了文献阅读与总结。<br />结合我们课题组的方向，我集中研究了“安全筛选”（SafeScreening）系列文章，按照我理解的该领域的发展历程（可能并不准确），目前我精选并阅读了以下几篇关键文献：- 1 SAFE方法：《Safe Feature Elimination for the LASSO and SparseSupervised Learning Problems》 - 2 stong rules：快速但是不安全的改进:《Strong Rules for Discarding Predictors in Lasso-type Problems》 - 3slores：利用函数强凸性对logistics回归进行更紧的筛选：《A Safe ScreeningRule for Sparse Logistic》Regression - 4 Dynamic Screening首次提出动态筛选的思想，把筛选嵌入优化过程中 《A Dynamic ScreeningPrinciple for the Lasso》 - 5GAP：利用dynamic的筛选思想，基于对偶间隙构造安全区域，同时把筛选过程嵌入了sovler求解过程，并保证了安全区域的收敛：《Mindthe duality gap: safer rules for the Lasso》</p><p>后面我打算继续深入阅读《GAP Safe screening rules for sparsemulti-task and multi-classmodels》<br />以及我们组的的那篇TPAMI 《A Safe Feature Elimination Rule for<spanclass="math inline">\(L_1\)</span>-Regularized Logistic Regression》</p><p><strong>代码复现</strong>：</p><p>在代码复现论文方面，我刚开始进行尝试，前几天我着手复现了Slores算法，并编写了完整的Python代码，在libsvm的colon这一高维数据集上进行了初步测试，不过结果不太符合预期。面对实验中遇到的问题，我初步分析了可能的原因，并正着手优化代码，考虑可能存在的python语言本身的的局限性，我计划后面用用MATLAB重新实现代码，</p><h2 id="个人想法关于国北创">个人想法，关于国北创</h2><p>通过这段时间的学习，我对本领域及相关领域（多任务学习，一些用到lasso的模型）产生了诸多想法与问题，真诚希望能与您进一步交流，得到您的指导。同时，随着国北创项目申请的临近，我期望能够与您沟通相关事宜，加入您的课题组，继续深化研究，交流相关课题，得到您的指点。</p><p>期待您的回复与指导，谢谢！</p><p>附：<br />个人情况： -我在大一两学期的总绩点为3.94/4.00,信电大类排名1/208，分流后选择了人工智能专业，排名1/35-数理相关课程：我在《高数A上》,《线性代数》,《大学物理A》等数理课程中取得了A+的成绩，《高数A》下取得了A的成绩-编程相关课程：我在《程序设计A》中取得A+(满分)，在《面向对象的程序设计》中取得A+，我对c语言和c++很熟悉，对python比较熟悉，对matlab和cython也进行过学习。-我英语四级考试成绩为587，为了能更好的阅读论文，我选修了上学期春季的《科技英语阅读》，取得了A+的成绩</p>]]></content>
-    
-    
-    
-  </entry>
-  
-  
-  
-  <entry>
     <title>template2:数据结构</title>
     <link href="/2024/11/09/%E7%AE%97%E6%B3%95/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E6%A8%A1%E7%89%88/"/>
     <url>/2024/11/09/%E7%AE%97%E6%B3%95/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E6%A8%A1%E7%89%88/</url>
