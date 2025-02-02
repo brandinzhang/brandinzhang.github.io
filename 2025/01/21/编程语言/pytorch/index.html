@@ -16,24 +16,24 @@
   <meta name="author" content="bradin">
   <meta name="keywords" content="">
   
-    <meta name="description" content="2  3  4  5  6  7  8  9  10  11  12  13  14">
+    <meta name="description" content="前言：把某个环境引入jupyter的方法 跳转 https:&#x2F;&#x2F;blog.csdn.net&#x2F;Ever_____&#x2F;article&#x2F;details&#x2F;136596213 # 加载数据 Dataset类 把文件转化为torch的数据集对象，类似于写一个脚本 123456789101112131415161718192021222324from torch.utils.data import Dat">
 <meta property="og:type" content="article">
-<meta property="og:title" content="高数梳理">
-<meta property="og:url" content="http://example.com/2024/06/06/%E6%95%B0%E5%AD%A6/%E9%AB%98%E6%95%B0%E7%AC%94%E8%AE%B0/index.html">
+<meta property="og:title" content="pytorch">
+<meta property="og:url" content="http://example.com/2025/01/21/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/pytorch/index.html">
 <meta property="og:site_name" content="鸭蛋仙人的博客">
-<meta property="og:description" content="2  3  4  5  6  7  8  9  10  11  12  13  14">
+<meta property="og:description" content="前言：把某个环境引入jupyter的方法 跳转 https:&#x2F;&#x2F;blog.csdn.net&#x2F;Ever_____&#x2F;article&#x2F;details&#x2F;136596213 # 加载数据 Dataset类 把文件转化为torch的数据集对象，类似于写一个脚本 123456789101112131415161718192021222324from torch.utils.data import Dat">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2024-06-05T16:05:03.654Z">
-<meta property="article:modified_time" content="2024-06-08T15:27:41.621Z">
+<meta property="article:published_time" content="2025-01-21T11:31:30.464Z">
+<meta property="article:modified_time" content="2025-01-21T14:21:10.783Z">
 <meta property="article:author" content="bradin">
-<meta property="article:tag" content="数学">
+<meta property="article:tag" content="c++">
 <meta name="twitter:card" content="summary_large_image">
   
   
     <meta name="referrer" content="no-referrer-when-downgrade">
   
   
-  <title>高数梳理 - 鸭蛋仙人的博客</title>
+  <title>pytorch - 鸭蛋仙人的博客</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -211,7 +211,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="高数梳理"></span>
+            <span id="subtitle" data-typed-text="pytorch"></span>
           
         </div>
 
@@ -222,8 +222,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2024-06-06 00:05" pubdate>
-          2024年6月6日 凌晨
+        <time datetime="2025-01-21 19:31" pubdate>
+          2025年1月21日 晚上
         </time>
       </span>
     
@@ -234,7 +234,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          0 字
+          152 字
         
       </span>
     
@@ -245,7 +245,7 @@
         
         
         
-          1 分钟
+          2 分钟
         
       </span>
     
@@ -290,59 +290,33 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">高数梳理</h1>
+            <h1 id="seo-header">pytorch</h1>
             
             
               <div class="markdown-body">
                 
-                <p>2 <a
-target="_blank" rel="noopener" href="https://www.freeimg.cn/i/2024/06/06/66608ee9e223e.jpg"><img
-src="https://www.freeimg.cn/i/2024/06/06/66608ee9e223e.jpg" srcset="/img/loading.gif" lazyload
-alt="1" /></a> 3 <a
-target="_blank" rel="noopener" href="https://www.freeimg.cn/i/2024/06/06/66608eea705d2.jpg"><img
-src="https://www.freeimg.cn/i/2024/06/06/66608eea705d2.jpg" srcset="/img/loading.gif" lazyload
-alt="1836d142572eb6f93f48cc9d6973289.jpg" /></a> 4 <a
-target="_blank" rel="noopener" href="https://www.freeimg.cn/i/2024/06/06/66608eea93f67.jpg"><img
-src="https://www.freeimg.cn/i/2024/06/06/66608eea93f67.jpg" srcset="/img/loading.gif" lazyload
-alt="6c9cf4b1ee3af26709ca0557dcc85ef.jpg" /></a></p>
-<p>5 <a
-target="_blank" rel="noopener" href="https://www.freeimg.cn/i/2024/06/06/66608eea9860b.jpg"><img
-src="https://www.freeimg.cn/i/2024/06/06/66608eea9860b.jpg" srcset="/img/loading.gif" lazyload
-alt="53c308f467bcd4c5e659a60d388add3.jpg" /></a></p>
-<p>6 <a
-target="_blank" rel="noopener" href="https://www.freeimg.cn/i/2024/06/06/66608eea9f75b.jpg"><img
-src="https://www.freeimg.cn/i/2024/06/06/66608eea9f75b.jpg" srcset="/img/loading.gif" lazyload
-alt="e13d54a2a0e1f9d099cea3101a9174a.jpg" /></a></p>
-<p>7 <a
-target="_blank" rel="noopener" href="https://www.freeimg.cn/i/2024/06/06/66608eea94177.jpg"><img
-src="https://www.freeimg.cn/i/2024/06/06/66608eea94177.jpg" srcset="/img/loading.gif" lazyload
-alt="71eec761c59643b40e810d220d983dd.jpg" /></a> 8 <a
-target="_blank" rel="noopener" href="https://www.freeimg.cn/i/2024/06/06/66608eeacb04f.jpg"><img
-src="https://www.freeimg.cn/i/2024/06/06/66608eeacb04f.jpg" srcset="/img/loading.gif" lazyload
-alt="42fb1f77ab610a81d5e3e4056f4c455.jpg" /></a> 9 <a
-target="_blank" rel="noopener" href="https://www.freeimg.cn/i/2024/06/06/66608eeb58001.jpg"><img
-src="https://www.freeimg.cn/i/2024/06/06/66608eeb58001.jpg" srcset="/img/loading.gif" lazyload
-alt="4a468a547d2b3f0fa5c3757bfbe4244.jpg" /></a></p>
-<p>10 <a
-target="_blank" rel="noopener" href="https://www.freeimg.cn/i/2024/06/06/66608eec66630.jpg"><img
-src="https://www.freeimg.cn/i/2024/06/06/66608eec66630.jpg" srcset="/img/loading.gif" lazyload
-alt="f9821774194806e45c39a9732642db7.jpg" /></a></p>
-<p>11 <a
-target="_blank" rel="noopener" href="https://www.freeimg.cn/i/2024/06/06/66608eec5f917.jpg"><img
-src="https://www.freeimg.cn/i/2024/06/06/66608eec5f917.jpg" srcset="/img/loading.gif" lazyload
-alt="de3b599548e8ca4dc7c7ed60fcf4f15.jpg" /></a></p>
-<p>12 <a
-target="_blank" rel="noopener" href="https://www.freeimg.cn/i/2024/06/06/66608eec67a6a.jpg"><img
-src="https://www.freeimg.cn/i/2024/06/06/66608eec67a6a.jpg" srcset="/img/loading.gif" lazyload
-alt="cf49990ec82d312662c3104115227cc.jpg" /></a></p>
-<p>13 <a
-target="_blank" rel="noopener" href="https://www.freeimg.cn/i/2024/06/06/66608eec5b8a8.jpg"><img
-src="https://www.freeimg.cn/i/2024/06/06/66608eec5b8a8.jpg" srcset="/img/loading.gif" lazyload
-alt="2213487e5c821da6744d2d85dbebea5.jpg" /></a></p>
-<p>14 <a
-target="_blank" rel="noopener" href="https://www.freeimg.cn/i/2024/06/06/66608eec4dfff.jpg"><img
-src="https://www.freeimg.cn/i/2024/06/06/66608eec4dfff.jpg" srcset="/img/loading.gif" lazyload
-alt="5c58acbb0eb0c4f3ce7849480d9d7a9.jpg" /></a></p>
+                <p>前言：把某个环境引入jupyter的方法 <a
+target="_blank" rel="noopener" href="https://blog.csdn.net/leoound/article/details/137928032">跳转</a></p>
+<p><a
+target="_blank" rel="noopener" href="https://blog.csdn.net/Ever_____/article/details/136596213">https://blog.csdn.net/Ever_____/article/details/136596213</a>
+# 加载数据</p>
+<h2 id="dataset类">Dataset类</h2>
+<p>把文件转化为torch的数据集对象，类似于写一个脚本 <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><code class="hljs py"><span class="hljs-keyword">from</span> torch.utils.data <span class="hljs-keyword">import</span> Dataset<br><span class="hljs-keyword">import</span> os<br><span class="hljs-keyword">from</span> PIL <span class="hljs-keyword">import</span> Image<br><span class="hljs-keyword">class</span> <span class="hljs-title class_">MyDataset</span>(<span class="hljs-title class_ inherited__">Dataset</span>):<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__init__</span>(<span class="hljs-params">self,root_dir,label_dir</span>):<br>       self.root_dir = root_dir<br>       self.label_dir = label_dir<br>       self.path = os.path.join(self.root_dir,self.label_dir)<br>       <span class="hljs-comment">#返回的是文件和子文件夹的名字列表。</span><br>       self.img_list = os.listdir(self.path)<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__getitem__</span>(<span class="hljs-params">self,idx</span>):<br>         img_name = self.img_list[idx]<br>         img_item_path = os.path.join(self.root_dir,self.label_dir,img_name)<br>         img = Image.<span class="hljs-built_in">open</span>(img_item_path)<br>         label = self.label_dir<br>         <span class="hljs-keyword">return</span> img, label<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__len__</span>(<span class="hljs-params">self</span>):<br>       <span class="hljs-keyword">return</span> <span class="hljs-built_in">len</span>(self.img_list)<br>   <br>root_dir = <span class="hljs-string">&#x27;dataset/train&#x27;</span><br>ants_lavel_dir = <span class="hljs-string">&#x27;ants&#x27;</span><br>bees_label_dir = <span class="hljs-string">&#x27;bees&#x27;</span><br>ants_dataset = MyDataset(root_dir,ants_lavel_dir)<br>bees_dataset = MyDataset(root_dir,bees_label_dir)<br></code></pre></td></tr></table></figure></p>
+<h2 id="dataloader类">Dataloader类</h2>
+<h1 id="搭建模型">搭建模型</h1>
+<h2 id="nn.module类">nn.Module类</h2>
+<p>常用的的包torch.nn<br />
+神经网络的基类Module，定义的模型都需要集成该类nn.Module<br />
+自己定义的模型需要实现__init__和forward函数<br />
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs py"><span class="hljs-keyword">import</span> torch<br><span class="hljs-keyword">from</span> torch <span class="hljs-keyword">import</span> nn<br><span class="hljs-keyword">class</span> <span class="hljs-title class_">Mynet</span>(nn.Module):<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__init__</span>(<span class="hljs-params">self</span>):<br>        <span class="hljs-built_in">super</span>().__init__()<br>        <br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">forward</span>(<span class="hljs-params">self, <span class="hljs-built_in">input</span></span>):<br>        output = <span class="hljs-built_in">input</span> +<span class="hljs-number">1</span><br>        <span class="hljs-keyword">return</span> output<br>net = Mynet()<br>x = torch.tensor(<span class="hljs-number">1.0</span>)<br>myout = net(x)<br><span class="hljs-built_in">print</span>(myout)<br></code></pre></td></tr></table></figure></p>
+<h2 id="网络设计">网络设计</h2>
+<h3 id="线性连接层">线性连接层</h3>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs py"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Mynet</span>(nn.Module):<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__init__</span>(<span class="hljs-params">self</span>):<br>        <span class="hljs-comment"># 调用父类初始化方法</span><br>        <span class="hljs-built_in">super</span>(Mynet,self).__init__()<br>        <span class="hljs-comment"># 定义一个全连接层，将输入的 196608 个特征映射到 10 个输出特征</span><br>        self.linear1 = Linear(<span class="hljs-number">196608</span>,<span class="hljs-number">10</span>)<br>    <br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">forward</span>(<span class="hljs-params">self,<span class="hljs-built_in">input</span></span>):<br>        output = self.linear1(<span class="hljs-built_in">input</span>)<br>        <span class="hljs-keyword">return</span> output<br></code></pre></td></tr></table></figure>
+<h3 id="flatten">flatten</h3>
+<h3 id="卷积层">卷积层</h3>
+<h3 id="池化层">池化层</h3>
+<h2 id="损失函数">损失函数</h2>
+<h2 id="传播">传播</h2>
 
                 
               </div>
@@ -361,12 +335,12 @@ alt="5c58acbb0eb0c4f3ce7849480d9d7a9.jpg" /></a></p>
     
       <span class="category-chain">
         
-  <a href="/categories/%E6%95%B0%E5%AD%A6/" class="category-chain-item">数学</a>
+  <a href="/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/" class="category-chain-item">编程语言</a>
   
   
     <span>></span>
     
-  <a href="/categories/%E6%95%B0%E5%AD%A6/%E5%BE%AE%E7%A7%AF%E5%88%86/" class="category-chain-item">微积分</a>
+  <a href="/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/c/" class="category-chain-item">c++</a>
   
   
 
@@ -383,7 +357,7 @@ alt="5c58acbb0eb0c4f3ce7849480d9d7a9.jpg" /></a></p>
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/tags/%E6%95%B0%E5%AD%A6/" class="print-no-link">#数学</a>
+        <a href="/tags/c/" class="print-no-link">#c++</a>
       
     </div>
   
@@ -395,8 +369,8 @@ alt="5c58acbb0eb0c4f3ce7849480d9d7a9.jpg" /></a></p>
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>高数梳理</div>
-      <div>http://example.com/2024/06/06/数学/高数笔记/</div>
+      <div>pytorch</div>
+      <div>http://example.com/2025/01/21/编程语言/pytorch/</div>
     </div>
     <div class="license-meta">
       
@@ -408,7 +382,7 @@ alt="5c58acbb0eb0c4f3ce7849480d9d7a9.jpg" /></a></p>
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2024年6月6日</div>
+          <div>2025年1月21日</div>
         </div>
       
       
@@ -440,18 +414,12 @@ alt="5c58acbb0eb0c4f3ce7849480d9d7a9.jpg" /></a></p>
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2024/06/08/%E6%95%B0%E5%AD%A6/%E7%9F%A9%E9%98%B5%E5%88%86%E8%A7%A3%E6%96%B9%E6%B3%95/" title="矩阵分解">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">矩阵分解</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2024/04/16/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/c++%E7%AC%94%E8%AE%B0/" title="c++课堂笔记">
-                        <span class="hidden-mobile">c++课堂笔记</span>
+                      <a href="/2025/01/20/%E6%95%B0%E5%AD%A6%E5%BB%BA%E6%A8%A1/%E6%97%B6%E9%97%B4%E5%BA%8F%E5%88%97/" title="时间序列">
+                        <span class="hidden-mobile">时间序列</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
