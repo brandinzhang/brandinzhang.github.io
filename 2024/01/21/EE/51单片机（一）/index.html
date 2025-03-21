@@ -1,0 +1,734 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="bradin">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="51单片机简明笔记（一）这一系列blog主要用于记录51单片机的软件学习与部分硬件学习思路，保存代码与模版方便速查。 1概述我的单片机型号是STC89C52RC，具体参数可见下表推测这个所谓程序空间指的是ROM单片机简称MCU，是micro control unit的缩写，意为一个微型的计算机。中央处理器（CPU）：STC89C52RC的CPU是8051体系结构的核心，主要负责执行程序指令、数据处">
+<meta property="og:type" content="article">
+<meta property="og:title" content="51单片机（一）">
+<meta property="og:url" content="http://example.com/2024/01/21/EE/51%E5%8D%95%E7%89%87%E6%9C%BA%EF%BC%88%E4%B8%80%EF%BC%89/index.html">
+<meta property="og:site_name" content="鸭蛋仙人的博客">
+<meta property="og:description" content="51单片机简明笔记（一）这一系列blog主要用于记录51单片机的软件学习与部分硬件学习思路，保存代码与模版方便速查。 1概述我的单片机型号是STC89C52RC，具体参数可见下表推测这个所谓程序空间指的是ROM单片机简称MCU，是micro control unit的缩写，意为一个微型的计算机。中央处理器（CPU）：STC89C52RC的CPU是8051体系结构的核心，主要负责执行程序指令、数据处">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://picdl.sunbangyan.cn/2024/01/15/747d33ce26b484d42c937fde71bd1c7a.jpeg">
+<meta property="og:image" content="https://picdl.sunbangyan.cn/2024/01/15/5fdc915810ca20ce99127f1c0f21792d.jpeg">
+<meta property="og:image" content="https://picdl.sunbangyan.cn/2024/01/16/24c2211b60a8b325cca6b755f536ccf0.jpeg">
+<meta property="og:image" content="https://picst.sunbangyan.cn/2024/01/20/9b967632f843810ba216242f1ad8fa10.jpeg">
+<meta property="og:image" content="https://picst.sunbangyan.cn/2024/01/20/d3835b9eff193992e877281d12cf5d50.jpeg">
+<meta property="article:published_time" content="2024-01-21T09:17:04.000Z">
+<meta property="article:modified_time" content="2024-06-05T16:04:36.000Z">
+<meta property="article:author" content="bradin">
+<meta property="article:tag" content="51单片机">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://picdl.sunbangyan.cn/2024/01/15/747d33ce26b484d42c937fde71bd1c7a.jpeg">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>51单片机（一） - 鸭蛋仙人的博客</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.6","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>鸭蛋仙人</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/example/" target="_self">
+                <i class="iconfont icon-slack-fill"></i>
+                <span>example</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="51单片机（一）"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2024-01-21 17:17" pubdate>
+          2024年1月21日 下午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          1.3k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          11 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="busuanzi_container_page_pv" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="busuanzi_value_page_pv"></span> 次
+        </span>
+        
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">51单片机（一）</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="51单片机简明笔记（一）"><a href="#51单片机简明笔记（一）" class="headerlink" title="51单片机简明笔记（一）"></a>51单片机简明笔记（一）</h1><p>这一系列blog主要用于记录51单片机的软件学习与部分硬件学习思路，保存代码与模版方便速查。</p>
+<h2 id="1概述"><a href="#1概述" class="headerlink" title="1概述"></a>1概述</h2><p>我的单片机型号是STC89C52RC，具体参数可见下表<br><img src="https://picdl.sunbangyan.cn/2024/01/15/747d33ce26b484d42c937fde71bd1c7a.jpeg" srcset="/img/loading.gif" lazyload alt="查看参数"><br>推测这个所谓程序空间指的是ROM<br>单片机简称MCU，是micro control unit的缩写，意为一个微型的计算机。<br>中央处理器（CPU）：STC89C52RC的CPU是8051体系结构的核心，主要负责执行程序指令、数据处理、中断处理等任务。程序的编写使用C语言或汇编语言，通过编译器生成二进制可执行文件，然后通过下载工具将程序下载到STC89C52RC中。</p>
+<p>存储器（FLASH）：STC89C52RC具有64KB的Flash存储器，可以用来存储程序代码和数据。在编程时，需要将程序代码和数据存储到Flash中，以便单片机可以读取执行。</p>
+<p>存储器（RAM）：STC89C52RC具有256字节的RAM存储器，可以用来存储程序中的变量和中间结果。在编程时，需要定义变量并将其存储到RAM中，以便程序可以读写变量的值。</p>
+<p>定时器&#x2F;计数器（Timer）：STC89C52RC具有3个定时器&#x2F;计数器，可以用来产生定时中断、PWM波形输出等功能。在编程时，需要对定时器&#x2F;计数器进行初始化配置，并编写中断服务程序来处理定时中断。</p>
+<p>串口（UART）：STC89C52RC具有一个串口，可以用来进行与外部设备的通信。在编程时，需要对串口进行初始化配置，并编写发送和接收函数来进行数据的传输。</p>
+<p>IO口：STC89C52RC具有32个IO口，可以用来连接各种外部设备，如LED、LCD、按键、传感器等。在编程时，需要对IO口进行初始化配置，并编写IO口的读写函数来控制外部设备的状态。</p>
+<p>中断控制器（INT）：STC89C52RC具有中断控制器，可以用来管理各种中断源和中断服务程序。在编程时，需要对中断控制器进行初始化配置，并编写中断服务程序来处理中断事件。<br>原文链接：<a target="_blank" rel="noopener" href="https://blog.csdn.net/m0_61107092/article/details/130212554">https://blog.csdn.net/m0_61107092/article/details/130212554</a></p>
+<h2 id="2-LED灯相关"><a href="#2-LED灯相关" class="headerlink" title="2 LED灯相关"></a>2 LED灯相关</h2><p>基本思想  cpu控制寄存器（ram）控制高低电平</p>
+<h4 id="点亮一个led"><a href="#点亮一个led" class="headerlink" title="点亮一个led"></a>点亮一个led</h4><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;REGX52.H&gt;</span></span><br><span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span><br><span class="hljs-function"></span>&#123;<br>   P2=<span class="hljs-number">0xFE</span>;   <span class="hljs-comment">// 1111 1110</span><br>	<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h4 id="led闪烁-引入延时函数）"><a href="#led闪烁-引入延时函数）" class="headerlink" title="led闪烁(引入延时函数）"></a>led闪烁(引入延时函数）</h4><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;REGX52.H&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;INTRINS.H&gt;</span></span><br><br><span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">Delay100us</span><span class="hljs-params">()</span>		<span class="hljs-comment">//@11.0592MHz</span></span><br><span class="hljs-function"></span>&#123;<br>	<span class="hljs-type">unsigned</span> <span class="hljs-type">char</span> i, j;               <span class="hljs-comment">//用unsigned 为了节约内存。</span><br><br>	_nop_();<br>	_nop_();<br>	i = <span class="hljs-number">2</span>;<br>	j = <span class="hljs-number">15</span>;<br>	<span class="hljs-keyword">do</span><br>	&#123;<br>		<span class="hljs-keyword">while</span> (--j);<br>	&#125; <span class="hljs-keyword">while</span> (--i);<br>&#125;<br><span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span><br><span class="hljs-function"></span>&#123;<br>	<span class="hljs-keyword">while</span>(<span class="hljs-number">1</span>)<br>	&#123;<br>		P2=<span class="hljs-number">0xFE</span>;	<span class="hljs-comment">//1111 1110</span><br>		<span class="hljs-built_in">Delay500ms</span>();<br>		P2=<span class="hljs-number">0xFF</span>;	<span class="hljs-comment">//1111 1111</span><br>		<span class="hljs-built_in">Delay500ms</span>();<br>	&#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>流水灯等等也是同样的道理。在单片机中main函数执行完一遍不会退出，而是会循环，因此想要终止在某一处，可以在main函数中加入一个while死循环。</p>
+<h2 id="3-独立按键控制"><a href="#3-独立按键控制" class="headerlink" title="3 独立按键控制"></a>3 独立按键控制</h2><p>前置知识<br>1 控制八位灯中的某一位 采用这种写法<code>P2_i=0/1 </code>   i从0取到7 0为低电平，1为高电平。<br>2 看电路图可知按键接口断开时为1 按下时为2<br>3 按键按下的抖动导致电位并不是平整的，需要通过软件或硬件实现消抖。<br>消除抖动是重点研究对象<br><img src="https://picdl.sunbangyan.cn/2024/01/15/5fdc915810ca20ce99127f1c0f21792d.jpeg" srcset="/img/loading.gif" lazyload alt="消抖"></p>
+<h4 id="控制一个LED"><a href="#控制一个LED" class="headerlink" title="控制一个LED"></a>控制一个LED</h4><p><img src="https://picdl.sunbangyan.cn/2024/01/16/24c2211b60a8b325cca6b755f536ccf0.jpeg" srcset="/img/loading.gif" lazyload alt="位运算"></p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;REGX52.H&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;INTRINS.H&gt;</span></span><br><span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">Delay</span><span class="hljs-params">(<span class="hljs-type">unsigned</span> <span class="hljs-type">int</span> times)</span>		<span class="hljs-comment">//@11.0592MHz</span></span><br><span class="hljs-function"></span>&#123;<br>	<span class="hljs-keyword">while</span>(times)<br>	&#123;<br>		<span class="hljs-type">unsigned</span> <span class="hljs-type">char</span> i, j;<br><br>	_nop_();<br>	_nop_();<br>	_nop_();<br>	i = <span class="hljs-number">11</span>;<br>	j = <span class="hljs-number">190</span>;<br>	<span class="hljs-keyword">do</span><br>	&#123;<br>		<span class="hljs-keyword">while</span> (--j);<br>	&#125; <span class="hljs-keyword">while</span> (--i);<br>	   times--;<br>	&#125;<br>&#125;<br><span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span><br><span class="hljs-function"></span>&#123;<br>	<span class="hljs-keyword">if</span>(P3_1==<span class="hljs-number">0</span>)<br>	&#123;<br>		<br>		<span class="hljs-built_in">Delay</span>(<span class="hljs-number">20</span>);<br>		<span class="hljs-keyword">while</span>(P3_1==<span class="hljs-number">0</span>) <span class="hljs-built_in">Delay</span>(<span class="hljs-number">1</span>);    <span class="hljs-comment">//人手按下的速度是有限的，回弹也是如果判定还在按着按键，那么电位还不应该改变，继续截止。</span><br>		P2_0=~P2_0;<br>		<br>	&#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h4 id="独立按键控制LED移位"><a href="#独立按键控制LED移位" class="headerlink" title="独立按键控制LED移位"></a>独立按键控制LED移位</h4><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;REGX52.H&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;INTRINS.H&gt;</span></span><br><span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">Delay</span><span class="hljs-params">(<span class="hljs-type">unsigned</span> <span class="hljs-type">int</span> times)</span>		<span class="hljs-comment">//@11.0592MHz</span></span><br><span class="hljs-function"></span>&#123;<br>	<span class="hljs-keyword">while</span>(times)<br>	&#123;<br>		<span class="hljs-type">unsigned</span> <span class="hljs-type">char</span> i, j;<br><br>	_nop_();<br>	_nop_();<br>	_nop_();<br>	i = <span class="hljs-number">11</span>;<br>	j = <span class="hljs-number">190</span>;<br>	<span class="hljs-keyword">do</span><br>	&#123;<br>		<span class="hljs-keyword">while</span> (--j);<br>	&#125; <span class="hljs-keyword">while</span> (--i);<br>	   times--;<br>	&#125;<br>&#125;<br><span class="hljs-type">unsigned</span> <span class="hljs-type">char</span> LEDNum;<br><br><span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span><br><span class="hljs-function"></span>&#123;<br>	P2=~<span class="hljs-number">0x01</span>;				<br>	<span class="hljs-keyword">while</span>(<span class="hljs-number">1</span>)<br>	&#123;<br>		<span class="hljs-keyword">if</span>(P3_1==<span class="hljs-number">0</span>)			<br>		&#123;<br>			<span class="hljs-built_in">Delay</span>(<span class="hljs-number">20</span>);<br>			<span class="hljs-keyword">while</span>(P3_1==<span class="hljs-number">0</span>);<br>			<span class="hljs-built_in">Delay</span>(<span class="hljs-number">20</span>);<br>			<br>			LEDNum++;		<br>			<span class="hljs-keyword">if</span>(LEDNum&gt;=<span class="hljs-number">8</span>)	<br>				LEDNum=<span class="hljs-number">0</span>;<br>			P2=~(<span class="hljs-number">0x01</span>&lt;&lt;LEDNum);	<br>		&#125;<br>		<span class="hljs-keyword">if</span>(P3_0==<span class="hljs-number">0</span>)			<br>		&#123;<br>			<span class="hljs-built_in">Delay</span>(<span class="hljs-number">20</span>);<br>			<span class="hljs-keyword">while</span>(P3_0==<span class="hljs-number">0</span>);<br>			<span class="hljs-built_in">Delay</span>(<span class="hljs-number">20</span>);<br>			<br>			<span class="hljs-keyword">if</span>(LEDNum==<span class="hljs-number">0</span>)	<br>				LEDNum=<span class="hljs-number">7</span>;<br>			<span class="hljs-keyword">else</span>			<br>				LEDNum--;<br>			P2=~(<span class="hljs-number">0x01</span>&lt;&lt;LEDNum);	<br>		&#125;<br>	&#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h2 id="4-数码管显示"><a href="#4-数码管显示" class="headerlink" title="4 数码管显示"></a>4 数码管显示</h2><p>原理：参见 <a target="_blank" rel="noopener" href="https://blog.csdn.net/Curnane0_0/article/details/114024408">51单片机（三）数码管（超详细、必会！）_数码管abcdefg对应-CSDN博客</a></p>
+<h4 id="静态数码管显示数字"><a href="#静态数码管显示数字" class="headerlink" title="静态数码管显示数字"></a>静态数码管显示数字</h4><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;REGX52.H&gt;</span></span><br><br><br><span class="hljs-type">unsigned</span> <span class="hljs-type">char</span> NixieTable[]=&#123;<span class="hljs-number">0x3F</span>,<span class="hljs-number">0x06</span>,<span class="hljs-number">0x5B</span>,<span class="hljs-number">0x4F</span>,<span class="hljs-number">0x66</span>,<span class="hljs-number">0x6D</span>,<span class="hljs-number">0x7D</span>,<span class="hljs-number">0x07</span>,<span class="hljs-number">0x7F</span>,<span class="hljs-number">0x6F</span>&#125;;<br><br><br><span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">Nixie</span><span class="hljs-params">(<span class="hljs-type">unsigned</span> <span class="hljs-type">char</span> Location,Number)</span></span><br><span class="hljs-function"></span>&#123;<br>	<span class="hljs-keyword">switch</span>(Location)		<br>	&#123;<br>		<span class="hljs-keyword">case</span> <span class="hljs-number">1</span>:P2_4=<span class="hljs-number">1</span>;P2_3=<span class="hljs-number">1</span>;P2_2=<span class="hljs-number">1</span>;<span class="hljs-keyword">break</span>;<br>		<span class="hljs-keyword">case</span> <span class="hljs-number">2</span>:P2_4=<span class="hljs-number">1</span>;P2_3=<span class="hljs-number">1</span>;P2_2=<span class="hljs-number">0</span>;<span class="hljs-keyword">break</span>;<br>		<span class="hljs-keyword">case</span> <span class="hljs-number">3</span>:P2_4=<span class="hljs-number">1</span>;P2_3=<span class="hljs-number">0</span>;P2_2=<span class="hljs-number">1</span>;<span class="hljs-keyword">break</span>;<br>		<span class="hljs-keyword">case</span> <span class="hljs-number">4</span>:P2_4=<span class="hljs-number">1</span>;P2_3=<span class="hljs-number">0</span>;P2_2=<span class="hljs-number">0</span>;<span class="hljs-keyword">break</span>;<br>		<span class="hljs-keyword">case</span> <span class="hljs-number">5</span>:P2_4=<span class="hljs-number">0</span>;P2_3=<span class="hljs-number">1</span>;P2_2=<span class="hljs-number">1</span>;<span class="hljs-keyword">break</span>;<br>		<span class="hljs-keyword">case</span> <span class="hljs-number">6</span>:P2_4=<span class="hljs-number">0</span>;P2_3=<span class="hljs-number">1</span>;P2_2=<span class="hljs-number">0</span>;<span class="hljs-keyword">break</span>;<br>		<span class="hljs-keyword">case</span> <span class="hljs-number">7</span>:P2_4=<span class="hljs-number">0</span>;P2_3=<span class="hljs-number">0</span>;P2_2=<span class="hljs-number">1</span>;<span class="hljs-keyword">break</span>;<br>		<span class="hljs-keyword">case</span> <span class="hljs-number">8</span>:P2_4=<span class="hljs-number">0</span>;P2_3=<span class="hljs-number">0</span>;P2_2=<span class="hljs-number">0</span>;<span class="hljs-keyword">break</span>;<br>	&#125;<br>	P0=NixieTable[Number];	<br>&#125;<br><br><span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span><br><span class="hljs-function"></span>&#123;<br>	<span class="hljs-built_in">Nixie</span>(<span class="hljs-number">2</span>,<span class="hljs-number">3</span>);	<br>	<span class="hljs-keyword">while</span>(<span class="hljs-number">1</span>)<br>	&#123;<br>		<br>	&#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>如若想要动态显示，只需要引入延时函数，在显示不同数字的操作之间加上一段延时即可。</p>
+<h2 id="5-模块化编程"><a href="#5-模块化编程" class="headerlink" title="5 模块化编程"></a>5 模块化编程</h2><p>几个图 <img src="https://picst.sunbangyan.cn/2024/01/20/9b967632f843810ba216242f1ad8fa10.jpeg" srcset="/img/loading.gif" lazyload><br><img src="https://picst.sunbangyan.cn/2024/01/20/d3835b9eff193992e877281d12cf5d50.jpeg" srcset="/img/loading.gif" lazyload></p>
+<h2 id="6-矩阵键盘"><a href="#6-矩阵键盘" class="headerlink" title="6 矩阵键盘"></a>6 矩阵键盘</h2><p>我们有十六个按键，通过十六个独立通路实现对按键状态的检测是对IO口极大的浪费，因此为了减少I&#x2F;O口的占用，通常将按键排列成矩阵形式。采用逐行或逐列的“扫描”，就可以读出任何位置按键的状态。矩阵键盘扫（输入扫描）的原理：读取第1行(列)→读取第2行(列) →读取第3行(列) → ……，然后快速循环这个过程，最终实现所有按键同时检测的效果。这相当于我们读取了键盘的横纵坐标，因为每排（列）按键总是共用同一纵（横）坐标的，所以节省了资源。例如，要判断第一行S1、S2、S3、S4四个按键是否按下，则只需要先将P17接地，之后判断P13是否为0进而判断按键S1是否被按下，因为P17为低电平，若P13为低电平，则说明S1所在的电路导通了，即说明S1被按下，这与独立按键的原理一样。判断S2是否被按下，只需判断P12是否为0即可。要判断第一列S1、S5、S9、S13是否按下，可先将P13接地，然后判断P17、P16、P15、P14是否为0即可。代码实现矩阵按键数值显示 需要用到LCD1602.c文件（驱动程序）同时涉及到了之前独立按键控制LED灯的操作。</p>
+<h4 id="返回一个整形的“键盘函数”MatrixKey"><a href="#返回一个整形的“键盘函数”MatrixKey" class="headerlink" title="返回一个整形的“键盘函数”MatrixKey()"></a>返回一个整形的“键盘函数”MatrixKey()</h4><figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><code class="hljs routeros"><span class="hljs-comment">#include &lt;REGX52.H&gt;</span><br><span class="hljs-comment">#include &quot;Delay.h&quot;</span><br>  * @brief  矩阵键盘读取按键键码<br>  * @param  无<br>  * @retval KeyNumber 按下按键的键码值<br>			如果按键按下不放，程序会停留在此函数，松手的一瞬间，返回按键键码，没有按键按下时，返回0<br>  */<br>unsigned char MatrixKey()<br>&#123;<br>	unsigned char <span class="hljs-attribute">KeyNumber</span>=0;<br>	<br>	<span class="hljs-attribute">P1</span>=0xFF;<br>	<span class="hljs-attribute">P1_3</span>=0;<br>	<span class="hljs-keyword">if</span>(<span class="hljs-attribute">P1_7</span>==0)&#123;Delay(20);<span class="hljs-keyword">while</span>(<span class="hljs-attribute">P1_7</span>==0);Delay(20);KeyNumber=1;&#125;<br>	<span class="hljs-keyword">if</span>(<span class="hljs-attribute">P1_6</span>==0)&#123;Delay(20);<span class="hljs-keyword">while</span>(<span class="hljs-attribute">P1_6</span>==0);Delay(20);KeyNumber=5;&#125;<br>	<span class="hljs-keyword">if</span>(<span class="hljs-attribute">P1_5</span>==0)&#123;Delay(20);<span class="hljs-keyword">while</span>(<span class="hljs-attribute">P1_5</span>==0);Delay(20);KeyNumber=9;&#125;<br>	<span class="hljs-keyword">if</span>(<span class="hljs-attribute">P1_4</span>==0)&#123;Delay(20);<span class="hljs-keyword">while</span>(<span class="hljs-attribute">P1_4</span>==0);Delay(20);KeyNumber=13;&#125;<br>	<br>	<span class="hljs-attribute">P1</span>=0xFF;<br>	<span class="hljs-attribute">P1_2</span>=0;<br>	<span class="hljs-keyword">if</span>(<span class="hljs-attribute">P1_7</span>==0)&#123;Delay(20);<span class="hljs-keyword">while</span>(<span class="hljs-attribute">P1_7</span>==0);Delay(20);KeyNumber=2;&#125;<br>	<span class="hljs-keyword">if</span>(<span class="hljs-attribute">P1_6</span>==0)&#123;Delay(20);<span class="hljs-keyword">while</span>(<span class="hljs-attribute">P1_6</span>==0);Delay(20);KeyNumber=6;&#125;<br>	<span class="hljs-keyword">if</span>(<span class="hljs-attribute">P1_5</span>==0)&#123;Delay(20);<span class="hljs-keyword">while</span>(<span class="hljs-attribute">P1_5</span>==0);Delay(20);KeyNumber=10;&#125;<br>	<span class="hljs-keyword">if</span>(<span class="hljs-attribute">P1_4</span>==0)&#123;Delay(20);<span class="hljs-keyword">while</span>(<span class="hljs-attribute">P1_4</span>==0);Delay(20);KeyNumber=14;&#125;<br>	<br>	<span class="hljs-attribute">P1</span>=0xFF;<br>	<span class="hljs-attribute">P1_1</span>=0;<br>	<span class="hljs-keyword">if</span>(<span class="hljs-attribute">P1_7</span>==0)&#123;Delay(20);<span class="hljs-keyword">while</span>(<span class="hljs-attribute">P1_7</span>==0);Delay(20);KeyNumber=3;&#125;<br>	<span class="hljs-keyword">if</span>(<span class="hljs-attribute">P1_6</span>==0)&#123;Delay(20);<span class="hljs-keyword">while</span>(<span class="hljs-attribute">P1_6</span>==0);Delay(20);KeyNumber=7;&#125;<br>	<span class="hljs-keyword">if</span>(<span class="hljs-attribute">P1_5</span>==0)&#123;Delay(20);<span class="hljs-keyword">while</span>(<span class="hljs-attribute">P1_5</span>==0);Delay(20);KeyNumber=11;&#125;<br>	<span class="hljs-keyword">if</span>(<span class="hljs-attribute">P1_4</span>==0)&#123;Delay(20);<span class="hljs-keyword">while</span>(<span class="hljs-attribute">P1_4</span>==0);Delay(20);KeyNumber=15;&#125;<br>	<br>	<span class="hljs-attribute">P1</span>=0xFF;<br>	<span class="hljs-attribute">P1_0</span>=0;<br>	<span class="hljs-keyword">if</span>(<span class="hljs-attribute">P1_7</span>==0)&#123;Delay(20);<span class="hljs-keyword">while</span>(<span class="hljs-attribute">P1_7</span>==0);Delay(20);KeyNumber=4;&#125;<br>	<span class="hljs-keyword">if</span>(<span class="hljs-attribute">P1_6</span>==0)&#123;Delay(20);<span class="hljs-keyword">while</span>(<span class="hljs-attribute">P1_6</span>==0);Delay(20);KeyNumber=8;&#125;<br>	<span class="hljs-keyword">if</span>(<span class="hljs-attribute">P1_5</span>==0)&#123;Delay(20);<span class="hljs-keyword">while</span>(<span class="hljs-attribute">P1_5</span>==0);Delay(20);KeyNumber=12;&#125;<br>	<span class="hljs-keyword">if</span>(<span class="hljs-attribute">P1_4</span>==0)&#123;Delay(20);<span class="hljs-keyword">while</span>(<span class="hljs-attribute">P1_4</span>==0);Delay(20);KeyNumber=16;&#125;<br>	<br>	return KeyNumber;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/EE/" class="category-chain-item">EE</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/EE/51%E5%8D%95%E7%89%87%E6%9C%BA/" class="category-chain-item">51单片机</a>
+  
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/51%E5%8D%95%E7%89%87%E6%9C%BA/" class="print-no-link">#51单片机</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>51单片机（一）</div>
+      <div>http://example.com/2024/01/21/EE/51单片机（一）/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>bradin</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2024年1月21日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2024/01/21/cs/ssh%E5%AF%86%E9%92%A5%E5%A4%B1%E6%95%88%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/" title="ssh密钥失效解决办法">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">ssh密钥失效解决办法</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2023/12/18/%E7%AE%97%E6%B3%95/%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/" title="排序算法">
+                        <span class="hidden-mobile">排序算法</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="busuanzi_container_site_pv" style="display: none">
+        总访问量 
+        <span id="busuanzi_value_site_pv"></span>
+         次
+      </span>
+    
+    
+      <span id="busuanzi_container_site_uv" style="display: none">
+        总访客数 
+        <span id="busuanzi_value_site_uv"></span>
+         人
+      </span>
+    
+    
+  
+</div>
+
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

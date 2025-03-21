@@ -1,0 +1,883 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="bradin">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="凸函数的四种判别第一定义$f$是凸函数，当且仅当其定义域为凸集，且 $$\forall x, y\in S, \forall \theta \in [ 0, 1],f( \theta x+ ( 1- \theta ) y) \leq \theta f( x) + ( 1- \theta ) f( y)$$ 第二定义$dom f$ 为凸,且 $\forall x \in dom f, \forall">
+<meta property="og:type" content="article">
+<meta property="og:title" content="凸函数">
+<meta property="og:url" content="http://example.com/2025/03/21/%E6%95%B0%E5%AD%A6/%E5%87%B8%E4%BC%98%E5%8C%96/%E5%87%B8%E5%87%BD%E6%95%B0/index.html">
+<meta property="og:site_name" content="鸭蛋仙人的博客">
+<meta property="og:description" content="凸函数的四种判别第一定义$f$是凸函数，当且仅当其定义域为凸集，且 $$\forall x, y\in S, \forall \theta \in [ 0, 1],f( \theta x+ ( 1- \theta ) y) \leq \theta f( x) + ( 1- \theta ) f( y)$$ 第二定义$dom f$ 为凸,且 $\forall x \in dom f, \forall">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://www.freeimg.cn/i/2024/08/30/66d17900db001.png">
+<meta property="og:image" content="https://www.freeimg.cn/i/2024/08/30/66d189a7cd984.png">
+<meta property="og:image" content="https://www.freeimg.cn/i/2024/08/30/66d1d3d7d661b.png">
+<meta property="og:image" content="https://www.freeimg.cn/i/2024/08/30/66d1e402469f1.png">
+<meta property="og:image" content="https://www.freeimg.cn/i/2024/08/30/66d1e4038e3a2.png">
+<meta property="og:image" content="https://www.freeimg.cn/i/2024/08/30/66d1e42caf796.png">
+<meta property="og:image" content="https://www.freeimg.cn/i/2024/08/30/66d1e46138e80.png">
+<meta property="og:image" content="https://www.freeimg.cn/i/2024/08/30/66d1e559ce465.png">
+<meta property="article:published_time" content="2025-03-21T15:58:10.000Z">
+<meta property="article:modified_time" content="2024-09-01T12:51:14.000Z">
+<meta property="article:author" content="bradin">
+<meta property="article:tag" content="数学">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://www.freeimg.cn/i/2024/08/30/66d17900db001.png">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>凸函数 - 鸭蛋仙人的博客</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.6","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>鸭蛋仙人</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/example/" target="_self">
+                <i class="iconfont icon-slack-fill"></i>
+                <span>example</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="凸函数"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2025-03-21 23:58" pubdate>
+          2025年3月21日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          1.5k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          13 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="busuanzi_container_page_pv" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="busuanzi_value_page_pv"></span> 次
+        </span>
+        
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">凸函数</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="凸函数的四种判别"><a href="#凸函数的四种判别" class="headerlink" title="凸函数的四种判别"></a>凸函数的四种判别</h1><h3 id="第一定义"><a href="#第一定义" class="headerlink" title="第一定义"></a>第一定义</h3><p>$f$是凸函数，当且仅当其定义域为凸集，且</p>
+<p>$$\forall x, y\in S, \forall \theta \in [ 0, 1],f( \theta x+ ( 1- \theta ) y) \leq \theta f( x) + ( 1- \theta ) f( y)$$</p>
+<h3 id="第二定义"><a href="#第二定义" class="headerlink" title="第二定义"></a>第二定义</h3><p>$dom f$ 为凸,且 $\forall x \in dom f, \forall v, g(t) &#x3D; f(x+tv)$ 为凸函数</p>
+<p>几何意义是用一个超平面去截凸函数，截面一定也是凸函数</p>
+<h3 id="一阶条件"><a href="#一阶条件" class="headerlink" title="一阶条件"></a>一阶条件</h3><p>设$f: R^{n}\to R$可微，则$f$为凸函数等价于以下两点同时成立      </p>
+<ul>
+<li>$dom f$为凸集</li>
+<li>$f(y)\geq f(x)+\nabla f^{T}(x)(y-x), \forall x,y\in dom f$</li>
+</ul>
+<p><img src="https://www.freeimg.cn/i/2024/08/30/66d17900db001.png" srcset="/img/loading.gif" lazyload></p>
+<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/c_1280779583399882752">证明从略，复习点击此处</a></p>
+<h3 id="二阶条件"><a href="#二阶条件" class="headerlink" title="二阶条件"></a>二阶条件</h3><p>若$f$二阶可微，则$f$为凸函数等价于</p>
+<p>$$\nabla^{2}f(x)\succeq0, \forall x\in dom f$$</p>
+<h3 id="凸函数的扩展"><a href="#凸函数的扩展" class="headerlink" title="凸函数的扩展"></a>凸函数的扩展</h3><p>$f:$ $R^{n}\to R$为凸函数，dom $f:$ $C\subseteq R^{n}$</p>
+<p>$\tilde{f} &#x3D; \begin{cases} f( x) :&amp; x\in dom:f\ \infty :&amp; x\notin dom:f&amp; \end{cases}$, $\tilde{f} :$ $R^n\to R$, dom $\tilde{f} :$ $R$,即将 f 的定义域由 C 扩展到 R，此函数依然为凸函数</p>
+<h1 id="常见凸函数与凹函数"><a href="#常见凸函数与凹函数" class="headerlink" title="常见凸函数与凹函数"></a>常见凸函数与凹函数</h1><h3 id="仿射函数"><a href="#仿射函数" class="headerlink" title="仿射函数"></a>仿射函数</h3><p>$f(x)&#x3D;Ax+b$,显然$\nabla^2f(x)&#x3D;0$,因此仿射函数非凸非凹</p>
+<h3 id="指数函数"><a href="#指数函数" class="headerlink" title="指数函数"></a>指数函数</h3><p>$f(x)&#x3D;e^{ax}, x\in R, \nabla^{2}f(x)&#x3D;a^{2}e^{ax}\geq0$，凸函数</p>
+<h3 id="幂函数"><a href="#幂函数" class="headerlink" title="幂函数"></a>幂函数</h3><p>$f(x)&#x3D;x^{a}, x\in R_{++}$<br>$$\nabla^2f(x)&#x3D;a(a-1)x^{a-2}&#x3D;\begin{cases}\ge0&amp;a\ge1, a\le0&amp;\text{凸}\\\le0&amp;a\in[0,1]&amp;\text{凹}\end{cases}$$</p>
+<h3 id="负熵"><a href="#负熵" class="headerlink" title="负熵"></a>负熵</h3><p>$f(x)&#x3D;xlogx, x\in R_{++}, f’’(x)&#x3D;\frac{1}{x}&gt;0$，凸函数</p>
+<h3 id="范数"><a href="#范数" class="headerlink" title="范数"></a>范数</h3><p>函数$P(x)$要想能称为范数，等价于满足以下三个条件</p>
+<ul>
+<li>$P(ax)&#x3D;|a|P(x)$</li>
+<li>$P(x+y)\leq P(x)+P(y)$</li>
+<li>$P(x)&#x3D;0\Leftrightarrow x&#x3D;0$<br>由第二条性质可以容易的证明范数是凸函数</li>
+</ul>
+<h3 id="极大值函数"><a href="#极大值函数" class="headerlink" title="极大值函数"></a>极大值函数</h3><p>$f(x)&#x3D;\max{x_1,\ldots,x_n}, x\in R^n$</p>
+<p>证明:<br>$$\begin{aligned}&amp;\forall x,y\in R^n, \forall\theta\in[0,1]\&amp;f(\theta x+(1-\theta)y)&#x3D;max{\theta x_i+(1-\theta)y_i, i&#x3D;1,\ldots,n}\leq\theta\max{x_i}+(1-\theta)\max{y_i}\end{aligned}$$</p>
+<h3 id="log-aum-up函数"><a href="#log-aum-up函数" class="headerlink" title="log-aum-up函数"></a>log-aum-up函数</h3><p>$f(x)&#x3D;\log(e^{x_1}+\cdots+e^{x_n}),x\in R^n$是凸的<br>由于极大函数往往不可导，log-sum-up函数其实就是对极大函数的解析逼近，<br>$$\max{x_1,\cdots,x_n}\leq f(x)\leq\max{x_1+\cdots+x_n}+\log n$$</p>
+<p>讨论该函数的海森矩阵<br>$$H_{ij}&#x3D;\begin{cases}\frac{\partial^2f}{\partial x_i\partial x_j}&#x3D;\frac{-e^{x_i}e^{x_j}}{(e^{x_1}+\cdots+e^{x_n})^2}&amp;\quad i\neq j\[2ex]\frac{\partial^2f}{\partial x_i\partial x_i}&#x3D;\frac{-e^{x_i}e^{x_i}+e^{x_i}(e^{x_1}+\cdots+e^{x_n})}{(e^{x_1}+\cdots+e^{x_n})^2}&amp;\quad i&#x3D;j\end{cases}$$</p>
+<p>$$\left.H&#x3D;\frac{1}{(e^{x_1}+\cdots+e^{x_n})^2}\left{\left[\begin{array}{ccc}e^{x_1}(e^{x_1}+\cdots+e^{x_n})&amp;\cdots&amp;0\\vdots&amp;\ddots&amp;\vdots\0&amp;\cdots&amp;e^{x_n}(e^{x_1}+\cdots+e^{x_n})\end{array}\right.\right]-\left[\begin{array}{c}e^{x_1}\\vdots\e^{x_n}\end{array}\right]\cdot\left[\begin{array}{ccc}e^{x_1}&amp;\cdots&amp;e^{x_n}\end{array}\right]\right}$$</p>
+<p>令$z&#x3D;[e^{x_{1}},\ldots,e^{x_{n}}]$，则上式可以写为</p>
+<p>$$H&#x3D;\frac{1}{(1\cdot z)^{2}}\left((1^{T}\cdot z) diag{z}-z\cdot z^{T}\right)$$</p>
+<p>欲证明log-sum-up为凸，只需利用二阶条件证明 Hessian 矩阵的半正定性 计算$v^THv$</p>
+<p>$$\begin{aligned}&amp;&#x3D;(1^{T}\cdot z) v^{T}diag{z}v-v^{T}z\cdot z^{T}v\&amp;&#x3D;(\sum_{i}z_{i})(\sum_{i}v_{i}^{2} z_{i})-(\sum_{i}v_{i} z_{i})^{2}\end{aligned}$$</p>
+<p>$$\begin{aligned}&amp;\text{令 }a_i&#x3D;v_i\sqrt{z_i}, b_i&#x3D;\sqrt{z_i}\&amp;&#x3D;(b^Tb)(a^Ta)-(a^Tb)^2\geq0\quad[Cauchy-Schwarz\text{不等式,得证}]\end{aligned}$$</p>
+<h3 id="行列式的对数"><a href="#行列式的对数" class="headerlink" title="行列式的对数"></a>行列式的对数</h3><p>凹函数<br>$f(x)&#x3D;log det(x), dom f &#x3D; S_{++}^{n}$</p>
+<p>我们常使用定义二来证明高维的凸函数情况</p>
+<p>$$\forall z\in S_{++}^{n}, \forall t\in R, \forall v\in R^{n\times n}, z+tv\in S_{++}^{n} &#x3D; dom f$$</p>
+<p>$$\begin{aligned}<br>g(t)&#x3D;f(z+tv)&amp; &#x3D;log det(z+tv) \<br>&amp;&#x3D;log det{z^{\frac12}(I+tz^{-\frac12}vz^{-\frac12})z^{\frac12}} \<br>&amp;&#x3D;log det{z}+log det(I+tz^{-\frac12}vz^{-\frac12})<br>\end{aligned}$$</p>
+<p>对后半部分做对称分解，有$log det(QQ^{T}+tQ\Lambda Q^{T})&#x3D;log det(I+t\Lambda)$</p>
+<p>$$&#x3D;log det{z}+\sum^nlog(1+t\lambda_i)\quad[\lambda_i\text{是}tz^{-\frac12}vz^{-\frac12}\text{的第 i 个特征根}]$$</p>
+<p>$$\begin{aligned}g’(t)&#x3D;\sum_i\frac{\lambda_i}{1+t\lambda_i},\quad g’’(x)&#x3D;\sum_i\frac{-\lambda_i}{(1+t\lambda_i)^2}\leq0\end{aligned}$$</p>
+<h1 id="保凸映射"><a href="#保凸映射" class="headerlink" title="保凸映射"></a>保凸映射</h1><h3 id="非负加权和"><a href="#非负加权和" class="headerlink" title="非负加权和"></a>非负加权和</h3><ul>
+<li><p>若$f_1,\ldots,f_m$都是凸函数，则$f&#x3D;\sum_iw_if_i$为凸，其中$w_i\geq0,\forall i$<br>加权和函数定义域dom $f&#x3D;\cap_idom$ $f_i$</p>
+</li>
+<li><p>求和推广到积分也成立$g(x)&#x3D;\int w(y)f(x,y)dy,w(y)\geq0$</p>
+</li>
+</ul>
+<h3 id="仿射映射和凸映射的复合函数"><a href="#仿射映射和凸映射的复合函数" class="headerlink" title="仿射映射和凸映射的复合函数"></a>仿射映射和凸映射的复合函数</h3><p>若$f(x)$为凸函数</p>
+<ul>
+<li>$g(x)&#x3D;f(Ax+b)$是凸函数</li>
+<li>$g(x)&#x3D;A^T\begin{bmatrix}f_1(x)\\vdots\f_n(x)\end{bmatrix}+b$是凸的，其中$A\in R^{n},b\in R.$</li>
+</ul>
+<h3 id="凸函数的极大值函数"><a href="#凸函数的极大值函数" class="headerlink" title="凸函数的极大值函数"></a>凸函数的极大值函数</h3><p>若 $f_1,f_2$为凸函数,则极大值函数$f(x)&#x3D;\max_x{f_1(x),f_2(x)}$也为凸函数,其定义域为$domf&#x3D;domf_1\cap domf_2\text{。}$</p>
+<p>$$\begin{aligned}<br>f(\theta x+(1-\theta)y)&#x3D;&amp; \begin{aligned}\max{f_{1}(\theta x+(1-\theta)y),f_{2}(\theta x+(1-\theta)y)}\end{aligned} \<br>&amp;\leq\max{\theta f_1(x)+(1-\theta)f_1(y),\theta f_2(x)+(1-\theta)f_2(y)} \<br>&amp;\leq\max{\theta f_1(x),\theta f_2(x)}+(1-\theta)\max{(1-\theta)f_1(y),(1-\theta)f_2(y)} \<br>&amp;&#x3D;\theta f(x)+(1-\theta)f(y)<br>\end{aligned}$$<br><img src="https://www.freeimg.cn/i/2024/08/30/66d189a7cd984.png" srcset="/img/loading.gif" lazyload></p>
+<p>自然地，推广到无穷个凸函数的极大值函数依然成立，因为无穷个凸函数的比较总可以看为多次进行函数之间的两两比较。</p>
+<p>即：如果对于任意的$y\in A$,函数$f(x,y)$都是关于$x$的凸函数，则函数$g(x)&#x3D;\sup_{y\in\mathcal{A}}f(x,y)$关于$x$也是凸的<br>其中$sup$为逐点取最大操作，称为上确界。</p>
+<p>Q：求实对称矩阵的最大特征值，$f(x)&#x3D;\lambda_{max}(x), dom f&#x3D;S^{m}$<br>A：<br>$$\begin{aligned}&amp;Xy&#x3D;\lambda y\Rightarrow y^TXy&#x3D;\lambda y^Ty&#x3D;\lambda|y|_2^2\Rightarrow\lambda&#x3D;\frac{y^TXy}{|y|_2^2}\&amp;\text{令 }|y|<em>2^2&#x3D;1\text{,则 }\lambda&#x3D;y^TXy\&amp;f(x)&#x3D;\lambda</em>{max}(x)&#x3D;\sup{y^TXy\mid|y|_2^2&#x3D;1}\&amp;\text{注意到 }y^TXy\text{ 是关于 x 的线性组合(将 }y^2\text{ 看作系数),同时 }\sup\text{保凸,所以该函数为凸函数}\end{aligned}$$</p>
+<h3 id="推导出：逐点上确界也是保凸映射1"><a href="#推导出：逐点上确界也是保凸映射1" class="headerlink" title="推导出：逐点上确界也是保凸映射1"></a>推导出：逐点上确界也是保凸映射1</h3><h3 id="复合函数"><a href="#复合函数" class="headerlink" title="复合函数"></a>复合函数</h3><p>$f&#x3D;h(g(x))$<br>当函数都为一元函数时，$f^{\prime\prime}&#x3D;h^{\prime\prime}g^{\prime2}+h^{\prime}g^{\prime\prime}$,分析这个式子与0的大小，可得</p>
+<ul>
+<li>若$h$为不降的凸函数，$g$为凸函数，则$f$为凸函数</li>
+<li>若$h$为不增的凸函数，$g$为凹函数，则$f$为凸函数</li>
+<li>若$h$为不降的凹函数，$g$为凹函数，则$f$为凹函数</li>
+<li>若$h$为不增的凹函数，$g$为凸函数，则$f$为凹函数</li>
+</ul>
+<p>多元函数时，情况类似，需要对函数$f$的定义域做出扩展，例如</p>
+<ul>
+<li>若$g$为凸，则$\exp{g(x)}$为凸，因为满足上述1式 ·</li>
+<li>若$g$为凹，则$\log{g(x}$为凹，因为满足上述3式</li>
+<li>若$g$为凹，$g(x)&gt;0$,则$1&#x2F;g(x)$为凸，因为满足上述2式</li>
+<li>若$g$为凸，$g(x)\geq0$,$p\geq1$,则$g(x)^p$为凸，因为满足上述1式</li>
+</ul>
+<h3 id="函数的透视"><a href="#函数的透视" class="headerlink" title="函数的透视"></a>函数的透视</h3><p>$$\begin{aligned}f: R^{n}&amp;\to R, g: R^{n}\times R_{++}\to R\&amp;g(x,t)&#x3D;tf(\frac{x}{t})\quad dom g&#x3D;{(x,t)\mid t\in R_{++},\frac{x}{t}\in dom f}\end{aligned}$$</p>
+<p>函数的透视有一个很重要的性质，若f为凸函数，则g也为凸函数，且对(x,t)是联合凸的，若f<br>为凹函数，则g对(x,t) 联合凹</p>
+<p>由此导出的一些常用函数的凸性：<br>加权负对数是凸的<br>$$u,v\in R_{++}^n,g(u,v)&#x3D;\sum_{i&#x3D;1}^nu_i\log\frac{u_i}{v_i}$$<br>KL-Divergence是凸的（凸+线性&#x3D;凸）<br>$$D_{KL}(u,v)\triangleq\sum_{i&#x3D;1}^{n}u_{i}log\frac{u_{i} }{v_{i} }-u_{i}+v_{i}$$</p>
+<h1 id="函数的共轭"><a href="#函数的共轭" class="headerlink" title="函数的共轭"></a>函数的共轭</h1><p>函数$f:R^n\to R$的共轭$f^*:R^n\to R$表示为<br>$$f^*(y)&#x3D;\sup_{x\in domf}{y^Tx-f(x)}$$</p>
+<p><strong>性质</strong></p>
+<ul>
+<li>无论$f$是否凸，$f^*(y)$总是凸的(相当于无数条线取max，因此恒为凸)</li>
+<li>$f(x)$如果可微，则$f^*(y)$对应的$x$就是$f^{‘}(x)&#x3D;y$的点($[f^{*}(y)]_{x}^{\prime}&#x3D;y-f^{\prime}(x)&#x3D;0$)</li>
+</ul>
+<p>对于函数而言常常说共轭，对于问题而言常常说对偶</p>
+<p>举几个求函数共轭的例子</p>
+<p><strong>求$f(x)&#x3D;ax+b \ ,dom \ f&#x3D;R$的共轭函数</strong><br>$$f^*(y)&#x3D;\sup\limits_{x\in dom}\left(yx-(ax+b)\right)&#x3D;\sup\limits_{x\in dom}\left((y-a)x+b\right)&#x3D;\begin{cases}-b&amp;\quad y&#x3D;a\[2ex]+\infty&amp;\quad y\neq a\end{cases}$$</p>
+<p><strong>求$f(x)&#x3D;-logx, dom f&#x3D;R_{++}$的共轭函数</strong></p>
+<p>$$\begin{aligned}\text{利用 }[f^*(x)]<em>x’&amp;&#x3D;y+\frac1x&#x3D;0\text{,将 }x&#x3D;-\frac1y\text{ 回代有 }-1-log(-y)\f^*(y)&amp;&#x3D;\sup</em>{x&gt;0} (yx+logx)&#x3D;\begin{cases}-1-log(-y)&amp;\quad y&lt;0\\+\infty&amp;\quad y\ge0\end{cases}\end{aligned}$$</p>
+<p><strong>求二次函数$f(x)&#x3D;\frac{1}{2}x^{T}Q x, Q\in S_{++}^{n}, dom f&#x3D;R^{n}$的共轭函数</strong></p>
+<p>$$f^*(y)&#x3D;\sup (y^Tx-\frac{1}{2}x^TQx), [f^*(y)]_x^{\prime}&#x3D;y-Qx&#x3D;0$$<br>回带消去$x$，$y^Tx-\frac{1}{2}x^TQx$化为<br>$$\begin{aligned}y^TQ^{-1}y-\frac{1}{2}y^TQ^{-1}Q^TQ^{-1}y&#x3D;\frac{1}{2}y^TQ^{-1}y\end{aligned}$$</p>
+<p>对于数而言，共轭的共轭为其自身，而这对函数并不成立，因为函数的共轭一定是凸函数，凹函数<br>的共轭的共轭一定不为自身<br>只有在f 为凸函数，并且为闭函数时，f的共轭的共轭才为自身</p>
+<h1 id="拟凸函数"><a href="#拟凸函数" class="headerlink" title="拟凸函数"></a>拟凸函数</h1><p>$\alpha$-sublevel-set (下水平集):任意函数 $f:R^n\to R$的 $\alpha$-sublevel-set 为：<br>$$C_\alpha&#x3D;{x\in domf|f(x)\leq\alpha}.$$</p>
+<h3 id="定义一"><a href="#定义一" class="headerlink" title="定义一"></a>定义一</h3><p>对于任意的$\alpha$,其$\alpha$-sublevel set均为凸集的函数为拟凸函数，又叫做单模态函数。</p>
+<h3 id="定义二"><a href="#定义二" class="headerlink" title="定义二"></a>定义二</h3><p>$$\forall x,y\in dom f, \theta\in[0,1], \max{f(x),f(y)}\geq f(\theta x+(1-\theta)y)$$</p>
+<p><img src="https://www.freeimg.cn/i/2024/08/30/66d1d3d7d661b.png" srcset="/img/loading.gif" lazyload alt="1725027283614.png"></p>
+<p>例子：<strong>向量的长度</strong>，向量$x \in R^n$，即</p>
+<p>$$f(x)&#x3D;\left{\begin{array}{ll}\max{i,x_i\neq0},&amp;x\neq0\0,&amp;x&#x3D;0\end{array}\right.$$</p>
+<p>$$S_\alpha&#x3D;{f(x)\leq\alpha}\Rightarrow \forall i&#x3D;\lfloor i\rfloor+1\ldots n, x_i&#x3D;0$$</p>
+<p>相当于取子空间，$S_{\alpha}$代表的是一些轴上取零，其余轴上的值任意，为凸集，因此$f(x)$为拟凸函数</p>
+<p>例子：<strong>线性分数函数</strong> $\begin{aligned}f(x)&#x3D;\frac{a^Tx+b}{c^Tx+d}, dom f&#x3D;{x\mid c^Tx+d&gt;0}\end{aligned}$</p>
+<p>$$S_{\alpha}&#x3D;{x\mid c^{T}x+d&gt;0, \frac{a^{T}x+b}{c^{T}x+d}&lt;\alpha}&#x3D;{x\mid c^{T}x+d&gt;0, ax+b\leq\alpha(c^{T}x+d)}$$</p>
+<p>该集合表示一个多面体，为凸集，因此f(x)为拟凸函数</p>
+<h3 id="优化性质分析"><a href="#优化性质分析" class="headerlink" title="优化性质分析"></a>优化性质分析</h3><p>一般来说凸函数能用的算法拟凸函数也能用，拟凸函数是相对比较好做的非凸优化问题，不过与凸优化问题不同的是，他往往很难找到多项式时间内可以求解的算法</p>
+<h3 id="凸松弛"><a href="#凸松弛" class="headerlink" title="凸松弛"></a>凸松弛</h3><p>例，向量的零范数$x\in\mathbb{R}^n\textit{,}f(x)&#x3D;|x|_0$</p>
+<p> 一维情况，函数图像如下，不是凸函数，是拟凸函数<br><img src="https://www.freeimg.cn/i/2024/08/30/66d1e402469f1.png" srcset="/img/loading.gif" lazyload alt="1725031149696.png"></p>
+<p>  二维情况，函数图像如下，下水平集不是凸集，不是拟凸函数</p>
+<p><img src="https://www.freeimg.cn/i/2024/08/30/66d1e4038e3a2.png" srcset="/img/loading.gif" lazyload alt="1725031417805.png"></p>
+<p>通常求解稀疏约束问题时，可将零范数放缩、松弛为1范数</p>
+<p><img src="https://www.freeimg.cn/i/2024/08/30/66d1e42caf796.png" srcset="/img/loading.gif" lazyload alt="1725031464851.png"></p>
+<p>有的人会使用性质更好的函数去近似一范数</p>
+<p><img src="https://www.freeimg.cn/i/2024/08/30/66d1e46138e80.png" srcset="/img/loading.gif" lazyload alt="1725031517660.png"></p>
+<h3 id="一阶条件-1"><a href="#一阶条件-1" class="headerlink" title="一阶条件"></a>一阶条件</h3><p>$$f\text{ 拟凸}\Leftrightarrow domf\text{ 凸,且若}f(y)\leq f(x)\text{,则 }\nabla^Tf(x)(y-x)\leq0.$$</p>
+<p>以上公式文字表述为：拟凸函数只有一个极小值点。</p>
+<p>拟凸函数梯度为0的点不一定是极小值点<br><img src="https://www.freeimg.cn/i/2024/08/30/66d1e559ce465.png" srcset="/img/loading.gif" lazyload alt="1725031765905.png"></p>
+<h3 id="二阶条件-1"><a href="#二阶条件-1" class="headerlink" title="二阶条件"></a>二阶条件</h3><p>$$dom f\text{ 为凸,且 }y^T\nabla f(x)\geq0\Rightarrow y^T\nabla^2f(x)y\geq0$$</p>
+<ul>
+<li>log 凸：$f(x)&gt;0$,若$\log f$为凸函数，则$f$为log凸函数       </li>
+<li>log 凹：$f(x)&gt;0$,若$\log f$为凹函数，则$f$为log凹函数       </li>
+<li>若$f$为log凸，则$f$为凸。(提示：用复合函数凹凸性可判断) </li>
+<li>若$f$为凹，则$\log f$为log凹</li>
+</ul>
+<h1 id="参考文献-blog"><a href="#参考文献-blog" class="headerlink" title="参考文献&#x2F;blog"></a>参考文献&#x2F;blog</h1><ul>
+<li><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV19M411T7S7?p=20&vd_source=84b977d2834d5eca6c0ca78bd619156f%EF%BC%8C%E4%B8%AD%E7%A7%91%E5%A4%A7/%E5%87%8C%E9%9D%92%E3%80%8A%E5%87%B8%E4%BC%98%E5%8C%96%E3%80%8B%EF%BC%8Cchapter9-20">https://www.bilibili.com/video/BV19M411T7S7?p=20&amp;vd_source=84b977d2834d5eca6c0ca78bd619156f，中科大/凌青《凸优化》，chapter9-20</a></li>
+<li>知乎专栏，<a target="_blank" rel="noopener" href="https://www.zhihu.com/column/c_1492543238217478144">https://www.zhihu.com/column/c_1492543238217478144</a></li>
+<li>知乎专栏，<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/c_1280779583399882752">https://zhuanlan.zhihu.com/c_1280779583399882752</a></li>
+<li>《ConvexOptimizationnotes》，<a target="_blank" rel="noopener" href="https://github.com/ZxyGed/ConvexOptimization%EF%BC%8CConvex_Function">https://github.com/ZxyGed/ConvexOptimization，Convex_Function</a> pdf笔记</li>
+</ul>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E6%95%B0%E5%AD%A6/" class="category-chain-item">数学</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/%E6%95%B0%E5%AD%A6/%E5%87%B8%E4%BC%98%E5%8C%96/" class="category-chain-item">凸优化</a>
+  
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E6%95%B0%E5%AD%A6/" class="print-no-link">#数学</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>凸函数</div>
+      <div>http://example.com/2025/03/21/数学/凸优化/凸函数/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>bradin</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2025年3月21日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2025/03/21/%E6%95%B0%E5%AD%A6%E5%BB%BA%E6%A8%A1/%E6%97%B6%E9%97%B4%E5%BA%8F%E5%88%97/" title="时间序列">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">时间序列</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2025/03/21/%E6%95%B0%E5%AD%A6/%E5%87%B8%E4%BC%98%E5%8C%96/%E5%87%B8%E9%97%AE%E9%A2%98/" title="凸问题">
+                        <span class="hidden-mobile">凸问题</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+  
+  
+
+
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="busuanzi_container_site_pv" style="display: none">
+        总访问量 
+        <span id="busuanzi_value_site_pv"></span>
+         次
+      </span>
+    
+    
+      <span id="busuanzi_container_site_uv" style="display: none">
+        总访客数 
+        <span id="busuanzi_value_site_uv"></span>
+         人
+      </span>
+    
+    
+  
+</div>
+
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  
+      <script>
+        if (!window.MathJax) {
+          window.MathJax = {
+            tex    : {
+              inlineMath: { '[+]': [['$', '$']] }
+            },
+            loader : {
+              load: ['ui/lazy']
+            },
+            options: {
+              renderActions: {
+                insertedScript: [200, () => {
+                  document.querySelectorAll('mjx-container').forEach(node => {
+                    let target = node.parentNode;
+                    if (target.nodeName.toLowerCase() === 'li') {
+                      target.parentNode.classList.add('has-jax');
+                    }
+                  });
+                }, '', false]
+              }
+            }
+          };
+        } else {
+          MathJax.startup.document.state(0);
+          MathJax.texReset();
+          MathJax.typeset();
+          MathJax.typesetPromise();
+        }
+
+        Fluid.events.registerRefreshCallback(function() {
+          if ('MathJax' in window && MathJax.startup.document && typeof MathJax.startup.document.state === 'function') {
+            MathJax.startup.document.state(0);
+            MathJax.texReset();
+            MathJax.typeset();
+            MathJax.typesetPromise();
+          }
+        });
+      </script>
+    
+
+  <script  src="https://lib.baomitu.com/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

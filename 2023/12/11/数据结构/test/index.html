@@ -1,0 +1,735 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="bradin">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="c语言实现链表链表的理解链表是由多个节点（node）组成的，每一个节点存储数据data和下一个数据的地址，由此构成链式结构。引入一个指针型变量head，存储第一个节点的地址。head是一个链表的唯一标识，后续引用链表对其进行操作时都要从head入手。head&#x3D;NULL; 则链表为空。回顾 动态内存分配的步骤如下：1.使用malloc()函数申请一块指定大小的内存空间。2.使用指针变量来接">
+<meta property="og:type" content="article">
+<meta property="og:title" content="链表的c语言实现">
+<meta property="og:url" content="http://example.com/2023/12/11/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/test/index.html">
+<meta property="og:site_name" content="鸭蛋仙人的博客">
+<meta property="og:description" content="c语言实现链表链表的理解链表是由多个节点（node）组成的，每一个节点存储数据data和下一个数据的地址，由此构成链式结构。引入一个指针型变量head，存储第一个节点的地址。head是一个链表的唯一标识，后续引用链表对其进行操作时都要从head入手。head&#x3D;NULL; 则链表为空。回顾 动态内存分配的步骤如下：1.使用malloc()函数申请一块指定大小的内存空间。2.使用指针变量来接">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2023-12-11T10:12:34.000Z">
+<meta property="article:modified_time" content="2023-12-11T11:37:26.000Z">
+<meta property="article:author" content="bradin">
+<meta property="article:tag" content="c语言">
+<meta property="article:tag" content="数据结构">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>链表的c语言实现 - 鸭蛋仙人的博客</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.6","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>鸭蛋仙人</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/example/" target="_self">
+                <i class="iconfont icon-slack-fill"></i>
+                <span>example</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="链表的c语言实现"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2023-12-11 18:12" pubdate>
+          2023年12月11日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          547 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          5 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="busuanzi_container_page_pv" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="busuanzi_value_page_pv"></span> 次
+        </span>
+        
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">链表的c语言实现</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="c语言实现链表"><a href="#c语言实现链表" class="headerlink" title="c语言实现链表"></a>c语言实现链表</h1><h3 id="链表的理解"><a href="#链表的理解" class="headerlink" title="链表的理解"></a>链表的理解</h3><p>链表是由多个节点（node）组成的，每一个节点存储数据data和下一个数据的地址，由此构成链式结构。引入一个指针型变量head，存储第一个节点的地址。head是一个链表的唯一标识，后续引用链表对其进行操作时都要从head入手。head&#x3D;NULL; 则链表为空。<br>回顾 动态内存分配的步骤如下：<br>1.使用malloc()函数申请一块指定大小的内存空间。<br>2.使用指针变量来接收malloc()函数返回的指向已分配的空间开头的指针。<br>3.使用指针变量来访问已分配的内存空间。<br>4.使用free()函数释放之前申请的内存空间。</p>
+<figure class="highlight arduino"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs arduino"><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span><br><span class="hljs-function"></span>&#123;<br><span class="hljs-type">int</span> *ptr;<br>ptr = (<span class="hljs-type">int</span>*) <span class="hljs-built_in">malloc</span>(<span class="hljs-built_in">sizeof</span>(<span class="hljs-type">int</span>));  <span class="hljs-comment">//malloc会返回分配内存块的首地址void指针</span><br><span class="hljs-keyword">if</span> (ptr == <span class="hljs-literal">NULL</span>) &#123;<br><span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;Memory allocation failed\n&quot;</span>);<br><span class="hljs-keyword">return</span> <span class="hljs-number">1</span>;<br>&#125;<br>*ptr = <span class="hljs-number">42</span>;<br><span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;The value of the integer is %d\n&quot;</span>, *ptr);<br><span class="hljs-built_in">free</span>(ptr);<br><span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>理解一下，链表是对堆(heap)的操作，这使得它具有相对于数组更灵活的特性。</p>
+<h3 id="在头部插入一个节点"><a href="#在头部插入一个节点" class="headerlink" title="在头部插入一个节点"></a>在头部插入一个节点</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-meta">#<span class="hljs-keyword">include</span><span class="hljs-string">&lt;stdio.h&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span><span class="hljs-string">&lt;stdlib.h&gt;</span> </span><br><span class="hljs-keyword">struct</span> <span class="hljs-title class_">Node</span>&#123;<br>	<span class="hljs-type">int</span> data;<br>	<span class="hljs-keyword">struct</span> <span class="hljs-title class_">Node</span>* next;<br>&#125;;<br><span class="hljs-keyword">struct</span> <span class="hljs-title class_">Node</span>* head;<br><span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">Insert</span><span class="hljs-params">(<span class="hljs-type">int</span> x)</span></span><br><span class="hljs-function"></span>&#123;<br>	<span class="hljs-keyword">struct</span> <span class="hljs-title class_">Node</span>*temp =(Node*)<span class="hljs-built_in">malloc</span>(<span class="hljs-built_in">sizeof</span>(<span class="hljs-keyword">struct</span> Node));<br>	temp-&gt;data=x;                   <span class="hljs-comment">//等价于写法(*temp).data</span><br>	temp-&gt;next=head;<br>	head=temp;          <span class="hljs-comment">//虽然temp的生命周期是暂时的 但是通过temp对内存的改动是永久的                     </span><br>&#125;<br><span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">Print</span><span class="hljs-params">()</span></span><br><span class="hljs-function"></span>&#123;<br>	<span class="hljs-keyword">struct</span> <span class="hljs-title class_">Node</span>*temp=head;   <span class="hljs-comment">//遍历一个链表需要调用head，但我们不希望改变head，所以引入temp </span><br>	<span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;List is: &quot;</span>);<br>	<span class="hljs-keyword">while</span>(temp!=<span class="hljs-literal">NULL</span>)<br>	&#123;<br>		<span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot; %d&quot;</span>,temp-&gt;data);<br>		temp=temp-&gt;next;<br>	&#125;<br>	<span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;\n&quot;</span>); <br>&#125;<br><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span><br><span class="hljs-function"></span>&#123;<br>	head=<span class="hljs-literal">NULL</span>;<br>	<span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;How many numbers&quot;</span>);<br>	<span class="hljs-type">int</span> n,i,x;<br>	<span class="hljs-built_in">scanf</span>(<span class="hljs-string">&quot;%d&quot;</span>,&amp;n);<br>	<span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> i=<span class="hljs-number">0</span>;i&lt;n;i++)<br>	&#123;<br>		<span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;Enter the number\n&quot;</span>);<br>		<span class="hljs-built_in">scanf</span>(<span class="hljs-string">&quot;%d&quot;</span>,&amp;x);<br>		<span class="hljs-built_in">Insert</span>(x);<br>		<span class="hljs-built_in">Print</span>();<br>	&#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h3 id="任意位置插入一个节点"><a href="#任意位置插入一个节点" class="headerlink" title="任意位置插入一个节点"></a>任意位置插入一个节点</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-meta">#<span class="hljs-keyword">include</span><span class="hljs-string">&lt;stdio.h&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span><span class="hljs-string">&lt;stdlib.h&gt;</span></span><br><span class="hljs-keyword">struct</span> <span class="hljs-title class_">Node</span>&#123;<br>	<span class="hljs-type">int</span> data;<br>	<span class="hljs-keyword">struct</span> <span class="hljs-title class_">Node</span>*next;<br>	<br>&#125;;<br><span class="hljs-keyword">struct</span> <span class="hljs-title class_">Node</span>* head;<br><span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">Insert</span><span class="hljs-params">(<span class="hljs-type">int</span> data,<span class="hljs-type">int</span> n)</span></span><br><span class="hljs-function"></span>&#123;<br>	<span class="hljs-keyword">struct</span> <span class="hljs-title class_">Node</span>* temp1 =(<span class="hljs-keyword">struct</span> Node*)<span class="hljs-built_in">malloc</span>(<span class="hljs-built_in">sizeof</span>(<span class="hljs-keyword">struct</span> Node)); <br>	temp1-&gt;data=data;<br>	temp1-&gt;next=<span class="hljs-literal">NULL</span>;      <span class="hljs-comment">//待插入的节点 temp1 </span><br>	<span class="hljs-keyword">if</span>(n==<span class="hljs-number">1</span>)<br>	&#123;<br>		temp1-&gt;next=head;       <span class="hljs-comment">//如果插入头部 </span><br>		head=temp1;<br>		<span class="hljs-keyword">return</span>;<br>		<br>	&#125;<br>	Node* temp2=head;           <br>	<span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> i=<span class="hljs-number">0</span>;i&lt;n<span class="hljs-number">-2</span>;i++)      <span class="hljs-comment">//遍历n-2次 temp2此时为第n-1个节点地址 </span><br>	&#123;<br>		temp2=temp2-&gt;next;       <br>	&#125;<br>	         <br>	temp1-&gt;next=temp2-&gt;next;   <span class="hljs-comment">//temp1后面接上剩下的 </span><br>	temp2-&gt;next=temp1;         <span class="hljs-comment">//temp2 接上temp1为车头的链 </span><br>&#125;<br><span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">Print</span><span class="hljs-params">()</span></span><br><span class="hljs-function"></span>&#123;<br>	Node*temp=head;<br>	<span class="hljs-keyword">while</span>(temp!=<span class="hljs-literal">NULL</span>)<br>	&#123;<br>		<span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;%d&quot;</span>,temp-&gt;data);<br>		temp=temp-&gt;next;<br>	&#125;<br>	<span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;\n&quot;</span>);<br> &#125; <br><br><br><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span><br><span class="hljs-function"></span>&#123;<br>	head=<span class="hljs-literal">NULL</span>;<br>	<span class="hljs-built_in">Insert</span>(<span class="hljs-number">2</span>,<span class="hljs-number">1</span>);  <span class="hljs-comment">//2</span><br>	<span class="hljs-built_in">Insert</span>(<span class="hljs-number">3</span>,<span class="hljs-number">2</span>);   <span class="hljs-comment">//2 3</span><br>	<span class="hljs-built_in">Insert</span>(<span class="hljs-number">4</span>,<span class="hljs-number">1</span>);   <span class="hljs-comment">//4 2 3</span><br>	<span class="hljs-built_in">Insert</span>(<span class="hljs-number">5</span>,<span class="hljs-number">2</span>);     <span class="hljs-comment">//4 5 2 3</span><br>	<span class="hljs-built_in">Print</span>();<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h3 id="任意位置删除一个节点"><a href="#任意位置删除一个节点" class="headerlink" title="任意位置删除一个节点"></a>任意位置删除一个节点</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-meta">#<span class="hljs-keyword">include</span><span class="hljs-string">&lt;stdio.h&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span><span class="hljs-string">&lt;stdlib.h&gt;</span></span><br><span class="hljs-keyword">struct</span> <span class="hljs-title class_">Node</span>&#123;<br>	<span class="hljs-type">int</span> data;<br>	<span class="hljs-keyword">struct</span> <span class="hljs-title class_">Node</span>* next;<br>&#125;;<br><span class="hljs-keyword">struct</span> <span class="hljs-title class_">Node</span>* head;<br><span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">Print</span><span class="hljs-params">()</span></span><br><span class="hljs-function"></span>&#123;<br>	<span class="hljs-keyword">struct</span> <span class="hljs-title class_">Node</span>* temp=head;<br>	<span class="hljs-keyword">while</span>(temp!=<span class="hljs-literal">NULL</span>)<br>	&#123;<br>		<span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;%d&quot;</span>,temp-&gt;data);<br>		temp=temp-&gt;next;<br>	&#125;<br>&#125;<br><span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">Delete</span><span class="hljs-params">(<span class="hljs-type">int</span> n)</span></span><br><span class="hljs-function"></span>&#123;<br>	<span class="hljs-keyword">struct</span> <span class="hljs-title class_">Node</span>* temp1=head;<br>	<span class="hljs-keyword">if</span>(n==<span class="hljs-number">1</span>)&#123;<br>		head=temp1-&gt;next;<br>		<span class="hljs-built_in">free</span>(temp1);<br>	&#125;<br>	<span class="hljs-type">int</span> i;<br>	<span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> i=<span class="hljs-number">0</span>;i&lt;n<span class="hljs-number">-2</span>;i++)   <br>	&#123;<br>		temp1=temp1-&gt;next; <br>	 &#125; <br>	 <span class="hljs-keyword">struct</span> <span class="hljs-title class_">Node</span>* temp2=temp1-&gt;next;<br>	 temp1-&gt;next=temp2-&gt;next;<br>	 <span class="hljs-built_in">free</span>(temp2);<br>	 <br>	 <br>&#125;<br><span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">Insert</span><span class="hljs-params">(<span class="hljs-type">int</span> x)</span></span><br><span class="hljs-function"></span>&#123;<br>	<span class="hljs-keyword">struct</span> <span class="hljs-title class_">Node</span>*temp =(Node*)<span class="hljs-built_in">malloc</span>(<span class="hljs-built_in">sizeof</span>(<span class="hljs-keyword">struct</span> Node));<br>	temp-&gt;data=x;<br>	temp-&gt;next=head;<br>	head=temp;  <br>&#125;<br><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span><br><span class="hljs-function"></span>&#123;<br>	head=<span class="hljs-literal">NULL</span>;<br>	<span class="hljs-built_in">Insert</span>(<span class="hljs-number">2</span>);<br>	<span class="hljs-built_in">Insert</span>(<span class="hljs-number">4</span>);<br>	<span class="hljs-built_in">Insert</span>(<span class="hljs-number">6</span>);<br>	<span class="hljs-built_in">Insert</span>(<span class="hljs-number">5</span>);  <span class="hljs-comment">//此时链表为5 6 4 2</span><br>	<span class="hljs-type">int</span> n;<br>	<span class="hljs-built_in">scanf</span>(<span class="hljs-string">&quot;%d&quot;</span>,&amp;n);<br>	<span class="hljs-built_in">Delete</span>(n);<br>	<span class="hljs-built_in">Print</span>(); <br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h3 id="反转一个链表"><a href="#反转一个链表" class="headerlink" title="反转一个链表"></a>反转一个链表</h3><p>用非递归方式实现，我们的思路是遍历这一个链表每一个节点，逐个改变链表中元素指向</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-meta">#<span class="hljs-keyword">include</span><span class="hljs-string">&lt;stdio.h&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span><span class="hljs-string">&lt;stdlib.h&gt;</span></span><br><span class="hljs-keyword">struct</span> <span class="hljs-title class_">Node</span>&#123;<br>	<span class="hljs-type">int</span> data;<br>	<span class="hljs-keyword">struct</span> <span class="hljs-title class_">Node</span>* next;<br>&#125;;<br><span class="hljs-keyword">struct</span> <span class="hljs-title class_">Node</span>* head;<br><span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">Insert</span><span class="hljs-params">(<span class="hljs-type">int</span> x)</span></span><br><span class="hljs-function"></span>&#123;<br>	<span class="hljs-keyword">struct</span> <span class="hljs-title class_">Node</span>*temp =(Node*)<span class="hljs-built_in">malloc</span>(<span class="hljs-built_in">sizeof</span>(<span class="hljs-keyword">struct</span> Node));<br>	temp-&gt;data=x;<br>	temp-&gt;next=head;<br>	head=temp;                              <br>&#125;<br><span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">Print</span><span class="hljs-params">()</span></span><br><span class="hljs-function"></span>&#123;<br>	<span class="hljs-keyword">struct</span> <span class="hljs-title class_">Node</span>*temp=head;   <span class="hljs-comment">//遍历一个链表需要调用head，但我们不希望改变head，所以引入temp </span><br>	<span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;List is: &quot;</span>);<br>	<span class="hljs-keyword">while</span>(temp!=<span class="hljs-literal">NULL</span>)<br>	&#123;<br>		<span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot; %d&quot;</span>,temp-&gt;data);<br>		temp=temp-&gt;next;<br>	&#125;<br>	<span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;\n&quot;</span>); <br>&#125;<br><span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">Reverse</span><span class="hljs-params">()</span></span><br><span class="hljs-function"></span>&#123;<br>	<span class="hljs-keyword">struct</span> <span class="hljs-title class_">Node</span> *current,*prev,*next;<br>	current=head;<br>	prev=<span class="hljs-literal">NULL</span>;<br>	<span class="hljs-keyword">while</span>(current!=<span class="hljs-literal">NULL</span>)<br>	&#123;<br>		next=current-&gt;next;  <span class="hljs-comment">//更新next </span><br>		current-&gt;next=prev;  <span class="hljs-comment">//更改两个节点之间指向方向 </span><br>		prev=current;        <span class="hljs-comment">//更新prev </span><br>		current=next;        <span class="hljs-comment">//更新current </span><br>	&#125;   <br>	head=prev; <br>	      <span class="hljs-comment">//prev是最后一个节点，作为新的head </span><br>&#125;<br><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span><br><span class="hljs-function"></span>&#123;   head=<span class="hljs-literal">NULL</span>; <br>	<span class="hljs-built_in">Insert</span>(<span class="hljs-number">1</span>);<br>	<span class="hljs-built_in">Insert</span>(<span class="hljs-number">2</span>);<br>	<span class="hljs-built_in">Insert</span>(<span class="hljs-number">3</span>);<br>	<span class="hljs-built_in">Insert</span>(<span class="hljs-number">4</span>);<br>	<span class="hljs-built_in">Print</span>();<br>	<span class="hljs-built_in">Reverse</span>();<br>	<span class="hljs-built_in">Print</span>();<br>	<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>用递归方法实现，我们的思路是<br>step 1:b-&gt;a<br>step 2:a-&gt;b to a-&gt;NULL</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-meta">#<span class="hljs-keyword">include</span><span class="hljs-string">&lt;stdio.h&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span><span class="hljs-string">&lt;stdlib.h&gt;</span></span><br><span class="hljs-keyword">struct</span> <span class="hljs-title class_">Node</span>&#123;<br>	<span class="hljs-type">int</span> data;<br>	<span class="hljs-keyword">struct</span> <span class="hljs-title class_">Node</span>* next;<br>&#125;; <br><span class="hljs-keyword">struct</span> <span class="hljs-title class_">Node</span>* head;<br><span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">Reverse</span><span class="hljs-params">(<span class="hljs-keyword">struct</span> Node* p)</span></span><br><span class="hljs-function"></span>&#123;<br>	<span class="hljs-keyword">if</span>(p-&gt;next==<span class="hljs-literal">NULL</span>)   <span class="hljs-comment">//说明此时的p是尾节点</span><br>	&#123;<br>		head=p;     <span class="hljs-comment">//头尾倒置</span><br>		<span class="hljs-keyword">return</span>;<br>	&#125;<br>	<span class="hljs-built_in">Reverse</span>(p-&gt;next);<br>	(p-&gt;next)-&gt;next=p;    <span class="hljs-comment">//开始出栈，从尾部开始弹栈过程中，逐次改变节点指向</span><br>	p-&gt;next=<span class="hljs-literal">NULL</span>;          <span class="hljs-comment">//null不断被更新，最后的头结点指向null，全部出栈</span><br>	<br>&#125;<br><span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">Insert</span><span class="hljs-params">(<span class="hljs-type">int</span> x)</span></span><br><span class="hljs-function"></span>&#123;<br>	<span class="hljs-keyword">struct</span> <span class="hljs-title class_">Node</span>*temp =(Node*)<span class="hljs-built_in">malloc</span>(<span class="hljs-built_in">sizeof</span>(<span class="hljs-keyword">struct</span> Node));<br>	temp-&gt;data=x;<br>	temp-&gt;next=head;<br>	head=temp;                              <br>&#125;<br><span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">Print</span><span class="hljs-params">()</span></span><br><span class="hljs-function"></span>&#123;<br>	<span class="hljs-keyword">struct</span> <span class="hljs-title class_">Node</span>*temp=head;   <br>	<span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;List is: &quot;</span>);<br>	<span class="hljs-keyword">while</span>(temp!=<span class="hljs-literal">NULL</span>)<br>	&#123;<br>		<span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot; %d&quot;</span>,temp-&gt;data);<br>		temp=temp-&gt;next;<br>	&#125;<br>	<span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;\n&quot;</span>); <br>&#125;<br><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span><br><span class="hljs-function"></span>&#123;<br>	head=<span class="hljs-literal">NULL</span>; <br>	<span class="hljs-built_in">Insert</span>(<span class="hljs-number">1</span>);<br>	<span class="hljs-built_in">Insert</span>(<span class="hljs-number">2</span>);<br>	<span class="hljs-built_in">Insert</span>(<span class="hljs-number">3</span>);<br>	<span class="hljs-built_in">Insert</span>(<span class="hljs-number">4</span>);<br>	<span class="hljs-built_in">Insert</span>(<span class="hljs-number">5</span>);<br>	<span class="hljs-built_in">Print</span>();<br>	<span class="hljs-built_in">Reverse</span>(head);<br>	<span class="hljs-built_in">Print</span>();<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h3 id="递归打印一个链表"><a href="#递归打印一个链表" class="headerlink" title="递归打印一个链表"></a>递归打印一个链表</h3><p>很简单的一个递归</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-meta">#<span class="hljs-keyword">include</span><span class="hljs-string">&lt;stdio.h&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span><span class="hljs-string">&lt;stdlib.h&gt;</span> </span><br><span class="hljs-keyword">struct</span> <span class="hljs-title class_">Node</span>&#123;<br>	<span class="hljs-type">int</span> data;<br>	<span class="hljs-keyword">struct</span> <span class="hljs-title class_">Node</span>* next;<br>&#125;;<br><span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">Print</span><span class="hljs-params">(<span class="hljs-keyword">struct</span> Node* p)</span></span><br><span class="hljs-function"></span>&#123;<br>	<span class="hljs-keyword">if</span>(p==<span class="hljs-literal">NULL</span>)<br>	&#123;<br>		<span class="hljs-keyword">return</span>;<br>	&#125;<br>	<span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;%d&quot;</span>,p-&gt;data);<br>	<span class="hljs-built_in">Print</span>(p-&gt;next);<br>&#125;<br><span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">ReversePrint</span><span class="hljs-params">(<span class="hljs-keyword">struct</span> Node* p)</span></span><br><span class="hljs-function"></span>&#123;<br>	<span class="hljs-keyword">if</span>(p==<span class="hljs-literal">NULL</span>)<br>	&#123;<br>		<span class="hljs-keyword">return</span>;<br>	&#125;<br>	<span class="hljs-built_in">ReversePrint</span>(p-&gt;next);    <span class="hljs-comment">//调用结束，回来执行完下面的printf，栈帧消失 </span><br>	<span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;%d&quot;</span>,p-&gt;data);<br>&#125;<br><br></code></pre></td></tr></table></figure>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" class="category-chain-item">数据结构</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/c%E8%AF%AD%E8%A8%80%E5%AE%9E%E7%8E%B0%E5%9F%BA%E6%9C%AC%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" class="category-chain-item">c语言实现基本数据结构</a>
+  
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/c%E8%AF%AD%E8%A8%80/" class="print-no-link">#c语言</a>
+      
+        <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" class="print-no-link">#数据结构</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>链表的c语言实现</div>
+      <div>http://example.com/2023/12/11/数据结构/test/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>bradin</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2023年12月11日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2023/12/11/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/c%E6%A0%88/" title="c栈">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">c栈</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/1024/01/21/%E6%9D%82%E8%B0%88/%E9%9A%8F%E7%AC%94/" title="随笔">
+                        <span class="hidden-mobile">随笔</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="busuanzi_container_site_pv" style="display: none">
+        总访问量 
+        <span id="busuanzi_value_site_pv"></span>
+         次
+      </span>
+    
+    
+      <span id="busuanzi_container_site_uv" style="display: none">
+        总访客数 
+        <span id="busuanzi_value_site_uv"></span>
+         人
+      </span>
+    
+    
+  
+</div>
+
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

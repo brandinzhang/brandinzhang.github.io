@@ -1,0 +1,838 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="bradin">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="前言：定义与布局根据求导的自变量和因变量是标量，向量还是矩阵，我们有9种可能的矩阵求导定义，谈谈几种常用的。 所谓向量对标量的求导，其实就是向量里的每个分量分别对标量求导，最后把求导的结果排列在一起，按一个向量表示而已。类似的结论也存在于标量对向量的求导，向量对向量的求导，向量对矩阵的求导，矩阵对向量的求导，以及矩阵对矩阵的求导等。总而言之，所谓的向量矩阵求导本质上就是多元函数求导，仅仅是把把函数">
+<meta property="og:type" content="article">
+<meta property="og:title" content="矩阵求导技巧">
+<meta property="og:url" content="http://example.com/2024/07/08/%E6%95%B0%E5%AD%A6/%E7%9F%A9%E9%98%B5%E6%B1%82%E5%AF%BC/index.html">
+<meta property="og:site_name" content="鸭蛋仙人的博客">
+<meta property="og:description" content="前言：定义与布局根据求导的自变量和因变量是标量，向量还是矩阵，我们有9种可能的矩阵求导定义，谈谈几种常用的。 所谓向量对标量的求导，其实就是向量里的每个分量分别对标量求导，最后把求导的结果排列在一起，按一个向量表示而已。类似的结论也存在于标量对向量的求导，向量对向量的求导，向量对矩阵的求导，矩阵对向量的求导，以及矩阵对矩阵的求导等。总而言之，所谓的向量矩阵求导本质上就是多元函数求导，仅仅是把把函数">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2024-07-07T16:00:00.000Z">
+<meta property="article:modified_time" content="2025-02-28T06:45:52.000Z">
+<meta property="article:author" content="bradin">
+<meta property="article:tag" content="数学">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>矩阵求导技巧 - 鸭蛋仙人的博客</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.6","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>鸭蛋仙人</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/example/" target="_self">
+                <i class="iconfont icon-slack-fill"></i>
+                <span>example</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="矩阵求导技巧"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2024-07-08 00:00" pubdate>
+          2024年7月8日 凌晨
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          1.7k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          15 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="busuanzi_container_page_pv" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="busuanzi_value_page_pv"></span> 次
+        </span>
+        
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">矩阵求导技巧</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="前言：定义与布局"><a href="#前言：定义与布局" class="headerlink" title="前言：定义与布局"></a>前言：定义与布局</h1><p>根据求导的自变量和因变量是标量，向量还是矩阵，我们有9种可能的矩阵求导定义，谈谈几种常用的。</p>
+<p>所谓向量对标量的求导，其实就是向量里的每个分量分别对标量求导，最后把求导的结果排列在一起，按一个向量表示而已。类似的结论也存在于标量对向量的求导，向量对向量的求导，向量对矩阵的求导，矩阵对向量的求导，以及矩阵对矩阵的求导等。总而言之，所谓的向量矩阵求导本质上就是多元函数求导，仅仅是把把函数的自变量，因变量以及标量求导的结果排列成了向量矩阵的形式，方便表达与计算，更加简洁而已。一个需要要约定的点是按分量求导后的结果如何进行排布？一般来说有两种布局方式：分子布局与分母布局，无论何种选择方式都是正确的！我们需要根据我们选定的排布方式推导出一套自洽的计算理论即可！诸如：链式法则，微分定义，等等        </p>
+<p>谈谈两种排布方式</p>
+<p>对于分子布局来说，我们求导结果的维度以分子为主<br>对于分母布局来说，我们求导结果的维度以分母为主    </p>
+<p>举一个例子，标量$y$对矩阵$X$求导，那么如果按分母布局，则求导结果的维度和矩阵$X$的维度$m$×$n$是一致的。如果是分子布局，则求导结果的维度为n×m</p>
+<p>一般来说，我们会使用一种叫混合布局的思路：即</p>
+<ul>
+<li>如果是向量或者矩阵对标量求导，则使用分子布局为准  (不常用)</li>
+<li>如果是标量对向量或者矩阵求导，则以分母布局为准。（最常用）</li>
+<li>对于(列)向量对(列)向量求导，有些分歧，下面以分子布局的雅克比矩阵为标准。</li>
+</ul>
+<p>$$\begin{gathered}\frac{\partial\mathbf{y}}{\partial\mathbf{x}}&#x3D;\begin{pmatrix}\frac{\partial y_1}{\partial x_1}&amp;\frac{\partial y_1}{\partial x_2}&amp;\ldots&amp;\frac{\partial y_1}{\partial x_n}\\frac{\partial y_2}{\partial x_1}&amp;\frac{\partial y_2}{\partial x_2}&amp;\ldots&amp;\frac{\partial y_2}{\partial x_n}\\vdots&amp;\vdots&amp;\ddots&amp;\vdots\\frac{\partial y_m}{\partial x_1}&amp;\frac{\partial y_m}{\partial x_2}&amp;\ldots&amp;\frac{\partial y_m}{\partial x_n}\end{pmatrix}\end{gathered}$$</p>
+<p>具体计算时，对y的每一个分量进行标量对向量求导，得到的导数转置后按行排列即是欲求的雅可比矩阵。</p>
+<p>有的资料上会使用$\frac{\partial\mathbf{y}}{\partial\mathbf{x}^\mathbf{T}}$定义雅可比矩阵，数学意义与上式是一样的</p>
+<h1 id="标量对矩阵的求导"><a href="#标量对矩阵的求导" class="headerlink" title="标量对矩阵的求导"></a>标量对矩阵的求导</h1><h2 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h2><p>回忆如何表示一个标量的微分，显然，$df$就是所有自变量变化引起的函数变化的总和，也就是<br>$$df&#x3D;\sum_{i&#x3D;1}^n\frac{\partial f}{\partial x_i}dx_i$$</p>
+<ul>
+<li>$dx$为标量时，$df$可以表示为<br>$$df&#x3D;f^{\prime}(x)dx$$</li>
+<li>$dx$为向量时，$df$可以表示为<br>$$df&#x3D;\sum_{i&#x3D;1}^n\frac{\partial f}{\partial x_i}dx_i&#x3D;\frac{\partial f}{\partial\boldsymbol{x}}^Td\boldsymbol{x}$$<br>其中$\frac{\partial f}{\partial\boldsymbol{x}}^T$为$f$的梯度(行向量)，全微分$df$是导数$\frac{\partial f}{\partial x}$与微分向量$dx$的内积        </li>
+<li>$dX$为矩阵时，借助矩阵的迹，$df$可以表示为<br>$$df&#x3D;\sum_{i&#x3D;1}^m\sum_{j&#x3D;1}^n\frac{\partial f}{\partial X_{ij}}dX_{ij}&#x3D;\mathrm{tr}\left(\frac{\partial f}{\partial X}^TdX\right)$$<br>其中全微分$df$是导数$\frac{\partial f}{\partial X}$与微分矩阵$dX$的内积，我们也由此自然地得出了矩阵对标量求导时的分子布局定义：标量f对矩阵原位逐个元素求导后取装置。<br>附：上式证明。<br>$$Proof.\begin{aligned}<br>\mathrm{d}f(\boldsymbol{X})&amp; &#x3D;\frac{\partial f}{\partial x_{11}}\mathrm{d}x_{11}+\frac{\partial f}{\partial x_{12}}\mathrm{d}x_{12}+\cdots+\frac{\partial f}{\partial x_{1n}}\mathrm{d}x_{1n} \<br>&amp;+\frac{\partial f}{\partial x_{21}}\mathrm{d}x_{21}+\frac{\partial f}{\partial x_{22}}\mathrm{d}x_{22}+\cdots+\frac{\partial f}{\partial x_{2n}}\mathrm{d}x_{2n} \<br>&amp;+\ldots \<br>&amp;+\frac{\partial f}{\partial x_{m1}}\mathrm{d}x_{m1}+\frac{\partial f}{\partial x_{m2}}\mathrm{d}x_{m2}+\cdots+\frac{\partial f}{\partial x_{mn}}\mathrm{d}x_{mn} \<br>df&#x3D;&amp;tr(\begin{bmatrix}\frac{\partial f}{\partial x_{11}}&amp;\frac{\partial f}{\partial x_{21}}&amp;\cdots&amp;\frac{\partial f}{\partial x_{m1}}\\frac{\partial f}{\partial x_{12}}&amp;\frac{\partial f}{\partial x_{22}}&amp;\cdots&amp;\frac{\partial f}{\partial x_{m2}}\\vdots&amp;\vdots&amp;\vdots&amp;\vdots\\frac{\partial f}{\partial x_{1n}}&amp;\frac{\partial f}{\partial x_{2n}}&amp;\cdots&amp;\frac{\partial f}{\partial x_{mn}}\end{bmatrix}<em>{n\times m}\begin{bmatrix}\mathrm{d}x</em>{11}&amp;\mathrm{d}x_{12}&amp;\cdots&amp;\mathrm{d}x_{1n}\\mathrm{d}x_{21}&amp;\mathrm{d}x_{22}&amp;\cdots&amp;\mathrm{d}x_{2n}\\vdots&amp;\vdots&amp;\vdots&amp;\vdots\\mathrm{d}x_{m1}&amp;\mathrm{d}x_{m2}&amp;\cdots&amp;\mathrm{d}x_{mn}\end{bmatrix}_{m\times n})<br>\end{aligned}$$</li>
+</ul>
+<h2 id="矩阵微分的性质"><a href="#矩阵微分的性质" class="headerlink" title="矩阵微分的性质"></a>矩阵微分的性质</h2><ul>
+<li>1.加减法：$d(X\pm Y)&#x3D;dX\pm dY$;矩阵乘法：$d(XY)&#x3D;(dX)Y+XdY$;转置：<br>$d(X^T)&#x3D;(dX)^T$;迹：$dtr(X)&#x3D;tr(dX)$。<br>$$ Proof.略$$</li>
+<li>2.逆：$dX^{-1}&#x3D;-X^{-1}dXX^{-1}$。此式可在$XX^-1&#x3D;I$两侧求微分来证明。</li>
+<li>3.行列式：$d|X|&#x3D;\operatorname{tr}(X^{<em>}dX)$,其中$X^{</em>}$表示X的伴随矩阵，在X可逆时又可以写作$d|X|&#x3D;|X|$tr$(X^{-1}dX)$。此式可用Laplace展开来证明</li>
+<li>4.逐元素乘法：$d(X\odot Y)&#x3D;dX\odot Y+X\odot dY$,$\odot$表示尺寸相同的矩阵X，Y逐元素相乘。</li>
+<li>5.逐元素函数：$d\sigma(X)&#x3D;\sigma^{\prime}(X)\odot dX$,$\sigma(X)&#x3D;[\sigma(X_{ij})]$是逐元素标量函数运算，<br>$$\left.\begin{aligned}X&#x3D;\begin{bmatrix}X_{11}&amp;X_{12}\X_{21}&amp;X_{22}\end{bmatrix},d\sin(X)&#x3D;\begin{bmatrix}\cos X_{11}dX_{11}&amp;\cos X_{12}dX_{12}\\cos X_{21}dX_{21}&amp;\cos X_{22}dX_{22}\end{bmatrix}&#x3D;\cos(X)\odot dX\end{aligned}\right.$$</li>
+</ul>
+<h2 id="迹运算技巧"><a href="#迹运算技巧" class="headerlink" title="迹运算技巧"></a>迹运算技巧</h2><ul>
+<li><p>1.标量套上迹：$a&#x3D;\operatorname{tr}(a)$</p>
+</li>
+<li><p>2.转置：tr$(A^T)&#x3D;\operatorname{tr}(A).$</p>
+</li>
+<li><p>3.线性：$\operatorname{tr}(A\pm B)&#x3D;\operatorname{tr}(A)\pm\operatorname{tr}(B).$</p>
+</li>
+<li><p>4.矩阵乘法交换：$\operatorname{tr}(AB)&#x3D;\operatorname{tr}(BA)$,其中$A$与$B^T$尺寸相同。两侧都等于$\sum_i,jA_{ij}B_{ji}$</p>
+</li>
+<li><p>5.矩阵乘法&#x2F;逐元素乘法交换：$\operatorname{tr}(A^T(B\odot C))&#x3D;\operatorname{tr}((A\odot B)^TC)$,其中$A,B,C$尺寸相同。两侧都等于$\sum_{ij}A_{ij}B_{ij}C_{ij}$           </p>
+</li>
+<li><p>若标量函数f是矩阵X经加减乘法、逆、行列式、逐元素函数等运算构成，则使用相应的运算法则对f求微分，再使用迹技巧给df套上迹并将其它项交换至dX左侧，对照导数与微分的联系$df&#x3D;\mathrm{tr}\left(\frac{\partial f}{\partial X}^TdX\right)$即可求得导数.$ati.常常利用性质4，5来进行tr内部的顺序交换。$</p>
+</li>
+</ul>
+<h2 id="求解一些经典问题"><a href="#求解一些经典问题" class="headerlink" title="求解一些经典问题"></a>求解一些经典问题</h2><ul>
+<li>$f&#x3D;\boldsymbol{a}^TX\boldsymbol{b}\text{,求}\frac{\partial f}{\partial X}$   其中$a,b$为列向量，$X$为矩阵。</li>
+</ul>
+<p>$$df&#x3D;a^{T}dXb\df&#x3D;tr(a^{T}dX b)&#x3D;tr(ba^{T}dX)\\frac{\partial f}{\partial x}&#x3D;(ba^{T})^{T}&#x3D;ab^{T}$$</p>
+<ul>
+<li>$f&#x3D;\boldsymbol{a}^T\exp(X\boldsymbol{b})$,求$\frac{\partial f}{\partial X}$。其中$\boldsymbol{a}$是$m\times1$列向量，$X$是$m\times n$矩阵，$\boldsymbol{b}$是$n\times1$列向<br>量，exp表示逐元素求指数，$f$是标量。</li>
+</ul>
+<p>$$<br>\begin{aligned}<br>df &amp;&#x3D; a^{T}(\exp(Xb) \odot d(Xb)) \<br>df &amp;&#x3D; \text{tr}(a^{T}[\exp(Xb) \odot d(Xb)]) \<br>df &amp;&#x3D; \text{tr}((a^{T} \odot \exp(Xb))^{T}d(Xb)) \<br>df &amp;&#x3D; \text{tr}(b(a \odot \exp(Xb))^TdX) &#x3D; \text{tr}(((a \odot \exp(Xb))b^T)^TdX) \<br>&#x3D;&gt;\frac{\partial f}{\partial X} &amp;&#x3D; (\boldsymbol{a} \odot \exp(X\boldsymbol{b}))\boldsymbol{b}^T<br>\end{aligned} $$</p>
+<ul>
+<li><p>$f&#x3D;\operatorname{tr}(Y^TMY),Y&#x3D;\sigma(WX)$,求$\frac{\partial f}{\partial X}$。其中$W$是$l\times m$矩阵，$X$是$m\times n$矩阵，$Y$<br>是$l\times n$矩阵，$M$是$l\times l$对称矩阵，$\sigma$是逐元素函数，$f$是标量。<br>$$ \begin{aligned}<br>df &amp;&#x3D; \operatorname{tr}((dY)^TMY) + \operatorname{tr}(Y^TMdY) \<br>&amp;&#x3D; \operatorname{tr}(Y^TM^TdY) + \operatorname{tr}(Y^TMdY) \<br>&amp;&#x3D; \operatorname{tr}(Y^T(M+M^T)dY) \<br>\frac{\partial f}{\partial Y} &amp;&#x3D; (M+M^T)Y &#x3D; 2MY \<br>df &amp;&#x3D; \operatorname{tr}\left(\frac{\partial f}{\partial Y}^TdY\right) \<br>df &amp;&#x3D; \operatorname{tr}\left(\frac{\partial f}{\partial Y}^T(\sigma^{\prime}(WX)\odot(WdX))\right) \<br>&amp;&#x3D; \operatorname{tr}\left(\left(\frac{\partial f}{\partial Y}\odot\sigma^{\prime}(WX)\right)^TWdX\right) \<br>\frac{\partial f}{\partial X} &amp;&#x3D; W^T\left(\frac{\partial f}{\partial Y}\odot\sigma^{\prime}(WX)\right) &#x3D; W^T\left((2M\sigma(WX))\odot\sigma^{\prime}(WX)\right)<br>\end{aligned} $$</p>
+</li>
+<li><p>$l&#x3D;|X\boldsymbol{w}-\boldsymbol{y}|^2$,求$\boldsymbol{w}$的最小二乘估计，即求$\frac{\partial l}{\partial\boldsymbol{w}}$的零点。其中$\boldsymbol{y}$是$m\times1$<br>列向量，$X$是$m\times n$矩阵，$\boldsymbol{w}$是$n\times1$列向量，$l$是标量。</p>
+</li>
+</ul>
+<p>$$<br>\begin{aligned}<br>l &amp;&#x3D;(X\boldsymbol{w}-\boldsymbol{y})^T(X\boldsymbol{w}-\boldsymbol{y})<br>\dl &amp;&#x3D;(Xd\boldsymbol{w})^T(X\boldsymbol{w}-\boldsymbol{y})+(X\boldsymbol{w}-\boldsymbol{y})^T(Xd\boldsymbol{w})<br>\dl &amp;&#x3D;2(X\boldsymbol{w}-\boldsymbol{y})^TXd\boldsymbol{w}<br>\end{aligned}<br>$$<br>对照导数与微分的联系$dl&#x3D;\frac{\partial l}{\partial\boldsymbol{w}}^Td\boldsymbol{u}$ ,得到$\frac{\partial l}{\partial\boldsymbol{w}}&#x3D;2X^T(X\boldsymbol{w}-\boldsymbol{y})$。$\frac{\partial l}{\partial\boldsymbol{w}}&#x3D;\mathbf{0}$即$X^TX\boldsymbol{w}&#x3D;X^T\boldsymbol{y}$,得到$\boldsymbol{w}$的最小二乘估计为<br>$\boldsymbol{w}&#x3D;(X^TX)^{-1}X^T\boldsymbol{y}.$</p>
+<h1 id="向量对向量的求导"><a href="#向量对向量的求导" class="headerlink" title="向量对向量的求导"></a>向量对向量的求导</h1><h2 id="如何计算"><a href="#如何计算" class="headerlink" title="如何计算"></a>如何计算</h2><p>给一个例子：DNN神经网络中第l层与第l+1层的输入输出$z^{l+1}$与$z^{l}$之间的关系为<br>$$z^{l+1}&#x3D;W^{l+1}a^l+b^{l+1}&#x3D;W^{l+1}\sigma(z^l)+b^{l+1}$$<br>求解:  $\frac{\partial z^{l+1}}{\partial z^l}$ </p>
+<p>先用标量对向量求导的方法，依次求出$z^{l+1}$的每一个分量的导数，再排列成雅可比矩阵。</p>
+<p>考虑$z_{j}^{l+1}$对$z_l$的导数</p>
+<p>$$dz_{j}^{l+1}&#x3D;W^{l+1}\sigma^{‘}(z^l) \odot dz^l $$<br>$$dz_{j}^{l+1}&#x3D;((W^{l+1})^{T} \odot \sigma^{‘}(z^l))^{T}  dz^l $$</p>
+<p>$j&#x3D;1$到$j&#x3D;Nrow(W)$排列成矩阵，最终写为</p>
+<p>$$\frac{\partial z^{l+1}}{\partial z^l}&#x3D;W^{l+1}diag(\sigma^{‘}(z^l))$$</p>
+<h2 id="链式法则："><a href="#链式法则：" class="headerlink" title="链式法则："></a>链式法则：</h2><h3 id="向量对向量的链式求导"><a href="#向量对向量的链式求导" class="headerlink" title="向量对向量的链式求导"></a>向量对向量的链式求导</h3><p>定理：<br>若多个列向量的依赖关系为 $\boldsymbol{x}\to\boldsymbol{y}\to\boldsymbol{z}$且其维数分别为$n,p,m,$则             </p>
+<ul>
+<li>$\frac{\partial z}{\partial x}&#x3D;\frac{\partial z}{\partial y}\frac{\partial y}{\partial x}$ (若使用分子布局),            </li>
+<li>$\frac{\partial z}{\partial x}&#x3D;\frac{\partial y}{\partial x}\frac{\partial z}{\partial y}$ (若使用分母布局)</li>
+</ul>
+<p>对分子布局进行证明:</p>
+<p>$$\frac{\partial z}{\partial x}&#x3D;\begin{bmatrix}\frac{\partial z_1}{\partial x_1}&amp;\frac{\partial z_1}{\partial x_2}&amp;\cdots&amp;\frac{\partial z_1}{\partial x_n}\\vdots&amp;\ddots&amp;&amp;\vdots\\frac{\partial z_m}{\partial x_1}&amp;\frac{\partial z_m}{\partial x_2}&amp;\cdots&amp;\frac{\partial z_m}{\partial x_n}\end{bmatrix}$$</p>
+<p>$$\left.&#x3D;\left[\begin{array}{ccccc}\sum_{i&#x3D;1}^p\frac{\partial z_1}{\partial y_i}\frac{\partial y_i}{\partial x_1}&amp;\sum_{i&#x3D;1}^p\frac{\partial z_1}{\partial y_i}\frac{\partial y_i}{\partial x_2}&amp;\cdots&amp;\sum_{i&#x3D;1}^p\frac{\partial z_1}{\partial y_i}\frac{\partial y_i}{\partial x_n}\\vdots&amp;\ddots&amp;&amp;\vdots\\sum_{i&#x3D;1}^p\frac{\partial z_m}{\partial y_i}\frac{\partial y_i}{\partial x_1}&amp;\sum_{i&#x3D;1}^p\frac{\partial z_m}{\partial y_i}\frac{\partial y_i}{\partial x_2}&amp;\cdots&amp;\sum_{i&#x3D;1}^p\frac{\partial z_m}{\partial y_i}\frac{\partial y_i}{\partial x_n}\end{array}\right.\right]$$</p>
+<p>$$&#x3D;\begin{bmatrix}\frac{\partial z_1}{\partial y_1}&amp;\frac{\partial z_1}{\partial y_2}&amp;\cdots&amp;\frac{\partial z_1}{\partial y_p}\\vdots&amp;\ddots&amp;&amp;\vdots\\frac{\partial z_m}{\partial y_1}&amp;\frac{\partial z_m}{\partial y_2}&amp;\cdots&amp;\frac{\partial z_m}{\partial y_p}\end{bmatrix}\begin{bmatrix}\frac{\partial y_1}{\partial x_1}&amp;\frac{\partial y_1}{\partial x_2}&amp;\cdots&amp;\frac{\partial y_1}{\partial x_n}\\vdots&amp;\ddots&amp;&amp;\vdots\\frac{\partial y_p}{\partial x_1}&amp;\frac{\partial y_p}{\partial x_2}&amp;\cdots&amp;\frac{\partial y_p}{\partial x_n}\end{bmatrix}$$</p>
+<p>$$&#x3D;\frac{\partial z}{\partial y}\frac{\partial y}{\partial x}$$</p>
+<p>证毕，同时推广到n个向量之间的链式法则也自然是成立的，因为多个链式总可以看为上述操作之叠加</p>
+<h3 id="标量对多个向量的链式求导"><a href="#标量对多个向量的链式求导" class="headerlink" title="标量对多个向量的链式求导"></a>标量对多个向量的链式求导</h3><p>定理：<br>标量对更多的向量求导，比如$\mathbf{y_1}\to\mathbf{y_2}\to\ldots\to\mathbf{y_n}\to z$，则有<br>$$\frac{\partial z}{\partial\mathbf{y_1}}&#x3D;(\frac{\partial\mathbf{y_n}}{\partial\mathbf{y_{n-1}}}\frac{\partial\mathbf{y_{n-1}}}{\partial\mathbf{y_{n-2}}}\ldots\frac{\partial\mathbf{y_2}}{\partial\mathbf{y_1}})^T\frac{\partial z}{\partial\mathbf{y_n}}$$</p>
+<h3 id="标量对多个矩阵的链式求导"><a href="#标量对多个矩阵的链式求导" class="headerlink" title="标量对多个矩阵的链式求导"></a>标量对多个矩阵的链式求导</h3><p>定理:在依赖关系$\mathbf{X}\to\mathbf{Y}\to z$下，满足链式法则</p>
+<p>$$\frac{\partial z}{\partial x_{ij}}&#x3D;\sum_{k,l}\frac{\partial z}{\partial Y_{kl}}\frac{\partial Y_{kl}}{\partial X_{ij}}&#x3D;tr((\frac{\partial z}{\partial Y})^T\frac{\partial Y}{\partial X_{ij}})$$</p>
+<p>我们没有给出基于矩阵整体的链式求导法则，主要原因是矩阵对矩阵的求导是比较复杂的定义，我们目前也未涉及。因此只能给出对矩阵中一个标量的链式求导方法。这个方法并不实用，因为我们并不想每次都基于定义法来求导最后再去排列求导结果。</p>
+<p>　　　　虽然我们没有全局的标量对矩阵的链式求导法则，但是对于一些线性关系的链式求导，我们还是可以得到一些有用的结论的。</p>
+<p>我们来看这个常见问题：$A,X,B,Y$都是矩阵，$Z$是标量，其中$z&#x3D;f(Y)&#x3D;f(AX+B)$,我们欲求出<br>$\frac{\partial z}{\partial X}$，这个问题在机器学习中是很常见的。此时，我们并不能直接整体使用矩阵的链式求导法则，因为矩阵对矩阵的求导结果不好处理。</p>
+<p>这里我们回归初心，使用定义法试一试,先使用上面的标量链式求导公式：</p>
+<p>$$\frac{\partial z}{\partial x_{ij}}&#x3D;\sum_{k,l}\frac{\partial z}{\partial Y_{kl}}\frac{\partial Y_{kl}}{\partial X_{ij}}$$</p>
+<p>后半部分</p>
+<p>$$\frac{\partial Y_{kl}}{\partial X_{ij}}&#x3D;\frac{\partial\sum_s(A_{ks}X_{sl})}{\partial X_{ij}}&#x3D;\frac{\partial A_{ki}X_{il}}{\partial X_{ij}}&#x3D;A_{ki}\delta_{lj}$$</p>
+<p>其中$\delta_{lj}$为克罗内克符号，当$l&#x3D;j$的时候为1，否则为0</p>
+<p>那么最终的标签链式求导公式转化为：<br>$$\frac{\partial z}{\partial x_{ij}}&#x3D;\sum_{k,l}\frac{\partial z}{\partial Y_{kl}}A_{ki}\delta_{lj}&#x3D;\sum_k\frac{\partial z}{\partial Y_{kj}}A_{ki}$$</p>
+<p>排列成矩阵即为：</p>
+<p>$$\frac{\partial z}{\partial X}&#x3D;A^T\frac{\partial z}{\partial Y}$$</p>
+<h3 id="总结出四条deeplearning中常用的结论"><a href="#总结出四条deeplearning中常用的结论" class="headerlink" title="总结出四条deeplearning中常用的结论"></a>总结出四条deeplearning中常用的结论</h3><p>$$z&#x3D;f(Y),Y&#x3D;AX+B\to\frac{\partial z}{\partial X}&#x3D;A^T\frac{\partial z}{\partial Y}$$<br>$$z&#x3D;f(\mathbf{y}),\mathbf{y}&#x3D;A\mathbf{x}+\mathbf{b}\to\frac{\partial z}{\partial\mathbf{x}}&#x3D;A^T\frac{\partial z}{\partial\mathbf{y}}$$<br>$$z&#x3D;f(Y),Y&#x3D;XA+B\to\frac{\partial z}{\partial X}&#x3D;\frac{\partial z}{\partial Y}A^T$$</p>
+<p>$$z&#x3D;f(\mathbf{y}),\mathbf{y}&#x3D;X\mathbf{a}+\mathbf{b}\to\frac{\partial z}{\partial\mathbf{X}}&#x3D;\frac{\partial z}{\partial\mathbf{y}}a^T$$</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E6%95%B0%E5%AD%A6/" class="category-chain-item">数学</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/%E6%95%B0%E5%AD%A6/%E7%9F%A9%E9%98%B5%E5%88%86%E6%9E%90/" class="category-chain-item">矩阵分析</a>
+  
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E6%95%B0%E5%AD%A6/" class="print-no-link">#数学</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>矩阵求导技巧</div>
+      <div>http://example.com/2024/07/08/数学/矩阵求导/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>bradin</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2024年7月8日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2024/07/12/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/ng%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" title="ng-决策树">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">ng-决策树</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2024/01/21/cs/ssh%E5%AF%86%E9%92%A5%E5%A4%B1%E6%95%88%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/" title="ssh密钥失效解决办法">
+                        <span class="hidden-mobile">ssh密钥失效解决办法</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+  
+  
+
+
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="busuanzi_container_site_pv" style="display: none">
+        总访问量 
+        <span id="busuanzi_value_site_pv"></span>
+         次
+      </span>
+    
+    
+      <span id="busuanzi_container_site_uv" style="display: none">
+        总访客数 
+        <span id="busuanzi_value_site_uv"></span>
+         人
+      </span>
+    
+    
+  
+</div>
+
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  
+      <script>
+        if (!window.MathJax) {
+          window.MathJax = {
+            tex    : {
+              inlineMath: { '[+]': [['$', '$']] }
+            },
+            loader : {
+              load: ['ui/lazy']
+            },
+            options: {
+              renderActions: {
+                insertedScript: [200, () => {
+                  document.querySelectorAll('mjx-container').forEach(node => {
+                    let target = node.parentNode;
+                    if (target.nodeName.toLowerCase() === 'li') {
+                      target.parentNode.classList.add('has-jax');
+                    }
+                  });
+                }, '', false]
+              }
+            }
+          };
+        } else {
+          MathJax.startup.document.state(0);
+          MathJax.texReset();
+          MathJax.typeset();
+          MathJax.typesetPromise();
+        }
+
+        Fluid.events.registerRefreshCallback(function() {
+          if ('MathJax' in window && MathJax.startup.document && typeof MathJax.startup.document.state === 'function') {
+            MathJax.startup.document.state(0);
+            MathJax.texReset();
+            MathJax.typeset();
+            MathJax.typesetPromise();
+          }
+        });
+      </script>
+    
+
+  <script  src="https://lib.baomitu.com/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

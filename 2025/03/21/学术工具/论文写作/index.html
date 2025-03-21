@@ -1,0 +1,761 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="bradin">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="写作之前写作流程 统计机器翻译 利⽤用句法对⻓长距离调序建模 将树到串对泛化为树到串模板 规则抽取，搜索算法 数据集、基线系统、评价指标 投稿ACL也就是，确定方向确定问题确定思路确定方法实验验证撰写论⽂  选择课题无论热门还是冷门，都要坚持下去，持之以恒          ①填补研究空白（老问题）重在创新侧重和前人研究的不同与融合       ②延伸现有研究（新问题）追踪研究历史：建立在前一项研">
+<meta property="og:type" content="article">
+<meta property="og:title" content="文章总结：如何写论文，读论文？">
+<meta property="og:url" content="http://example.com/2025/03/21/%E5%AD%A6%E6%9C%AF%E5%B7%A5%E5%85%B7/%E8%AE%BA%E6%96%87%E5%86%99%E4%BD%9C/index.html">
+<meta property="og:site_name" content="鸭蛋仙人的博客">
+<meta property="og:description" content="写作之前写作流程 统计机器翻译 利⽤用句法对⻓长距离调序建模 将树到串对泛化为树到串模板 规则抽取，搜索算法 数据集、基线系统、评价指标 投稿ACL也就是，确定方向确定问题确定思路确定方法实验验证撰写论⽂  选择课题无论热门还是冷门，都要坚持下去，持之以恒          ①填补研究空白（老问题）重在创新侧重和前人研究的不同与融合       ②延伸现有研究（新问题）追踪研究历史：建立在前一项研">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://www.freeimg.cn/i/2024/07/19/669a3077d1d7b.png">
+<meta property="og:image" content="https://www.freeimg.cn/i/2024/07/19/669a31bfa42fd.png">
+<meta property="og:image" content="https://www.freeimg.cn/i/2024/07/19/669a33e83ac77.png">
+<meta property="og:image" content="https://www.freeimg.cn/i/2024/07/19/669a35a2c06f4.png">
+<meta property="og:image" content="https://www.freeimg.cn/i/2024/07/19/669a3653b6881.png">
+<meta property="og:image" content="https://www.freeimg.cn/i/2024/07/19/669a376aa465b.png">
+<meta property="og:image" content="https://www.freeimg.cn/i/2024/07/19/669a37a11f3f0.png">
+<meta property="og:image" content="https://www.freeimg.cn/i/2024/07/19/669a6c1155113.png">
+<meta property="article:published_time" content="2025-03-21T15:58:10.000Z">
+<meta property="article:modified_time" content="2024-07-19T13:50:38.000Z">
+<meta property="article:author" content="bradin">
+<meta property="article:tag" content="论文写作">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://www.freeimg.cn/i/2024/07/19/669a3077d1d7b.png">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>文章总结：如何写论文，读论文？ - 鸭蛋仙人的博客</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.6","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>鸭蛋仙人</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/example/" target="_self">
+                <i class="iconfont icon-slack-fill"></i>
+                <span>example</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="文章总结：如何写论文，读论文？"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2025-03-21 23:58" pubdate>
+          2025年3月21日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          800 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          7 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="busuanzi_container_page_pv" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="busuanzi_value_page_pv"></span> 次
+        </span>
+        
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">文章总结：如何写论文，读论文？</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h2 id="写作之前"><a href="#写作之前" class="headerlink" title="写作之前"></a>写作之前</h2><h3 id="写作流程"><a href="#写作流程" class="headerlink" title="写作流程"></a>写作流程</h3><ul>
+<li>统计机器翻译</li>
+<li>利⽤用句法对⻓长距离调序建模</li>
+<li>将树到串对泛化为树到串模板</li>
+<li>规则抽取，搜索算法</li>
+<li>数据集、基线系统、评价指标</li>
+<li>投稿ACL<br>也就是，确定方向<br>确定问题<br>确定思路<br>确定方法<br>实验验证<br>撰写论⽂</li>
+</ul>
+<h3 id="选择课题"><a href="#选择课题" class="headerlink" title="选择课题"></a>选择课题</h3><p>无论热门还是冷门，都要坚持下去，持之以恒        </p>
+<ul>
+<li>①填补研究空白（老问题）<br>重在创新<br>侧重和前人研究的不同与融合      </li>
+<li>②延伸现有研究（新问题）<br>追踪研究历史：建立在前一项研究的基础下同时为下一项研究奠定基础<br>蕴含更多机会<br>注重意义        </li>
+<li>③复制成功研究<br>在不同情况下进行复制（不同变量范围、不同领域）<br>避免错误</li>
+</ul>
+<h3 id="好的论文具有的特点"><a href="#好的论文具有的特点" class="headerlink" title="好的论文具有的特点"></a>好的论文具有的特点</h3><p><img src="https://www.freeimg.cn/i/2024/07/19/669a3077d1d7b.png" srcset="/img/loading.gif" lazyload alt="1721380980302.png"><br><img src="https://www.freeimg.cn/i/2024/07/19/669a31bfa42fd.png" srcset="/img/loading.gif" lazyload alt="1721381308189.png"></p>
+<h3 id="关于审稿"><a href="#关于审稿" class="headerlink" title="关于审稿"></a>关于审稿</h3><p>要接受被拒绝，接受别人的提问，有时候即使是很好的工作也未必可以被接受（比如玻尔兹曼） </p>
+<p>审稿⼈人实际上往往是这样审稿的：<br>他不一定是专家，一直忙于其他事，在deadline到来之前一天要完成<br>n篇。审稿时他往往先看题目、摘要，扫一下introduction（知道你做<br>什么），然后直接翻到最后找核心实验结果（做得好不好），然后<br>基本确定录还是不录（也许只⽤用5分钟！）。如果决定录，剩下就是<br>写些赞美的话，指出些次要的小⽑毛病。如果决定拒，下⾯面的过程就<br>是细看中间部分找理由拒了。<br>要全心全意为读者服务，论文结构与叙述要做到逻辑清晰，语言流畅，思路明确。具体的</p>
+<ul>
+<li>重视abstract，introduction</li>
+<li>深入浅出，引⼈入胜，让读者快速找到想要的信息</li>
+<li>合理地综合使⽤用信息元素：图&gt;曲线&gt;表&gt;正文&gt;公式</li>
+<li>降低信息理解难度</li>
+</ul>
+<h2 id="写作方法"><a href="#写作方法" class="headerlink" title="写作方法"></a>写作方法</h2><h3 id="如何看论文？"><a href="#如何看论文？" class="headerlink" title="如何看论文？"></a>如何看论文？</h3><p>如何看浩如烟海的文献？ </p>
+<ul>
+<li>根据标题过滤50% </li>
+<li>根据摘要再过滤20% </li>
+<li>根据介绍再过滤20% </li>
+<li>剩下的10%再仔细看论⽂</li>
+</ul>
+<h3 id="标题"><a href="#标题" class="headerlink" title="标题"></a>标题</h3><p>一句话说明白，可以适当的别出心裁。</p>
+<h3 id="摘要"><a href="#摘要" class="headerlink" title="摘要"></a>摘要</h3><p>几句话概括你的工作<br><strong>误区</strong>        </p>
+<ul>
+<li>力图把所有细节都说清楚      </li>
+<li>用很专业的术语来描述                 </li>
+<li>出现数学符号</li>
+</ul>
+<p>语言要简单自然，能让外行看懂。   </p>
+<p>摘要应当介绍的是：<img src="https://www.freeimg.cn/i/2024/07/19/669a33e83ac77.png" srcset="/img/loading.gif" lazyload alt="1721381782725.png"></p>
+<h3 id="介绍introduction"><a href="#介绍introduction" class="headerlink" title="介绍introduction"></a>介绍introduction</h3><ul>
+<li>要点是充分论证你所做工作的必要性和重要性，要让审稿⼈人认同并迫不及待想往下看。</li>
+</ul>
+<p>提供一种优秀的格式：</p>
+<ul>
+<li>说明问题是什么</li>
+<li>说明前人的工作，目前最好的工作面临什么挑战</li>
+<li>说明我们的工作可以解决怎样的挑战</li>
+</ul>
+<h3 id="段落"><a href="#段落" class="headerlink" title="段落"></a>段落</h3><p>每个段落有个论断性的中心句<br>• 其余部分都是支撑句，围绕中心句展开论证<br>• 前人工作<br>• 具体数据<br>• 支撑句之间可分类组织<br>• 段尾可以加上衔接句<br><img src="https://www.freeimg.cn/i/2024/07/19/669a35a2c06f4.png" srcset="/img/loading.gif" lazyload alt="1721382301623.png"></p>
+<ul>
+<li><p>可以在文首加图表帮助理解<br><img src="https://www.freeimg.cn/i/2024/07/19/669a3653b6881.png" srcset="/img/loading.gif" lazyload alt="1721382475191.png"></p>
+</li>
+<li><p>学会使用running example阐述自己的思路</p>
+</li>
+</ul>
+<p><img src="https://www.freeimg.cn/i/2024/07/19/669a376aa465b.png" srcset="/img/loading.gif" lazyload alt="1721382758780.png"></p>
+<p><strong>一个具体的例子：</strong></p>
+<p><img src="https://www.freeimg.cn/i/2024/07/19/669a37a11f3f0.png" srcset="/img/loading.gif" lazyload alt="1721382813066.png"></p>
+<h3 id="实验设计"><a href="#实验设计" class="headerlink" title="实验设计"></a>实验设计</h3><p><img src="https://www.freeimg.cn/i/2024/07/19/669a6c1155113.png" srcset="/img/loading.gif" lazyload></p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E5%AD%A6%E6%9C%AF%E5%B7%A5%E5%85%B7/" class="category-chain-item">学术工具</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E8%AE%BA%E6%96%87%E5%86%99%E4%BD%9C/" class="print-no-link">#论文写作</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>文章总结：如何写论文，读论文？</div>
+      <div>http://example.com/2025/03/21/学术工具/论文写作/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>bradin</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2025年3月21日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2025/03/21/EE/51%E5%8D%95%E7%89%87%E6%9C%BA%EF%BC%88%E4%BA%8C%EF%BC%89/" title="51单片机（二）">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">51单片机（二）</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2025/03/21/%E5%AD%A6%E6%9C%AF%E5%B7%A5%E5%85%B7/matplotlib/" title="matplotlib画图">
+                        <span class="hidden-mobile">matplotlib画图</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="busuanzi_container_site_pv" style="display: none">
+        总访问量 
+        <span id="busuanzi_value_site_pv"></span>
+         次
+      </span>
+    
+    
+      <span id="busuanzi_container_site_uv" style="display: none">
+        总访客数 
+        <span id="busuanzi_value_site_uv"></span>
+         人
+      </span>
+    
+    
+  
+</div>
+
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
