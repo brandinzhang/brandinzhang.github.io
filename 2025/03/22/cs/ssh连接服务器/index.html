@@ -16,20 +16,24 @@
   <meta name="author" content="bradin">
   <meta name="keywords" content="">
   
-    <meta name="description" content="绑定密钥对后，可以按照以下步骤开始使用阿里云 ECS 实例，涵盖初始化配置、安全加固、代码部署及管理优化： 连接服务器1. 使用 SSH 密钥登录   1ssh -i &#x2F;Users&#x2F;asina6y6&#x2F;Desktop&#x2F;gitkey&#x2F;aliyun_ecs_ed25519 root@你的ECS公网IP    • 若提示密钥权限问题，执行：     1chmod 600 &#x2F;Users&#x2F;asina6y6&#x2F;D">
+    <meta name="description" content="本地生成ssh公钥与私钥1ssh-keygen -t ed25519 -f ~&#x2F;.ssh&#x2F;aliyun-ecs2  可以通过 1open .&#x2F;.ssh 打开 .ssh文件夹查看密钥情况 进入阿里云ecs界面进入密钥对创建界面 创建密钥，导入已有密钥对，并粘贴公钥内容。  密钥对进行绑定操作  按照提示重启服务器，服务器段的配置就结束了。 在本地进行config配置,进入.ssh的config文件进">
 <meta property="og:type" content="article">
 <meta property="og:title" content="ssh连接服务器（阿里云ECS）">
 <meta property="og:url" content="http://example.com/2025/03/22/cs/ssh%E8%BF%9E%E6%8E%A5%E6%9C%8D%E5%8A%A1%E5%99%A8/index.html">
 <meta property="og:site_name" content="鸭蛋仙人的博客">
-<meta property="og:description" content="绑定密钥对后，可以按照以下步骤开始使用阿里云 ECS 实例，涵盖初始化配置、安全加固、代码部署及管理优化： 连接服务器1. 使用 SSH 密钥登录   1ssh -i &#x2F;Users&#x2F;asina6y6&#x2F;Desktop&#x2F;gitkey&#x2F;aliyun_ecs_ed25519 root@你的ECS公网IP    • 若提示密钥权限问题，执行：     1chmod 600 &#x2F;Users&#x2F;asina6y6&#x2F;D">
+<meta property="og:description" content="本地生成ssh公钥与私钥1ssh-keygen -t ed25519 -f ~&#x2F;.ssh&#x2F;aliyun-ecs2  可以通过 1open .&#x2F;.ssh 打开 .ssh文件夹查看密钥情况 进入阿里云ecs界面进入密钥对创建界面 创建密钥，导入已有密钥对，并粘贴公钥内容。  密钥对进行绑定操作  按照提示重启服务器，服务器段的配置就结束了。 在本地进行config配置,进入.ssh的config文件进">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://image-bed-1331150746.cos.ap-beijing.myqcloud.com/20250405205127.png">
+<meta property="og:image" content="https://image-bed-1331150746.cos.ap-beijing.myqcloud.com/20250405205825.png">
+<meta property="og:image" content="https://image-bed-1331150746.cos.ap-beijing.myqcloud.com/20250405210008.png">
 <meta property="article:published_time" content="2025-03-21T16:40:47.621Z">
-<meta property="article:modified_time" content="2025-03-21T16:41:14.563Z">
+<meta property="article:modified_time" content="2025-04-05T13:43:56.930Z">
 <meta property="article:author" content="bradin">
 <meta property="article:tag" content="git">
 <meta property="article:tag" content="ssh">
 <meta property="article:tag" content="github">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://image-bed-1331150746.cos.ap-beijing.myqcloud.com/20250405205127.png">
   
   
     <meta name="referrer" content="no-referrer-when-downgrade">
@@ -236,7 +240,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          1.1k 字
+          743 字
         
       </span>
     
@@ -247,7 +251,7 @@
         
         
         
-          10 分钟
+          7 分钟
         
       </span>
     
@@ -297,29 +301,44 @@
             
               <div class="markdown-body">
                 
-                <p>绑定密钥对后，可以按照以下步骤开始使用阿里云 ECS 实例，涵盖初始化配置、安全加固、代码部署及管理优化：</p>
-<h3 id="连接服务器"><a href="#连接服务器" class="headerlink" title="连接服务器"></a>连接服务器</h3><h4 id="1-使用-SSH-密钥登录"><a href="#1-使用-SSH-密钥登录" class="headerlink" title="1. 使用 SSH 密钥登录"></a>1. <strong>使用 SSH 密钥登录</strong></h4>   <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">ssh -i /Users/asina6y6/Desktop/gitkey/aliyun_ecs_ed25519 root@你的ECS公网IP<br></code></pre></td></tr></table></figure>
-<p>   • 若提示密钥权限问题，执行：<br>     <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">chmod</span> 600 /Users/asina6y6/Desktop/gitkey/aliyun_ecs_ed25519<br></code></pre></td></tr></table></figure></p>
-<h4 id="2-验证登录"><a href="#2-验证登录" class="headerlink" title="2. 验证登录"></a>2. <strong>验证登录</strong></h4><p>   • 成功登录后终端会显示类似提示：<br>     <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">Welcome to Alibaba Cloud Elastic Compute Service !<br>[root@iZbp1~]#<br></code></pre></td></tr></table></figure></p>
+                <h3 id="本地生成ssh公钥与私钥"><a href="#本地生成ssh公钥与私钥" class="headerlink" title="本地生成ssh公钥与私钥"></a>本地生成ssh公钥与私钥</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">ssh-keygen -t ed25519 -f ~/.ssh/aliyun-ecs2<br></code></pre></td></tr></table></figure>
+
+<p>可以通过</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">open ./.ssh<br></code></pre></td></tr></table></figure>
+<p>打开 .ssh文件夹查看密钥情况</p>
+<h3 id="进入阿里云ecs界面"><a href="#进入阿里云ecs界面" class="headerlink" title="进入阿里云ecs界面"></a>进入阿里云ecs界面</h3><p>进入密钥对创建界面<br><img src="https://image-bed-1331150746.cos.ap-beijing.myqcloud.com/20250405205127.png" srcset="/img/loading.gif" lazyload alt="20250405205127"></p>
+<p>创建密钥，导入已有密钥对，并粘贴公钥内容。</p>
+<p><img src="https://image-bed-1331150746.cos.ap-beijing.myqcloud.com/20250405205825.png" srcset="/img/loading.gif" lazyload alt="20250405205825"></p>
+<p>密钥对进行绑定操作</p>
+<p><img src="https://image-bed-1331150746.cos.ap-beijing.myqcloud.com/20250405210008.png" srcset="/img/loading.gif" lazyload alt="20250405210008"></p>
+<p>按照提示重启服务器，服务器段的配置就结束了。</p>
+<p>在本地进行config配置,进入.ssh的config文件进行配置</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs config"># 阿里云新ECS服务器（私钥 aliyun-ecs2）<br>Host alics                     # 自定义别名<br>  HostName 8.141.116.211       # 公网IP<br>  User ubuntu                  # Ubuntu默认用户名<br>  IdentityFile ~/.ssh/aliyun-ecs2  # 指定私钥路径<br>  Port 22                      # SSH端口（默认22，可省略）<br></code></pre></td></tr></table></figure>
+<p>这里我用ubuntu权限出问题，改为root就对了，应该是前面设置的原因</p>
+<p>然后保存退出，设置好各个关键文件的权限</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">chmod</span> 600 ~/.ssh/aliyun-ecs2    <span class="hljs-comment"># 私钥权限必须为600</span><br><span class="hljs-built_in">chmod</span> 600 ~/.ssh/config         <span class="hljs-comment"># 配置文件权限</span><br><span class="hljs-built_in">chmod</span> 700 ~/.ssh               <span class="hljs-comment"># .ssh目录权限</span><br></code></pre></td></tr></table></figure>
+
+<p>此后便可以在终端直接通过</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">ssh alics<br></code></pre></td></tr></table></figure>
+
+<p>进入服务器了</p>
+<h3 id="连接服务器"><a href="#连接服务器" class="headerlink" title="连接服务器"></a>连接服务器</h3><h4 id="验证登录"><a href="#验证登录" class="headerlink" title="验证登录"></a><strong>验证登录</strong></h4><p>   • 成功登录后终端会显示类似提示：<br>     <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">Welcome to Alibaba Cloud Elastic Compute Service !<br>[root@iZbp1~]#<br></code></pre></td></tr></table></figure></p>
 <p>如果要退出登录，使用</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">exit</span><br></code></pre></td></tr></table></figure>
 
-<h3 id="部署代码到服务器上"><a href="#部署代码到服务器上" class="headerlink" title="部署代码到服务器上"></a>部署代码到服务器上</h3><p>将整个项目目录上传到服务器的 <code>/home/multilabel-twin-svm</code></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash">scp -r -i ~/Desktop/gitkey/aliyun_ecs_ed25519 \<br>    /Users/asina6y6/Desktop/multilabel-twin-svm \<br>    root@121.40.87.134:/home/<br></code></pre></td></tr></table></figure>
-<p>安装Miniconda</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 下载安装包</span><br>wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh<br><br><span class="hljs-comment"># 安装（默认路径为 /root/miniconda3）</span><br>bash Miniconda3-latest-Linux-x86_64.sh<br><br><span class="hljs-comment"># 激活 conda</span><br><span class="hljs-built_in">source</span> ~/miniconda3/bin/activate<br></code></pre></td></tr></table></figure>
-<p>之后用conda的命令自行配置环境</p>
-<h3 id="简化ssh连接流程"><a href="#简化ssh连接流程" class="headerlink" title="简化ssh连接流程"></a>简化ssh连接流程</h3><p>先在Mac上创立config文件</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">mkdir</span> -p ~/.ssh<br>vi ~/.ssh/config<br></code></pre></td></tr></table></figure>
-<p>添加以下内容</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs bash">Host aliyun-ecs                      <span class="hljs-comment"># 自定义别名（可任意命名）</span><br>    HostName 121.40.87.134           <span class="hljs-comment"># 服务器公网IP</span><br>    User root                         <span class="hljs-comment"># 登录用户（默认root，Ubuntu系统用ubuntu）</span><br>    Port 22                           <span class="hljs-comment"># 默认SSH端口</span><br>    IdentityFile ~/Desktop/gitkey/aliyun_ecs_ed25519  <span class="hljs-comment"># 私钥绝对路径</span><br>    IdentitiesOnly <span class="hljs-built_in">yes</span>                <span class="hljs-comment"># 强制使用指定密钥</span><br>    ServerAliveInterval 30            <span class="hljs-comment"># 每30秒发送保活信号</span><br>    ServerAliveCountMax 5             <span class="hljs-comment"># 最多重试5次</span><br></code></pre></td></tr></table></figure>
-<p>设置文件权限</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">chmod</span> 600 ~/.ssh/config<br></code></pre></td></tr></table></figure>
-<p>后面就可以用别名直接连接了</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">ssh aliyun-ecs  <span class="hljs-comment"># 使用别名直接连接</span><br></code></pre></td></tr></table></figure>
-<p>此时Mac中相关的文件结构如下</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs bash">~/Desktop/gitkey/<br>├── aliyun_ecs_ed25519      <span class="hljs-comment"># 私钥（权限必须600）</span><br>└── aliyun_ecs_ed25519.pub  <span class="hljs-comment"># 公钥（已绑定到ECS）</span><br><br>~/.ssh/<br>└── config                  <span class="hljs-comment"># 配置文件（权限600）</span><br></code></pre></td></tr></table></figure>
+<h3 id="部署代码到服务器上"><a href="#部署代码到服务器上" class="headerlink" title="部署代码到服务器上"></a>部署代码到服务器上</h3><p>先提前配置好miniconda</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 下载 Miniconda 安装脚本（Linux 64位）</span><br>wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh<br><br><span class="hljs-comment"># 运行安装脚本（默认安装到用户目录下）</span><br>bash Miniconda3-latest-Linux-x86_64.sh<br><br><span class="hljs-comment"># 按照提示操作，同意协议，按回车确认安装路径（默认 ~/miniconda3）</span><br><span class="hljs-comment"># 安装完成后，运行以下命令初始化 Conda</span><br><span class="hljs-built_in">source</span> ~/.bashrc  <span class="hljs-comment"># 或退出重新登录服务器</span><br></code></pre></td></tr></table></figure>
 
+<h4 id="配置python环境"><a href="#配置python环境" class="headerlink" title="配置python环境"></a>配置python环境</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash">conda create -n tsvm python=3.10<br>conda activate tsvm<br>conda install ....<br></code></pre></td></tr></table></figure>
+
+<h4 id="创建文件夹放置代码"><a href="#创建文件夹放置代码" class="headerlink" title="创建文件夹放置代码"></a>创建文件夹放置代码</h4><p>先<code>cd /home</code>,然后创建项目目录</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">mkdir</span> -p mywork  <span class="hljs-comment"># -p 确保目录不存在时自动创建</span><br><span class="hljs-built_in">cd</span> mywork<br></code></pre></td></tr></table></figure>
+
+
+
+
+
+<h4 id="上传本地代码"><a href="#上传本地代码" class="headerlink" title="上传本地代码"></a>上传本地代码</h4><p>可以直接在vscode中利用插件可视化进行上传</p>
 <h3 id="tmux简单使用"><a href="#tmux简单使用" class="headerlink" title="tmux简单使用"></a>tmux简单使用</h3><p>SSH 登录远程计算机，打开一个远程窗口执行命令。这时，网络突然断线，再次登录的时候，是找不回上一次执行的命令的。因为上一次 SSH 会话已经终止了，里面的进程也随之消失了。</p>
 <p> 为了解决这个问题，我们使用终端复用器tmux。会话与窗口可以”解绑”：窗口关闭时，会话并不终止，而是继续运行，等到以后需要的时候，再让会话”绑定”其他窗口。</p>
 <p> 首先在服务器上安装tmux，一般而言阿里云的服务器已经安装好了</p>
@@ -340,319 +359,19 @@
 <p>连接到某一个回话上</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">tmux attach -t svm_task<br></code></pre></td></tr></table></figure>
 
-<h3 id="附录：Linux-常用命令与-Vim-常用命令速查表"><a href="#附录：Linux-常用命令与-Vim-常用命令速查表" class="headerlink" title="附录：Linux 常用命令与 Vim 常用命令速查表"></a>附录：Linux 常用命令与 Vim 常用命令速查表</h3><hr>
-<h4 id="一、Linux-常用命令"><a href="#一、Linux-常用命令" class="headerlink" title="一、Linux 常用命令"></a><strong>一、Linux 常用命令</strong></h4><table>
-<thead>
-<tr>
-<th><strong>命令</strong></th>
-<th><strong>功能</strong></th>
-<th><strong>示例</strong></th>
-</tr>
-</thead>
-<tbody><tr>
-<td><code>ls</code></td>
-<td>列出目录内容</td>
-<td><code>ls -l</code>（详细信息）</td>
-</tr>
-<tr>
-<td><code>cd</code></td>
-<td>切换目录</td>
-<td><code>cd /home</code>（进入 <code>/home</code> 目录）</td>
-</tr>
-<tr>
-<td><code>pwd</code></td>
-<td>显示当前目录路径</td>
-<td><code>pwd</code></td>
-</tr>
-<tr>
-<td><code>mkdir</code></td>
-<td>创建目录</td>
-<td><code>mkdir new_folder</code></td>
-</tr>
-<tr>
-<td><code>rm</code></td>
-<td>删除文件或目录</td>
-<td><code>rm file.txt</code>（删除文件）</td>
-</tr>
-<tr>
-<td><code>rmdir</code></td>
-<td>删除空目录</td>
-<td><code>rmdir empty_folder</code></td>
-</tr>
-<tr>
-<td><code>cp</code></td>
-<td>复制文件或目录</td>
-<td><code>cp file.txt backup/</code></td>
-</tr>
-<tr>
-<td><code>mv</code></td>
-<td>移动或重命名文件&#x2F;目录</td>
-<td><code>mv file.txt new_name.txt</code></td>
-</tr>
-<tr>
-<td><code>cat</code></td>
-<td>查看文件内容</td>
-<td><code>cat file.txt</code></td>
-</tr>
-<tr>
-<td><code>less</code></td>
-<td>分页查看文件内容</td>
-<td><code>less large_file.log</code></td>
-</tr>
-<tr>
-<td><code>head</code></td>
-<td>查看文件开头部分</td>
-<td><code>head -n 10 file.txt</code>（前10行）</td>
-</tr>
-<tr>
-<td><code>tail</code></td>
-<td>查看文件末尾部分</td>
-<td><code>tail -f log_file.log</code>（实时监控）</td>
-</tr>
-<tr>
-<td><code>grep</code></td>
-<td>搜索文本</td>
-<td><code>grep &quot;error&quot; log_file.log</code></td>
-</tr>
-<tr>
-<td><code>find</code></td>
-<td>查找文件</td>
-<td><code>find /home -name &quot;*.txt&quot;</code></td>
-</tr>
-<tr>
-<td><code>chmod</code></td>
-<td>修改文件权限</td>
-<td><code>chmod 755 script.sh</code></td>
-</tr>
-<tr>
-<td><code>chown</code></td>
-<td>修改文件所有者</td>
-<td><code>chown user:group file.txt</code></td>
-</tr>
-<tr>
-<td><code>ps</code></td>
-<td>查看进程状态</td>
-<td><code>ps aux</code></td>
-</tr>
-<tr>
-<td><code>top</code></td>
-<td>实时查看系统资源占用</td>
-<td><code>top</code></td>
-</tr>
-<tr>
-<td><code>kill</code></td>
-<td>终止进程</td>
-<td><code>kill -9 1234</code>（强制终止PID为1234的进程）</td>
-</tr>
-<tr>
-<td><code>tar</code></td>
-<td>打包&#x2F;解压文件</td>
-<td><code>tar -czvf archive.tar.gz folder/</code></td>
-</tr>
-<tr>
-<td><code>wget</code></td>
-<td>下载文件</td>
-<td><code>wget https://example.com/file.zip</code></td>
-</tr>
-<tr>
-<td><code>curl</code></td>
-<td>传输数据</td>
-<td><code>curl -O https://example.com/file.zip</code></td>
-</tr>
-<tr>
-<td><code>ssh</code></td>
-<td>远程登录</td>
-<td><code>ssh user@hostname</code></td>
-</tr>
-<tr>
-<td><code>scp</code></td>
-<td>远程复制文件</td>
-<td><code>scp file.txt user@hostname:/path/</code></td>
-</tr>
-<tr>
-<td><code>rsync</code></td>
-<td>同步文件</td>
-<td><code>rsync -avz src/ user@hostname:dest/</code></td>
-</tr>
-</tbody></table>
-<hr>
-<h4 id="二、Vim-常用命令"><a href="#二、Vim-常用命令" class="headerlink" title="二、Vim 常用命令"></a><strong>二、Vim 常用命令</strong></h4><table>
-<thead>
-<tr>
-<th><strong>模式</strong></th>
-<th><strong>命令</strong></th>
-<th><strong>功能</strong></th>
-</tr>
-</thead>
-<tbody><tr>
-<td><strong>普通模式</strong></td>
-<td><code>i</code></td>
-<td>进入插入模式（光标前）</td>
-</tr>
-<tr>
-<td></td>
-<td><code>a</code></td>
-<td>进入插入模式（光标后）</td>
-</tr>
-<tr>
-<td></td>
-<td><code>o</code></td>
-<td>在当前行下方插入新行</td>
-</tr>
-<tr>
-<td></td>
-<td><code>O</code></td>
-<td>在当前行上方插入新行</td>
-</tr>
-<tr>
-<td></td>
-<td><code>dd</code></td>
-<td>删除当前行</td>
-</tr>
-<tr>
-<td></td>
-<td><code>yy</code></td>
-<td>复制当前行</td>
-</tr>
-<tr>
-<td></td>
-<td><code>p</code></td>
-<td>粘贴</td>
-</tr>
-<tr>
-<td></td>
-<td><code>u</code></td>
-<td>撤销</td>
-</tr>
-<tr>
-<td></td>
-<td><code>Ctrl+R</code></td>
-<td>重做</td>
-</tr>
-<tr>
-<td></td>
-<td><code>:w</code></td>
-<td>保存文件</td>
-</tr>
-<tr>
-<td></td>
-<td><code>:q</code></td>
-<td>退出</td>
-</tr>
-<tr>
-<td></td>
-<td><code>:wq</code> 或 <code>ZZ</code></td>
-<td>保存并退出</td>
-</tr>
-<tr>
-<td></td>
-<td><code>:q!</code></td>
-<td>强制退出（不保存）</td>
-</tr>
-<tr>
-<td></td>
-<td><code>/keyword</code></td>
-<td>搜索 <code>keyword</code></td>
-</tr>
-<tr>
-<td></td>
-<td><code>n</code></td>
-<td>查找下一个匹配项</td>
-</tr>
-<tr>
-<td></td>
-<td><code>N</code></td>
-<td>查找上一个匹配项</td>
-</tr>
-<tr>
-<td></td>
-<td><code>:%s/old/new/g</code></td>
-<td>全局替换 <code>old</code> 为 <code>new</code></td>
-</tr>
-<tr>
-<td><strong>插入模式</strong></td>
-<td><code>ESC</code></td>
-<td>返回普通模式</td>
-</tr>
-<tr>
-<td><strong>可视模式</strong></td>
-<td><code>v</code></td>
-<td>进入字符选择模式</td>
-</tr>
-<tr>
-<td></td>
-<td><code>V</code></td>
-<td>进入行选择模式</td>
-</tr>
-<tr>
-<td></td>
-<td><code>Ctrl+V</code></td>
-<td>进入块选择模式</td>
-</tr>
-<tr>
-<td></td>
-<td><code>y</code></td>
-<td>复制选中内容</td>
-</tr>
-<tr>
-<td></td>
-<td><code>d</code></td>
-<td>删除选中内容</td>
-</tr>
-</tbody></table>
-<hr>
-<h4 id="三、常用快捷键组合"><a href="#三、常用快捷键组合" class="headerlink" title="三、常用快捷键组合"></a><strong>三、常用快捷键组合</strong></h4><table>
-<thead>
-<tr>
-<th><strong>场景</strong></th>
-<th><strong>操作</strong></th>
-<th><strong>效果</strong></th>
-</tr>
-</thead>
-<tbody><tr>
-<td><strong>快速保存退出</strong></td>
-<td><code>ESC</code> → <code>:wq</code></td>
-<td>保存并退出</td>
-</tr>
-<tr>
-<td><strong>强制退出</strong></td>
-<td><code>ESC</code> → <code>:q!</code></td>
-<td>放弃更改并退出</td>
-</tr>
-<tr>
-<td><strong>复制粘贴</strong></td>
-<td><code>yy</code> → <code>p</code></td>
-<td>复制一行并粘贴</td>
-</tr>
-<tr>
-<td><strong>查找替换</strong></td>
-<td><code>ESC</code> → <code>:%s/old/new/g</code></td>
-<td>全局替换 <code>old</code> 为 <code>new</code></td>
-</tr>
-<tr>
-<td><strong>分屏操作</strong></td>
-<td><code>:split</code> 或 <code>:vsplit</code></td>
-<td>水平或垂直分屏</td>
-</tr>
-<tr>
-<td><strong>切换窗口</strong></td>
-<td><code>Ctrl+W</code> → 方向键</td>
-<td>在分屏窗口间切换</td>
-</tr>
-</tbody></table>
-<hr>
-<h4 id="四、Vim-模式说明"><a href="#四、Vim-模式说明" class="headerlink" title="四、Vim 模式说明"></a><strong>四、Vim 模式说明</strong></h4><ol>
-<li><strong>普通模式</strong>：默认模式，用于导航和操作文本  </li>
-<li><strong>插入模式</strong>：编辑文本内容（按 <code>i</code> 进入）  </li>
-<li><strong>可视模式</strong>：选择文本（按 <code>v</code> 进入）  </li>
-<li><strong>命令模式</strong>：执行命令（按 <code>:</code> 进入）</li>
-</ol>
-<hr>
-<h4 id="五、Vim-配置文件（-vimrc）示例"><a href="#五、Vim-配置文件（-vimrc）示例" class="headerlink" title="五、Vim 配置文件（~&#x2F;.vimrc）示例"></a><strong>五、Vim 配置文件（~&#x2F;.vimrc）示例</strong></h4><figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs vim"><span class="hljs-keyword">set</span> <span class="hljs-keyword">number</span>            <span class="hljs-comment">&quot; 显示行号</span><br><span class="hljs-keyword">set</span> tabstop=<span class="hljs-number">4</span>         <span class="hljs-comment">&quot; 设置 Tab 宽度为 4</span><br><span class="hljs-keyword">set</span> <span class="hljs-built_in">shiftwidth</span>=<span class="hljs-number">4</span>      <span class="hljs-comment">&quot; 设置缩进宽度为 4</span><br><span class="hljs-keyword">set</span> expandtab         <span class="hljs-comment">&quot; 将 Tab 转换为空格</span><br><span class="hljs-keyword">syntax</span> <span class="hljs-keyword">on</span>             <span class="hljs-comment">&quot; 启用语法高亮</span><br><span class="hljs-keyword">set</span> hlsearch          <span class="hljs-comment">&quot; 高亮搜索结果</span><br><span class="hljs-keyword">set</span> incsearch         <span class="hljs-comment">&quot; 实时搜索</span><br><span class="hljs-keyword">set</span> ignorecase        <span class="hljs-comment">&quot; 忽略大小写</span><br><span class="hljs-keyword">set</span> smartcase         <span class="hljs-comment">&quot; 智能大小写匹配</span><br></code></pre></td></tr></table></figure>
+<p>在某一个tmux回话里查看完整的终端历史</p>
+<ul>
+<li>按下 Ctrl + b（tmux 前缀键）进入 tmux 滚动模式​​</li>
+<li>再按下 [ 进入滚动模式。</li>
+<li>使用方向键（↑&#x2F;↓）或 PgUp&#x2F;PgDn 滚动查看历史。</li>
+<li>按 q 退出滚动模式。</li>
+</ul>
+<p>掌握这些命令就足够了</p>
+<h3 id="linux常用命令"><a href="#linux常用命令" class="headerlink" title="linux常用命令"></a>linux常用命令</h3><p>linux基础目录树</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs bash">/<br>├── bin      <span class="hljs-comment"># 基础命令</span><br>├── etc      <span class="hljs-comment"># 配置文件</span><br>├── home     <span class="hljs-comment"># 用户目录</span><br>│   └── ubuntu<br>├── opt      <span class="hljs-comment"># 第三方软件</span><br>├── tmp      <span class="hljs-comment"># 临时文件</span><br>├── usr      <span class="hljs-comment"># 用户程序</span><br>├── var      <span class="hljs-comment"># 可变数据</span><br>├── dev      <span class="hljs-comment"># 设备文件</span><br>├── proc     <span class="hljs-comment"># 内核/进程信息</span><br>└── boot     <span class="hljs-comment"># 启动文件</span><br></code></pre></td></tr></table></figure>
 
-<hr>
-<p>通过此附录，你可以快速掌握 Linux 和 Vim 的常用操作。建议将常用命令打印或保存为速查表，方便随时查阅！</p>
-
+<p>返回上一级目录</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">cd</span> ..<br></code></pre></td></tr></table></figure>
                 
               </div>
             
@@ -735,8 +454,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2025/03/21/%E6%95%B0%E5%AD%A6%E5%BB%BA%E6%A8%A1/%E6%A8%A1%E7%B3%8A%E7%BB%BC%E5%90%88%E8%AF%84%E4%BB%B7/" title="模糊综合评价模版">
-                        <span class="hidden-mobile">模糊综合评价模版</span>
+                      <a href="/2025/03/21/%E6%95%B0%E5%AD%A6%E5%BB%BA%E6%A8%A1/%E7%86%B5%E6%9D%83%E6%B3%95/" title="熵权法模版">
+                        <span class="hidden-mobile">熵权法模版</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>

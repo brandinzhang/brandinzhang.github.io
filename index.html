@@ -290,7 +290,7 @@
       
       <a class="index-excerpt index-excerpt__noimg" href="/2025/03/22/cs/ssh%E8%BF%9E%E6%8E%A5%E6%9C%8D%E5%8A%A1%E5%99%A8/" target="_self">
         <div>
-          绑定密钥对后，可以按照以下步骤开始使用阿里云 ECS 实例，涵盖初始化配置、安全加固、代码部署及管理优化： 连接服务器1. 使用 SSH 密钥登录   1ssh -i /Users/asina6y6/Desktop/gitkey/aliyun_ecs_ed25519 root@你的ECS公网IP    • 若提示密钥权限问题，执行：     1chmod 600 /Users/asina6y6/D
+          本地生成ssh公钥与私钥1ssh-keygen -t ed25519 -f ~/.ssh/aliyun-ecs2  可以通过 1open ./.ssh 打开 .ssh文件夹查看密钥情况 进入阿里云ecs界面进入密钥对创建界面 创建密钥，导入已有密钥对，并粘贴公钥内容。  密钥对进行绑定操作  按照提示重启服务器，服务器段的配置就结束了。 在本地进行config配置,进入.ssh的config文件进
         </div>
       </a>
 
@@ -313,6 +313,67 @@
               <a href="/tags/ssh/">#ssh</a>
             
               <a href="/tags/github/">#github</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h2 class="index-header">
+        
+        <a href="/2025/03/21/%E6%95%B0%E5%AD%A6%E5%BB%BA%E6%A8%A1/%E7%86%B5%E6%9D%83%E6%B3%95/" target="_self">
+          熵权法模版
+        </a>
+      </h2>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2025/03/21/%E6%95%B0%E5%AD%A6%E5%BB%BA%E6%A8%A1/%E7%86%B5%E6%9D%83%E6%B3%95/" target="_self">
+        <div>
+          熵权法的目的是客观赋予每一个评价指标权重，而非主观判断或依靠所谓问卷调查熵：是描述混乱程度的量纲. 信息熵：平均而言发生一个事件我们得到的信息量大小.（得到的信息越多，已掌握的信息越少） 熵权法：是一种可以对多对象、多指标进行综合评价的方法，其评价依据来源于数据本身，几乎不受主观因素的干扰. 它的基本思想是：信息熵小→得到的信息少，掌握的信息多→这组信息更靠谱→权重大. step1 正向化处理
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2025-03-21 23:58" pubdate>
+              2025-03-21
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E6%95%B0%E5%AD%A6%E5%BB%BA%E6%A8%A1/" class="category-chain-item">数学建模</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E6%95%B0%E5%AD%A6/">#数学</a>
             
           </div>
         
@@ -448,15 +509,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/2025/03/21/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E4%BC%98%E5%8C%96%E7%AE%97%E6%B3%95/" target="_self">
-          优化算法
+        <a href="/2025/03/21/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/MATLAB%E7%AC%94%E8%AE%B0/" target="_self">
+          matlab
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/2025/03/21/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E4%BC%98%E5%8C%96%E7%AE%97%E6%B3%95/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/2025/03/21/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/MATLAB%E7%AC%94%E8%AE%B0/" target="_self">
         <div>
-          优化算法概论理想的优化算法有以下几个特点  数值解 ${x_k}_{k&#x3D;0}^{\infty}$的迭代，实际中操作使用有限次，满足一定条件停止迭代即可 单调性，满足$f(x_{k+1})&lt;f(x_{k-m})$就很好，但是往往碰到螺旋下降的情况 策略 ：$x_k$如何到$x_{k+1}$?  线搜索方法$$x_{k+1}&#x3D;x_k+\alpha_kp_k$$ 这里$\alp
+          1 基本语法12345678910111213141516171819202122232425262728293031323334353637383940%变量无需声明x = 5;        % 赋值一个标量  y = [1 2 3];  % 赋值一个行向量  z = [1; 2; 3]; % 赋值一个列向量  A = [1 2; 3 4]; % 赋值一个矩阵%矩阵运算B = A * [1 1
         </div>
       </a>
 
@@ -480,12 +541,12 @@
     
       <span class="category-chain">
         
-  <a href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" class="category-chain-item">机器学习</a>
+  <a href="/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/" class="category-chain-item">编程语言</a>
   
   
     <span>></span>
     
-  <a href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E7%99%BD%E6%9D%BF%E6%8E%A8%E5%AF%BC/" class="category-chain-item">白板推导</a>
+  <a href="/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/matlab/" class="category-chain-item">matlab</a>
   
   
 
@@ -499,10 +560,64 @@
           </div>
         
         
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h2 class="index-header">
+        
+        <a href="/2025/03/21/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/numpy%E6%A1%86%E6%9E%B6%E5%AD%A6%E4%B9%A0/" target="_self">
+          numpy框架探究
+        </a>
+      </h2>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2025/03/21/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/numpy%E6%A1%86%E6%9E%B6%E5%AD%A6%E4%B9%A0/" target="_self">
+        <div>
+          性质与创建简述ndarray（N-dimensional array，即N维数组）是NumPy的核心数据结构。可将ndarray看作是一个“智能容器”。相比于python原生数据结构，他有更好的特性，因此性能更优。他在数学上等同于一个张量，不过有些性质为了程序设计的合理性，并不符合数学直觉，后面会一一谈到。 ndarray之所以比python原生数据结构更高效，主要由以下三个性质决定，从这里也可以
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2025-03-21 23:58" pubdate>
+              2025-03-21
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/" class="category-chain-item">编程语言</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
           <div class="post-meta">
             <i class="iconfont icon-tags"></i>
             
-              <a href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/">#机器学习</a>
+              <a href="/tags/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/">#编程语言</a>
             
           </div>
         
@@ -516,15 +631,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/2025/03/21/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/ng%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0week1/" target="_self">
-          ng-梯度下降
+        <a href="/2025/03/21/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/c++%E7%AC%94%E8%AE%B0/" target="_self">
+          c++课堂笔记
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/2025/03/21/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/ng%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0week1/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/2025/03/21/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/c++%E7%AC%94%E8%AE%B0/" target="_self">
         <div>
-          ng-机器学习week1监督学习通过展示数据和正确输出来训练的学习方法，监督学习算法：回归，分类（预测结果0&#x2F;1）   无监督学习聚类算法：坐标图上数据并不知道类别，但是明显有分类–寻找集群数据集中第i对数据记作$$(x^{(i)},y^{(i)}) $$用线性函数$f(x)$拟合y x关系$$f(x)&#x3D;wx+b $$ 代价函数引入这样一个函数$$J(w,b)&#x3D;\fr
+          写在前面：这是针对2024春cau《面向对象的程序设计》以及我个人的学习积累整理的笔记，其中大纲的整理受到了https://blog.csdn.net/chenlong_cxy/article/details/127166206 的启发 (一)c++基础1.1数据类型相比于c多了一个bool（基本数据类型） 1.2命名空间 在C++编程中，命名空间是一种特性，用于将代码进行逻辑分组，以避免命名冲突
         </div>
       </a>
 
@@ -548,12 +663,12 @@
     
       <span class="category-chain">
         
-  <a href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" class="category-chain-item">机器学习</a>
+  <a href="/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/" class="category-chain-item">编程语言</a>
   
   
     <span>></span>
     
-  <a href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/ng%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" class="category-chain-item">ng机器学习</a>
+  <a href="/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/c/" class="category-chain-item">c++</a>
   
   
 
@@ -570,7 +685,7 @@
           <div class="post-meta">
             <i class="iconfont icon-tags"></i>
             
-              <a href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/">#机器学习</a>
+              <a href="/tags/c/">#c++</a>
             
           </div>
         
@@ -584,15 +699,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/2025/03/21/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/ng%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0week3/" target="_self">
-          ng-逻辑回归
+        <a href="/2025/03/21/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/python%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/" target="_self">
+          python面向对象
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/2025/03/21/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/ng%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0week3/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/2025/03/21/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/python%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/" target="_self">
         <div>
-          声明：取机器学习中约定俗成的写法，下文中的 $log$即$ln$ 逻辑回归y值仅有两种结果0&#x2F;1，我们要做的是分类数据。(二元分类问题)引入sigmoid函数$$g(z)&#x3D;\frac1{1+e^{-z}}\quad{0&lt;g(z)&lt;1} $$考虑到矢量性，我们引入这样一个逻辑回归函数$$f_{\overrightarrow{\mathrm{w}},b}(\vec{\m
+          顺序与运算内置数据类型   类型 描述 举例    int 整数 123   float 浮点数 1.23, 1.24e5   str 字符串 “python”, ‘acwing’   bool 布尔值 True, False   list 列表 [1, 2, 3]   tuple 元组 (1, 2, 3)   set 集合 {1, 2, 3}   dict 字典 {1: “python”, “a
         </div>
       </a>
 
@@ -616,12 +731,12 @@
     
       <span class="category-chain">
         
-  <a href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" class="category-chain-item">机器学习</a>
+  <a href="/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/" class="category-chain-item">编程语言</a>
   
   
     <span>></span>
     
-  <a href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/ng%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" class="category-chain-item">ng机器学习</a>
+  <a href="/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/python/" class="category-chain-item">python</a>
   
   
 
@@ -638,7 +753,7 @@
           <div class="post-meta">
             <i class="iconfont icon-tags"></i>
             
-              <a href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/">#机器学习</a>
+              <a href="/tags/python/">#python</a>
             
           </div>
         
@@ -652,15 +767,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/2025/03/21/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E6%94%AF%E6%8C%81%E5%90%91%E9%87%8F%E6%9C%BA/" target="_self">
-          支持向量机
+        <a href="/2025/03/21/%E6%9D%82%E8%B0%88/%E7%BB%8F%E6%B5%8E%E5%AD%A6%E5%8E%9F%E7%90%86%E5%AE%8C%E6%95%B4%E7%89%88/" target="_self">
+          微观经济学
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/2025/03/21/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E6%94%AF%E6%8C%81%E5%90%91%E9%87%8F%E6%9C%BA/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/2025/03/21/%E6%9D%82%E8%B0%88/%E7%BB%8F%E6%B5%8E%E5%AD%A6%E5%8E%9F%E7%90%86%E5%AE%8C%E6%95%B4%E7%89%88/" target="_self">
         <div>
-          基本思想支持向量机的基本思想就是用一个超平面来划分一群点，达到二分类效果。寻找超平面过程中。我们使用最小化间隔的思想，使得svm具有鲁棒性。 硬间隔SVM欲分类点记为${(x_i,y_i)}_{i&#x3D;1}^N$共N个，预测结果$y_i$取值为0，1 我们的判别模型可以表示为$$f(w)&#x3D;sign(w^Tx+b) $$其中$w^Tx+b&#x3D;0$就是1划分所用的超平面，因此约
+          第二章：需求供给和均衡价格符号说明  P表示price，价格 Q表示Quantity，数量  需求 需求是在一定的时期，在一既定的价格水平下，消费者愿意并且能够购买的商品数量 假定其它条件不变，需求量与价格之间成反方向变动  影响需求量的因素需求是一个函数，一条曲线，需求量是函数上的一个点  需求量的变动：“沿着需求曲线的移动”Movements along Demand Curves这种变动是由
         </div>
       </a>
 
@@ -684,15 +799,8 @@
     
       <span class="category-chain">
         
-  <a href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" class="category-chain-item">机器学习</a>
+  <a href="/categories/%E9%9A%8F%E7%AC%94/" class="category-chain-item">随笔</a>
   
-  
-    <span>></span>
-    
-  <a href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E7%99%BD%E6%9D%BF%E6%8E%A8%E5%AF%BC/" class="category-chain-item">白板推导</a>
-  
-  
-
   
 
       </span>
@@ -706,143 +814,7 @@
           <div class="post-meta">
             <i class="iconfont icon-tags"></i>
             
-              <a href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/">#机器学习</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h2 class="index-header">
-        
-        <a href="/2025/03/21/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E7%BA%BF%E6%80%A7%E5%88%86%E7%B1%BB/" target="_self">
-          线性分类
-        </a>
-      </h2>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/2025/03/21/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E7%BA%BF%E6%80%A7%E5%88%86%E7%B1%BB/" target="_self">
-        <div>
-          综述：线性分类包括什么？对于分类任务，线性回归模型就无能为力了，但是我们可以在线性模型的函数进行后再加入一层激活函数，下面总结了常见的线性分类模型   下面我们依次介绍几种线性分类模型 硬输出：感知机我们要解决的问题是：二分类$N$个样本点$(x_{i},y_{i})$，其中$x_{i}\in R^p$引入：$$sign(a)&#x3D;\left{\begin{matrix}+1,a\geq0\
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2025-03-21 23:58" pubdate>
-              2025-03-21
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" class="category-chain-item">机器学习</a>
-  
-  
-    <span>></span>
-    
-  <a href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E7%BB%9F%E8%AE%A1%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" class="category-chain-item">统计机器学习</a>
-  
-  
-
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/">#机器学习</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h2 class="index-header">
-        
-        <a href="/2025/03/21/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92/" target="_self">
-          线性回归
-        </a>
-      </h2>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/2025/03/21/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92/" target="_self">
-        <div>
-          最小二乘法 假设数据集为：$$\mathcal{D}&#x3D;{(x_1,y_1),(x_2,y_2),\cdots,(x_N,y_N)}$$后面我们记：$$X&#x3D;(x_1,x_2,\cdots,x_N)^T,Y&#x3D;(y_1,y_2,\cdots,y_N)^T$$线性回归假设：$$f(w)&#x3D;w^Tx$$ 我们的任务是寻找到最合适的一个$w$，这必然需要定义合适的损失函数
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2025-03-21 23:58" pubdate>
-              2025-03-21
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" class="category-chain-item">机器学习</a>
-  
-  
-    <span>></span>
-    
-  <a href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E7%BB%9F%E8%AE%A1%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" class="category-chain-item">统计机器学习</a>
-  
-  
-
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/">#机器学习</a>
+              <a href="/tags/%E9%9A%8F%E7%AC%94/">#随笔</a>
             
           </div>
         
