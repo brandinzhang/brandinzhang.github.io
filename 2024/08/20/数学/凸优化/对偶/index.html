@@ -23,15 +23,11 @@
 <meta property="og:site_name" content="鸭蛋仙人的博客">
 <meta property="og:description" content="对偶问题对偶问题定义考虑一个一般的优化问题： $$\begin{aligned}&amp;\min_x\quad f_0(x)\&amp;s.t.\quad f_i(x_0)\leq0,i&#x3D;1,\ldots,m\&amp;h_j(x)&#x3D;0,j&#x3D;1,\ldots,p\&amp;x\in R^n\end{aligned}$$ 定义其拉格朗日函数为$$L(x,\lambda">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://www.freeimg.cn/i/2024/09/02/66d5db2403c6c.png">
-<meta property="og:image" content="https://www.freeimg.cn/i/2024/09/02/66d5db390c853.png">
-<meta property="og:image" content="https://www.freeimg.cn/i/2024/09/07/66dc4ee4ae279.png">
 <meta property="article:published_time" content="2024-08-19T16:00:00.000Z">
-<meta property="article:modified_time" content="2025-04-28T10:59:36.071Z">
+<meta property="article:modified_time" content="2025-04-28T11:15:16.214Z">
 <meta property="article:author" content="bradin">
 <meta property="article:tag" content="数学">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://www.freeimg.cn/i/2024/09/02/66d5db2403c6c.png">
   
   
     <meta name="referrer" content="no-referrer-when-downgrade">
@@ -323,9 +319,6 @@
 <p>则原问题最优值$p^\star&#x3D;\min t&#x3D;\min{t|(u,t)\in G|u\leq0}$</p>
 <p>对偶问题最优值$d^\star&#x3D;\max_\lambda\min_x{t+\lambda u}$</p>
 <p>这里$(u,t)$点集合$G$如下图所示，从几何关系可知，原问题最优值为$G$左侧最低点的纵坐<br>标。在这个空间中$t+\lambda u$为一条直线，$g(\lambda)$因为是对$x$取逐点最小得来的，所以<br>$t+\lambda u&#x3D;g(\lambda)$为与集合$G$下侧边缘相切的直线(直线从下方向上平移直到与$G$相切)。当$u&#x3D;0$时，$t&#x3D;g(\lambda)$是直线截距，也是对偶问题要最大化的目标。显然这个截距最大为$d^{\star}$ 时，仍然小于等于$p^\star$,所以弱对偶成立。</p>
-<p>$G$形状如下不满足强对偶关系<br><img src="https://www.freeimg.cn/i/2024/09/02/66d5db2403c6c.png" srcset="/img/loading.gif" lazyload alt="1725291297679.png"></p>
-<p>$G$形状如下满足强对偶关系</p>
-<p><img src="https://www.freeimg.cn/i/2024/09/02/66d5db390c853.png" srcset="/img/loading.gif" lazyload alt="1725291318808.png"></p>
 <h1 id="KKT条件"><a href="#KKT条件" class="headerlink" title="KKT条件"></a>KKT条件</h1><h3 id="极大极小不等式"><a href="#极大极小不等式" class="headerlink" title="极大极小不等式"></a>极大极小不等式</h3><p>我们都知道，优化问题的原问题可以记为<br>$$\begin{aligned}&amp;\min f_0(x)\&amp;s.t. f_i(x)\leq0\&amp;h_i(x)&#x3D;0\end{aligned}$$<br>在引入拉格朗日乘子后，原问题可以巧妙地写为另一种形式：$sup {  f_0(x)+ \sum\lambda_if_i(x) + \sum\eta_ih_i(x) }$，他事实上是原函数的一种拓展,因为<br>$$\sup_{\lambda\succeq0}{f_0(x)+\sum\lambda_if_i(x)  + \sum\eta_ih_i(x) }&#x3D;\left{\begin{array}{ll}f_0(x),&amp;f_i(x)\leq0\+\infty,&amp;otherwise\end{array}\right.$$<br>因此对原函数求min，可以转化为对上述函数求min，因此原问题的解可以等价的写为<br>$$p^*&#x3D;\inf_x\sup_{\lambda\succeq0}L(x,\lambda,\eta)$$<br>而我们又知道对偶问题的解可以写为<br>$$d^*&#x3D;\sup_{\lambda\succeq0}\inf_xL(x,\lambda,\eta)$$<br>因此自然的得到了不等式<br>$$\sup_{\lambda\succeq0,\eta}\inf_xL(x,\lambda,\eta)\leq\inf_x\sup_{\lambda\succeq0,\eta}L(x,\lambda,\eta)$$<br>这便是极大极小不等式，我们把对函数的第一个变量极小的结果记为$L(\tilde{x},\lambda)$,对第二个变量<br>方便起见，把极大的结果记为$L(x,\tilde{\lambda})$,上述不等式可写为<br>$$\sup_\lambda L(\tilde{x},\lambda)\leq\inf_xL(x,\tilde{\lambda})$$<br>如果一个点满足对函数第一个变量极大再对第二个变量极小的值等于先对第二个变量极大再<br>对第一个变量极小，那么这个点就称为这个函数的鞍点。也就是$\exists(\tilde{x},\tilde{\lambda}),s.t.{:}$<br>$$\sup_\lambda L(\tilde{x},\lambda)&#x3D;L(\tilde{x},\tilde{\lambda})&#x3D;\inf_xL(x,\tilde{\lambda})$$<br>从鞍点的定义就可以看出：如果一个优化问题的强对偶性成立，那么最优解就是拉格朗日函数的一个鞍点，反过，拉格朗日函数的鞍点就是使得强对偶性成立的点，所以是最优解，因此鞍点就等价于强对偶性成立的点等价于最优解。</p>
 <h3 id="kkt条件"><a href="#kkt条件" class="headerlink" title="kkt条件"></a>kkt条件</h3><p>在强对偶关系满足的情况下，有以下几条性质。</p>
 <ul>
@@ -341,7 +334,7 @@
 <li>1.前面推导没有任何凸函数的假设，因此不论是否为凸问题，如果满足强对偶性，那么最优解一定满足 KKT 条件。</li>
 <li>2.但是反过来不一定成立，也即 KKT 条件的解不一定是最优解，因为如果$L(x,\lambda^\star,\nu^\star)$不是凸的，那么$\nabla_xL&#x3D;0$并不能保证$g(\lambda^\star,\nu^\star)&#x3D;\inf_xL(x,\lambda^\star,\nu^\star)\neq L(x^\star,\lambda^\star,\nu^\star)$,也即不能保证 $x^\star,\lambda^\star,\nu^\star$ 就是鞍点。</li>
 </ul>
-<p>因此我们可以画出下面的图。<br><img src="https://www.freeimg.cn/i/2024/09/07/66dc4ee4ae279.png" srcset="/img/loading.gif" lazyload alt="解集关系示意图"></p>
+<p>因此我们可以画出下面的图。</p>
 <p>当原问题为凸问题、各个函数可微、强对偶关系满足时，KKT条件是最优解的充要条件。举几个例子</p>
 <p>例1：$\min$ $0.5x^TPx+q^Tx+r,P\in S_+^n$<br> $s. t.$ $Ax&#x3D; b$</p>
 <p> 可行条件$Ax^\star&#x3D;b$</p>

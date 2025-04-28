@@ -16,24 +16,18 @@
   <meta name="author" content="bradin">
   <meta name="keywords" content="">
   
-    <meta name="description" content="综述：线性分类包括什么？对于分类任务，线性回归模型就无能为力了，但是我们可以在线性模型的函数进行后再加入一层激活函数，下面总结了常见的线性分类模型   下面我们依次介绍几种线性分类模型 硬输出：感知机我们要解决的问题是：二分类$N$个样本点$(x_{i},y_{i})$，其中$x_{i}\in R^p$引入：$$sign(a)&#x3D;\left{\begin{matrix}+1,a\geq0\">
+    <meta name="description" content="综述：线性分类包括什么？对于分类任务，线性回归模型就无能为力了，但是我们可以在线性模型的函数进行后再加入一层激活函数 下面我们依次介绍几种线性分类模型 硬输出：感知机我们要解决的问题是：二分类$N$个样本点$(x_{i},y_{i})$，其中$x_{i}\in R^p$引入：$$sign(a)&#x3D;\left{\begin{matrix}+1,a\geq0\-1,a&lt;0\end{mat">
 <meta property="og:type" content="article">
 <meta property="og:title" content="线性分类">
 <meta property="og:url" content="http://example.com/2023/07/12/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E7%BA%BF%E6%80%A7%E5%88%86%E7%B1%BB/index.html">
 <meta property="og:site_name" content="鸭蛋仙人的博客">
-<meta property="og:description" content="综述：线性分类包括什么？对于分类任务，线性回归模型就无能为力了，但是我们可以在线性模型的函数进行后再加入一层激活函数，下面总结了常见的线性分类模型   下面我们依次介绍几种线性分类模型 硬输出：感知机我们要解决的问题是：二分类$N$个样本点$(x_{i},y_{i})$，其中$x_{i}\in R^p$引入：$$sign(a)&#x3D;\left{\begin{matrix}+1,a\geq0\">
+<meta property="og:description" content="综述：线性分类包括什么？对于分类任务，线性回归模型就无能为力了，但是我们可以在线性模型的函数进行后再加入一层激活函数 下面我们依次介绍几种线性分类模型 硬输出：感知机我们要解决的问题是：二分类$N$个样本点$(x_{i},y_{i})$，其中$x_{i}\in R^p$引入：$$sign(a)&#x3D;\left{\begin{matrix}+1,a\geq0\-1,a&lt;0\end{mat">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://www.freeimg.cn/i/2024/08/05/66b0aba23af5e.png">
-<meta property="og:image" content="https://www.freeimg.cn/i/2024/08/05/66b0aba1dbb3c.png">
-<meta property="og:image" content="https://www.freeimg.cn/i/2024/08/05/66b0ac3260027.png">
-<meta property="og:image" content="https://www.freeimg.cn/i/2024/08/05/66b0c31f97bac.png">
-<meta property="og:image" content="https://www.freeimg.cn/i/2024/08/06/66b1f16b6c8b2.png">
 <meta property="article:published_time" content="2023-07-11T16:00:00.000Z">
-<meta property="article:modified_time" content="2025-04-28T10:57:54.501Z">
+<meta property="article:modified_time" content="2025-04-28T11:14:04.907Z">
 <meta property="article:author" content="bradin">
 <meta property="article:tag" content="机器学习">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://www.freeimg.cn/i/2024/08/05/66b0aba23af5e.png">
   
   
     <meta name="referrer" content="no-referrer-when-downgrade">
@@ -240,7 +234,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          696 字
+          682 字
         
       </span>
     
@@ -301,15 +295,12 @@
             
               <div class="markdown-body">
                 
-                <h1 id="综述：线性分类包括什么？"><a href="#综述：线性分类包括什么？" class="headerlink" title="综述：线性分类包括什么？"></a>综述：线性分类包括什么？</h1><p>对于分类任务，线性回归模型就无能为力了，但是我们可以在线性模型的函数进行后再加入一层激活函数，下面总结了常见的线性分类模型</p>
-<p><img src="https://www.freeimg.cn/i/2024/08/05/66b0aba23af5e.png" srcset="/img/loading.gif" lazyload alt="1722854281733.png"></p>
-<p><img src="https://www.freeimg.cn/i/2024/08/05/66b0aba1dbb3c.png" srcset="/img/loading.gif" lazyload alt="1722854303847.png"></p>
+                <h1 id="综述：线性分类包括什么？"><a href="#综述：线性分类包括什么？" class="headerlink" title="综述：线性分类包括什么？"></a>综述：线性分类包括什么？</h1><p>对于分类任务，线性回归模型就无能为力了，但是我们可以在线性模型的函数进行后再加入一层激活函数</p>
 <p>下面我们依次介绍几种线性分类模型</p>
 <h1 id="硬输出：感知机"><a href="#硬输出：感知机" class="headerlink" title="硬输出：感知机"></a>硬输出：感知机</h1><p>我们要解决的问题是：二分类$N$个样本点$(x_{i},y_{i})$，其中$x_{i}\in R^p$<br>引入：<br>$$sign(a)&#x3D;\left{\begin{matrix}+1,a\geq0\-1,a&lt;0\end{matrix}\right.$$</p>
 <p>感知机的思路是把线性回归的结果填充到激活函数中：<br>$$f(x)&#x3D;sign(w^Tx)$$</p>
 <p>这样$f(x)$即为预测结果。<br>此时，问题变为如何求解$w$。我们使用梯度下降的策略，那么自然的需要引入loss函数。为了引入合适的loss函数，做一些必要的讨论   </p>
 <p>我们考虑一个被正确分类的点$(x_i,y_i)$，若 $w^Tx_i&gt;0$，则 $y_i&#x3D;+1$,若$w^Tx_i&lt;0$，则 $y_i&#x3D;-1$,因此对于正确分类的点$(x_i,y_i)$，总有$y_iw^Tx_i&gt;0$      </p>
-<p><img src="https://www.freeimg.cn/i/2024/08/05/66b0ac3260027.png" srcset="/img/loading.gif" lazyload alt="1722854448587.png"></p>
 <p>综上所述，我们引入形如下式的loss函数<br>$$ L(w)&#x3D;\sum_{x_i\in\mathcal{D}_{wrong}}-y_iw^Tx_i $$</p>
 <p>应用梯度下降法可得</p>
 <p>$$\frac\partial{\partial w}L(w)&#x3D;\sum_{x_i\in\mathcal{D}_{wrong}}-y_ix_i$$</p>
@@ -317,7 +308,7 @@
 <h1 id="硬输出：线性判别"><a href="#硬输出：线性判别" class="headerlink" title="硬输出：线性判别"></a>硬输出：线性判别</h1><p>在 LDA 中，我们的基本想法是选定一个方向，将试验样本顺着这个方向投影，投影后的数据需要满足两个条件，从而可以更好地分类：</p>
 <ol>
 <li>相同类内部的试验样本距离接近。</li>
-<li>不同类别之间的距离较大。<br><img src="https://www.freeimg.cn/i/2024/08/05/66b0c31f97bac.png" srcset="/img/loading.gif" lazyload alt="1722860317231.png"></li>
+<li>不同类别之间的距离较大。</li>
 </ol>
 <p>引入x顺着w方向的投影(有正有负的标量)</p>
 <p>$$z&#x3D;w^T\cdot x(&#x3D;|w|\cdot|x|\cos\theta)$$</p>
@@ -347,7 +338,6 @@
 <p>求解方差，需要一些技巧，这里直接给出结果</p>
 <p>$$\Sigma&#x3D;\frac{N_1S_1+N_2S_2}N$$</p>
 <h1 id="软输出-朴素贝叶斯分类器"><a href="#软输出-朴素贝叶斯分类器" class="headerlink" title="软输出:朴素贝叶斯分类器"></a>软输出:朴素贝叶斯分类器</h1><p><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1eT411V7jM/?spm_id_from=333.337.search-card.all.click&vd_source=84b977d2834d5eca6c0ca78bd619156f">链接</a></p>
-<p><img src="https://www.freeimg.cn/i/2024/08/06/66b1f16b6c8b2.png" srcset="/img/loading.gif" lazyload alt="1722937704805.png"></p>
 <p>$$\begin{aligned}<br>&amp;T&#x3D;{(x_{1},y_{1}),(x_{2},y_{2}),\ldots,(x_{N},y_{N})} \<br>&amp;x_i&#x3D;(x^1,\ldots,x^n) \<br>&amp;y_{i}&#x3D;c_{k}, \text{其中}k&#x3D;1\ldots K \<br>&amp;&amp;y\neq argmax_{c_k}P(y&#x3D;c_k)\prod_jP(x^j|y&#x3D;c_k)<br>\end{aligned}$$</p>
 <p>我们选择概率最大的作为分类结果</p>
 

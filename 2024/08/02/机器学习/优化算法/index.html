@@ -23,24 +23,11 @@
 <meta property="og:site_name" content="鸭蛋仙人的博客">
 <meta property="og:description" content="优化算法概论理想的优化算法有以下几个特点  数值解 ${x_k}_{k&#x3D;0}^{\infty}$的迭代，实际中操作使用有限次，满足一定条件停止迭代即可 单调性，满足$f(x_{k+1})&lt;f(x_{k-m})$就很好，但是往往碰到螺旋下降的情况 策略 ：$x_k$如何到$x_{k+1}$?  线搜索方法$$x_{k+1}&#x3D;x_k+\alpha_kp_k$$ 这里$\alp">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://www.freeimg.cn/i/2024/08/10/66b772193deed.png">
-<meta property="og:image" content="https://www.freeimg.cn/i/2024/08/10/66b775bd70850.png">
-<meta property="og:image" content="https://www.freeimg.cn/i/2024/08/10/66b7766e6267a.png">
-<meta property="og:image" content="https://www.freeimg.cn/i/2024/08/10/66b77bd888f03.png">
-<meta property="og:image" content="https://www.freeimg.cn/i/2024/08/11/66b884fe477a6.png">
-<meta property="og:image" content="https://www.freeimg.cn/i/2024/08/11/66b8861948a39.png">
-<meta property="og:image" content="https://www.freeimg.cn/i/2024/08/11/66b8b77e3c439.png">
-<meta property="og:image" content="https://www.freeimg.cn/i/2024/08/11/66b8ad09e8239.png">
-<meta property="og:image" content="https://www.freeimg.cn/i/2024/08/11/66b8b6f2532d5.png">
-<meta property="og:image" content="https://www.freeimg.cn/i/2024/08/11/66b8c815adc19.png">
-<meta property="og:image" content="https://www.freeimg.cn/i/2024/08/11/66b8c85ca3b8d.png">
-<meta property="og:image" content="https://www.freeimg.cn/i/2024/08/11/66b8cb1d6c8b1.png">
 <meta property="article:published_time" content="2024-08-01T16:00:00.000Z">
-<meta property="article:modified_time" content="2025-04-28T10:58:27.125Z">
+<meta property="article:modified_time" content="2025-04-28T11:13:34.866Z">
 <meta property="article:author" content="bradin">
 <meta property="article:tag" content="机器学习">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://www.freeimg.cn/i/2024/08/10/66b772193deed.png">
   
   
     <meta name="referrer" content="no-referrer-when-downgrade">
@@ -247,7 +234,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          959 字
+          899 字
         
       </span>
     
@@ -338,17 +325,13 @@
 </li>
 </ul>
 <p>$$\phi(\alpha) \le f(x_k)+c_1\nabla f_k^Tp_k \alpha \<br>c_1 \in (0,1)<br>$$ </p>
-<p><img src="https://www.freeimg.cn/i/2024/08/10/66b772193deed.png" srcset="/img/loading.gif" lazyload alt="1723298326252.png"></p>
-<p>如图所示，用下方绿线去割出来一两个区间，考虑到凸函数的局部性质，Armijo认为这样的策略可以筛选出较好的a所在的区间</p>
 <h3 id="Glodstein-Condition"><a href="#Glodstein-Condition" class="headerlink" title="Glodstein Condition"></a>Glodstein Condition</h3><p>Glodstein发现Armijo条件总会导致筛选出特别小的a，但是这在数值计算中没有意义，为此他提出了新的筛选方法</p>
-<p><img src="https://www.freeimg.cn/i/2024/08/10/66b775bd70850.png" srcset="/img/loading.gif" lazyload alt="1723299258745.png"></p>
 <p>$$f(x_k)+(1-c)\nabla f_k^Tp_k\alpha \le \phi(\alpha) \le f(x_k)+c\nabla f_k^Tp_k \alpha<br>\<br>c \in (0,\frac12)<br>$$</p>
 <h3 id="wolfe-condition"><a href="#wolfe-condition" class="headerlink" title="wolfe condition"></a>wolfe condition</h3><p>wolfe综合了上述思想，又考虑到Glodstein的约束条件过于狭窄，在c趋于0.5的时候几乎不留区间，于是最终演化出我们现在通用的筛选标准</p>
 <p>$$\phi(\alpha)\leq f(x_{k})+C_{1}\nabla f_{k}^T p_{k}\alpha  $$</p>
 <p>$$\nabla f_{k+1}^{T}\cdot p_{k}\geq C_{2}\nabla f_{k}^{T}P_{k}$$</p>
 <p>$$C_{1}\in(0,1)\C_{2}\in(C_{1},1)$$</p>
 <p>第二个式子中$\nabla f_{k+1}^{T}$就是函数图像中$\phi(a)$在a处的斜率，这样就不冒进的排除掉了$\alpha$靠近0的一小段区间</p>
-<p><img src="https://www.freeimg.cn/i/2024/08/10/66b7766e6267a.png" srcset="/img/loading.gif" lazyload alt="1723299435754.png"></p>
 <h2 id="收敛性证明"><a href="#收敛性证明" class="headerlink" title="收敛性证明"></a>收敛性证明</h2><p>记 $x_{k+1}&#x3D;x_k+\alpha_kp_k$ ,我们有以下几点要求，</p>
 <ul>
 <li><p>$\nabla f(x)$满足Lipschitz连续，即$|\nabla f(x)-\nabla f(\hat{x})|\leq L|x-\hat{x}|,\quad\forall x,\hat{x}$    (1)</p>
@@ -372,16 +355,12 @@
 <h3 id="R收敛速度（类似于比较收敛）"><a href="#R收敛速度（类似于比较收敛）" class="headerlink" title="R收敛速度（类似于比较收敛）"></a>R收敛速度（类似于比较收敛）</h3><ul>
 <li>$k$充分大</li>
 </ul>
-<p><img src="https://www.freeimg.cn/i/2024/08/10/66b77bd888f03.png" srcset="/img/loading.gif" lazyload alt="1723300821783.png"></p>
 <p>例子<br>${ \frac 1 k}$ 是Q次线性<br>$2^{-k}$是Q线性<br>$2^{2^{-k}}$是二次线性</p>
-<h1 id="梯度下降法"><a href="#梯度下降法" class="headerlink" title="梯度下降法"></a>梯度下降法</h1><h2 id="关于凸函数性质的理解"><a href="#关于凸函数性质的理解" class="headerlink" title="关于凸函数性质的理解"></a>关于凸函数性质的理解</h2><p>先把所有的结论展示出来</p>
-<p><img src="https://www.freeimg.cn/i/2024/08/11/66b884fe477a6.png" srcset="/img/loading.gif" lazyload alt="1723368698997.png"></p>
-<p>在数学上，我们应当有这样的直觉:     </p>
+<h1 id="梯度下降法"><a href="#梯度下降法" class="headerlink" title="梯度下降法"></a>梯度下降法</h1><h2 id="关于凸函数性质的理解"><a href="#关于凸函数性质的理解" class="headerlink" title="关于凸函数性质的理解"></a>关于凸函数性质的理解</h2><p>在数学上，我们应当有这样的直觉:     </p>
 <ul>
 <li>李普希兹连续保证了我们的研究函数有二次上界</li>
 <li>强凸这一性质保证了研究函数大于了一个二次下界</li>
 </ul>
-<p><img src="https://www.freeimg.cn/i/2024/08/11/66b8861948a39.png" srcset="/img/loading.gif" lazyload alt="1723368982316.png"></p>
 <h3 id="proof-李普希兹连续-二次上界"><a href="#proof-李普希兹连续-二次上界" class="headerlink" title="proof:李普希兹连续-&gt;二次上界"></a>proof:李普希兹连续-&gt;二次上界</h3><p>命题:若$f$可微，$\nabla f$Lipschitz连续，则f有二次上界：</p>
 <p>$$ f(y) \le f(x)+\nabla f(x)^T(y-x)+\frac L2||y-x||^2 $$</p>
 <p>证明: 记 $g(\theta)&#x3D;f(x+\theta (y-x))$<br>原命题变为证明</p>
@@ -391,29 +370,24 @@
 <p>$$\leq\int_{0}^{1}L||\theta(y-x)||\cdot||y-x||d\theta$$</p>
 <p>$$&#x3D; \frac L2||y-x||^2 $$</p>
 <p>证毕</p>
-<h2 id="凸函数-梯度下降法收敛性分析"><a href="#凸函数-梯度下降法收敛性分析" class="headerlink" title="凸函数:梯度下降法收敛性分析"></a>凸函数:梯度下降法收敛性分析</h2><p>先引入一种求解$\alpha$最小上界的思路<br><img src="https://www.freeimg.cn/i/2024/08/11/66b8b77e3c439.png" srcset="/img/loading.gif" lazyload alt="1723381624816.png"></p>
+<h2 id="凸函数-梯度下降法收敛性分析"><a href="#凸函数-梯度下降法收敛性分析" class="headerlink" title="凸函数:梯度下降法收敛性分析"></a>凸函数:梯度下降法收敛性分析</h2><p>先引入一种求解$\alpha$最小上界的思路</p>
 <p>回到算法本身</p>
 <p>x的更新公式为<br>$$x_{k+1}&#x3D;x_k-\alpha_k\nabla f(x_k)$$<br>根据二次上界不等式可得<br>$$\begin{aligned}<br>f_{k+1}&amp; &#x3D;f\left(x_k-\alpha\nabla f(x_k)\right) \<br>&amp;\leq f(x_k)-\alpha|\nabla f(x_k)|^2+\frac{L\alpha^2}2|\nabla f(x_k)|^2 \<br>&amp;&#x3D;f(x_k)-\alpha\left(1-\frac{\alpha L}2\right)|\nabla f(x_k)|^2<br>\end{aligned}$$</p>
 <p>由凸函数的性质可知:$f^*&gt;f(x_k)-\nabla f(x_k)^\top\left(x_k-x^*\right)$</p>
-<p><img src="https://www.freeimg.cn/i/2024/08/11/66b8ad09e8239.png" srcset="/img/loading.gif" lazyload alt="1723378950582.png"></p>
 <p>由于$\alpha\in\left(0,\frac1L\right)$,则</p>
 <p>$$\begin{aligned}</p>
 <p>f_{k+1}&amp; \leq f(x_k)-\frac\alpha2|\nabla f(x_k)|^2 \<br>&amp;\leq f^*+\nabla f(x_k)^\top\left(x_k-x^<em>\right)-\frac\alpha2|\nabla f(x_k)|^2 \<br>&amp;&#x3D;f^</em>+\frac1{2\alpha}(2\alpha \nabla f(x_k)^\top\left(x_k-x^<em>\right)-\alpha^2|\nabla f(x_k)|^2-|x_k-x^</em>|^2+|x_k-x^<em>|^2)              \<br>&amp;&#x3D;f^</em>+\frac1{2\alpha}\left(|x_k-x^<em>|^2-|x_k-x^</em>-\alpha\nabla f(x_k)|^2\right) \<br>&amp;&#x3D;f^*+\frac1{2\alpha}{\left(|x_k-x^<em>|^2-|x_{k+1}-x^</em>|^2\right)}<br>\end{aligned}$$</p>
 <p>进一步有<br>$$f_{k+1}-f^*&#x3D;\frac1{2\alpha}\left(|x_k-x^<em>|^2-|x_{k+1}-x^</em>|^2\right)$$<br>$$\begin{gathered}<br>\sum_{k&#x3D;0}^n(f_{k+1}-f^*) \leq\frac1{2\alpha}\big(|x_0-x^<em>|^2-|x_{k+1}-x^</em>|^2\big) \<br>&#x3D;\frac1{2\alpha}|x_0-x^*|^2<br>\end{gathered}$$</p>
 <p>由于$f_k$单调下降，因此<br>$$f_{n+1}-f^<em>\leq\frac1{n+1}\sum_{k&#x3D;0}^n(f_{k+1}-f^</em>)\leq\frac1{2(n+1)\alpha}|x_0-x^<em>|^2$$<br>算法使得以$O(\frac 1k)$收敛到$f^</em>$</p>
-<h2 id="重要的引理-白老爹定理"><a href="#重要的引理-白老爹定理" class="headerlink" title="重要的引理:白老爹定理"></a>重要的引理:白老爹定理</h2><p><img src="https://www.freeimg.cn/i/2024/08/11/66b8b6f2532d5.png" srcset="/img/loading.gif" lazyload alt="1723381485370.png"></p>
-<h2 id="强凸函数应用梯度下降法的收敛性分析"><a href="#强凸函数应用梯度下降法的收敛性分析" class="headerlink" title="强凸函数应用梯度下降法的收敛性分析"></a>强凸函数应用梯度下降法的收敛性分析</h2><ul>
+<h2 id="重要的引理-白老爹定理"><a href="#重要的引理-白老爹定理" class="headerlink" title="重要的引理:白老爹定理"></a>重要的引理:白老爹定理</h2><h2 id="强凸函数应用梯度下降法的收敛性分析"><a href="#强凸函数应用梯度下降法的收敛性分析" class="headerlink" title="强凸函数应用梯度下降法的收敛性分析"></a>强凸函数应用梯度下降法的收敛性分析</h2><ul>
 <li>$f$有下界，m-强凸，可微</li>
 <li>$\nabla f$李普希兹连续</li>
 <li>$\alpha \in (0,\frac{2}{L+m})$</li>
 </ul>
 <p>则$x_k$Q线性收敛到$x^*$</p>
 <p>$$||x_{k+1}-x^{<em>}||^{2}&#x3D;||x_{k}-\alpha \nabla f(x_{k})-x^{</em>}||^{2}$$<br>$$&#x3D;|x_{k}-x^{<em>}|^{2}-2\alpha\nabla f(x_{k})^{T}(x_{k}-x^{</em>})+\alpha^{2}|\nabla f(x_{k})|^{2}$$<br>$$&#x3D;||x_{k}-x^{<em>}||^{2}-2\alpha(\nabla f(x_{k})-\nabla f(x^{</em>}))^{T}(x_{k}-x^{<em>})+\alpha^{2}||\nabla f(x_{k})||^{2}$$<br>现在的任务就是为$(\nabla f(x_{k})-\nabla f(x^{</em>}))^{T}(x_{k}-x^{*})$寻找一个合适的下界</p>
-<p><img src="https://www.freeimg.cn/i/2024/08/11/66b8c815adc19.png" srcset="/img/loading.gif" lazyload alt="1723385873427.png"></p>
 <p>带入原始的式子</p>
-<p><img src="https://www.freeimg.cn/i/2024/08/11/66b8c85ca3b8d.png" srcset="/img/loading.gif" lazyload alt="1723385944849.png"></p>
-<h2 id="梯度下降法的缺点-在病态条件下收敛过慢"><a href="#梯度下降法的缺点-在病态条件下收敛过慢" class="headerlink" title="梯度下降法的缺点:在病态条件下收敛过慢"></a>梯度下降法的缺点:在病态条件下收敛过慢</h2><p><img src="https://www.freeimg.cn/i/2024/08/11/66b8cb1d6c8b1.png" srcset="/img/loading.gif" lazyload alt="1723386647669.png"></p>
-
+<h2 id="梯度下降法的缺点-在病态条件下收敛过慢"><a href="#梯度下降法的缺点-在病态条件下收敛过慢" class="headerlink" title="梯度下降法的缺点:在病态条件下收敛过慢"></a>梯度下降法的缺点:在病态条件下收敛过慢</h2>
                 
               </div>
             

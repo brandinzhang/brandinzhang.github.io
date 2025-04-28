@@ -23,18 +23,11 @@
 <meta property="og:site_name" content="鸭蛋仙人的博客">
 <meta property="og:description" content="仿射仿射集(Affine Sets)等价定义1: 若对集合$C$中的任意两点$x_1,x_2$,都有过$x_1,x_2$的直线也在$C$中，则称$C$为仿射集即：$$\forall x_1,x_2\in C,\forall\theta\in R\Rightarrow y&#x3D;\theta x_1+(1-\theta)x_2\in C.$$ 等价定义2：设 $x_1,\ldots,x_k\in">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://www.freeimg.cn/i/2024/08/28/66cf39f2b4c3b.png">
-<meta property="og:image" content="https://www.freeimg.cn/i/2024/08/28/66cf3c7206d3f.png">
-<meta property="og:image" content="https://www.freeimg.cn/i/2024/08/28/66cf3d7d48949.png">
-<meta property="og:image" content="https://www.freeimg.cn/i/2024/08/28/66cf3d7d47a57.png">
-<meta property="og:image" content="https://www.freeimg.cn/i/2024/08/28/66cf403822d39.png">
-<meta property="og:image" content="https://www.freeimg.cn/i/2024/08/28/66cf43c764829.png">
 <meta property="article:published_time" content="2024-08-26T16:00:00.000Z">
-<meta property="article:modified_time" content="2025-04-28T10:59:48.831Z">
+<meta property="article:modified_time" content="2025-04-28T11:14:43.625Z">
 <meta property="article:author" content="bradin">
 <meta property="article:tag" content="数学">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://www.freeimg.cn/i/2024/08/28/66cf39f2b4c3b.png">
   
   
     <meta name="referrer" content="no-referrer-when-downgrade">
@@ -307,10 +300,11 @@
 <p>例如：直线是仿射集，全空间是仿射集，线段不是仿射集。线性方程组的解$C \ {x|Ax&#x3D;b}$是仿射集，且齐次线性方程组的解$V \ { x|Ax&#x3D;0 }$满足更好的性质，即<br>$$\forall x,y\in V,\alpha,\beta\in R\text{,有 }\alpha x+\beta y\in V\text{,而不必要求 }\alpha+\beta&#x3D;1$$<br>通常称$V$是$C$的仿射子空间</p>
 <h3 id="仿射组合"><a href="#仿射组合" class="headerlink" title="仿射组合"></a>仿射组合</h3><p>仿射组合：设$x_1, \ldots , x_k\in C$, $\theta <em>1, \ldots , \theta <em>k\in R, \theta <em>1+ \cdots + \theta <em>k&#x3D; 1$, $\theta <em>1x_1+ \cdots + \theta <em>kx_k$称为仿射组合<br>$\Rightarrow$若 C 为仿射集，则仿射组合也在 C 内，证明如下<br>$$\begin{aligned}&amp;\frac{\theta</em>{1}}{\theta</em>{1}+\theta</em>{2}}x</em>{1}+\frac{\theta</em>{2}}{\theta</em>{1}+\theta_{2}}x_{2}\in C\&amp;(\theta_{1}+\theta_{2})\left(\frac{\theta_{1}}{\theta_{1}+\theta_{2}}x_{1}+\frac{\theta_{2}}{\theta_{1}+\theta_{2}}x_{2}\right)+(1-\theta_{1}-\theta_{2})x_{3}\in C\&amp;\Leftrightarrow\theta_{1}x_{1}+\theta_{2}x_{2}+\theta_{3}x_{3}\in C,\quad\theta_{1}+\theta_{2}+\theta_{3}&#x3D;1\end{aligned}$$<br>按照此思路可以递归的证明到多个点进行仿射组合的情况</p>
 <h3 id="仿射包"><a href="#仿射包" class="headerlink" title="仿射包"></a>仿射包</h3><p>对于任意集合$C$,仿射包$aff \ C$是包含$C$的最小仿射集，<br>$$aff \ C&#x3D;{\theta_1x_1+\dots+\theta_kx_k|\forall x_1,\dots,x_k\in C,\theta_1+\dots+\theta_k&#x3D;1}$$</p>
-<p>不管集合$C$是什么, $aff \ C$都一定是仿射集, 且是所有包含$C$的仿射集中最小的仿射集.也就是说我们可以从任意集合中构造一个特殊的仿射集。<br>举个例子<br><img src="https://www.freeimg.cn/i/2024/08/28/66cf39f2b4c3b.png" srcset="/img/loading.gif" lazyload alt="仿射包"><br>${x_1,x_2 }$的仿射包是连接两点的直线，${x_1,x_2,x_3 }$的仿射包是$R^2$</p>
+<p>不管集合$C$是什么, $aff \ C$都一定是仿射集, 且是所有包含$C$的仿射集中最小的仿射集.也就是说我们可以从任意集合中构造一个特殊的仿射集。<br>举个例子</p>
+<p>${x_1,x_2 }$的仿射包是连接两点的直线，${x_1,x_2,x_3 }$的仿射包是$R^2$</p>
 <h1 id="凸"><a href="#凸" class="headerlink" title="凸"></a>凸</h1><h3 id="凸集"><a href="#凸集" class="headerlink" title="凸集"></a>凸集</h3><p>一个集合$C$为凸集，当且仅当任意连接$C$内两点的线段也在$C$内，即<br>$$\forall x_{1},x_{2}\in C, \forall\theta\in[0,1], \theta x_{1}+(1-\theta)x_{2}\in C$$<br>等价定义为$C$中任意多个元素的凸组合也在$C$内</p>
 <h3 id="凸组合"><a href="#凸组合" class="headerlink" title="凸组合"></a>凸组合</h3><p>$x_1, \ldots , x_k\in C$, $\theta _1, \ldots , \theta _k\in [ 0, 1]$, $\theta _1+ \cdots + \theta _k&#x3D; 1$, $\theta _1x_1+ \cdots + \theta _kx_k$<br>凸集包含其任意元素的凸组合      </p>
-<h3 id="凸包"><a href="#凸包" class="headerlink" title="凸包"></a>凸包</h3><p>对任意集合$C$,包含$C$的最小凸集称为C的凸包<br> $Conv( C) &#x3D; { \theta <em>{1}x</em>{1}+ \cdots + \theta <em>{k}x</em>{k}| x_{1}, \ldots , x_{k}\in C$, $\theta _{1}, \ldots , \theta _{k}\in [ 0, 1]$, $\theta _{1}+ \cdots + \theta _{k}&#x3D; 1}$<br>凸包的几何意义由下图清晰地展示。<br> <img src="https://www.freeimg.cn/i/2024/08/28/66cf3c7206d3f.png" srcset="/img/loading.gif" lazyload alt="集合与其凸包"></p>
+<h3 id="凸包"><a href="#凸包" class="headerlink" title="凸包"></a>凸包</h3><p>对任意集合$C$,包含$C$的最小凸集称为C的凸包<br> $Conv( C) &#x3D; { \theta <em>{1}x</em>{1}+ \cdots + \theta <em>{k}x</em>{k}| x_{1}, \ldots , x_{k}\in C$, $\theta _{1}, \ldots , \theta _{k}\in [ 0, 1]$, $\theta _{1}+ \cdots + \theta _{k}&#x3D; 1}$          </p>
 <h1 id="锥"><a href="#锥" class="headerlink" title="锥"></a>锥</h1><ul>
 <li><p>椎：$\forall x\in C$, $\theta \geq 0\Rightarrow \theta x\in C$</p>
 </li>
@@ -319,8 +313,6 @@
 <li><p>凸锥组合：$\theta <em>{1}x</em>{1}+ \cdots + \theta <em>{k}x</em>{k}$, $\theta _{1}, \ldots , \theta _{k}\geq 0$</p>
 </li>
 <li><p>凸锥包：${\theta_{1}x_{1}+\cdots+\theta_{k}x_{k}|x_{1},\ldots,x_{k}\in C,\theta_{1},\ldots,\theta_{k}\geq0}$</p>
-</li>
-<li><p><img src="https://www.freeimg.cn/i/2024/08/28/66cf3d7d48949.png" srcset="/img/loading.gif" lazyload alt="凸锥的几何意义感受"><br><img src="https://www.freeimg.cn/i/2024/08/28/66cf3d7d47a57.png" srcset="/img/loading.gif" lazyload alt="凸锥包的几何意义感受"></p>
 </li>
 </ul>
 <h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>设 $x_1,\ldots,x_k\in C,\forall\theta_1,\ldots,\theta_k\in C$,在下表对应的情况下，</p>
@@ -342,13 +334,12 @@
 </ul>
 <h3 id="超平面"><a href="#超平面" class="headerlink" title="超平面"></a>超平面</h3><ul>
 <li>超平面(hyperplane)${x\mid a^{T}x&#x3D;b}$为平面在高维空间中的扩展  ，它是凸集，是仿射集，若否过原点则是凸锥</li>
-<li>半空间(halfspace)${a^Tx\geq b\text{或}a^Tx\leq b}$为由超平面分开的全空间的一半，它是凸集，非仿射集，若过原点则是凸锥<br><img src="https://www.freeimg.cn/i/2024/08/28/66cf403822d39.png" srcset="/img/loading.gif" lazyload alt="1724858421543.png"></li>
+<li>半空间(halfspace)${a^Tx\geq b\text{或}a^Tx\leq b}$为由超平面分开的全空间的一半，它是凸集，非仿射集，若过原点则是凸锥</li>
 </ul>
 <h3 id="球"><a href="#球" class="headerlink" title="球"></a>球</h3><p>$B(x_{c},r)&#x3D;{x\mid|x-x_{c}|<em>{2}\leq r}&#x3D;{x\mid\sqrt{(x-x</em>{c})^{T}(x-x_{c})}\leq r}$是凸集<br>证：<br>$$\begin{aligned}&amp;\forall\theta\in[0,1]\text{,取 }f(x)&#x3D;|x-x_c|<em>2\&amp;|\theta x_1+(1-\theta)x_2-x_c|<em>2&#x3D;|\theta(x_1-x_c)+(1-\theta)(x_2-x_c)|<em>2\&amp;\leq \theta|x</em>{1}-x</em>{c}|</em>{2}+(1-\theta)|x_{2}-x_{c}|_{2}\end{aligned}$$</p>
 <h3 id="椭球"><a href="#椭球" class="headerlink" title="椭球"></a>椭球</h3><p>$$\varepsilon(x_{c},P)&#x3D;{x\mid(x-x_{c})^{T}P^{-1}(x-x_{c})\leq1}, x_{c}\in R^{n}, P\in S_{++}^{n}$$<br>其中P为对角矩阵，对角线上为矩阵的奇异值的平方，矩阵的奇异值对应了椭球的半轴长</p>
 <h3 id="多面体"><a href="#多面体" class="headerlink" title="多面体"></a>多面体</h3><p>多面体(polyhedron)是半空间与超平面的交集，为凸集。<br>$${x\mid a_{j}^{T}x\leq b_{j}, j&#x3D;1,\ldots,m, c_{j}^{T}x&#x3D;d_{j}, j&#x3D;1,\ldots,p}$$<br>当然多个条件也可以一起排列写成矩阵的形式，简单来说只有若干个线性不等式和等式的约束代表的凸集即是多面体，注意多面体不一定封闭。</p>
 <h3 id="单纯形"><a href="#单纯形" class="headerlink" title="单纯形"></a>单纯形</h3><p>在$\mathbb{R}^{n}$空间中选择$k+1$个仿射无关的点$v_0,v_1,\ldots,v_k ,$（也就是满足$v_1-v_0,v_2-v_0,\ldots,v_k-v_0$线性无关），我们称点$v_1,\ldots v_k$的凸包为单纯形<br>$$C&#x3D;conv{v_1,\ldots,v_k}&#x3D;{\theta^Tv|\theta\geq0,\sum_i\theta_i&#x3D;1}$$<br>例如，在$\mathbb{R}^{n}$<br>空间中，由两个点构造的凸包(线段)与三个点组成凸包(三角形)算是单纯形。但是四个点组成的凸包不是单纯形，因为在二维空间$\mathbb{R}^{n}$<br>中，四个点无法仿射独立。如下图</p>
-<p><img src="https://www.freeimg.cn/i/2024/08/28/66cf43c764829.png" srcset="/img/loading.gif" lazyload alt="例子"></p>
 <p>求证：单纯形是多面体的一种          </p>
 <p>定义</p>
 <p>$$ y&#x3D;[\theta_{1},\ldots,\theta_{k}], y\geq0, 1^{T}y\leq1(因为y中舍弃了\theta_0) $$</p>
