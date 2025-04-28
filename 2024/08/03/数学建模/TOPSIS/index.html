@@ -16,12 +16,12 @@
   <meta name="author" content="bradin">
   <meta name="keywords" content="">
   
-    <meta name="description" content="step1 评价矩阵标准化+归一化已有正向化处理之后的矩阵 $\begin{aligned}&amp; X&#x3D;\begin{bmatrix}x_{11}&amp;x_{12}&amp;\cdots&amp;x_{1m}\x_{21}&amp;x_{22}&amp;\cdots&amp;x_{2m}\\varvdots&amp;\varvdots&amp;\ddots&amp;\varvdo">
+    <meta name="description" content="step1 评价矩阵标准化+归一化 已有正向化处理之后的矩阵 $\begin{aligned}&amp; X&#x3D;\begin{bmatrix}x_{11}&amp;x_{12}&amp;\cdots&amp;x_{1m}\\x_{21}&amp;x_{22}&amp;\cdots&amp;x_{2m}\\\varvdots&amp;\varvdots&amp;\ddots&amp;\varvdots">
 <meta property="og:type" content="article">
 <meta property="og:title" content="TOPSIS模版&#x2F;灰色关联度分析">
 <meta property="og:url" content="http://example.com/2024/08/03/%E6%95%B0%E5%AD%A6%E5%BB%BA%E6%A8%A1/TOPSIS/index.html">
 <meta property="og:site_name" content="鸭蛋仙人的博客">
-<meta property="og:description" content="step1 评价矩阵标准化+归一化已有正向化处理之后的矩阵 $\begin{aligned}&amp; X&#x3D;\begin{bmatrix}x_{11}&amp;x_{12}&amp;\cdots&amp;x_{1m}\x_{21}&amp;x_{22}&amp;\cdots&amp;x_{2m}\\varvdots&amp;\varvdots&amp;\ddots&amp;\varvdo">
+<meta property="og:description" content="step1 评价矩阵标准化+归一化 已有正向化处理之后的矩阵 $\begin{aligned}&amp; X&#x3D;\begin{bmatrix}x_{11}&amp;x_{12}&amp;\cdots&amp;x_{1m}\\x_{21}&amp;x_{22}&amp;\cdots&amp;x_{2m}\\\varvdots&amp;\varvdots&amp;\ddots&amp;\varvdots">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://pic.imge.cc/2024/07/27/66a498d945fc0.png">
 <meta property="article:published_time" content="2024-08-02T16:00:00.000Z">
@@ -297,27 +297,60 @@
             
               <div class="markdown-body">
                 
-                <h1 id="step1-评价矩阵标准化-归一化"><a href="#step1-评价矩阵标准化-归一化" class="headerlink" title="step1 评价矩阵标准化+归一化"></a>step1 评价矩阵标准化+归一化</h1><p>已有正向化处理之后的矩阵<br> $\begin{aligned}&amp; X&#x3D;\begin{bmatrix}x_{11}&amp;x_{12}&amp;\cdots&amp;x_{1m}\x_{21}&amp;x_{22}&amp;\cdots&amp;x_{2m}\\varvdots&amp;\varvdots&amp;\ddots&amp;\varvdots\x_{21}&amp;\cdots&amp;x_{2m}\end{bmatrix}\end{aligned}$</p>
-<p>设标准化的矩阵为$Z$,那么$Z$中的每一个元素：$\tilde{z}<em>{ij}&#x3D;\frac{x</em>{ij}}{\sqrt{\sum_{i&#x3D;1}^nx_{ij}^2}}$</p>
-<p>得到标准化矩阵<br>$$\tilde{Z}&#x3D;\begin{bmatrix}\tilde{z}<em>{11}&amp;\tilde{z}</em>{12}&amp;\cdots&amp;\tilde{z}<em>{1m}\\tilde{z}</em>{21}&amp;\tilde{z}<em>{22}&amp;\cdots&amp;\tilde{z}</em>{2m}\\vdots&amp;\vdots&amp;\ddots&amp;\vdots\\tilde{z}<em>{n1}&amp;\tilde{z}</em>{n2}&amp;\cdots&amp;\tilde{z}_{nm}\end{bmatrix}$$</p>
-<p>标准化之后记得<br>$$\frac{x-\min}{\max-\min}$$<br>进行归一化</p>
-<h1 id="step2-用优劣解打分"><a href="#step2-用优劣解打分" class="headerlink" title="step2 用优劣解打分"></a>step2 用优劣解打分</h1><p>上一步得到了矩阵<br>$$Z&#x3D;\begin{bmatrix}z_{11}&amp;z_{12}&amp;\cdots&amp;z_{1m}\z_{21}&amp;z_{22}&amp;\cdots&amp;z_{2m}\\varvdots&amp;\varvdots&amp;\ddots&amp;\varvdots\z_{n1}&amp;z_{n2}&amp;\cdots&amp;z_{nm}\end{bmatrix}$$</p>
+                <h1 id="step1-评价矩阵标准化归一化">step1 评价矩阵标准化+归一化</h1>
+<p>已有正向化处理之后的矩阵 <span
+class="math inline">$\begin{aligned}&amp;
+X=\begin{bmatrix}x_{11}&amp;x_{12}&amp;\cdots&amp;x_{1m}\\x_{21}&amp;x_{22}&amp;\cdots&amp;x_{2m}\\\varvdots&amp;\varvdots&amp;\ddots&amp;\varvdots\\x_{21}&amp;\cdots&amp;x_{2m}\end{bmatrix}\end{aligned}$</span></p>
+<p>设标准化的矩阵为<span class="math inline"><em>Z</em></span>,那么<span
+class="math inline"><em>Z</em></span>中的每一个元素：<span
+class="math inline">$\tilde{z}_{ij}=\frac{x_{ij}}{\sqrt{\sum_{i=1}^nx_{ij}^2}}$</span></p>
+<p>得到标准化矩阵 <span
+class="math display">$$\tilde{Z}=\begin{bmatrix}\tilde{z}_{11}&amp;\tilde{z}_{12}&amp;\cdots&amp;\tilde{z}_{1m}\\\tilde{z}_{21}&amp;\tilde{z}_{22}&amp;\cdots&amp;\tilde{z}_{2m}\\\vdots&amp;\vdots&amp;\ddots&amp;\vdots\\\tilde{z}_{n1}&amp;\tilde{z}_{n2}&amp;\cdots&amp;\tilde{z}_{nm}\end{bmatrix}$$</span></p>
+<p>标准化之后记得 <span
+class="math display">$$\frac{x-\min}{\max-\min}$$</span> 进行归一化</p>
+<h1 id="step2-用优劣解打分">step2 用优劣解打分</h1>
+<p>上一步得到了矩阵 <span
+class="math display">$$Z=\begin{bmatrix}z_{11}&amp;z_{12}&amp;\cdots&amp;z_{1m}\\z_{21}&amp;z_{22}&amp;\cdots&amp;z_{2m}\\\varvdots&amp;\varvdots&amp;\ddots&amp;\varvdots\\z_{n1}&amp;z_{n2}&amp;\cdots&amp;z_{nm}\end{bmatrix}$$</span></p>
 <p>寻找每一个评价指标中出现的最大值与最小值，写成向量的形式，也就是</p>
-<p>$$Z^+&#x3D;(Z_1^+,Z_2^+,\cdotp\cdotp\cdotp,Z_m^+)&#x3D;(\max{z_{11},z_{21},\cdotp\cdotp\cdotp,z_{n1}},\max{z_{12},z_{22},\cdotp\cdotp\cdotp,z_{n2}},\cdotp\cdotp\cdotp,\max{z_{1m},z_{2m},\cdotp\cdotp\cdotp,z_{nm}})\Z^-&#x3D;(Z_1^-,Z_2^-,\cdotp\cdotp\cdotp,Z_m^-)&#x3D;(\min\left{z_{11},z_{21},\cdotp\cdotp\cdotp,z_{n1}\right},\min\left{z_{12},z_{22},\cdotp\cdotp\cdotp,z_{n2}\right},\cdotp\cdotp\cdotp,\min\left{z_{1m},z_{2m},\cdotp\cdotp\cdotp,z_{nm}\right})$$</p>
-<p>遍历每一个评价对象，计算它每个指标相对于所有对象中该指标最大值的距离，$D_i^+&#x3D;\sqrt{\sum_{j&#x3D;1}^m(Z_j^+-z_{ij})^2}(i&#x3D;1,2,…,n)$，</p>
-<p>同样的计算与最小值的距离$D_i^-&#x3D;\sqrt{\sum_{j&#x3D;1}^m\left(Z_j^–z_{ij}\right)^2}$，</p>
-<p>然后取$S_i&#x3D;\frac{D_i^-}{D_i^++D_i^-}$作为该对象得分。</p>
-<h1 id="对比"><a href="#对比" class="headerlink" title="对比"></a>对比</h1><p><img src="https://pic.imge.cc/2024/07/27/66a498d945fc0.png" srcset="/img/loading.gif" lazyload alt="1722063061332.png"></p>
-<h1 id="灰色关联度分析"><a href="#灰色关联度分析" class="headerlink" title="灰色关联度分析"></a>灰色关联度分析</h1><h1 id="step1确定评价序列"><a href="#step1确定评价序列" class="headerlink" title="step1确定评价序列"></a>step1确定评价序列</h1><ul>
-<li>参考数列(母序列):能反映系统行为特征的数据序列.记作$x_0$                       </li>
-<li>比较数列：子序列影响系统行为的因素组成的数据序列.记作$x_i\left(i&#x3D;1,2,…,n\right)$</li>
+<p><span
+class="math display">$$Z^+=(Z_1^+,Z_2^+,\cdotp\cdotp\cdotp,Z_m^+)=(\max\{z_{11},z_{21},\cdotp\cdotp\cdotp,z_{n1}\},\max\{z_{12},z_{22},\cdotp\cdotp\cdotp,z_{n2}\},\cdotp\cdotp\cdotp,\max\{z_{1m},z_{2m},\cdotp\cdotp\cdotp,z_{nm}\})\\Z^-=(Z_1^-,Z_2^-,\cdotp\cdotp\cdotp,Z_m^-)=(\min\left\{z_{11},z_{21},\cdotp\cdotp\cdotp,z_{n1}\right\},\min\left\{z_{12},z_{22},\cdotp\cdotp\cdotp,z_{n2}\right\},\cdotp\cdotp\cdotp,\min\left\{z_{1m},z_{2m},\cdotp\cdotp\cdotp,z_{nm}\right\})$$</span></p>
+<p>遍历每一个评价对象，计算它每个指标相对于所有对象中该指标最大值的距离，<span
+class="math inline">$D_i^+=\sqrt{\sum_{j=1}^m(Z_j^+-z_{ij})^2}(i=1,2,...,n)$</span>，</p>
+<p>同样的计算与最小值的距离<span
+class="math inline">$D_i^-=\sqrt{\sum_{j=1}^m\left(Z_j^--z_{ij}\right)^2}$</span>，</p>
+<p>然后取<span
+class="math inline">$S_i=\frac{D_i^-}{D_i^++D_i^-}$</span>作为该对象得分。</p>
+<h1 id="对比">对比</h1>
+<figure>
+<img src="https://pic.imge.cc/2024/07/27/66a498d945fc0.png" srcset="/img/loading.gif" lazyload
+alt="1722063061332.png" />
+<figcaption aria-hidden="true">1722063061332.png</figcaption>
+</figure>
+<h1 id="灰色关联度分析">灰色关联度分析</h1>
+<h1 id="step1确定评价序列">step1确定评价序列</h1>
+<ul>
+<li>参考数列(母序列):能反映系统行为特征的数据序列.记作<span
+class="math inline"><em>x</em><sub>0</sub></span><br />
+</li>
+<li>比较数列：子序列影响系统行为的因素组成的数据序列.记作<span
+class="math inline"><em>x</em><sub><em>i</em></sub>(<em>i</em> = 1, 2, ..., <em>n</em>)</span></li>
 </ul>
 <p>例如结婚率就是参考数列，房价、人均收入、女性失业数就是比较数列.</p>
-<p>可以这样理解，参考数列就类似于因变量$y$,比较数列是自变量$x.$</p>
-<h1 id="step2数据预处理-归一化或标准化"><a href="#step2数据预处理-归一化或标准化" class="headerlink" title="step2数据预处理&#x2F;归一化或标准化"></a>step2数据预处理&#x2F;归一化或标准化</h1><p>比如都除以平均值，或者采用之前定义的标准化方法。</p>
-<h1 id="step3确定灰色关联系数"><a href="#step3确定灰色关联系数" class="headerlink" title="step3确定灰色关联系数"></a>step3确定灰色关联系数</h1><p>$\text{定义两级最小差}a&#x3D;\min_s\min_t|x_0(t)-x_s(t)|,\text{两级最大差}b&#x3D;\max_s\max_t|x_0(t)-x_s(t)|.$</p>
+<p>可以这样理解，参考数列就类似于因变量<span
+class="math inline"><em>y</em></span>,比较数列是自变量<span
+class="math inline"><em>x</em>.</span></p>
+<h1
+id="step2数据预处理归一化或标准化">step2数据预处理/归一化或标准化</h1>
+<p>比如都除以平均值，或者采用之前定义的标准化方法。</p>
+<h1 id="step3确定灰色关联系数">step3确定灰色关联系数</h1>
+<p><span
+class="math inline">定义两级最小差<em>a</em> = min<sub><em>s</em></sub>min<sub><em>t</em></sub>|<em>x</em><sub>0</sub>(<em>t</em>) − <em>x</em><sub><em>s</em></sub>(<em>t</em>)|,两级最大差<em>b</em> = max<sub><em>s</em></sub>max<sub><em>t</em></sub>|<em>x</em><sub>0</sub>(<em>t</em>) − <em>x</em><sub><em>s</em></sub>(<em>t</em>)|.</span></p>
 <p>其实就是计算一整个表格与某一个标准序列的的差，然后取最大与最小</p>
-<p>对表中每一个元素求<br>$$\gamma(x_0(k),x_i(k))&#x3D;\frac{a+\rho b}{|x_0(k)-x_i(k)|+\rho b}$$<br>各个指标取平均值就得到灰色关联度<br>$$\gamma(x_0,x_i)&#x3D;\frac1n\sum_{k&#x3D;1}^n\gamma(x_0(k),x_i(k))$$</p>
+<p>对表中每一个元素求 <span
+class="math display">$$\gamma(x_0(k),x_i(k))=\frac{a+\rho
+b}{|x_0(k)-x_i(k)|+\rho b}$$</span> 各个指标取平均值就得到灰色关联度
+<span
+class="math display">$$\gamma(x_0,x_i)=\frac1n\sum_{k=1}^n\gamma(x_0(k),x_i(k))$$</span></p>
 
                 
               </div>

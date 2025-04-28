@@ -16,12 +16,12 @@
   <meta name="author" content="bradin">
   <meta name="keywords" content="">
   
-    <meta name="description" content="规划基本概念 定义：在给定的约束条件(constraint)下，找出一个决策变量(decision variable)的值，使得被称为目标函数(objective function)的表达愿望尺度的函数值达到最小或最大。 在解决实际问题时，把问题归结成一个最优化模型是很重要的一步，也是很困难的一步，模型建立得是否恰当，直接影响到求解。建立模型的关键之一是选择适当的决策变量。 $$\begin{ar">
+    <meta name="description" content="规划基本概念  定义：在给定的约束条件(constraint)下，找出一个决策变量(decision variable)的值，使得被称为目标函数(objective function)的表达愿望尺度的函数值达到最小或最大。 在解决实际问题时，把问题归结成一个最优化模型是很重要的一步，也是很困难的一步，模型建立得是否恰当，直接影响到求解。建立模型的关键之一是选择适当的决策变量。 $$\begin{a">
 <meta property="og:type" content="article">
 <meta property="og:title" content="线性规划">
 <meta property="og:url" content="http://example.com/2024/07/20/%E6%95%B0%E5%AD%A6%E5%BB%BA%E6%A8%A1/%E8%A7%84%E5%88%92%E7%B1%BB%E9%97%AE%E9%A2%98/index.html">
 <meta property="og:site_name" content="鸭蛋仙人的博客">
-<meta property="og:description" content="规划基本概念 定义：在给定的约束条件(constraint)下，找出一个决策变量(decision variable)的值，使得被称为目标函数(objective function)的表达愿望尺度的函数值达到最小或最大。 在解决实际问题时，把问题归结成一个最优化模型是很重要的一步，也是很困难的一步，模型建立得是否恰当，直接影响到求解。建立模型的关键之一是选择适当的决策变量。 $$\begin{ar">
+<meta property="og:description" content="规划基本概念  定义：在给定的约束条件(constraint)下，找出一个决策变量(decision variable)的值，使得被称为目标函数(objective function)的表达愿望尺度的函数值达到最小或最大。 在解决实际问题时，把问题归结成一个最优化模型是很重要的一步，也是很困难的一步，模型建立得是否恰当，直接影响到求解。建立模型的关键之一是选择适当的决策变量。 $$\begin{a">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://t.tutu.to/img/B88zH">
 <meta property="article:published_time" content="2024-07-19T16:00:00.000Z">
@@ -297,39 +297,129 @@
             
               <div class="markdown-body">
                 
-                <h2 id="规划基本概念"><a href="#规划基本概念" class="headerlink" title="规划基本概念"></a>规划基本概念</h2><ul>
-<li>定义：在给定的约束条件(constraint)下，找出一个决策变量(decision variable)的值，使得被称为目标函数(objective function)的表达愿望尺度的函数值达到最小或最大。</li>
-<li>在解决实际问题时，把问题归结成一个最优化模型是很重要的一步，也是很困难的一步，模型建立得是否恰当，直接影响到求解。建立模型的关键之一是选择适当的决策变量。<br> $$\begin{array}{ll}\min&amp;f(\mathbf{x})\\mathrm{s.t.}&amp;\mathbf{x}\in S\subset\mathbb{R}^n.\end{array}$$<br>在此，目标函数$f$是定义在包含$S$的适当集合上的实值函数。<br>进一步，$S$是该问题变量x的可取值之集合，称为问题的可行域(feasible region)。<br>满足约束条件$\mathbf{x}\in S$的$\mathbf{x}$称为问题的可行解(feasible solution)。<br>在所有可行解中包含局部最优解和全局最优解，我们的目的就是找到全局最优解。</li>
-<li>带约束最优化问题通常可写为：<br>$$\begin{array}{ll}\min&amp;f(\mathbf{x})\\mathrm{s.t.}&amp;c_i(\mathbf{x})&#x3D;0,\quad i\in E,\&amp;c_i(\mathbf{x})\geqslant0,\quad i\in I.\end{array}$$</li>
-</ul>
-<p>在matlab中常用的对应工具包</p>
+                <h2 id="规划基本概念">规划基本概念</h2>
 <ul>
-<li>1.非线性规划 fmincon</li>
-<li>2.无约束极值 fminunc, fminsearch</li>
-<li>3.二次规划问题(目标函数是二次函数，约束条件全部是线性的) quadprog ,</li>
-<li>4.其它 fseminf (半无穷约束条件), </li>
-<li>5 fminimax        $\operatorname*{min}_x\max_iF_i(x)$</li>
+<li>定义：在给定的约束条件(constraint)下，找出一个决策变量(decision
+variable)的值，使得被称为目标函数(objective
+function)的表达愿望尺度的函数值达到最小或最大。</li>
+<li>在解决实际问题时，把问题归结成一个最优化模型是很重要的一步，也是很困难的一步，模型建立得是否恰当，直接影响到求解。建立模型的关键之一是选择适当的决策变量。
+<span
+class="math display">$$\begin{array}{ll}\min&amp;f(\mathbf{x})\\\mathrm{s.t.}&amp;\mathbf{x}\in
+S\subset\mathbb{R}^n.\end{array}$$</span> 在此，目标函数<span
+class="math inline"><em>f</em></span>是定义在包含<span
+class="math inline"><em>S</em></span>的适当集合上的实值函数。
+进一步，<span
+class="math inline"><em>S</em></span>是该问题变量x的可取值之集合，称为问题的可行域(feasible
+region)。 满足约束条件<span
+class="math inline"><strong>x</strong> ∈ <em>S</em></span>的<span
+class="math inline"><strong>x</strong></span>称为问题的可行解(feasible
+solution)。
+在所有可行解中包含局部最优解和全局最优解，我们的目的就是找到全局最优解。</li>
+<li>带约束最优化问题通常可写为： <span
+class="math display">$$\begin{array}{ll}\min&amp;f(\mathbf{x})\\\mathrm{s.t.}&amp;c_i(\mathbf{x})=0,\quad
+i\in E,\\&amp;c_i(\mathbf{x})\geqslant0,\quad i\in
+I.\end{array}$$</span></li>
 </ul>
-<h2 id="线性规划"><a href="#线性规划" class="headerlink" title="线性规划"></a>线性规划</h2><p>把所有的方程约束中系数做成系数矩阵$A_{\text{eq}}$，等号右边的常数作为列向量$b_\text{eq}$；不等式约束中的系数矩阵$A$和不等号右边的常数$b$，为了方便起见通常将不等式统一为小于等于；变量$x$在向量$l_b$到$u_b$之间取值；目标函数的系数向量为$c$，那么线性规划的标准形式(也是matlab标准形式)就如下所示：<br>$$\min_x{f^Tx}\s.t.\begin{cases}A\cdot x\leq b\A_{eq}\cdot x&#x3D;b_{eq}\l_b\leq x\leq u_b\end{cases}$$</p>
-<h3 id="matlab求解"><a href="#matlab求解" class="headerlink" title="matlab求解"></a>matlab求解</h3><p><img src="https://t.tutu.to/img/B88zH" srcset="/img/loading.gif" lazyload></p>
+<p>在matlab中常用的对应工具包 - 1.非线性规划 fmincon - 2.无约束极值
+fminunc, fminsearch -
+3.二次规划问题(目标函数是二次函数，约束条件全部是线性的) quadprog , -
+4.其它 fseminf (半无穷约束条件), - 5 fminimax <span
+class="math inline">min<sub><em>x</em></sub>max<sub><em>i</em></sub><em>F</em><sub><em>i</em></sub>(<em>x</em>)</span></p>
+<h2 id="线性规划">线性规划</h2>
+<p>把所有的方程约束中系数做成系数矩阵<span
+class="math inline"><em>A</em><sub>eq</sub></span>，等号右边的常数作为列向量<span
+class="math inline"><em>b</em><sub>eq</sub></span>；不等式约束中的系数矩阵<span
+class="math inline"><em>A</em></span>和不等号右边的常数<span
+class="math inline"><em>b</em></span>，为了方便起见通常将不等式统一为小于等于；变量<span
+class="math inline"><em>x</em></span>在向量<span
+class="math inline"><em>l</em><sub><em>b</em></sub></span>到<span
+class="math inline"><em>u</em><sub><em>b</em></sub></span>之间取值；目标函数的系数向量为<span
+class="math inline"><em>c</em></span>，那么线性规划的标准形式(也是matlab标准形式)就如下所示：
+<span class="math display">$$\min_x\{f^Tx\}\\s.t.\begin{cases}A\cdot
+x\leq b\\A_{eq}\cdot x=b_{eq}\\l_b\leq x\leq u_b\end{cases}$$</span></p>
+<h3 id="matlab求解">matlab求解</h3>
+<p><img src="https://t.tutu.to/img/B88zH" srcset="/img/loading.gif" lazyload /></p>
 <ul>
-<li>含有绝对值的将问题转化为线性规划<br>$$\begin{array}{l}\min{z&#x3D;|x_1|+|x_2|+\cdots+|x_n|}\s.t.Ax\leq b\end{array}$$</li>
+<li>含有绝对值的将问题转化为线性规划 <span
+class="math display">$$\begin{array}{l}\min\{z=|x_1|+|x_2|+\cdots+|x_n|\}\\s.t.Ax\leq
+b\end{array}$$</span></li>
 </ul>
-<p>其中$x&#x3D;(x_1,x_2,\cdots,x_n)^T$。</p>
-<p>取：<br>$$u_i&#x3D;\dfrac{x_i+|x_i|}{2},v_i&#x3D;\dfrac{|x_i|-x_i}{2}$$<br>则：<br>$$u_i\geq0,v_i\geq0,x_i&#x3D;u_i-v_i,|x_i|&#x3D;u_i+v_i$$<br>原始优化问题化为：<br>$$\operatorname*{min}{z&#x3D;\sum_{i&#x3D;1}^n(u_i+v_i)}\s.t.\begin{cases}A(u-v)\leq b\u,v\geq0\end{cases}$$<br>其中$u&#x3D;(u_1,u_{2},\cdots,u_{n})^{T},v&#x3D;(v_{1},v_{2},\cdots,v_{n})^{T}.$<br>进一步可以写成<br>$$\min{z&#x3D;\sum_{i&#x3D;1}^n(u_i+v_i)}\s.t.\begin{cases}(A,-A)\begin{pmatrix}u\v\end{pmatrix}\le b\[2ex]u,v\ge0\end{cases}$$</p>
+<p>其中<span
+class="math inline"><em>x</em> = (<em>x</em><sub>1</sub>, <em>x</em><sub>2</sub>, ⋯, <em>x</em><sub><em>n</em></sub>)<sup><em>T</em></sup></span>。</p>
+<p>取： <span
+class="math display">$$u_i=\dfrac{x_i+|x_i|}{2},v_i=\dfrac{|x_i|-x_i}{2}$$</span><br />
+则： <span
+class="math display"><em>u</em><sub><em>i</em></sub> ≥ 0, <em>v</em><sub><em>i</em></sub> ≥ 0, <em>x</em><sub><em>i</em></sub> = <em>u</em><sub><em>i</em></sub> − <em>v</em><sub><em>i</em></sub>, |<em>x</em><sub><em>i</em></sub>| = <em>u</em><sub><em>i</em></sub> + <em>v</em><sub><em>i</em></sub></span><br />
+原始优化问题化为： <span
+class="math display">$$\operatorname*{min}\{z=\sum_{i=1}^n(u_i+v_i)\}\\s.t.\begin{cases}A(u-v)\leq
+b\\u,v\geq0\end{cases}$$</span> 其中<span
+class="math inline"><em>u</em> = (<em>u</em><sub>1</sub>, <em>u</em><sub>2</sub>, ⋯, <em>u</em><sub><em>n</em></sub>)<sup><em>T</em></sup>, <em>v</em> = (<em>v</em><sub>1</sub>, <em>v</em><sub>2</sub>, ⋯, <em>v</em><sub><em>n</em></sub>)<sup><em>T</em></sup>.</span>
+进一步可以写成 <span
+class="math display">$$\min\{z=\sum_{i=1}^n(u_i+v_i)\}\\s.t.\begin{cases}(A,-A)\begin{pmatrix}u\\v\end{pmatrix}\le
+b\\[2ex]u,v\ge0\end{cases}$$</span></p>
 <ul>
-<li>例2.市场上有$n$ 种资产$s_i(i&#x3D;1,2,\cdotp\cdotp\cdotp,n)$可以选择，现用数额为$M$的相当大的资金作一个时期的投资。这$n$ 种资产在这一时期内购买$s_i$的平均收益率为$r_i$,风险损失率为$q_i$,投资越分散，总的风险越少，总体风险可用投资的$s_i$中最大的一个风险来度量.购买$s_i$时要付交易费，费率为$p_i$。另外，假定同期银行存款利率是$r_0$,既无交易费又无风险$(r_0&#x3D;5%)$ 已知$n&#x3D;4$时相关数据如表1.1所列.请你为该公司设计一种投资方案，使净收益尽可能大，总体风险尽可能小.</li>
+<li>例2.市场上有<span class="math inline"><em>n</em></span> 种资产<span
+class="math inline"><em>s</em><sub><em>i</em></sub>(<em>i</em> = 1, 2, · · ·, <em>n</em>)</span>可以选择，现用数额为<span
+class="math inline"><em>M</em></span>的相当大的资金作一个时期的投资。这<span
+class="math inline"><em>n</em></span> 种资产在这一时期内购买<span
+class="math inline"><em>s</em><sub><em>i</em></sub></span>的平均收益率为<span
+class="math inline"><em>r</em><sub><em>i</em></sub></span>,风险损失率为<span
+class="math inline"><em>q</em><sub><em>i</em></sub></span>,投资越分散，总的风险越少，总体风险可用投资的<span
+class="math inline"><em>s</em><sub><em>i</em></sub></span>中最大的一个风险来度量.购买<span
+class="math inline"><em>s</em><sub><em>i</em></sub></span>时要付交易费，费率为<span
+class="math inline"><em>p</em><sub><em>i</em></sub></span>。另外，假定同期银行存款利率是<span
+class="math inline"><em>r</em><sub>0</sub></span>,既无交易费又无风险<span
+class="math inline">(<em>r</em><sub>0</sub> = 5%)</span> 已知<span
+class="math inline"><em>n</em> = 4</span>时相关数据如表1.1所列.请你为该公司设计一种投资方案，使净收益尽可能大，总体风险尽可能小.</li>
 </ul>
-<p>$$\text{目标函数}\begin{cases}\max\sum_{i&#x3D;0}^n(r_i-p_i)x_i\\\min\left{\max_{1\leqslant i\leqslant n}\left{q_ix_i\right}\right}\end{cases},\text{ 约束条件为}\begin{cases}\sum_{i&#x3D;0}^n(1+p_i)x_i&#x3D;M,\\x_i\geqslant0,i&#x3D;0,1,\cdots,n_\circ&amp;\end{cases}$$</p>
+<p><span
+class="math display">$$\text{目标函数}\begin{cases}\max\sum_{i=0}^n(r_i-p_i)x_i\\\\\min\left\{\max_{1\leqslant
+i\leqslant n}\left\{q_ix_i\right\}\right\}\end{cases},\text{
+约束条件为}\begin{cases}\sum_{i=0}^n(1+p_i)x_i=M,\\\\x_i\geqslant0,i=0,1,\cdots,n_\circ&amp;\end{cases}$$</span></p>
 <p>但是两个目标函数求解不了，为此我们考虑把一个目标函数转化为约束条件即可</p>
-<p>$$\begin{cases}\sum_{i&#x3D;0}^n(1+p_i)x_i&#x3D;M,\x_i\geqslant0,i&#x3D;0,1,\cdots,n\\frac{q_ix_i}M\leqslant a\end{cases}$$</p>
-<h3 id="运输问题-产销平衡-指派问题"><a href="#运输问题-产销平衡-指派问题" class="headerlink" title="运输问题 (产销平衡)  &amp; 指派问题"></a>运输问题 (产销平衡)  &amp; 指派问题</h3><ul>
-<li><p>运输问题<br> 某商品有$m$个产地、$n$个销地，各产地的产量分别为$a_1,\cdots,a_m$,各销地的需求量分别为$b_1,\cdotp\cdotp\cdotp,b_n$。若该商品由$i$产地运到 $j$ 销地的单位运价为$c_ij$ ,问应该如何调运才能使总运费最省？<br>解：引入变量$x_i$,其取值为由$i$产地运往 $j$ 销地的该商品数量，数学模型为<br>$$\begin{aligned}&amp;\text{min}\quad\sum_{i&#x3D;1}^m\sum_{j&#x3D;1}^nc_{ij}x_{ij}\&amp;\text{s.t.}\quad\begin{cases}\sum_{j&#x3D;1}^nx_{ij}&#x3D;a_i,&amp;i&#x3D;1,\cdots,m\\\sum_{i&#x3D;1}^mx_{ij}&#x3D;b_j,&amp;j&#x3D;1,2,\cdots,n\\x_{ij}\geq0\end{cases}\end{aligned}$$</p>
-</li>
-<li><p>指派问题<br>例 7 拟分配$n$ 人去干$n$ 项工作，每人干且仅干一项工作，若分配第$i$ 人去干第 $j$<br>项工作，需花费$c_{ij}$单位时间，问应如何分配工作才能使工人花费的总时间最少？<br>容易看出，要给出一个指派问题的实例，只需给出矩阵$C&#x3D;(c_{ij}),C$被称为指派<br>问题的系数矩阵。<br>引入变量$x_{ij}$,若分配$i$干$j$ 工作，则取$x_{ij}&#x3D;1$,否则取$x_{ij}&#x3D;0$。上述指派问题的<br>数学模型为<br>$$\begin{aligned}<br>&amp;\mathrm{min}\quad\sum_{i&#x3D;1}^{n}\sum_{j&#x3D;1}^{n}c_{ij}x_{ij} \<br>\text{s.t.}&amp; \sum_{j&#x3D;1}^{n}x_{ij}&#x3D;1 \<br>&amp;\sum_{i&#x3D;1}^{n}x_{ij}&#x3D;1 \<br>&amp;x_{ij}&#x3D;0 \text{或} 1<br>\end{aligned}$$</p>
-</li>
+<p><span
+class="math display">$$\begin{cases}\sum_{i=0}^n(1+p_i)x_i=M,\\x_i\geqslant0,i=0,1,\cdots,n\\\frac{q_ix_i}M\leqslant
+a\end{cases}$$</span></p>
+<h3 id="运输问题-产销平衡-指派问题">运输问题 (产销平衡) &amp;
+指派问题</h3>
+<ul>
+<li><p>运输问题 某商品有<span
+class="math inline"><em>m</em></span>个产地、<span
+class="math inline"><em>n</em></span>个销地，各产地的产量分别为<span
+class="math inline"><em>a</em><sub>1</sub>, ⋯, <em>a</em><sub><em>m</em></sub></span>,各销地的需求量分别为<span
+class="math inline"><em>b</em><sub>1</sub>, · · ·, <em>b</em><sub><em>n</em></sub></span>。若该商品由<span
+class="math inline"><em>i</em></span>产地运到 <span
+class="math inline"><em>j</em></span> 销地的单位运价为<span
+class="math inline"><em>c</em><sub><em>i</em></sub><em>j</em></span>
+,问应该如何调运才能使总运费最省？<br />
+解：引入变量<span
+class="math inline"><em>x</em><sub><em>i</em></sub></span>,其取值为由<span
+class="math inline"><em>i</em></span>产地运往 <span
+class="math inline"><em>j</em></span> 销地的该商品数量，数学模型为 <span
+class="math display">$$\begin{aligned}&amp;\text{min}\quad\sum_{i=1}^m\sum_{j=1}^nc_{ij}x_{ij}\\&amp;\text{s.t.}\quad\begin{cases}\sum_{j=1}^nx_{ij}=a_i,&amp;i=1,\cdots,m\\\\\sum_{i=1}^mx_{ij}=b_j,&amp;j=1,2,\cdots,n\\\\x_{ij}\geq0\end{cases}\end{aligned}$$</span></p></li>
+<li><p>指派问题 例 7 拟分配<span class="math inline"><em>n</em></span>
+人去干<span class="math inline"><em>n</em></span>
+项工作，每人干且仅干一项工作，若分配第<span
+class="math inline"><em>i</em></span> 人去干第 <span
+class="math inline"><em>j</em></span> 项工作，需花费<span
+class="math inline"><em>c</em><sub><em>i</em><em>j</em></sub></span>单位时间，问应如何分配工作才能使工人花费的总时间最少？
+容易看出，要给出一个指派问题的实例，只需给出矩阵<span
+class="math inline"><em>C</em> = (<em>c</em><sub><em>i</em><em>j</em></sub>), <em>C</em></span>被称为指派
+问题的系数矩阵。 引入变量<span
+class="math inline"><em>x</em><sub><em>i</em><em>j</em></sub></span>,若分配<span
+class="math inline"><em>i</em></span>干<span
+class="math inline"><em>j</em></span> 工作，则取<span
+class="math inline"><em>x</em><sub><em>i</em><em>j</em></sub> = 1</span>,否则取<span
+class="math inline"><em>x</em><sub><em>i</em><em>j</em></sub> = 0</span>。上述指派问题的
+数学模型为 <span class="math display">$$\begin{aligned}
+&amp;\mathrm{min}\quad\sum_{i=1}^{n}\sum_{j=1}^{n}c_{ij}x_{ij} \\
+\text{s.t.}&amp; \sum_{j=1}^{n}x_{ij}=1 \\
+&amp;\sum_{i=1}^{n}x_{ij}=1 \\
+&amp;x_{ij}=0 \text{或} 1
+\end{aligned}$$</span></p></li>
 </ul>
-<p>对 于指派问题等 0−1整数规划问题，可以直接利用 Matlab 的函数 bintprog 进行求解。 </p>
+<p>对 于指派问题等 0−1整数规划问题，可以直接利用 Matlab 的函数 bintprog
+进行求解。</p>
 <ul>
 <li>匈牙利算法：</li>
 </ul>

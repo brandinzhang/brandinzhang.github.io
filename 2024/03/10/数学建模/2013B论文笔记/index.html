@@ -16,12 +16,12 @@
   <meta name="author" content="bradin">
   <meta name="keywords" content="">
   
-    <meta name="description" content="问题描述拼接碎纸片成为完整的纸片，问题难度循序渐进，分为三个  一张写有汉字的纸纵切成19条，要求复原 一张写有汉字的纸，一张写有英文的纸分别横纵切为11*19个块，要求分别复原 一张双面写有汉字的纸，横纵切为11*19个块，要求区分开正反面复原可以人工干预，各个片(条)没有旋转，边缘信息保留较好。  处理思路Q1 $step1$ 将19个条建立对应的灰度值矩阵，（考虑）转化为0,1矩阵 $ste">
+    <meta name="description" content="问题描述 拼接碎纸片成为完整的纸片，问题难度循序渐进，分为三个 - 一张写有汉字的纸纵切成19条，要求复原 - 一张写有汉字的纸，一张写有英文的纸分别横纵切为1119个块，要求分别复原 - 一张双面写有汉字的纸，横纵切为1119个块，要求区分开正反面复原 可以人工干预，各个片(条)没有旋转，边缘信息保留较好。 处理思路 Q1  step1 将19个条建立对应的灰度值矩阵，（考虑）转化为0,1矩阵">
 <meta property="og:type" content="article">
 <meta property="og:title" content="2013B读论文笔记">
 <meta property="og:url" content="http://example.com/2024/03/10/%E6%95%B0%E5%AD%A6%E5%BB%BA%E6%A8%A1/2013B%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/index.html">
 <meta property="og:site_name" content="鸭蛋仙人的博客">
-<meta property="og:description" content="问题描述拼接碎纸片成为完整的纸片，问题难度循序渐进，分为三个  一张写有汉字的纸纵切成19条，要求复原 一张写有汉字的纸，一张写有英文的纸分别横纵切为11*19个块，要求分别复原 一张双面写有汉字的纸，横纵切为11*19个块，要求区分开正反面复原可以人工干预，各个片(条)没有旋转，边缘信息保留较好。  处理思路Q1 $step1$ 将19个条建立对应的灰度值矩阵，（考虑）转化为0,1矩阵 $ste">
+<meta property="og:description" content="问题描述 拼接碎纸片成为完整的纸片，问题难度循序渐进，分为三个 - 一张写有汉字的纸纵切成19条，要求复原 - 一张写有汉字的纸，一张写有英文的纸分别横纵切为1119个块，要求分别复原 - 一张双面写有汉字的纸，横纵切为1119个块，要求区分开正反面复原 可以人工干预，各个片(条)没有旋转，边缘信息保留较好。 处理思路 Q1  step1 将19个条建立对应的灰度值矩阵，（考虑）转化为0,1矩阵">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2024-03-09T16:00:00.000Z">
 <meta property="article:modified_time" content="2025-04-28T11:00:20.403Z">
@@ -295,24 +295,46 @@
             
               <div class="markdown-body">
                 
-                <h1 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h1><p>拼接碎纸片成为完整的纸片，问题难度循序渐进，分为三个</p>
+                <h1 id="问题描述">问题描述</h1>
+<p>拼接碎纸片成为完整的纸片，问题难度循序渐进，分为三个 -
+一张写有汉字的纸纵切成19条，要求复原 -
+一张写有汉字的纸，一张写有英文的纸分别横纵切为11<em>19个块，要求分别复原
+- 一张双面写有汉字的纸，横纵切为11</em>19个块，要求区分开正反面复原
+可以人工干预，各个片(条)没有旋转，边缘信息保留较好。</p>
+<h1 id="处理思路">处理思路</h1>
+<h2 id="q1">Q1</h2>
 <ul>
-<li>一张写有汉字的纸纵切成19条，要求复原</li>
-<li>一张写有汉字的纸，一张写有英文的纸分别横纵切为11*19个块，要求分别复原</li>
-<li>一张双面写有汉字的纸，横纵切为11*19个块，要求区分开正反面复原<br>可以人工干预，各个片(条)没有旋转，边缘信息保留较好。</li>
+<li><span
+class="math inline"><em>s</em><em>t</em><em>e</em><em>p</em>1</span>
+将19个条建立对应的灰度值矩阵，（考虑）转化为0,1矩阵</li>
+<li><span
+class="math inline"><em>s</em><em>t</em><em>e</em><em>p</em>2</span>
+找到每个矩阵对应的最左边和最右边向量，依次与其他矩阵的最左最右向量遍历比较，定义一个量描述差异度
+采用曼哈顿距离，注意：最左侧碎片判断为左留白最多者 <span
+class="math display"><em>δ</em>(<em>n</em>, <em>k</em>) = ∑|<em>g</em><sub><em>n</em>, <em>R</em></sub> − <em>g</em><sub><em>k</em>, <em>L</em></sub>|</span></li>
 </ul>
-<h1 id="处理思路"><a href="#处理思路" class="headerlink" title="处理思路"></a>处理思路</h1><h2 id="Q1"><a href="#Q1" class="headerlink" title="Q1"></a>Q1</h2><ul>
-<li>$step1$ 将19个条建立对应的灰度值矩阵，（考虑）转化为0,1矩阵</li>
-<li>$step2$ 找到每个矩阵对应的最左边和最右边向量，依次与其他矩阵的最左最右向量遍历比较，定义一个量描述差异度<br>采用曼哈顿距离，注意：最左侧碎片判断为左留白最多者<br>$$\delta(n,k)&#x3D;\sum\left|g_{n,R}-g_{k,L}\right|$$</li>
-</ul>
-<h2 id="Q2"><a href="#Q2" class="headerlink" title="Q2"></a>Q2</h2><ul>
-<li><p>$step1$<br>先行后列的方法，因为每个碎片竖向距离更大，蕴含信息更多。考虑采用聚类的方法聚类出十一个类别（行），比如使用k-means算法。自然地我们需要选取进行聚类的特征，对汉字来说，基准线是一个很好的选择，因为汉字排列是公正的，以每一条基准线开始的位置作为特征进行聚类可以方便的得到结果。对于英文，基准线方法较为困难，考虑双基准线的方法即可</p>
-</li>
-<li><p>$step2$<br>每一行的内部碎片进行匹配时，边缘信息量较少，需要更优的距离函数描述差异。采用斯皮尔曼相关系数。<br>斯皮尔曼秩相关系数(The Spearman’s rank coefficient of correlation)，简称斯皮尔曼相关系数，是秩相关(rank correlation)的一种非参数度量(nonparametric measure)。得名于英国统计学家Charles Spearman，通常记为希腊字母‘ρ’ (rho)( often called Spearman’s rho)或者 。</p>
-<p>  在讨论斯皮尔曼相关系数之前，首先要理解皮尔逊相关(Pearson’s correlation)，斯皮尔曼相关可以看作是皮尔逊相关的非参数版本（nonparametric version）。皮尔逊相关是关于两个随机变量之间的线性关系强度的统计度量(statistical measure)，而斯皮尔曼相关考察的是两者单调关系（monotonic relationship）的强度，通俗地说就是两者在变大或变小的趋势上多大程度上保持步调一致，哪怕没有保持比例关系。计算皮尔逊相关系数时使用的是数据样本值本身，而计算斯皮尔曼相关系数使用的是数据样本排位位次值（有时候数据本身就是位次值，有时候数据本身不是位次值，则在计算斯皮尔曼相关系数之前要先计算位次值）。</p>
-<p>  这里”非参数”有两层含义。首先，当X和Y的关系是由任意单调函数描述的，则它们是完全皮尔逊相关的。与此相应的，皮尔逊相关系数只能给出由线性方程描述的X和Y的相关性。其次，斯皮尔曼不需要先验知识(也就是说，除了数据本身不需要知道其它参数，比如说关于数据的分布的先验信息)便可以准确获取X和Y的采样概率分布之间的相关性。</p>
-<p>  $$\rho&#x3D;\frac{\frac1n\sum_{i&#x3D;1}^n\left(R(x_i)-\overline{R(x)})\cdot(R(y_i)-\overline{R(y)}\right)}{\sqrt{\left(\frac1n\sum_{i&#x3D;1}^n\left(R(x_i)-\overline{R(x)}\right)^2\right)\cdot\left(\frac1n\sum_{i&#x3D;1}^n\left(R(y_i)-\overline{R(y)}\right)^2\right)}}$$</p>
-<h2 id="Q3"><a href="#Q3" class="headerlink" title="Q3"></a>Q3</h2></li>
+<h2 id="q2">Q2</h2>
+<ul>
+<li><p><span
+class="math inline"><em>s</em><em>t</em><em>e</em><em>p</em>1</span>
+先行后列的方法，因为每个碎片竖向距离更大，蕴含信息更多。考虑采用聚类的方法聚类出十一个类别（行），比如使用k-means算法。自然地我们需要选取进行聚类的特征，对汉字来说，基准线是一个很好的选择，因为汉字排列是公正的，以每一条基准线开始的位置作为特征进行聚类可以方便的得到结果。对于英文，基准线方法较为困难，考虑双基准线的方法即可</p></li>
+<li><p><span
+class="math inline"><em>s</em><em>t</em><em>e</em><em>p</em>2</span>
+每一行的内部碎片进行匹配时，边缘信息量较少，需要更优的距离函数描述差异。采用斯皮尔曼相关系数。<br />
+斯皮尔曼秩相关系数(The Spearman’s rank coefficient of
+correlation)，简称斯皮尔曼相关系数，是秩相关(rank
+correlation)的一种非参数度量(nonparametric
+measure)。得名于英国统计学家Charles Spearman，通常记为希腊字母‘ρ’ (rho)(
+often called Spearman’s rho)或者 。</p>
+<p>在讨论斯皮尔曼相关系数之前，首先要理解皮尔逊相关(Pearson’s
+correlation)，斯皮尔曼相关可以看作是皮尔逊相关的非参数版本（nonparametric
+version）。皮尔逊相关是关于两个随机变量之间的线性关系强度的统计度量(statistical
+measure)，而斯皮尔曼相关考察的是两者单调关系（monotonic
+relationship）的强度，通俗地说就是两者在变大或变小的趋势上多大程度上保持步调一致，哪怕没有保持比例关系。计算皮尔逊相关系数时使用的是数据样本值本身，而计算斯皮尔曼相关系数使用的是数据样本排位位次值（有时候数据本身就是位次值，有时候数据本身不是位次值，则在计算斯皮尔曼相关系数之前要先计算位次值）。</p>
+<p>这里”非参数”有两层含义。首先，当X和Y的关系是由任意单调函数描述的，则它们是完全皮尔逊相关的。与此相应的，皮尔逊相关系数只能给出由线性方程描述的X和Y的相关性。其次，斯皮尔曼不需要先验知识(也就是说，除了数据本身不需要知道其它参数，比如说关于数据的分布的先验信息)便可以准确获取X和Y的采样概率分布之间的相关性。</p>
+<p><span
+class="math display">$$\rho=\frac{\frac1n\sum_{i=1}^n\left(R(x_i)-\overline{R(x)})\cdot(R(y_i)-\overline{R(y)}\right)}{\sqrt{\left(\frac1n\sum_{i=1}^n\left(R(x_i)-\overline{R(x)}\right)^2\right)\cdot\left(\frac1n\sum_{i=1}^n\left(R(y_i)-\overline{R(y)}\right)^2\right)}}$$</span></p>
+<p>## Q3</p></li>
 </ul>
 
                 

@@ -16,31 +16,26 @@
   <meta name="author" content="bradin">
   <meta name="keywords" content="">
   
-    <meta name="description" content="这一系列源自西瓜书，目的是对机器学习全局有大概的把握，重点不在于数学推导的细节，而在于了解各个经典模型的核心思想与insight，形成一张自己的地图，企望日后按图索骥。 引言机器学习是什么？从数据中学习，基于数据产生模型去预测未知数据 基本术语&#x2F;假设独立同分布：我们认为样本空间全体样本服从一个未知分布，我们获得的每一个样本都满足独立同分布，细细一想这一结果未必总是成立，样本之间高度共线性">
+    <meta name="description" content="这一系列源自西瓜书，目的是对机器学习全局有大概的把握，重点不在于数学推导的细节，而在于了解各个经典模型的核心思想与insight，形成一张自己的地图，企望日后按图索骥。 引言 机器学习是什么？从数据中学习，基于数据产生模型去预测未知数据 基本术语&#x2F;假设 独立同分布：我们认为样本空间全体样本服从一个未知分布，我们获得的每一个样本都满足独立同分布，细细一想这一结果未必总是成立，样本之间高度共线性的情况">
 <meta property="og:type" content="article">
 <meta property="og:title" content="机器学习全局调查">
 <meta property="og:url" content="http://example.com/2024/10/30/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E8%A5%BF%E7%93%9C%E4%B9%A6/index.html">
 <meta property="og:site_name" content="鸭蛋仙人的博客">
-<meta property="og:description" content="这一系列源自西瓜书，目的是对机器学习全局有大概的把握，重点不在于数学推导的细节，而在于了解各个经典模型的核心思想与insight，形成一张自己的地图，企望日后按图索骥。 引言机器学习是什么？从数据中学习，基于数据产生模型去预测未知数据 基本术语&#x2F;假设独立同分布：我们认为样本空间全体样本服从一个未知分布，我们获得的每一个样本都满足独立同分布，细细一想这一结果未必总是成立，样本之间高度共线性">
+<meta property="og:description" content="这一系列源自西瓜书，目的是对机器学习全局有大概的把握，重点不在于数学推导的细节，而在于了解各个经典模型的核心思想与insight，形成一张自己的地图，企望日后按图索骥。 引言 机器学习是什么？从数据中学习，基于数据产生模型去预测未知数据 基本术语&#x2F;假设 独立同分布：我们认为样本空间全体样本服从一个未知分布，我们获得的每一个样本都满足独立同分布，细细一想这一结果未必总是成立，样本之间高度共线性的情况">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://www.freeimg.cn/i/2024/11/06/672a4378dabf8.webp">
-<meta property="og:image" content="https://www.freeimg.cn/i/2024/11/06/672a438ab2168.webp">
 <meta property="og:image" content="https://www.helloimg.com/i/2024/11/05/672a3580d8581.png">
 <meta property="og:image" content="https://www.helloimg.com/i/2024/11/05/672a374d524a3.png">
 <meta property="og:image" content="https://www.helloimg.com/i/2024/11/05/672a3f51379fe.png">
 <meta property="og:image" content="https://www.freeimg.cn/i/2024/11/06/672b878797fb2.webp">
 <meta property="og:image" content="https://www.freeimg.cn/i/2024/11/06/672b8bcb6690b.webp">
-<meta property="og:image" content="https://www.freeimg.cn/i/2024/11/08/672dcdef9b6c9.webp">
 <meta property="og:image" content="https://www.freeimg.cn/i/2024/11/08/672dd0954afe1.webp">
 <meta property="og:image" content="https://www.freeimg.cn/i/2024/08/05/66b0ac3260027.png">
-<meta property="og:image" content="https://www.freeimg.cn/i/2024/11/09/672f2b47ebbb4.webp">
-<meta property="og:image" content="https://www.freeimg.cn/i/2024/11/09/672f34a0c36ca.webp">
 <meta property="article:published_time" content="2024-10-30T09:17:55.000Z">
 <meta property="article:modified_time" content="2025-04-28T11:04:36.166Z">
 <meta property="article:author" content="bradin">
 <meta property="article:tag" content="机器学习">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://www.freeimg.cn/i/2024/11/06/672a4378dabf8.webp">
+<meta name="twitter:image" content="https://www.helloimg.com/i/2024/11/05/672a3580d8581.png">
   
   
     <meta name="referrer" content="no-referrer-when-downgrade">
@@ -309,186 +304,462 @@
               <div class="markdown-body">
                 
                 <p>这一系列源自西瓜书，目的是对机器学习全局有大概的把握，重点不在于数学推导的细节，而在于了解各个经典模型的核心思想与insight，形成一张自己的地图，企望日后按图索骥。</p>
-<h1 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h1><p>机器学习是什么？从数据中学习，基于数据产生模型去预测未知数据</p>
-<h1 id="基本术语-假设"><a href="#基本术语-假设" class="headerlink" title="基本术语&#x2F;假设"></a>基本术语&#x2F;假设</h1><p>独立同分布：我们认为样本空间全体样本服从一个未知分布，我们获得的每一个样本都满足独立同分布，细细一想这一结果未必总是成立，样本之间高度共线性的情况</p>
-<h1 id="假设空间"><a href="#假设空间" class="headerlink" title="假设空间"></a>假设空间</h1><h1 id="归纳偏好"><a href="#归纳偏好" class="headerlink" title="归纳偏好"></a>归纳偏好</h1><p>归纳偏好是算法本身的特征，当预测时遇到无法断言的情况，模型本身的偏好起到了重要结果。不同算法的偏好是好是坏很难界定，一个经典的原则是<strong>奥卡姆剃刀原则</strong>：如无必要，勿增实体。</p>
-<ul>
-<li>在机器学习中理解，有点拟合和过拟合的滋味，比如用多项式函数拟合某一个线性函数，数据量有限的情况下，多项式函数次数越高越容易过拟合</li>
-<li>在自然科学中理解，这是一种朴素的科研品味，费曼说过，你能一眼认出真理，因为她既美又简单。</li>
-</ul>
+<h1 id="引言">引言</h1>
+<p>机器学习是什么？从数据中学习，基于数据产生模型去预测未知数据</p>
+<h1 id="基本术语假设">基本术语/假设</h1>
+<p>独立同分布：我们认为样本空间全体样本服从一个未知分布，我们获得的每一个样本都满足独立同分布，细细一想这一结果未必总是成立，样本之间高度共线性的情况</p>
+<h1 id="假设空间">假设空间</h1>
+<h1 id="归纳偏好">归纳偏好</h1>
+<p>归纳偏好是算法本身的特征，当预测时遇到无法断言的情况，模型本身的偏好起到了重要结果。不同算法的偏好是好是坏很难界定，一个经典的原则是<strong>奥卡姆剃刀原则</strong>：如无必要，勿增实体。
+-
+在机器学习中理解，有点拟合和过拟合的滋味，比如用多项式函数拟合某一个线性函数，数据量有限的情况下，多项式函数次数越高越容易过拟合
+-
+在自然科学中理解，这是一种朴素的科研品味，费曼说过，你能一眼认出真理，因为她既美又简单。</p>
 <p>NFL定理告诉我们，脱离具体问题，空泛的谈论什么算法更好毫无意义。算法的优劣总是针对于具体的问题而言</p>
-<h1 id="发展历程"><a href="#发展历程" class="headerlink" title="发展历程"></a>发展历程</h1><p>上世纪五十年代到七十年代，人工智能处于推理期，著名的逻辑理论家程序证明了数学原理中的38条定理</p>
+<h1 id="发展历程">发展历程</h1>
+<p>上世纪五十年代到七十年代，人工智能处于推理期，著名的逻辑理论家程序证明了数学原理中的38条定理</p>
 <p>随后，人们认识到仅仅有逻辑推理能力远远实现不了人工智能，要使机器具有智能，就要让他拥有知识，这一时期大量专家系统问世</p>
 <p>再后来，人们意识到把知识总结出来教给计算机没有前途，能否让机器自己学习知识？机器学习在这一时期红极一时，持续至今</p>
-<p>机器学习包括哪些思想？基于神经网络的连接主义，基于逻辑表示的符号主义，以决策论为基础的机器学习&#x2F;强化学习，统计机器学习（svm）等等</p>
-<h1 id="对序言的摘要"><a href="#对序言的摘要" class="headerlink" title="对序言的摘要"></a>对序言的摘要</h1><p>三十年河东，三十年河西，如今神经网络</p>
-<p>这一轮的大语言模型（Large Language Model, LLM）浪潮，即依托大量的数据和算法资源获得的进步。但是”连接主义”方法最大的局限性是其”试错性”，简单的说，其学习过程涉及大量参数，而参数的设置缺乏理论指导（可解释性差），主要依靠手动调参，夸张一点来说，参数调节上失之千里，学习结果可能谬以千里。</p>
+<p>机器学习包括哪些思想？基于神经网络的连接主义，基于逻辑表示的符号主义，以决策论为基础的机器学习/强化学习，统计机器学习（svm）等等</p>
+<h1 id="对序言的摘要">对序言的摘要</h1>
+<p>三十年河东，三十年河西，如今神经网络</p>
+<p>这一轮的大语言模型（Large Language Model,
+LLM）浪潮，即依托大量的数据和算法资源获得的进步。但是”连接主义”方法最大的局限性是其”试错性”，简单的说，其学习过程涉及大量参数，而参数的设置缺乏理论指导（可解释性差），主要依靠手动调参，夸张一点来说，参数调节上失之千里，学习结果可能谬以千里。</p>
 <p>相比之下”符号主义”的逻辑性更强，通过逻辑表达式描述领域知识。然而，成也萧何，败也萧何，然而，由于表示能力太强，直接导致面临的假设空间太大、复杂度极高，因此，问题规模稍大就难以进行有效学习。</p>
 <p>对于机器学习的发展前途，中科院数学与系统科学研究院陆汝铃老师在为南京大学周志华老师的《机器学习》一书作序时提出了六大问题。第一个问题就是”符号主义”与”连接主义”之争。在此我摘录总结陆老师的观点：</p>
-<p>Q1：从二十世纪九十年代开始，”连接主义”迅速压倒并取代了”符号主义”的地位。人们可能会问，符号学习是否被彻底忽略了？他还能成为机器学习的研究对象吗？它是否能继续在统计学习的阴影里苟延残喘？</p>
+<p>Q1：从二十世纪九十年代开始，“连接主义”迅速压倒并取代了”符号主义”的地位。人们可能会问，符号学习是否被彻底忽略了？他还能成为机器学习的研究对象吗？它是否能继续在统计学习的阴影里苟延残喘？</p>
 <p>A：这个问题有三种可能：</p>
-<ol>
+<ol type="1">
 <li>退出历史舞台——目前还没有人抱有这种想法。</li>
 <li>单纯的统计学习到了尽头之后，再想往前走就要和符号主义学习结合起来——王珏教授认为，现在机器学习已经到了一个转折点，统计学习要想进入一个更高级的形式，就应该和认知相结合，这是一种”螺旋式上升，进入更高级的形式”，否则就会停留于现状而止步不前。</li>
-<li>三十年河东三十年河西，符号学习还有翻身之日——Chandrasekaran 教授认为最近几年，人工智能在很大程度上集中于统计学和大数据，并取得一些成果。但总有一天会转向基于更基本的认知科学研究。有必要把统计技术和认知结构，连接主义和符合主义结合起来。<br> 两位老师的观点基本一致，但不仅限于机器学习，而是涉及整个人工智能领域，知识王珏老师强调知识，而Chandrasekaran 教授强调更基本的”认知”。</li>
+<li>三十年河东三十年河西，符号学习还有翻身之日——Chandrasekaran
+教授认为最近几年，人工智能在很大程度上集中于统计学和大数据，并取得一些成果。但总有一天会转向基于更基本的认知科学研究。有必要把统计技术和认知结构，连接主义和符合主义结合起来。
+两位老师的观点基本一致，但不仅限于机器学习，而是涉及整个人工智能领域，知识王珏老师强调知识，而Chandrasekaran
+教授强调更基本的”认知”。</li>
 </ol>
 <p>Q2：为什么统计机器学习不会一帆风顺？</p>
 <p>A：统计机器学习的算法都是基于样本数据独立同分布的假设，但自然界现象千变万化，哪里有那么多独立同分布？那么“独立同分布”条件对于机器学习来说是必须的吗？独立同分布的不存在一定是不可逾越的障碍吗？无独立同分布条件下的机器学习也许只是一个难题，而不是不可解决的。</p>
 <p>Q4：机器学习研究出现以来，我们看到的主要是从符号方法到统计方法的演变，用到的数学主要是概率统计。但是今天数学之大，就像大海，难道只有统计方法适合于在机器学习方面的应用？</p>
 <p>A：目前流形学习已经“有点意思了”，但数学理论的介入程度远远不够，有待更多数学家参与，开辟新的模式、理论和方法。</p>
-<h1 id="2-1经验误差和过拟合"><a href="#2-1经验误差和过拟合" class="headerlink" title="2.1经验误差和过拟合"></a>2.1经验误差和过拟合</h1><p>误差error：实际预测输出与真是输出之间的差异，在训练集上的误差成为训练误差training error或经验误差empirical error，在新样本上的误差成为泛化误差generalization error，<br>训练的最终目标是获得较小的泛化误差<br>机器学习算法的难点在于克服过拟合</p>
-<h1 id="2-2评估方法"><a href="#2-2评估方法" class="headerlink" title="2.2评估方法"></a>2.2评估方法</h1><h2 id="2-2-1留出法"><a href="#2-2-1留出法" class="headerlink" title="2.2.1留出法"></a>2.2.1留出法</h2><p>直接将数据集D划分为两个互斥的集合，其中一个集合作为训练集S,另一个作为测试集T。</p>
-<p>从釆样(sampling)的角度来看数据集的划分过程，一般进行保留类别比例的釆样方式，也就是“分层采样” (stratified sampling)。</p>
+<h1 id="经验误差和过拟合">2.1经验误差和过拟合</h1>
+<p>误差error：实际预测输出与真是输出之间的差异，在训练集上的误差成为训练误差training
+error或经验误差empirical
+error，在新样本上的误差成为泛化误差generalization error，
+训练的最终目标是获得较小的泛化误差<br />
+机器学习算法的难点在于克服过拟合</p>
+<h1 id="评估方法">2.2评估方法</h1>
+<h2 id="留出法">2.2.1留出法</h2>
+<p>直接将数据集D划分为两个互斥的集合，其中一个集合作为训练集S,另一个作为测试集T。</p>
+<p>从釆样(sampling)的角度来看数据集的划分过程，一般进行保留类别比例的釆样方式，也就是“分层采样”
+(stratified sampling)。</p>
 <p>单次使用留出法得到的估计结果往往不够稳定可靠，在使用留出法时，一般要采用若干次随机划分、重复进行实验评估后取平均值作为留出法的评估结果。</p>
-<p>测试集较小时，评估结果的方差较大；训练集小时，评估结果的偏差较大，常见做法 2&#x2F;3 ~ 4&#x2F;5 的样本作为训练集，剩余样本用于测试。事实上不咋用这个方法。</p>
-<h2 id="2-2-2交叉验证法"><a href="#2-2-2交叉验证法" class="headerlink" title="2.2.2交叉验证法"></a>2.2.2交叉验证法</h2><ul>
-<li><p>思路：将数据集划分为k个大小相似的互斥子集，每次用k-1个子集的并集作为训练集，余下的那个子集作为测试集，如此进行k次测试，最终用上全部的数据。</p>
-</li>
-<li><p>p 次 k 折交叉验证：:与留出法相似，将数据集D划分为k个子集同样存在多种划分方式。为减小因样本划分不同而引入的差别，k折交叉验证通常要随机使用不同的划分重复p次，最终的评估结果是这p次k折交叉验证结果的均值，例如常见的有“10次10折交叉验证</p>
-</li>
-<li><p>特例:当k和数据集数量一致时，称之为留一法（Leave One Out）简称：LOO</p>
-</li>
-</ul>
-<h2 id="2-2-3自助法"><a href="#2-2-3自助法" class="headerlink" title="2.2.3自助法"></a>2.2.3自助法</h2><p>留出法和交叉验证法中，由于保留了一部分样本用于测试，因此实际评估的模型所使用的训练集在大小上比D小，而留一法的计算复杂度又太高。若希望评估用训练集全集D训练出的模型，可以使用自助法(bootstrapping)，其在数据集较小、难以有效划分训练&#x2F;测试集时很有用。</p>
-<p>给定包含 m 个样本的数据集D ,我们对它进行采样产生数据集D’：每次随机从D中挑选一个样本,将其拷贝放入D’,然后再将该样本放回初始数据集D中,使得该样本在下次釆样时仍有可能被釆到；这个过程重复执行m次后，我们就得到了包含m 个样本的数据集D,这就是自助釆样的结果。很有可能的，D中有一部分样本会在D中多次出现，而另一部分样本不出现。从数学期望的角度可以做一个简单的估计，样本在m次采样中始终不被釆到的概率是$(1 -\frac1m)^m$,取m趋于正无穷极限的得到<br>$$\lim_{m\mapsto\infty}\left(1-\frac1m\right)^m\mapsto\frac1e\approx0.368$$</p>
-<p>通过自助釆样，从数学期望的角度来看，初始数据集D中约有36.8%的样本未出现在釆样数据集D中。于是可将D用作训练集,D\D’用作测试集。这样，实际评估的模型与期望评估的模型都使用m个训练样本，而我们仍有数据总量约1&#x2F;3的、没在训练集中出现的样本用于测试。</p>
-<h2 id="2-2-4调参与最终模型"><a href="#2-2-4调参与最终模型" class="headerlink" title="2.2.4调参与最终模型"></a>2.2.4调参与最终模型</h2><ul>
-<li><p>小数据集，数据不好划分的时候，用自助法</p>
-</li>
-<li><p>大部分时候，用k折</p>
-</li>
-<li><p>如何调参？:网格搜索参数</p>
-</li>
-<li><p>以上只是为了对比模型好坏，选出来最好模型后，最后提交给客户的模型参数应该是用训练集全集D训练出来的</p>
-</li>
-</ul>
-<h1 id="2-3性能度量"><a href="#2-3性能度量" class="headerlink" title="2.3性能度量"></a>2.3性能度量</h1><p>对学习器的泛化性能进行评估，不仅需要有效可行的实验估计方法，还需要有衡量模型泛化能力的评价标准，这就是性能度量（performance measure）</p>
-<p>回归问题常用均方误差做，下面着重讲一下分类问题的效果评估</p>
-<h2 id="2-3-2-查准率-查全率-F1"><a href="#2-3-2-查准率-查全率-F1" class="headerlink" title="2.3.2 查准率&#x2F;查全率&#x2F;F1"></a>2.3.2 查准率&#x2F;查全率&#x2F;F1</h2><p><img src="https://www.freeimg.cn/i/2024/11/06/672a4378dabf8.webp" srcset="/img/loading.gif" lazyload></p>
-<p>分类问题目的是什么？从一堆瓜中找出来所有的好瓜，你用自己的模型找出来了一堆瓜，不过其中有好有坏<br>你找出来的瓜有多少是好瓜？由此定义了<strong>查准率 P（precision）</strong><br>$$P&#x3D;\frac{TP}{TP+FP}$$<br>所有好瓜里面你挑出来了多少？由此定义了<strong>查全率 R（recall）&amp; 召回率</strong><br>$$R&#x3D;\frac{TP}{TP+FN}$$<br>查准率和查全率是一对矛盾的度量. 一般来说，查准率高时，查全率往往偏低；而查全率高时，查准率往往偏低.例如，若希望将好瓜尽可能多地选出来， 则可通过增加选瓜的数量来实现，如果将所有西瓜都选上，那么所有的好瓜也必然都被选上了，但这样查准率就会较低；若希望选出的瓜中好瓜比例尽可能高，则可只挑选最有把握的瓜，但这样就难免会漏掉不少好瓜，使得查全率较低.通常只有在一些简单任务中，才可能使查全率和查准率都很高.</p>
-<p>我们可以画个图（其实就是收益曲线）<br><img src="https://www.freeimg.cn/i/2024/11/06/672a438ab2168.webp" srcset="/img/loading.gif" lazyload><br>怎么判断模型好坏？图中BC好判断，AB如何判断？<br>引入一个综合考虑查准率、查全率的性能度量：平衡点(Break-Event Point,简称BEP)，是查准率&#x3D;查全率时的取值。这个值越大性能越好。          </p>
-<p>但BEP还是过于简化了些，更常用的是F1度量，一个基于查准率与查全率的调和平均</p>
-<p>$$F1&#x3D;\frac{2\times P\times R}{P+R}&#x3D;\frac{2\times TP}{\text{样例总数}+TP-TN}$$</p>
-<p>若任务场景是对查重率或查准率某一个有更高要求，可以对二者加以不同的权重，即F1度量的一般形式——Fβ<br>$$F_{\beta}&#x3D;\frac{(1+\beta^{2})\times P\times R}{(\beta^{2}\times P)+R}$$<br>其中β&gt; 0度量了查全率对查准率的相对重要性[VanRijsbergen, 1979]。β&#x3D; 1时退化为标准的F1; β&gt; 1时查全率有更大影响；β&lt; 1时查准率有更大影响。</p>
-<h2 id="2-3-3-ROC-与-AUC"><a href="#2-3-3-ROC-与-AUC" class="headerlink" title="2.3.3 ROC 与 AUC"></a>2.3.3 ROC 与 AUC</h2><p>换了个说法让人一懵，细细一想只不过是另一种作图方式，定义            </p>
+<p>测试集较小时，评估结果的方差较大；训练集小时，评估结果的偏差较大，常见做法
+2/3 ~ 4/5 的样本作为训练集，剩余样本用于测试。事实上不咋用这个方法。</p>
+<h2 id="交叉验证法">2.2.2交叉验证法</h2>
 <ul>
-<li>纵轴是好瓜的查全率（真正例率），即好瓜里面有多大比例被挑了出来        </li>
-<li>横轴是坏瓜的查全率（假正例率），即坏瓜里面有多大比例被不小心挑出来了。</li>
+<li><p>思路：将数据集划分为k个大小相似的互斥子集，每次用k-1个子集的并集作为训练集，余下的那个子集作为测试集，如此进行k次测试，最终用上全部的数据。</p></li>
+<li><p>p 次 k
+折交叉验证：:与留出法相似，将数据集D划分为k个子集同样存在多种划分方式。为减小因样本划分不同而引入的差别，k折交叉验证通常要随机使用不同的划分重复p次，最终的评估结果是这p次k折交叉验证结果的均值，例如常见的有“10次10折交叉验证</p></li>
+<li><p>特例:当k和数据集数量一致时，称之为留一法（Leave One
+Out）简称：LOO</p></li>
 </ul>
+<h2 id="自助法">2.2.3自助法</h2>
+<p>留出法和交叉验证法中，由于保留了一部分样本用于测试，因此实际评估的模型所使用的训练集在大小上比D小，而留一法的计算复杂度又太高。若希望评估用训练集全集D训练出的模型，可以使用自助法(bootstrapping)，其在数据集较小、难以有效划分训练/测试集时很有用。</p>
+<p>给定包含 m 个样本的数据集D
+,我们对它进行采样产生数据集D’：每次随机从D中挑选一个样本,将其拷贝放入D’,然后再将该样本放回初始数据集D中,使得该样本在下次釆样时仍有可能被釆到；这个过程重复执行m次后，我们就得到了包含m
+个样本的数据集D,这就是自助釆样的结果。很有可能的，D中有一部分样本会在D中多次出现，而另一部分样本不出现。从数学期望的角度可以做一个简单的估计，样本在m次采样中始终不被釆到的概率是<span
+class="math inline">$(1 -\frac1m)^m$</span>,取m趋于正无穷极限的得到
+<span
+class="math display">$$\lim_{m\mapsto\infty}\left(1-\frac1m\right)^m\mapsto\frac1e\approx0.368$$</span></p>
+<p>通过自助釆样，从数学期望的角度来看，初始数据集D中约有36.8%的样本未出现在釆样数据集D中。于是可将D用作训练集,D’用作测试集。这样，实际评估的模型与期望评估的模型都使用m个训练样本，而我们仍有数据总量约1/3的、没在训练集中出现的样本用于测试。</p>
+<h2 id="调参与最终模型">2.2.4调参与最终模型</h2>
+<ul>
+<li><p>小数据集，数据不好划分的时候，用自助法</p></li>
+<li><p>大部分时候，用k折</p></li>
+<li><p>如何调参？:网格搜索参数</p></li>
+<li><p>以上只是为了对比模型好坏，选出来最好模型后，最后提交给客户的模型参数应该是用训练集全集D训练出来的</p></li>
+</ul>
+<h1 id="性能度量">2.3性能度量</h1>
+<p>对学习器的泛化性能进行评估，不仅需要有效可行的实验估计方法，还需要有衡量模型泛化能力的评价标准，这就是性能度量（performance
+measure）</p>
+<p>回归问题常用均方误差做，下面着重讲一下分类问题的效果评估</p>
+<h2 id="查准率查全率f1">2.3.2 查准率/查全率/F1</h2>
+<p><img
+src="https://www.freeimg.cn/i/2024/11/06/672a4378dabf8.webp" srcset="/img/loading.gif" lazyload /></p>
+<p>分类问题目的是什么？从一堆瓜中找出来所有的好瓜，你用自己的模型找出来了一堆瓜，不过其中有好有坏<br />
+你找出来的瓜有多少是好瓜？由此定义了<strong>查准率
+P（precision）</strong><br />
+<span class="math display">$$P=\frac{TP}{TP+FP}$$</span>
+所有好瓜里面你挑出来了多少？由此定义了<strong>查全率 R（recall）&amp;
+召回率</strong> <span class="math display">$$R=\frac{TP}{TP+FN}$$</span>
+查准率和查全率是一对矛盾的度量.
+一般来说，查准率高时，查全率往往偏低；而查全率高时，查准率往往偏低.例如，若希望将好瓜尽可能多地选出来，
+则可通过增加选瓜的数量来实现，如果将所有西瓜都选上，那么所有的好瓜也必然都被选上了，但这样查准率就会较低；若希望选出的瓜中好瓜比例尽可能高，则可只挑选最有把握的瓜，但这样就难免会漏掉不少好瓜，使得查全率较低.通常只有在一些简单任务中，才可能使查全率和查准率都很高.</p>
+<p>我们可以画个图（其实就是收益曲线） <img
+src="https://www.freeimg.cn/i/2024/11/06/672a438ab2168.webp" srcset="/img/loading.gif" lazyload />
+怎么判断模型好坏？图中BC好判断，AB如何判断？<br />
+引入一个综合考虑查准率、查全率的性能度量：平衡点(Break-Event
+Point,简称BEP)，是查准率=查全率时的取值。这个值越大性能越好。</p>
+<p>但BEP还是过于简化了些，更常用的是F1度量，一个基于查准率与查全率的调和平均</p>
+<p><span class="math display">$$F1=\frac{2\times P\times
+R}{P+R}=\frac{2\times TP}{\text{样例总数}+TP-TN}$$</span></p>
+<p>若任务场景是对查重率或查准率某一个有更高要求，可以对二者加以不同的权重，即F1度量的一般形式——Fβ
+<span class="math display">$$F_{\beta}=\frac{(1+\beta^{2})\times P\times
+R}{(\beta^{2}\times P)+R}$$</span> 其中β&gt;
+0度量了查全率对查准率的相对重要性[VanRijsbergen, 1979]。β=
+1时退化为标准的F1; β&gt; 1时查全率有更大影响；β&lt;
+1时查准率有更大影响。</p>
+<h2 id="roc-与-auc">2.3.3 ROC 与 AUC</h2>
+<p>换了个说法让人一懵，细细一想只不过是另一种作图方式，定义<br />
+- 纵轴是好瓜的查全率（真正例率），即好瓜里面有多大比例被挑了出来<br />
+-
+横轴是坏瓜的查全率（假正例率），即坏瓜里面有多大比例被不小心挑出来了。</p>
 <p>画个图是这样的</p>
-<p><img src="https://www.helloimg.com/i/2024/11/05/672a3580d8581.png" srcset="/img/loading.gif" lazyload alt="1730819590980.png"></p>
+<figure>
+<img src="https://www.helloimg.com/i/2024/11/05/672a3580d8581.png" srcset="/img/loading.gif" lazyload
+alt="1730819590980.png" />
+<figcaption aria-hidden="true">1730819590980.png</figcaption>
+</figure>
 <p>最理想的情况肯定是坐标(0,1),好瓜全都挑出来了，坏瓜没有粗心选出来一个。同理最差情况是坐标(1,0).对角线实际上就是随机抽样。ROC围成的面积成为AUC，一般认为AUC越大模型效果越好</p>
-<h2 id="2-3-4-代价敏感错误率与代价曲线"><a href="#2-3-4-代价敏感错误率与代价曲线" class="headerlink" title="2.3.4 代价敏感错误率与代价曲线"></a>2.3.4 代价敏感错误率与代价曲线</h2><p>分类问题中的错误可以分为两种，不小心选了坏瓜，漏选了好瓜，有时候这两种错误我们更重视某一种，因此自然地为二者引入不同的cost权重<br><img src="https://www.helloimg.com/i/2024/11/05/672a374d524a3.png" srcset="/img/loading.gif" lazyload alt="1730820050659.png"><br>如此一来，上面的ROC曲线就不管用了，考虑引入权重作图。<br>这一块不太好理解，我写一下个人的阐述<br>横轴为正例概率代价，其实是假设我们的模型就是随机取样，对总代价的归一化度量<br>$$P(+)cost&#x3D;\frac{p\times cost_{01}}{p\times cost_{01}+(1-p)\times cost_{10}}$$<br>纵轴为运用了我们提出的模型之后，代价的归一化度量<br>$$cost_{norm}&#x3D;\frac{\mathrm{FNR}\times p\times cost_{01}+\mathrm{FPR}\times(1-p)\times cost_{10}}{p\times cost_{01}+(1-p)\times cost_{10}}$$<br>自然可以理解，某一点的坐标纵坐标小于横坐标才能说明模型是有效的，纵坐标越比横坐标小就越有效，为此取无穷条曲线的下包络，围城面积越小则认为模型效果越好。个人感觉此处应该是有严格的数学证明推导这些统计意义。</p>
-<h1 id="2-4比较检验"><a href="#2-4比较检验" class="headerlink" title="2.4比较检验"></a>2.4比较检验</h1><p>我挺不喜欢这一部分的内容，这也是统计学总是被机器学习大佬诟病的一点–花了太多精力在各种推断与检验上，不过作为学生基本知识该有还是得有。再此我只做简单的了解，写论文最后需要用的时候再学。</p>
-<p>统计假设检验(hypothesis test)为我们进行学习器性能比较提供了重要依据。          </p>
+<h2 id="代价敏感错误率与代价曲线">2.3.4 代价敏感错误率与代价曲线</h2>
+<p>分类问题中的错误可以分为两种，不小心选了坏瓜，漏选了好瓜，有时候这两种错误我们更重视某一种，因此自然地为二者引入不同的cost权重
+<img src="https://www.helloimg.com/i/2024/11/05/672a374d524a3.png" srcset="/img/loading.gif" lazyload
+alt="1730820050659.png" /><br />
+如此一来，上面的ROC曲线就不管用了，考虑引入权重作图。<br />
+这一块不太好理解，我写一下个人的阐述<br />
+横轴为正例概率代价，其实是假设我们的模型就是随机取样，对总代价的归一化度量
+<span class="math display">$$P(+)cost=\frac{p\times cost_{01}}{p\times
+cost_{01}+(1-p)\times cost_{10}}$$</span>
+纵轴为运用了我们提出的模型之后，代价的归一化度量 <span
+class="math display">$$cost_{norm}=\frac{\mathrm{FNR}\times p\times
+cost_{01}+\mathrm{FPR}\times(1-p)\times cost_{10}}{p\times
+cost_{01}+(1-p)\times cost_{10}}$$</span>
+自然可以理解，某一点的坐标纵坐标小于横坐标才能说明模型是有效的，纵坐标越比横坐标小就越有效，为此取无穷条曲线的下包络，围城面积越小则认为模型效果越好。个人感觉此处应该是有严格的数学证明推导这些统计意义。</p>
+<h1 id="比较检验">2.4比较检验</h1>
+<p>我挺不喜欢这一部分的内容，这也是统计学总是被机器学习大佬诟病的一点–花了太多精力在各种推断与检验上，不过作为学生基本知识该有还是得有。再此我只做简单的了解，写论文最后需要用的时候再学。</p>
+<p>统计假设检验(hypothesis
+test)为我们进行学习器性能比较提供了重要依据。</p>
 <p>为什么这么说？我们上面提出了很多度量模型效果的标准，倘若在某种标准下模型A的泛化效果比B好，我们就可以断言A这个模型一定在此任务中优于B吗？显然不是。在这个测试集上A优于B，换个测试集就说不定了。大千世界无奇不有。</p>
 <p>比较检验解决的就是这样的问题，我们用统计学方法探讨A的泛化性能是否在统计意义上优于B？以及这个结论的把握有多大。</p>
-<h2 id="2-4-1假设检验"><a href="#2-4-1假设检验" class="headerlink" title="2.4.1假设检验"></a>2.4.1假设检验</h2><p>及其不常用，而且周的阐述疑似有误，这里贴一个讨论博客<br><a target="_blank" rel="noopener" href="https://www.zhihu.com/question/287895170">周志华《机器学习》38页关于二项检验的公式(2.27)是否有误？7 个回答<br>默认排序<br>politer<br>politer<br>教师<br>49 人赞同了该回答</a></p>
-<h2 id="2-4-4-Friedman检验与Nemenyi后续检验"><a href="#2-4-4-Friedman检验与Nemenyi后续检验" class="headerlink" title="2.4.4 Friedman检验与Nemenyi后续检验"></a>2.4.4 Friedman检验与Nemenyi后续检验</h2><p>交叉验证t检验和McNemar检验都是在一个数据集上比较两个算法的性能，而在很多时候，我们会在一组数据集上对多个算法进行比较.当有多个算法参与比较时，这时候可以使用基于算法排序的 Friedman 检验。</p>
-<h1 id="2-5方差与偏差"><a href="#2-5方差与偏差" class="headerlink" title="2.5方差与偏差"></a>2.5方差与偏差</h1><p>泛化误差可分解为偏差、方差与噪声之和：<br>$$E(f;D)&#x3D;bias^2\left(\boldsymbol{x}\right)+var\left(\boldsymbol{x}\right)+\varepsilon^2$$</p>
-<h4 id="偏差（Bias）"><a href="#偏差（Bias）" class="headerlink" title="偏差（Bias）"></a>偏差（Bias）</h4><ul>
-<li><p><strong>含义</strong>：偏差衡量的是你的模型预测的平均值与真实房价之间的偏离程度。它反映了模型对数据的拟合能力。</p>
-</li>
-<li><p><strong>例子</strong>：以房价预测为例子，如果你使用的模型非常简单（比如线性回归），它可能无法捕捉到房价与特征之间的复杂关系，导致预测结果普遍偏低或偏高。这就是高偏差的情况，意味着模型欠拟合，没有充分利用数据中的信息。</p>
-</li>
-<li><p><strong>影响</strong>：高偏差会导致模型在训练集和测试集上的表现都不好，因为模型没有学习到数据的真实分布。</p>
-</li>
+<h2 id="假设检验">2.4.1假设检验</h2>
+<p>及其不常用，而且周的阐述疑似有误，这里贴一个讨论博客 <a
+target="_blank" rel="noopener" href="https://www.zhihu.com/question/287895170">周志华《机器学习》38页关于二项检验的公式(2.27)是否有误？7
+个回答 默认排序 politer politer 教师 49 人赞同了该回答</a></p>
+<h2 id="friedman检验与nemenyi后续检验">2.4.4
+Friedman检验与Nemenyi后续检验</h2>
+<p>交叉验证t检验和McNemar检验都是在一个数据集上比较两个算法的性能，而在很多时候，我们会在一组数据集上对多个算法进行比较.当有多个算法参与比较时，这时候可以使用基于算法排序的
+Friedman 检验。</p>
+<h1 id="方差与偏差">2.5方差与偏差</h1>
+<p>泛化误差可分解为偏差、方差与噪声之和： <span
+class="math display"><em>E</em>(<em>f</em>; <em>D</em>) = <em>b</em><em>i</em><em>a</em><em>s</em><sup>2</sup>(<strong>x</strong>) + <em>v</em><em>a</em><em>r</em>(<strong>x</strong>) + <em>ε</em><sup>2</sup></span></p>
+<h4 id="偏差bias">偏差（Bias）</h4>
+<ul>
+<li><p><strong>含义</strong>：偏差衡量的是你的模型预测的平均值与真实房价之间的偏离程度。它反映了模型对数据的拟合能力。</p></li>
+<li><p><strong>例子</strong>：以房价预测为例子，如果你使用的模型非常简单（比如线性回归），它可能无法捕捉到房价与特征之间的复杂关系，导致预测结果普遍偏低或偏高。这就是高偏差的情况，意味着模型欠拟合，没有充分利用数据中的信息。</p></li>
+<li><p><strong>影响</strong>：高偏差会导致模型在训练集和测试集上的表现都不好，因为模型没有学习到数据的真实分布。</p></li>
 </ul>
-<h4 id="方差（Variance）"><a href="#方差（Variance）" class="headerlink" title="方差（Variance）"></a>方差（Variance）</h4><ul>
-<li><p><strong>含义</strong>：方差衡量的是当你使用不同的训练集（但大小相同）来训练模型时，模型性能（如预测准确度）的变化程度。它反映了数据扰动对模型性能的影响。</p>
-</li>
-<li><p><strong>例子</strong>：如果你使用的模型非常复杂（比如深度神经网络），它可能会过度拟合训练集，即记住训练集中的每一个细节，而不是学习到一般的规律。这样，当模型遇到新的测试数据时，它的预测结果可能会因为训练集的微小变化而大幅波动。这就是高方差的情况。</p>
-</li>
-<li><p><strong>影响</strong>：高方差会导致模型在训练集上表现很好，但在测试集上表现很差，因为模型过于依赖训练集的具体细节，而不是数据的真实分布。</p>
-</li>
+<h4 id="方差variance">方差（Variance）</h4>
+<ul>
+<li><p><strong>含义</strong>：方差衡量的是当你使用不同的训练集（但大小相同）来训练模型时，模型性能（如预测准确度）的变化程度。它反映了数据扰动对模型性能的影响。</p></li>
+<li><p><strong>例子</strong>：如果你使用的模型非常复杂（比如深度神经网络），它可能会过度拟合训练集，即记住训练集中的每一个细节，而不是学习到一般的规律。这样，当模型遇到新的测试数据时，它的预测结果可能会因为训练集的微小变化而大幅波动。这就是高方差的情况。</p></li>
+<li><p><strong>影响</strong>：高方差会导致模型在训练集上表现很好，但在测试集上表现很差，因为模型过于依赖训练集的具体细节，而不是数据的真实分布。</p></li>
 </ul>
-<h4 id="噪声（Noise）"><a href="#噪声（Noise）" class="headerlink" title="噪声（Noise）"></a>噪声（Noise）</h4><ul>
-<li><p><strong>含义</strong>：噪声是数据本身固有的、无法通过学习算法来减少的误差。它表示了在当前任务上，任何学习算法所能达到的期望泛化误差的下界。</p>
-</li>
-<li><p><strong>例子</strong>：在房价预测中，噪声可能来自于房屋价格的随机波动、数据收集过程中的误差、或者某些无法量化的特征（如房屋的“风水”好坏）。这些因素都会导致房价的不确定性，使得即使是最优的模型也无法完全准确地预测房价。</p>
-</li>
-<li><p><strong>影响</strong>：噪声限制了模型性能的上限。无论模型多么复杂或精细，它都无法超越噪声所设定的泛化误差下界。</p>
-</li>
+<h4 id="噪声noise">噪声（Noise）</h4>
+<ul>
+<li><p><strong>含义</strong>：噪声是数据本身固有的、无法通过学习算法来减少的误差。它表示了在当前任务上，任何学习算法所能达到的期望泛化误差的下界。</p></li>
+<li><p><strong>例子</strong>：在房价预测中，噪声可能来自于房屋价格的随机波动、数据收集过程中的误差、或者某些无法量化的特征（如房屋的“风水”好坏）。这些因素都会导致房价的不确定性，使得即使是最优的模型也无法完全准确地预测房价。</p></li>
+<li><p><strong>影响</strong>：噪声限制了模型性能的上限。无论模型多么复杂或精细，它都无法超越噪声所设定的泛化误差下界。</p></li>
 </ul>
-<p><img src="https://www.helloimg.com/i/2024/11/05/672a3f51379fe.png" srcset="/img/loading.gif" lazyload alt="1730822103884.png"></p>
-<h1 id="3-1基本形式"><a href="#3-1基本形式" class="headerlink" title="3.1基本形式"></a>3.1基本形式</h1><p>$$f(\boldsymbol{x})&#x3D;\boldsymbol{w}^\mathrm{T}\boldsymbol{x}+b$$</p>
+<figure>
+<img src="https://www.helloimg.com/i/2024/11/05/672a3f51379fe.png" srcset="/img/loading.gif" lazyload
+alt="1730822103884.png" />
+<figcaption aria-hidden="true">1730822103884.png</figcaption>
+</figure>
+<h1 id="基本形式">3.1基本形式</h1>
+<p><span
+class="math display"><em>f</em>(<strong>x</strong>) = <strong>w</strong><sup>T</sup><strong>x</strong> + <em>b</em></span></p>
 <p>线性模型形式简单，易于建模，蕴含着机器学习中重要的思想，而且可解释性强，</p>
-<h1 id="3-2线性回归"><a href="#3-2线性回归" class="headerlink" title="3.2线性回归"></a>3.2线性回归</h1><p>$$\begin{aligned}<br>(w^*,b^*)&amp; &#x3D;\arg\min_{(w,b)}\sum_{i&#x3D;1}^m\left(f\left(x_i\right)-y_i\right)^2 \<br>&amp;&#x3D;\arg\min_{(w,b)}\sum_{i&#x3D;1}^m(y_i-wx_i-b)^2 .<br>\end{aligned}$$</p>
+<h1 id="线性回归">3.2线性回归</h1>
+<p><span class="math display">$$\begin{aligned}
+(w^*,b^*)&amp;
+=\arg\min_{(w,b)}\sum_{i=1}^m\left(f\left(x_i\right)-y_i\right)^2 \\
+&amp;=\arg\min_{(w,b)}\sum_{i=1}^m(y_i-wx_i-b)^2 .
+\end{aligned}$$</span></p>
 <p>求导之后可以得到简单的封闭解，拓展到矩阵形式也是一样的。</p>
-<p>任何函数内套上一层线性回归，称之为广义线性模型<br>$$y&#x3D;g^{-1}(\boldsymbol{w}^\mathrm{T}\boldsymbol{x}+b)$$</p>
-<h1 id="3-3对数几率回归"><a href="#3-3对数几率回归" class="headerlink" title="3.3对数几率回归"></a>3.3对数几率回归</h1><p>$$y&#x3D;\frac1{1+e^{-(\boldsymbol{w}^\mathrm{T}\boldsymbol{x}+b)}} .$$</p>
-<p>这是sigmod函数，一般取y&#x3D;0.5位分界判断点，上一个式子可以改写成<br>$$\ln\frac y{1-y}&#x3D;\boldsymbol{w}^\mathrm{T}\boldsymbol{x}+b .$$<br>也就是说我们在用线性回归去学习对数几率，显然有<br>$$p(y&#x3D;1\mid\boldsymbol{x})&#x3D;\frac{e^{\boldsymbol{w}^\mathrm{T}\boldsymbol{x}+b}}{1+e^{\boldsymbol{w}^\mathrm{T}\boldsymbol{x}+b}} ,\p(y&#x3D;0\mid\boldsymbol{x})&#x3D;\frac{1}{1+e^{\boldsymbol{w}^\mathrm{T}\boldsymbol{x}+b}} .$$<br>用极大似然法、或者对偶理论，可以得到需要去最优化的函数<br>$$\ell(\boldsymbol{\beta})&#x3D;\sum_{i&#x3D;1}^m\left(-y_i\boldsymbol{\beta}^\mathrm{T}\hat{\boldsymbol{x} }_i+\ln\left(1+e^{\boldsymbol{\beta}^\mathrm{T}\hat{\boldsymbol{x} }_i}\right)\right)$$</p>
-<h1 id="3-4线性判别"><a href="#3-4线性判别" class="headerlink" title="3.4线性判别"></a>3.4线性判别</h1><p>LDA 的思想非常朴素：给定训练样例集，设法将样例投影到一条直线上， 使得同类样例的投影点尽可能接近、异类样例的投影点尽可能远离；在对新样本进行分类时，将其投影到同样的这条直线上，再根据投影点的位置来确定新样本的类别.图 3.3 给出了一个二维示意图.</p>
-<p><img src="https://www.freeimg.cn/i/2024/11/06/672b878797fb2.webp" srcset="/img/loading.gif" lazyload alt="1730905988970.png"><br>具体的推导可以参见暑期的统计机器学习笔记</p>
-<h1 id="3-5多分类学习"><a href="#3-5多分类学习" class="headerlink" title="3.5多分类学习"></a>3.5多分类学习</h1><ul>
-<li>一对一（OvO）：将N个类别两两配对，产生$N*(N-1)&#x2F;2$个二分类任务，最终的结果通过每个二分类器投票产生</li>
+<p>任何函数内套上一层线性回归，称之为广义线性模型 <span
+class="math display"><em>y</em> = <em>g</em><sup>−1</sup>(<strong>w</strong><sup>T</sup><strong>x</strong> + <em>b</em>)</span></p>
+<h1 id="对数几率回归">3.3对数几率回归</h1>
+<p><span
+class="math display">$$y=\frac1{1+e^{-(\boldsymbol{w}^\mathrm{T}\boldsymbol{x}+b)}}
+.$$</span></p>
+<p>这是sigmod函数，一般取y=0.5位分界判断点，上一个式子可以改写成 <span
+class="math display">$$\ln\frac
+y{1-y}=\boldsymbol{w}^\mathrm{T}\boldsymbol{x}+b .$$</span>
+也就是说我们在用线性回归去学习对数几率，显然有 <span
+class="math display">$$p(y=1\mid\boldsymbol{x})=\frac{e^{\boldsymbol{w}^\mathrm{T}\boldsymbol{x}+b}}{1+e^{\boldsymbol{w}^\mathrm{T}\boldsymbol{x}+b}}
+,\\p(y=0\mid\boldsymbol{x})=\frac{1}{1+e^{\boldsymbol{w}^\mathrm{T}\boldsymbol{x}+b}}
+.$$</span> 用极大似然法、或者对偶理论，可以得到需要去最优化的函数 <span
+class="math display">$$\ell(\boldsymbol{\beta})=\sum_{i=1}^m\left(-y_i\boldsymbol{\beta}^\mathrm{T}\hat{\boldsymbol{x}
+}_i+\ln\left(1+e^{\boldsymbol{\beta}^\mathrm{T}\hat{\boldsymbol{x}
+}_i}\right)\right)$$</span></p>
+<h1 id="线性判别">3.4线性判别</h1>
+<p>LDA 的思想非常朴素：给定训练样例集，设法将样例投影到一条直线上，
+使得同类样例的投影点尽可能接近、异类样例的投影点尽可能远离；在对新样本进行分类时，将其投影到同样的这条直线上，再根据投影点的位置来确定新样本的类别.图
+3.3 给出了一个二维示意图.</p>
+<p><img src="https://www.freeimg.cn/i/2024/11/06/672b878797fb2.webp" srcset="/img/loading.gif" lazyload
+alt="1730905988970.png" /> 具体的推导可以参见暑期的统计机器学习笔记</p>
+<h1 id="多分类学习">3.5多分类学习</h1>
+<ul>
+<li>一对一（OvO）：将N个类别两两配对，产生<span
+class="math inline"><em>N</em> * (<em>N</em> − 1)/2</span>个二分类任务，最终的结果通过每个二分类器投票产生</li>
 <li>一对其余（OvR）：将一个类别作为正例，将其他类别作为反例来训练N个分类器，最终结果由置信度最大的一个分类器决定</li>
 <li>多对多（MvM）：常用纠错输出码方法（ECOC），训练时编码，对N个类别进行M次划分，训练M个二分类器。测试时解码，使用M个分类器对其预测，将生成的编码与每个类别的编码比较，距离最小的即为预测结果</li>
 </ul>
-<p><img src="https://www.freeimg.cn/i/2024/11/06/672b8bcb6690b.webp" srcset="/img/loading.gif" lazyload alt="1730907077041.png"></p>
-<h1 id="3-6类别不平衡问题"><a href="#3-6类别不平衡问题" class="headerlink" title="3.6类别不平衡问题"></a>3.6类别不平衡问题</h1><p>常用三种解决方法</p>
+<figure>
+<img src="https://www.freeimg.cn/i/2024/11/06/672b8bcb6690b.webp" srcset="/img/loading.gif" lazyload
+alt="1730907077041.png" />
+<figcaption aria-hidden="true">1730907077041.png</figcaption>
+</figure>
+<h1 id="类别不平衡问题">3.6类别不平衡问题</h1>
+<p>常用三种解决方法</p>
 <ul>
 <li>欠采样 (undersampling):也称下采样，去除一些比例高的数据</li>
 <li>过采样 (oversampling):也称上采样，通过插值增加一些比例少的数据</li>
-<li>阈值移动 (threshold-moving):用原始训练集训练，但在预测时令$\frac{y^{\prime}}{1-y^{\prime}}&#x3D;\frac{y}{1-y}\times\frac{\text{反例数量}}{\text{正例数量}}$</li>
+<li>阈值移动 (threshold-moving):用原始训练集训练，但在预测时令<span
+class="math inline">$\frac{y^{\prime}}{1-y^{\prime}}=\frac{y}{1-y}\times\frac{\text{反例数量}}{\text{正例数量}}$</span></li>
 </ul>
 <p>第三条的意义在于，我们往往假设训练集是真实样本的无偏采样，因此判断阈值应当是大于观测几率的。</p>
-<h1 id="4-1基本流程"><a href="#4-1基本流程" class="headerlink" title="4.1基本流程"></a>4.1基本流程</h1><p>决策树模仿人类的决策处理机制，利用树结构进行预测</p>
-<h1 id="4-2划分选择"><a href="#4-2划分选择" class="headerlink" title="4.2划分选择"></a>4.2划分选择</h1><p>决策树的关键在于划分选择，也就是选择合适的划分标准，使得树的节点包含类别的纯度越来越高</p>
-<p>下面给出几种常用的划分依据</p>
-<h2 id="4-2-1-信息增益"><a href="#4-2-1-信息增益" class="headerlink" title="4.2.1 信息增益"></a>4.2.1 信息增益</h2><p>引入信息熵来度量样本集合的纯度，假设当前样本集合$D$中第$k$类样本所占的比例为$p_k$,则定义此集合的信息熵为<br>$$\operatorname{Ent}(D)&#x3D;-\sum_{k&#x3D;1}^{|\mathcal{Y}|}p_k\log_2p_k .$$<br>利用属性$a$对样本进行划分之后的信息增益定义为<br>$$\mathrm{Gain}(D,a)&#x3D;\mathrm{Ent}(D)-\sum_{v&#x3D;1}^V\frac{|D^v|}{|D|}\mathrm{Ent}(D^v)$$</p>
-<h2 id="4-2-2-增益率"><a href="#4-2-2-增益率" class="headerlink" title="4.2.2 增益率"></a>4.2.2 增益率</h2><p>有了信息增益还不够，如果我们将类似于编号之类的东西也作为划分依据，他的信息增益可以很大，但是不具有泛化能力，也就是说信息增益对可以取值的数目较多的属性有偏好，为了解决这个问题，引入信息增益率<br>$$\text{Gain ratio}(D,a)&#x3D;\frac{\mathrm{Gain}(D,a)}{\mathrm{IV}(a)} ,\\text{其中}\\mathrm{IV}(a)&#x3D;-\sum_{v&#x3D;1}^{V}\frac{|D^{v}|}{|D|}\log_{2}\frac{|D^{v}|}{|D|}$$<br>称为属性a的固有值，a的可取值越多，固有值越大，增益率对分类效果好同时可取值数目少的特征有所偏好</p>
-<h2 id="4-2-3基尼系数"><a href="#4-2-3基尼系数" class="headerlink" title="4.2.3基尼系数"></a>4.2.3基尼系数</h2><p>定义基尼值为随机抽取两个值，类别标记不一致的概率<br>$$\begin{aligned}\operatorname{Gini}(D)&amp;&#x3D;\sum_{k&#x3D;1}^{|\mathcal{Y}|}\sum_{k^{\prime}\neq k}p_{k}p_{k^{\prime}}\&amp;&#x3D;1-\sum_{k&#x3D;1}^{|\mathcal{Y}|}p_{k}^{2} .\end{aligned}$$<br>相应的，定义划分之后的基尼系数<br>$$\mathrm{Gini_index}(D,a)&#x3D;\sum_{v&#x3D;1}^V\frac{|D^v|}{|D|_.}\mathrm{Gini}(D^v)$$<br>我们选取使得基尼系数最小的特征作为划分依据</p>
-<h1 id="4-3剪枝"><a href="#4-3剪枝" class="headerlink" title="4.3剪枝"></a>4.3剪枝</h1><p>剪枝的思路大致分为两种，预剪枝，后剪枝，剪枝是决策树防止过拟合的主要方法</p>
-<h1 id="4-4-连续与缺失值"><a href="#4-4-连续与缺失值" class="headerlink" title="4.4 连续与缺失值"></a>4.4 连续与缺失值</h1><h2 id="4-4-1-如何处理连续值？"><a href="#4-4-1-如何处理连续值？" class="headerlink" title="4.4.1 如何处理连续值？"></a>4.4.1 如何处理连续值？</h2><p>连续值的可取值数目不再有限，我们一般把出现的属性数值排序，然后利用二分或者什么其他方法搜索使得信息增益最大的分界点。<br>$$\begin{aligned}<br>\mathrm{Gain}(D,a)&amp; &#x3D;\max_{t\in T_{a}} \mathrm{Gain}(D,a,t) \<br>&amp;&#x3D;\max_{t\in T_a} \mathrm{Ent}(D)-\sum_{\lambda\in{-,+}}\frac{|D_t^\lambda|}{|D|}\mathrm{Ent}(D_t^\lambda)<br>\end{aligned}$$</p>
-<h2 id="4-4-2-如何处理缺失值？"><a href="#4-4-2-如何处理缺失值？" class="headerlink" title="4.4.2 如何处理缺失值？"></a>4.4.2 如何处理缺失值？</h2><p>如何在属性值缺失的情况下进行数据划分？</p>
+<h1 id="基本流程">4.1基本流程</h1>
+<p>决策树模仿人类的决策处理机制，利用树结构进行预测</p>
+<h1 id="划分选择">4.2划分选择</h1>
+<p>决策树的关键在于划分选择，也就是选择合适的划分标准，使得树的节点包含类别的纯度越来越高</p>
+<p>下面给出几种常用的划分依据 ## 4.2.1 信息增益
+引入信息熵来度量样本集合的纯度，假设当前样本集合<span
+class="math inline"><em>D</em></span>中第<span
+class="math inline"><em>k</em></span>类样本所占的比例为<span
+class="math inline"><em>p</em><sub><em>k</em></sub></span>,则定义此集合的信息熵为
+<span
+class="math display">$$\operatorname{Ent}(D)=-\sum_{k=1}^{|\mathcal{Y}|}p_k\log_2p_k
+.$$</span> 利用属性<span
+class="math inline"><em>a</em></span>对样本进行划分之后的信息增益定义为
+<span
+class="math display">$$\mathrm{Gain}(D,a)=\mathrm{Ent}(D)-\sum_{v=1}^V\frac{|D^v|}{|D|}\mathrm{Ent}(D^v)$$</span>
+## 4.2.2 增益率
+有了信息增益还不够，如果我们将类似于编号之类的东西也作为划分依据，他的信息增益可以很大，但是不具有泛化能力，也就是说信息增益对可以取值的数目较多的属性有偏好，为了解决这个问题，引入信息增益率
+<span class="math display">$$\text{Gain
+ratio}(D,a)=\frac{\mathrm{Gain}(D,a)}{\mathrm{IV}(a)}
+,\\\text{其中}\\\mathrm{IV}(a)=-\sum_{v=1}^{V}\frac{|D^{v}|}{|D|}\log_{2}\frac{|D^{v}|}{|D|}$$</span>
+称为属性a的固有值，a的可取值越多，固有值越大，增益率对分类效果好同时可取值数目少的特征有所偏好</p>
+<h2 id="基尼系数">4.2.3基尼系数</h2>
+<p>定义基尼值为随机抽取两个值，类别标记不一致的概率 <span
+class="math display">$$\begin{aligned}\operatorname{Gini}(D)&amp;=\sum_{k=1}^{|\mathcal{Y}|}\sum_{k^{\prime}\neq
+k}p_{k}p_{k^{\prime}}\\&amp;=1-\sum_{k=1}^{|\mathcal{Y}|}p_{k}^{2}
+.\end{aligned}$$</span> 相应的，定义划分之后的基尼系数 <span
+class="math display">$$\mathrm{Gini_index}(D,a)=\sum_{v=1}^V\frac{|D^v|}{|D|_.}\mathrm{Gini}(D^v)$$</span>
+我们选取使得基尼系数最小的特征作为划分依据</p>
+<h1 id="剪枝">4.3剪枝</h1>
+<p>剪枝的思路大致分为两种，预剪枝，后剪枝，剪枝是决策树防止过拟合的主要方法</p>
+<h1 id="连续与缺失值">4.4 连续与缺失值</h1>
+<h2 id="如何处理连续值">4.4.1 如何处理连续值？</h2>
+<p>连续值的可取值数目不再有限，我们一般把出现的属性数值排序，然后利用二分或者什么其他方法搜索使得信息增益最大的分界点。
+<span class="math display">$$\begin{aligned}
+\mathrm{Gain}(D,a)&amp; =\max_{t\in T_{a}} \mathrm{Gain}(D,a,t) \\
+&amp;=\max_{t\in T_a}
+\mathrm{Ent}(D)-\sum_{\lambda\in\{-,+\}}\frac{|D_t^\lambda|}{|D|}\mathrm{Ent}(D_t^\lambda)
+\end{aligned}$$</span></p>
+<h2 id="如何处理缺失值">4.4.2 如何处理缺失值？</h2>
+<p>如何在属性值缺失的情况下进行数据划分？</p>
 <p>核心的处理思路就是用无缺样本代替总体来进行计算</p>
-<h1 id="4-5多变量决策树"><a href="#4-5多变量决策树" class="headerlink" title="4.5多变量决策树"></a>4.5多变量决策树</h1><p>多变量决策树 (multivariate decision tree) 的非叶结点是形如$\sum_{i&#x3D;1}^dw_ia_i&#x3D;t$的线性分类器，不<br>再仅对某个属性，而是对所有属性的线性组合进行测试，其中$w_i,t$都可以通过样本学习得到</p>
-<h1 id="5-1神经元模型"><a href="#5-1神经元模型" class="headerlink" title="5.1神经元模型"></a>5.1神经元模型</h1><p>$$y&#x3D;f\left(\sum_{i&#x3D;1}^nw_ix_i-\theta\right)$$<br>激活函数常用<br><img src="https://www.freeimg.cn/i/2024/11/08/672dcdef9b6c9.webp" srcset="/img/loading.gif" lazyload alt="1731055085849.png"><br>以及RELU</p>
-<h1 id="5-2感知机"><a href="#5-2感知机" class="headerlink" title="5.2感知机"></a>5.2感知机</h1><p><img src="https://www.freeimg.cn/i/2024/11/08/672dd0954afe1.webp" srcset="/img/loading.gif" lazyload alt="1731055763592.png"></p>
+<h1 id="多变量决策树">4.5多变量决策树</h1>
+<p>多变量决策树 (multivariate decision tree) 的非叶结点是形如<span
+class="math inline">$\sum_{i=1}^dw_ia_i=t$</span>的线性分类器，不
+再仅对某个属性，而是对所有属性的线性组合进行测试，其中<span
+class="math inline"><em>w</em><sub><em>i</em></sub>, <em>t</em></span>都可以通过样本学习得到</p>
+<h1 id="神经元模型">5.1神经元模型</h1>
+<p><span
+class="math display">$$y=f\left(\sum_{i=1}^nw_ix_i-\theta\right)$$</span>
+激活函数常用 <img
+src="https://www.freeimg.cn/i/2024/11/08/672dcdef9b6c9.webp" srcset="/img/loading.gif" lazyload
+alt="1731055085849.png" /> 以及RELU</p>
+<h1 id="感知机">5.2感知机</h1>
+<figure>
+<img src="https://www.freeimg.cn/i/2024/11/08/672dd0954afe1.webp" srcset="/img/loading.gif" lazyload
+alt="1731055763592.png" />
+<figcaption aria-hidden="true">1731055763592.png</figcaption>
+</figure>
 <p>举个例子</p>
-<p>我们要解决的问题是：二分类$N$个样本点$(x_{i},y_{i})$，其中$x_{i}\in R^p$<br>引入：<br>$$sign(a)&#x3D;\left{\begin{matrix}+1,a\geq0\-1,a&lt;0\end{matrix}\right.$$</p>
-<p>感知机的思路是把线性回归的结果填充到激活函数中：<br>$$f(x)&#x3D;sign(w^Tx)$$</p>
-<p>这样$f(x)$即为预测结果。<br>此时，问题变为如何求解$w$。我们使用梯度下降的策略，那么自然的需要引入loss函数。为了引入合适的loss函数，做一些必要的讨论   </p>
-<p>我们考虑一个被正确分类的点$(x_i,y_i)$，若 $w^Tx_i&gt;0$，则 $y_i&#x3D;+1$,若$w^Tx_i&lt;0$，则 $y_i&#x3D;-1$,因此对于正确分类的点$(x_i,y_i)$，总有$y_iw^Tx_i&gt;0$      </p>
-<p><img src="https://www.freeimg.cn/i/2024/08/05/66b0ac3260027.png" srcset="/img/loading.gif" lazyload alt="1722854448587.png"></p>
-<p>综上所述，我们引入形如下式的loss函数<br>$$ L(w)&#x3D;\sum_{x_i\in\mathcal{D}_{wrong}}-y_iw^Tx_i $$</p>
+<p>我们要解决的问题是：二分类<span
+class="math inline"><em>N</em></span>个样本点<span
+class="math inline">(<em>x</em><sub><em>i</em></sub>, <em>y</em><sub><em>i</em></sub>)</span>，其中<span
+class="math inline"><em>x</em><sub><em>i</em></sub> ∈ <em>R</em><sup><em>p</em></sup></span><br />
+引入： <span
+class="math display">$$sign(a)=\left\{\begin{matrix}+1,a\geq0\\-1,a&lt;0\end{matrix}\right.$$</span></p>
+<p>感知机的思路是把线性回归的结果填充到激活函数中：<br />
+<span
+class="math display"><em>f</em>(<em>x</em>) = <em>s</em><em>i</em><em>g</em><em>n</em>(<em>w</em><sup><em>T</em></sup><em>x</em>)</span></p>
+<p>这样<span
+class="math inline"><em>f</em>(<em>x</em>)</span>即为预测结果。<br />
+此时，问题变为如何求解<span
+class="math inline"><em>w</em></span>。我们使用梯度下降的策略，那么自然的需要引入loss函数。为了引入合适的loss函数，做一些必要的讨论</p>
+<p>我们考虑一个被正确分类的点<span
+class="math inline">(<em>x</em><sub><em>i</em></sub>, <em>y</em><sub><em>i</em></sub>)</span>，若
+<span
+class="math inline"><em>w</em><sup><em>T</em></sup><em>x</em><sub><em>i</em></sub> &gt; 0</span>，则
+<span
+class="math inline"><em>y</em><sub><em>i</em></sub> = +1</span>,若<span
+class="math inline"><em>w</em><sup><em>T</em></sup><em>x</em><sub><em>i</em></sub> &lt; 0</span>，则
+<span
+class="math inline"><em>y</em><sub><em>i</em></sub> = −1</span>,因此对于正确分类的点<span
+class="math inline">(<em>x</em><sub><em>i</em></sub>, <em>y</em><sub><em>i</em></sub>)</span>，总有<span
+class="math inline"><em>y</em><sub><em>i</em></sub><em>w</em><sup><em>T</em></sup><em>x</em><sub><em>i</em></sub> &gt; 0</span></p>
+<figure>
+<img src="https://www.freeimg.cn/i/2024/08/05/66b0ac3260027.png" srcset="/img/loading.gif" lazyload
+alt="1722854448587.png" />
+<figcaption aria-hidden="true">1722854448587.png</figcaption>
+</figure>
+<p>综上所述，我们引入形如下式的loss函数 <span
+class="math display"><em>L</em>(<em>w</em>) = ∑<sub><em>x</em><sub><em>i</em></sub> ∈ 𝒟<sub><em>w</em><em>r</em><em>o</em><em>n</em><em>g</em></sub></sub> − <em>y</em><sub><em>i</em></sub><em>w</em><sup><em>T</em></sup><em>x</em><sub><em>i</em></sub></span></p>
 <p>应用梯度下降法可得</p>
-<p>$$\frac\partial{\partial w}L(w)&#x3D;\sum_{x_i\in\mathcal{D}_{wrong}}-y_ix_i$$</p>
-<p>$$w^{t+1}\leftarrow w^t+\lambda y_ix_i$$</p>
+<p><span class="math display">$$\frac\partial{\partial
+w}L(w)=\sum_{x_i\in\mathcal{D}_{wrong}}-y_ix_i$$</span></p>
+<p><span
+class="math display"><em>w</em><sup><em>t</em> + 1</sup> ← <em>w</em><sup><em>t</em></sup> + <em>λ</em><em>y</em><sub><em>i</em></sub><em>x</em><sub><em>i</em></sub></span></p>
 <p>感知机由两层神经元组成，只有输入层神经元进行激活函数处理，学习能力十分有限。他只能在现行线性可分问题上收敛，甚至不能解决疑惑异或问题这样的简单非线性可分问题。</p>
 <p>要解决非线性可分问题需要考虑使用多层神经元</p>
-<h1 id="5-3误差逆传播算法-BP算法"><a href="#5-3误差逆传播算法-BP算法" class="headerlink" title="5.3误差逆传播算法&#x2F;BP算法"></a>5.3误差逆传播算法&#x2F;BP算法</h1><p>BP算法是训练多层神经网络的有效方式，具体可参见<a target="_blank" rel="noopener" href="https://brandinzhang.github.io/2024/07/08/%E6%95%B0%E5%AD%A6/%E7%9F%A9%E9%98%B5%E6%B1%82%E5%AF%BC/">矩阵求导技术</a></p>
+<h1 id="误差逆传播算法bp算法">5.3误差逆传播算法/BP算法</h1>
+<p>BP算法是训练多层神经网络的有效方式，具体可参见<a
+target="_blank" rel="noopener" href="https://brandinzhang.github.io/2024/07/08/%E6%95%B0%E5%AD%A6/%E7%9F%A9%E9%98%B5%E6%B1%82%E5%AF%BC/">矩阵求导技术</a></p>
 <p>数学上可以证明，只需要一个包含足够多神经元的隐藏层，多层前馈网络就可以以任意精度逼近任意复杂度的连续函数。不过如何设计神经网络结构是一个未知问题。</p>
 <p>因为强大的学习能力和表示能力，神经网络容易过拟合，解决过拟合的方法有两种</p>
 <ul>
 <li>早停：训练集误差减小但是测试集误差上升的时候停止训练</li>
 <li>正则化，在loss函数中加一个用于描述网络复杂度的部分</li>
 </ul>
-<p>比如，令$E_k$表示第$k$个样例上的误差，$w_i$表示连接权重，误差函数改变为<br>$$E&#x3D;\lambda\frac1m\sum_{k&#x3D;1}^mE_k+(1-\lambda)\sum_iw_i^2$$<br>超参数$\lambda$使用交叉验证来估计</p>
-<h1 id="5-4全局最小与局部最小"><a href="#5-4全局最小与局部最小" class="headerlink" title="5.4全局最小与局部最小"></a>5.4全局最小与局部最小</h1><p>神经网络的训练应当避免陷入局部最优解，利用梯度搜索方法找到某个最小值之后，人们会采用一些策略跳出可能存在的局部最小，进一步接近全局最小</p>
+<p>比如，令<span
+class="math inline"><em>E</em><sub><em>k</em></sub></span>表示第<span
+class="math inline"><em>k</em></span>个样例上的误差，<span
+class="math inline"><em>w</em><sub><em>i</em></sub></span>表示连接权重，误差函数改变为
+<span
+class="math display">$$E=\lambda\frac1m\sum_{k=1}^mE_k+(1-\lambda)\sum_iw_i^2$$</span>
+超参数<span class="math inline"><em>λ</em></span>使用交叉验证来估计</p>
+<h1 id="全局最小与局部最小">5.4全局最小与局部最小</h1>
+<p>神经网络的训练应当避免陷入局部最优解，利用梯度搜索方法找到某个最小值之后，人们会采用一些策略跳出可能存在的局部最小，进一步接近全局最小</p>
 <ul>
 <li>不同参数值初始化多个神经网络，训练后取误差最小的解作为最终解</li>
 <li>模拟退火，在每一步都已一定概率接受比当前更差的结果，迭代过程中接受次优解的概率应该逐渐降低</li>
 <li>使用随机梯度下降法</li>
 <li>遗传算法</li>
 </ul>
-<h1 id="5-5其他神经网络"><a href="#5-5其他神经网络" class="headerlink" title="5.5其他神经网络"></a>5.5其他神经网络</h1><h1 id="6-1-间隔与支持向量"><a href="#6-1-间隔与支持向量" class="headerlink" title="6.1 间隔与支持向量"></a>6.1 间隔与支持向量</h1><p>支持向量机用于解决二分类问题，希望找到一个超平面对平面中的点进行合理划分<br>$$\left.\left{\begin{array}{ll}\boldsymbol{w}^\mathrm{T}\boldsymbol{x}<em>i+b\geqslant+1,&amp;y_i&#x3D;+1 ;\\boldsymbol{w}^\mathrm{T}\boldsymbol{x}<em>i+b\leqslant-1,&amp;y_i&#x3D;-1 .\end{array}\right.\right.$$<br>离超平面最近的几个样本点被称为支持向量<br><img src="https://www.freeimg.cn/i/2024/11/09/672f2b47ebbb4.webp" srcset="/img/loading.gif" lazyload alt="1731144518117.png"><br>并定义间隔为：<br>$$\gamma&#x3D;\frac2{||\boldsymbol{w}||}$$<br>目标是找到最大间隔的超平面<br>$$\begin{aligned}&amp;\max</em>{\boldsymbol{w},b} \frac{2}{||\boldsymbol{w}||}\&amp;\mathrm{s.t.} y_i(\boldsymbol{w}^\mathrm{T}\boldsymbol{x}<em>i+b)\geqslant1,\quad i&#x3D;1,2,\ldots,m.\end{aligned}$$<br>这等价于<br>$$\begin{aligned}&amp;\min</em>{\boldsymbol{w},b} \frac{1}{2} |\boldsymbol{w}|^{2}\&amp;\mathrm{s.t.} y</em>{i}(\boldsymbol{w}^{\mathrm{T} }\boldsymbol{x}_{i}+b)\geqslant1,\quad i&#x3D;1,2,\ldots,m.\end{aligned}$$</p>
-<h1 id="6-2对偶化简"><a href="#6-2对偶化简" class="headerlink" title="6.2对偶化简"></a>6.2对偶化简</h1><p>拉格朗日函数为<br>$$L(\boldsymbol{w},b,\boldsymbol{\alpha})&#x3D;\frac12 |\boldsymbol{w}|^2+\sum_{i&#x3D;1}^m\alpha_i\left(1-y_i(\boldsymbol{w}^\mathrm{T}\boldsymbol{x}_i+b)\right)$$</p>
-<p>令$L(\boldsymbol{w},b,\boldsymbol{\alpha})$对$\boldsymbol{w}$和$b$的偏导为零可得</p>
-<p>$$\boldsymbol{w}&#x3D;\sum_{i&#x3D;1}^m\alpha_iy_i\boldsymbol{x}_i:,$$</p>
-<p>$$0&#x3D;\sum_{i&#x3D;1}^m\alpha_iy_i:.$$</p>
-<p>转为对偶问题<br>$$\max_{\boldsymbol{\alpha} }\quad\sum_{i&#x3D;1}^m\alpha_i-\frac12\sum_{i&#x3D;1}^m\sum_{j&#x3D;1}^m\alpha_i\alpha_jy_iy_j\boldsymbol{x}<em>i^\mathrm{T}\boldsymbol{x}<em>j$$<br>$$\begin{aligned}\mathrm{s.t.}&amp;\sum</em>{i&#x3D;1}^m\alpha_iy_i&#x3D;0 ,\&amp;\alpha_i\geqslant0 ,\quad i&#x3D;1,2,\ldots,m .\end{aligned}$$<br>如何求解？一般来说可以用通用的二次规划方法求解，也可以用SMO算法<br>SMO 的基本思路是先固定$\alpha_i$之外的所有参数，然后求$\alpha_i$上的极值.由于存在约束$\sum</em>{i&#x3D;1}^m\alpha_iy_i&#x3D;0$,若固定$\alpha_i$之外的其他变量，则$\alpha_i$可由其他变量导出. 于是，SMO 每次选择两个变量$\alpha_i$和$\alpha_j$,并固定其他参数. 这样，在参数初始化后，SMO 不断执行如下两个步骤直至收敛：</p>
-<p>$$\text{选取一对需更新的变量 }\alpha_i\text{ 和 }\alpha_j;$$<br>$$\text{固定 }\alpha_i\text{ 和 }\alpha_j\text{ 以外的参数, 求解式}(6.11)\text{获得更新后的 }\alpha_i\text{ 和 }\alpha_j$$</p>
-<p>具体的：<br>$$\alpha_{i}y_{i}+\alpha_{j}y_{j}&#x3D;c , \alpha_{i}\geqslant0 , \alpha_{j}\geqslant0 ,\c&#x3D;-\sum_{k\neq i,j}\alpha_ky_k$$</p>
-<p>为此我们可以求出每一步优化问题的闭式解<br>偏移项可以利用kkt条件求出<br>$$y_s\left(\sum_{i\in S}\alpha_iy_i\boldsymbol{x}_i^\mathrm{T}\boldsymbol{x}_s+b\right)&#x3D;1$$</p>
-<h1 id="6-3-核函数"><a href="#6-3-核函数" class="headerlink" title="6.3 核函数"></a>6.3 核函数</h1><p>原始的假设基于线性可分的思路，分割函数如下</p>
-<p>$$\begin{aligned}<br>f(\boldsymbol{x})&amp; &#x3D;\boldsymbol{w}^\mathrm{T}\boldsymbol{x}+b \<br>&amp;&#x3D;\sum_{i&#x3D;1}^m\alpha_iy_i\boldsymbol{x}_i^\mathrm{T}\boldsymbol{x}+b<br>\end{aligned}$$</p>
-<p>核函数的引入使得svm拥有了拟合非线性边界的问题，核函数把x映射到了高维空间<br>$$f(x)&#x3D;w^\mathrm{T}\phi(x)+b$$<br>最终要求解的对偶问题变为了<br>$$\max_{\alpha} \sum_{i&#x3D;1}^{m}\alpha_{i}-\frac{1}{2} \sum_{i&#x3D;1}^{m}\sum_{j&#x3D;1}^{m}\alpha_{i}\alpha_{j}y_{i}y_{j}\phi(\boldsymbol{x}<em>{i})^{\mathrm{T}}\phi(\boldsymbol{x}</em>{j})$$</p>
-<p>为了避免高维内积的困难，引入核函数<br>$$\kappa(\boldsymbol{x}_i,\boldsymbol{x}_j)&#x3D;\langle\phi(\boldsymbol{x}_i),\phi(\boldsymbol{x}_j)\rangle&#x3D;\phi(\boldsymbol{x}_i)^\mathrm{T}\phi(\boldsymbol{x}_j)$$<br>给出一些常用核函数<br><img src="https://www.freeimg.cn/i/2024/11/09/672f34a0c36ca.webp" srcset="/img/loading.gif" lazyload alt="1731146911184.png"></p>
-<h1 id="6-4-软间隔与正则化"><a href="#6-4-软间隔与正则化" class="headerlink" title="6.4 软间隔与正则化"></a>6.4 软间隔与正则化</h1><p>允许svm在一些样本上出错，引入软间隔概念<br>比如，采用hinge损失，将目标函数改为<br>$$\min_{\boldsymbol{w},b} \frac{1}{2}|\boldsymbol{w}|^2+C\sum_{i&#x3D;1}^m\max\left(0,1-y_i\left(\boldsymbol{w}^\mathrm{T}\boldsymbol{x}<em>i+b\right)\right)$$<br>引入松弛变量，将上式子改写为<br>$$\min</em>{\boldsymbol{w},b,\xi_i}\quad\frac12|\boldsymbol{w}|^2+C\sum_{i&#x3D;1}^m\xi_i$$<br>$$\mathrm{s.t.}\quad y_i(\boldsymbol{w}^\mathrm{T}\boldsymbol{x}<em>i+b)\geqslant1-\xi_i\\xi</em>{i}\geqslant0 , i&#x3D;1,2,\ldots,m.$$<br>注：约束条件就是变量代换的恒等式<br>拉格朗日乘子法求解出对偶问题<br>$$\begin{aligned}<br>\underset{\boldsymbol{\alpha}}{\operatorname*{max}}&amp; \sum_{i&#x3D;1}^m\alpha_i-\frac12\sum_{i&#x3D;1}^m\sum_{j&#x3D;1}^m\alpha_i\alpha_jy_iy_j\boldsymbol{x}_i^\mathrm{T}\boldsymbol{x}<em>j \<br>\text{s.t.}&amp; \sum</em>{i&#x3D;1}^m\alpha_iy_i&#x3D;0 , \<br>&amp;0\leqslant\alpha_i\leqslant C ,\quad i&#x3D;1,2,\ldots,m .<br>\end{aligned}$$</p>
-<h1 id="6-5支持向量回归SVR"><a href="#6-5支持向量回归SVR" class="headerlink" title="6.5支持向量回归SVR"></a>6.5支持向量回归SVR</h1><p>支持向量回归(Support Vector Regression, 简称 SVR)假设我们能容忍 $f(\boldsymbol{x})$ 与$y$之间最多有$\epsilon$的偏差，即仅当$f(\boldsymbol{x})$与$y$之间的差别绝对值大于$\epsilon$时才计算损失.如图 6.6 所示，这相当于以$f(\boldsymbol{x})$为中心，构建了一个宽度为 2$\epsilon$的间隔带，若训练样本落入此间隔带，则认为是被预测正确的.</p>
-<h1 id="6-6-核方法"><a href="#6-6-核方法" class="headerlink" title="6.6 核方法"></a>6.6 核方法</h1>
+<h1 id="其他神经网络">5.5其他神经网络</h1>
+<h1 id="间隔与支持向量">6.1 间隔与支持向量</h1>
+<p>支持向量机用于解决二分类问题，希望找到一个超平面对平面中的点进行合理划分<br />
+<span
+class="math display">$$\left.\left\{\begin{array}{ll}\boldsymbol{w}^\mathrm{T}\boldsymbol{x}_i+b\geqslant+1,&amp;y_i=+1
+;\\\boldsymbol{w}^\mathrm{T}\boldsymbol{x}_i+b\leqslant-1,&amp;y_i=-1
+.\end{array}\right.\right.$$</span>
+离超平面最近的几个样本点被称为支持向量 <img
+src="https://www.freeimg.cn/i/2024/11/09/672f2b47ebbb4.webp" srcset="/img/loading.gif" lazyload
+alt="1731144518117.png" /> 并定义间隔为： <span
+class="math display">$$\gamma=\frac2{||\boldsymbol{w}||}$$</span>
+目标是找到最大间隔的超平面 <span
+class="math display">$$\begin{aligned}&amp;\max_{\boldsymbol{w},b}
+\frac{2}{||\boldsymbol{w}||}\\&amp;\mathrm{s.t.}
+y_i(\boldsymbol{w}^\mathrm{T}\boldsymbol{x}_i+b)\geqslant1,\quad
+i=1,2,\ldots,m.\end{aligned}$$</span> 这等价于 <span
+class="math display">$$\begin{aligned}&amp;\min_{\boldsymbol{w},b}
+\frac{1}{2} \|\boldsymbol{w}\|^{2}\\&amp;\mathrm{s.t.}
+y_{i}(\boldsymbol{w}^{\mathrm{T} }\boldsymbol{x}_{i}+b)\geqslant1,\quad
+i=1,2,\ldots,m.\end{aligned}$$</span></p>
+<h1 id="对偶化简">6.2对偶化简</h1>
+<p>拉格朗日函数为 <span
+class="math display">$$L(\boldsymbol{w},b,\boldsymbol{\alpha})=\frac12
+\|\boldsymbol{w}\|^2+\sum_{i=1}^m\alpha_i\left(1-y_i(\boldsymbol{w}^\mathrm{T}\boldsymbol{x}_i+b)\right)$$</span></p>
+<p>令<span
+class="math inline"><em>L</em>(<strong>w</strong>, <em>b</em>, <strong>α</strong>)</span>对<span
+class="math inline"><strong>w</strong></span>和<span
+class="math inline"><em>b</em></span>的偏导为零可得</p>
+<p><span
+class="math display">$$\boldsymbol{w}=\sum_{i=1}^m\alpha_iy_i\boldsymbol{x}_i\:,$$</span></p>
+<p><span
+class="math display">$$0=\sum_{i=1}^m\alpha_iy_i\:.$$</span></p>
+<p>转为对偶问题 <span class="math display">$$\max_{\boldsymbol{\alpha}
+}\quad\sum_{i=1}^m\alpha_i-\frac12\sum_{i=1}^m\sum_{j=1}^m\alpha_i\alpha_jy_iy_j\boldsymbol{x}_i^\mathrm{T}\boldsymbol{x}_j$$</span>
+<span
+class="math display">$$\begin{aligned}\mathrm{s.t.}&amp;\sum_{i=1}^m\alpha_iy_i=0
+,\\&amp;\alpha_i\geqslant0 ,\quad i=1,2,\ldots,m .\end{aligned}$$</span>
+如何求解？一般来说可以用通用的二次规划方法求解，也可以用SMO算法<br />
+SMO 的基本思路是先固定<span
+class="math inline"><em>α</em><sub><em>i</em></sub></span>之外的所有参数，然后求<span
+class="math inline"><em>α</em><sub><em>i</em></sub></span>上的极值.由于存在约束<span
+class="math inline">$\sum_{i=1}^m\alpha_iy_i=0$</span>,若固定<span
+class="math inline"><em>α</em><sub><em>i</em></sub></span>之外的其他变量，则<span
+class="math inline"><em>α</em><sub><em>i</em></sub></span>可由其他变量导出.
+于是，SMO 每次选择两个变量<span
+class="math inline"><em>α</em><sub><em>i</em></sub></span>和<span
+class="math inline"><em>α</em><sub><em>j</em></sub></span>,并固定其他参数.
+这样，在参数初始化后，SMO 不断执行如下两个步骤直至收敛：</p>
+<p><span class="math display">选取一对需更新的变量
+<em>α</em><sub><em>i</em></sub> 和
+<em>α</em><sub><em>j</em></sub>;</span> <span class="math display">固定
+<em>α</em><sub><em>i</em></sub> 和 <em>α</em><sub><em>j</em></sub>
+以外的参数, 求解式(6.11)获得更新后的 <em>α</em><sub><em>i</em></sub> 和
+<em>α</em><sub><em>j</em></sub></span></p>
+<p>具体的： <span
+class="math display">$$\alpha_{i}y_{i}+\alpha_{j}y_{j}=c ,
+\alpha_{i}\geqslant0 , \alpha_{j}\geqslant0 ,\\c=-\sum_{k\neq
+i,j}\alpha_ky_k$$</span></p>
+<p>为此我们可以求出每一步优化问题的闭式解 偏移项可以利用kkt条件求出
+<span
+class="math display"><em>y</em><sub><em>s</em></sub>(∑<sub><em>i</em> ∈ <em>S</em></sub><em>α</em><sub><em>i</em></sub><em>y</em><sub><em>i</em></sub><strong>x</strong><sub><em>i</em></sub><sup>T</sup><strong>x</strong><sub><em>s</em></sub> + <em>b</em>) = 1</span></p>
+<h1 id="核函数">6.3 核函数</h1>
+<p>原始的假设基于线性可分的思路，分割函数如下</p>
+<p><span class="math display">$$\begin{aligned}
+f(\boldsymbol{x})&amp; =\boldsymbol{w}^\mathrm{T}\boldsymbol{x}+b \\
+&amp;=\sum_{i=1}^m\alpha_iy_i\boldsymbol{x}_i^\mathrm{T}\boldsymbol{x}+b
+\end{aligned}$$</span></p>
+<p>核函数的引入使得svm拥有了拟合非线性边界的问题，核函数把x映射到了高维空间
+<span
+class="math display"><em>f</em>(<em>x</em>) = <em>w</em><sup>T</sup><em>ϕ</em>(<em>x</em>) + <em>b</em></span>
+最终要求解的对偶问题变为了 <span class="math display">$$\max_{\alpha}
+\sum_{i=1}^{m}\alpha_{i}-\frac{1}{2}
+\sum_{i=1}^{m}\sum_{j=1}^{m}\alpha_{i}\alpha_{j}y_{i}y_{j}\phi(\boldsymbol{x}_{i})^{\mathrm{T}}\phi(\boldsymbol{x}_{j})$$</span></p>
+<p>为了避免高维内积的困难，引入核函数 <span
+class="math display"><em>κ</em>(<strong>x</strong><sub><em>i</em></sub>, <strong>x</strong><sub><em>j</em></sub>) = ⟨<em>ϕ</em>(<strong>x</strong><sub><em>i</em></sub>), <em>ϕ</em>(<strong>x</strong><sub><em>j</em></sub>)⟩ = <em>ϕ</em>(<strong>x</strong><sub><em>i</em></sub>)<sup>T</sup><em>ϕ</em>(<strong>x</strong><sub><em>j</em></sub>)</span>
+给出一些常用核函数 <img
+src="https://www.freeimg.cn/i/2024/11/09/672f34a0c36ca.webp" srcset="/img/loading.gif" lazyload
+alt="1731146911184.png" /></p>
+<h1 id="软间隔与正则化">6.4 软间隔与正则化</h1>
+<p>允许svm在一些样本上出错，引入软间隔概念<br />
+比如，采用hinge损失，将目标函数改为 <span
+class="math display">$$\min_{\boldsymbol{w},b}
+\frac{1}{2}\|\boldsymbol{w}\|^2+C\sum_{i=1}^m\max\left(0,1-y_i\left(\boldsymbol{w}^\mathrm{T}\boldsymbol{x}_i+b\right)\right)$$</span>
+引入松弛变量，将上式子改写为 <span
+class="math display">$$\min_{\boldsymbol{w},b,\xi_i}\quad\frac12\|\boldsymbol{w}\|^2+C\sum_{i=1}^m\xi_i$$</span>
+<span class="math display">$$\mathrm{s.t.}\quad
+y_i(\boldsymbol{w}^\mathrm{T}\boldsymbol{x}_i+b)\geqslant1-\xi_i\\\xi_{i}\geqslant0
+, i=1,2,\ldots,m.$$</span> 注：约束条件就是变量代换的恒等式<br />
+拉格朗日乘子法求解出对偶问题 <span
+class="math display">$$\begin{aligned}
+\underset{\boldsymbol{\alpha}}{\operatorname*{max}}&amp;
+\sum_{i=1}^m\alpha_i-\frac12\sum_{i=1}^m\sum_{j=1}^m\alpha_i\alpha_jy_iy_j\boldsymbol{x}_i^\mathrm{T}\boldsymbol{x}_j
+\\
+\text{s.t.}&amp; \sum_{i=1}^m\alpha_iy_i=0 , \\
+&amp;0\leqslant\alpha_i\leqslant C ,\quad i=1,2,\ldots,m .
+\end{aligned}$$</span></p>
+<h1 id="支持向量回归svr">6.5支持向量回归SVR</h1>
+<p>支持向量回归(Support Vector Regression, 简称 SVR)假设我们能容忍 <span
+class="math inline"><em>f</em>(<strong>x</strong>)</span> 与<span
+class="math inline"><em>y</em></span>之间最多有<span
+class="math inline"><em>ϵ</em></span>的偏差，即仅当<span
+class="math inline"><em>f</em>(<strong>x</strong>)</span>与<span
+class="math inline"><em>y</em></span>之间的差别绝对值大于<span
+class="math inline"><em>ϵ</em></span>时才计算损失.如图 6.6
+所示，这相当于以<span
+class="math inline"><em>f</em>(<strong>x</strong>)</span>为中心，构建了一个宽度为
+2<span
+class="math inline"><em>ϵ</em></span>的间隔带，若训练样本落入此间隔带，则认为是被预测正确的.</p>
+<h1 id="核方法">6.6 核方法</h1>
+
                 
               </div>
             

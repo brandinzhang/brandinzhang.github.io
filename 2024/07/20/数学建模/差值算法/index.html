@@ -16,12 +16,12 @@
   <meta name="author" content="bradin">
   <meta name="keywords" content="">
   
-    <meta name="description" content="插值法定理[定理]设有$n+1$个互不相同的节点$( x_i, y_i)$ $( i&#x3D; 0, 1, 2, . . . , n)$则存在唯一的多项式：$\varphi_n(x)&#x3D;a_0+a_1x+a_2x^2+…+a_nx^n$,使得$\varphi _n( x_j) &#x3D; y_j$ $( j&#x3D; 0, 1, 2, . . . n) .$$$\begin{alig">
+    <meta name="description" content="插值法定理 [定理]设有n + 1个互不相同的节点(xi, yi) (i &#x3D; 0, 1, 2, ..., n)则存在唯一的多项式： φn(x) &#x3D; a0 + a1x + a2x2 + ... + anxn,使得φn(xj) &#x3D; yj (j &#x3D; 0, 1, 2, ...n). $$\begin{aligned}&amp;\text{证}\begin{cases}a_0+a_1x_0+a_2x_0^2">
 <meta property="og:type" content="article">
 <meta property="og:title" content="插值算法">
 <meta property="og:url" content="http://example.com/2024/07/20/%E6%95%B0%E5%AD%A6%E5%BB%BA%E6%A8%A1/%E5%B7%AE%E5%80%BC%E7%AE%97%E6%B3%95/index.html">
 <meta property="og:site_name" content="鸭蛋仙人的博客">
-<meta property="og:description" content="插值法定理[定理]设有$n+1$个互不相同的节点$( x_i, y_i)$ $( i&#x3D; 0, 1, 2, . . . , n)$则存在唯一的多项式：$\varphi_n(x)&#x3D;a_0+a_1x+a_2x^2+…+a_nx^n$,使得$\varphi _n( x_j) &#x3D; y_j$ $( j&#x3D; 0, 1, 2, . . . n) .$$$\begin{alig">
+<meta property="og:description" content="插值法定理 [定理]设有n + 1个互不相同的节点(xi, yi) (i &#x3D; 0, 1, 2, ..., n)则存在唯一的多项式： φn(x) &#x3D; a0 + a1x + a2x2 + ... + anxn,使得φn(xj) &#x3D; yj (j &#x3D; 0, 1, 2, ...n). $$\begin{aligned}&amp;\text{证}\begin{cases}a_0+a_1x_0+a_2x_0^2">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2024-07-19T16:00:00.000Z">
 <meta property="article:modified_time" content="2025-04-28T11:15:39.844Z">
@@ -294,25 +294,80 @@
             
               <div class="markdown-body">
                 
-                <h2 id="插值法定理"><a href="#插值法定理" class="headerlink" title="插值法定理"></a>插值法定理</h2><p>[定理]设有$n+1$个互不相同的节点$( x_i, y_i)$ $( i&#x3D; 0, 1, 2, . . . , n)$则存在唯一的多项式：<br>$\varphi_n(x)&#x3D;a_0+a_1x+a_2x^2+…+a_nx^n$,使得$\varphi _n( x_j) &#x3D; y_j$ $( j&#x3D; 0, 1, 2, . . . n) .$<br>$$\begin{aligned}&amp;\text{证}\begin{cases}a_0+a_1x_0+a_2x_0^2+…+a_nx_0^n&#x3D;y_0\a_0+a_1x_1+a_2x_1^2+…+a_nx_1^n&#x3D;y_1\…\a_0+a_1x_n+a_2x_n^2+…+a_nx_n^n&#x3D;y_n&amp;\end{cases}\text{,令:}A&#x3D;\begin{bmatrix}1&amp;x_0&amp;\cdots&amp;x_0^n\1&amp;x_1&amp;\cdots&amp;x_1^n\\vdots&amp;\vdots&amp;\cdots&amp;\vdots\1&amp;x_n&amp;\cdots&amp;x_n^n\end{bmatrix}\quad X&#x3D;\begin{bmatrix}a_0\a_1\\vdots\a_n\end{bmatrix}\quad Y&#x3D;\begin{bmatrix}y_0\y_1\\vdots\y_n\end{bmatrix}\&amp;\text{一}\end{aligned}$$<br>又$|A|$为范德蒙行列式，很明显$r(A)&#x3D;n$,即矩阵$A$可逆，则对于方程组$AX&#x3D;Y$有且仅有一个解.<br>从而$\varphi_n(x)&#x3D;a_0+a_1x+a_2x^2+…+a_nx^n$唯一存在，证毕.</p>
-<h2 id="拉格朗日插值法"><a href="#拉格朗日插值法" class="headerlink" title="拉格朗日插值法"></a>拉格朗日插值法</h2><ul>
-<li>二维的，对于点 $(x_1.y_1),(x_2,y_2)$<br>$$f(x)&#x3D;\frac{x-x_2}{x_1-x_2}y_1+\frac{x-x_1}{x_2-x_1}y_2$$</li>
-<li>三维的，<br>$$f(x)&#x3D;\frac{\left(x-x_2\right)\left(x-x_3\right)}{\left(x_1-x_2\right)\left(x_1-x_3\right)}y_1+\frac{\left(x-x_1\right)\left(x-x_3\right)}{\left(x_2-x_1\right)\left(x_2-x_3\right)}y_2+\frac{\left(x-x_1\right)\left(x-x_2\right)}{\left(x_3-x_1\right)\left(x_3-x_2\right)}y_3$$</li>
+                <h2 id="插值法定理">插值法定理</h2>
+<p>[定理]设有<span
+class="math inline"><em>n</em> + 1</span>个互不相同的节点<span
+class="math inline">(<em>x</em><sub><em>i</em></sub>, <em>y</em><sub><em>i</em></sub>)</span>
+<span
+class="math inline">(<em>i</em> = 0, 1, 2, ..., <em>n</em>)</span>则存在唯一的多项式：
+<span
+class="math inline"><em>φ</em><sub><em>n</em></sub>(<em>x</em>) = <em>a</em><sub>0</sub> + <em>a</em><sub>1</sub><em>x</em> + <em>a</em><sub>2</sub><em>x</em><sup>2</sup> + ... + <em>a</em><sub><em>n</em></sub><em>x</em><sup><em>n</em></sup></span>,使得<span
+class="math inline"><em>φ</em><sub><em>n</em></sub>(<em>x</em><sub><em>j</em></sub>) = <em>y</em><sub><em>j</em></sub></span>
+<span class="math inline">(<em>j</em> = 0, 1, 2, ...<em>n</em>).</span>
+<span
+class="math display">$$\begin{aligned}&amp;\text{证}\begin{cases}a_0+a_1x_0+a_2x_0^2+...+a_nx_0^n=y_0\\a_0+a_1x_1+a_2x_1^2+...+a_nx_1^n=y_1\\...\\a_0+a_1x_n+a_2x_n^2+...+a_nx_n^n=y_n&amp;\end{cases}\text{,令:}A=\begin{bmatrix}1&amp;x_0&amp;\cdots&amp;x_0^n\\1&amp;x_1&amp;\cdots&amp;x_1^n\\\vdots&amp;\vdots&amp;\cdots&amp;\vdots\\1&amp;x_n&amp;\cdots&amp;x_n^n\end{bmatrix}\quad
+X=\begin{bmatrix}a_0\\a_1\\\vdots\\a_n\end{bmatrix}\quad
+Y=\begin{bmatrix}y_0\\y_1\\\vdots\\y_n\end{bmatrix}\\&amp;\text{一}\end{aligned}$$</span>
+又<span
+class="math inline">|<em>A</em>|</span>为范德蒙行列式，很明显<span
+class="math inline"><em>r</em>(<em>A</em>) = <em>n</em></span>,即矩阵<span
+class="math inline"><em>A</em></span>可逆，则对于方程组<span
+class="math inline"><em>A</em><em>X</em> = <em>Y</em></span>有且仅有一个解.
+从而<span
+class="math inline"><em>φ</em><sub><em>n</em></sub>(<em>x</em>) = <em>a</em><sub>0</sub> + <em>a</em><sub>1</sub><em>x</em> + <em>a</em><sub>2</sub><em>x</em><sup>2</sup> + ... + <em>a</em><sub><em>n</em></sub><em>x</em><sup><em>n</em></sup></span>唯一存在，证毕.</p>
+<h2 id="拉格朗日插值法">拉格朗日插值法</h2>
+<ul>
+<li>二维的，对于点 <span
+class="math inline">(<em>x</em><sub>1</sub>.<em>y</em><sub>1</sub>), (<em>x</em><sub>2</sub>, <em>y</em><sub>2</sub>)</span>
+<span
+class="math display">$$f(x)=\frac{x-x_2}{x_1-x_2}y_1+\frac{x-x_1}{x_2-x_1}y_2$$</span></li>
+<li>三维的， <span
+class="math display">$$f(x)=\frac{\left(x-x_2\right)\left(x-x_3\right)}{\left(x_1-x_2\right)\left(x_1-x_3\right)}y_1+\frac{\left(x-x_1\right)\left(x-x_3\right)}{\left(x_2-x_1\right)\left(x_2-x_3\right)}y_2+\frac{\left(x-x_1\right)\left(x-x_2\right)}{\left(x_3-x_1\right)\left(x_3-x_2\right)}y_3$$</span></li>
 <li>任意的</li>
 </ul>
 <p>拉格朗日插值的基函数为</p>
-<p>$$ l_i(x)&#x3D;\frac{\left(x-x_0\right)\cdots\left(x-x_{i-1}\right)\left(x-x_{i+1}\right)\cdots\left(x-x_n\right)}{\left(x_i-x_0\right)\cdots\left(x_i-x_{i-1}\right)\left(x_i-x_{i+1}\right)\cdots\left(x_i-x_n\right)} $$</p>
+<p><span class="math display">$$
+l_i(x)=\frac{\left(x-x_0\right)\cdots\left(x-x_{i-1}\right)\left(x-x_{i+1}\right)\cdots\left(x-x_n\right)}{\left(x_i-x_0\right)\cdots\left(x_i-x_{i-1}\right)\left(x_i-x_{i+1}\right)\cdots\left(x_i-x_n\right)}
+$$</span></p>
 <p>插值函数为</p>
-<p>$$L_n(x)&#x3D;\sum_{i&#x3D;0}^ny_il_i(x)&#x3D;\sum_{i&#x3D;0}^ny_i\left(\prod_{j&#x3D;0,j\neq i}^n\frac{x-x_j}{x_i-x_j}\right).$$</p>
-<h2 id="牛顿插值法"><a href="#牛顿插值法" class="headerlink" title="牛顿插值法"></a>牛顿插值法</h2><p>观察基本思路<br>$$f_1(x)&#x3D;f(x_0)+b_1(x-x_0)$$<br>可以解得：$f_1(x)&#x3D;f(x_0)+\frac{f(x_1)-f(x_0)}{x_1-x_0}(x-x_0)$<br>再考虑后一个点进行修正，<br>$$f_2(x)&#x3D;f_1(x)+b_2(x-x_0)\left(x-x_1\right)\text{,令}f_2(x_2)&#x3D;f(x_2)$$</p>
+<p><span
+class="math display">$$L_n(x)=\sum_{i=0}^ny_il_i(x)=\sum_{i=0}^ny_i\left(\prod_{j=0,j\neq
+i}^n\frac{x-x_j}{x_i-x_j}\right).$$</span></p>
+<h2 id="牛顿插值法">牛顿插值法</h2>
+<p>观察基本思路 <span
+class="math display"><em>f</em><sub>1</sub>(<em>x</em>) = <em>f</em>(<em>x</em><sub>0</sub>) + <em>b</em><sub>1</sub>(<em>x</em> − <em>x</em><sub>0</sub>)</span>
+可以解得：<span
+class="math inline">$f_1(x)=f(x_0)+\frac{f(x_1)-f(x_0)}{x_1-x_0}(x-x_0)$</span><br />
+再考虑后一个点进行修正， <span
+class="math display"><em>f</em><sub>2</sub>(<em>x</em>) = <em>f</em><sub>1</sub>(<em>x</em>) + <em>b</em><sub>2</sub>(<em>x</em> − <em>x</em><sub>0</sub>)(<em>x</em> − <em>x</em><sub>1</sub>),令<em>f</em><sub>2</sub>(<em>x</em><sub>2</sub>) = <em>f</em>(<em>x</em><sub>2</sub>)</span></p>
 <p>解得</p>
-<p>$$f_2(x)&#x3D;f(x_0)+\frac{f(x_1)-f(x_0)}{x_1-x_0}(x-x_0)+\frac{\left[\frac{f(x_2)-f(x_1)}{x_2-x_1}\right]-\left[\frac{f(x_1)-f(x_0)}{x_1-x_0}\right]}{x_2-x_0}(x-x_0)(x-x_1)$$</p>
+<p><span
+class="math display">$$f_2(x)=f(x_0)+\frac{f(x_1)-f(x_0)}{x_1-x_0}(x-x_0)+\frac{\left[\frac{f(x_2)-f(x_1)}{x_2-x_1}\right]-\left[\frac{f(x_1)-f(x_0)}{x_1-x_0}\right]}{x_2-x_0}(x-x_0)(x-x_1)$$</span></p>
 <p>为便于书写，引入均差的概念，</p>
-<p>其中，两个系数<br>$$b_1&#x3D;\frac{f(x_1)-f(x_0)}{x_1-x_0}, b_2&#x3D;\frac{\left[\frac{f(x_2)-f(x_1)}{x_2-x_1}\right]-\left[\frac{f(x_1)-f(x_0)}{x_1-x_0}\right]}{x_2-x_0}$$<br>成为均差</p>
-<p>$b_1$称为一阶均差，一般形式为<br>$$f[x_i,x_j]&#x3D;\frac{f(x_i)-f(x_j)}{x_i-x_j},i\neq j$$<br>$b_2$称为二阶均差，一般形式为<br>$$ f[x_i,x_j,x_k]&#x3D;\frac{f[i,j]\boldsymbol{-}f[j,k]}{x_i\boldsymbol{-}x_k},i\neq j\neq k $$</p>
+<p>其中，两个系数 <span
+class="math display">$$b_1=\frac{f(x_1)-f(x_0)}{x_1-x_0},
+b_2=\frac{\left[\frac{f(x_2)-f(x_1)}{x_2-x_1}\right]-\left[\frac{f(x_1)-f(x_0)}{x_1-x_0}\right]}{x_2-x_0}$$</span>
+成为均差</p>
+<p><span
+class="math inline"><em>b</em><sub>1</sub></span>称为一阶均差，一般形式为
+<span
+class="math display">$$f[x_i,x_j]=\frac{f(x_i)-f(x_j)}{x_i-x_j},i\neq
+j$$</span> <span
+class="math inline"><em>b</em><sub>2</sub></span>称为二阶均差，一般形式为
+<span class="math display">$$
+f[x_i,x_j,x_k]=\frac{f[i,j]\boldsymbol{-}f[j,k]}{x_i\boldsymbol{-}x_k},i\neq
+j\neq k $$</span></p>
 <p>由此可以写出牛顿插值函数，</p>
-<p>$$\begin{aligned}<br>f(x)&#x3D;&amp; f(x_0)+f<a href="x-x_0">x_0,x_1</a> \<br>&amp;+f[x_0,x_1,x_2]\left(x-x_0\right)\left(x-x_1\right)+\cdotp\cdotp\cdotp \<br>&amp;+f\begin{bmatrix}x_0,x_1,\cdotp\cdotp\cdotp,x_{n-2},x_{n-1}\end{bmatrix}(x-x_0)(x-x_1)\cdots(x-x_{n-2})(x-x_{n-1}) \<br>&amp;+f\left[x_{0},x_{1},\cdotp\cdotp\cdotp,x_{n-1},x_{n}\right]\left(x-x_{0}\right)\left(x-x_{1}\right)\cdotp\cdotp\cdotp\left(x-x_{n-1}\right)\left(x-x_{n}\right)<br>\end{aligned}$$</p>
-<h2 id="埃米尔特插值法"><a href="#埃米尔特插值法" class="headerlink" title="埃米尔特插值法"></a>埃米尔特插值法</h2>
+<p><span class="math display">$$\begin{aligned}
+f(x)=&amp; f(x_0)+f[x_0,x_1](x-x_0) \\
+&amp;+f[x_0,x_1,x_2]\left(x-x_0\right)\left(x-x_1\right)+\cdotp\cdotp\cdotp
+\\
+&amp;+f\begin{bmatrix}x_0,x_1,\cdotp\cdotp\cdotp,x_{n-2},x_{n-1}\end{bmatrix}(x-x_0)(x-x_1)\cdots(x-x_{n-2})(x-x_{n-1})
+\\
+&amp;+f\left[x_{0},x_{1},\cdotp\cdotp\cdotp,x_{n-1},x_{n}\right]\left(x-x_{0}\right)\left(x-x_{1}\right)\cdotp\cdotp\cdotp\left(x-x_{n-1}\right)\left(x-x_{n}\right)
+\end{aligned}$$</span></p>
+<h2 id="埃米尔特插值法">埃米尔特插值法</h2>
+
                 
               </div>
             

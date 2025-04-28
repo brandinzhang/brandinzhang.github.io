@@ -16,16 +16,14 @@
   <meta name="author" content="bradin">
   <meta name="keywords" content="">
   
-    <meta name="description" content="整数规划整数规划 整数线性规划用intlinprog求解 整数非线性规划无求解算法，只能模拟，使用蒙特卡罗或其他智能算法 个人觉得，选取决策变量是建模时及其关键的一步！   01整数规划依然可以考虑使用求解器求解，只要限制lb&#x3D;0，ub&#x3D;1即可 一些例题学校选址要求覆盖全部小区$\begin{array}{|c|c|c|c|c|c|c|c|c|}\hline\text{备选校址">
+    <meta name="description" content="整数规划 整数规划  整数线性规划用intlinprog求解 整数非线性规划无求解算法，只能模拟，使用蒙特卡罗或其他智能算法 个人觉得，选取决策变量是建模时及其关键的一步！   01整数规划 依然可以考虑使用求解器求解，只要限制lb&#x3D;0，ub&#x3D;1即可 一些例题 学校选址要求覆盖全部小区 $\begin{array}{|c|c|c|c|c|c|c|c|c|}\hline\text{备选校址}&amp;amp">
 <meta property="og:type" content="article">
 <meta property="og:title" content="整数与非线性规划模版">
 <meta property="og:url" content="http://example.com/2024/07/26/%E6%95%B0%E5%AD%A6%E5%BB%BA%E6%A8%A1/%E6%95%B4%E6%95%B0%E4%B8%8E%E9%9D%9E%E7%BA%BF%E6%80%A7%E8%A7%84%E5%88%92/index.html">
 <meta property="og:site_name" content="鸭蛋仙人的博客">
-<meta property="og:description" content="整数规划整数规划 整数线性规划用intlinprog求解 整数非线性规划无求解算法，只能模拟，使用蒙特卡罗或其他智能算法 个人觉得，选取决策变量是建模时及其关键的一步！   01整数规划依然可以考虑使用求解器求解，只要限制lb&#x3D;0，ub&#x3D;1即可 一些例题学校选址要求覆盖全部小区$\begin{array}{|c|c|c|c|c|c|c|c|c|}\hline\text{备选校址">
+<meta property="og:description" content="整数规划 整数规划  整数线性规划用intlinprog求解 整数非线性规划无求解算法，只能模拟，使用蒙特卡罗或其他智能算法 个人觉得，选取决策变量是建模时及其关键的一步！   01整数规划 依然可以考虑使用求解器求解，只要限制lb&#x3D;0，ub&#x3D;1即可 一些例题 学校选址要求覆盖全部小区 $\begin{array}{|c|c|c|c|c|c|c|c|c|}\hline\text{备选校址}&amp;amp">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://t.tutu.to/img/B8pKK">
-<meta property="og:image" content="https://s21.ax1x.com/2024/07/27/pkqYLh6.png">
-<meta property="og:image" content="https://s21.ax1x.com/2024/07/27/pkqUqNn.png">
 <meta property="article:published_time" content="2024-07-25T16:00:00.000Z">
 <meta property="article:modified_time" content="2025-04-28T11:00:51.224Z">
 <meta property="article:author" content="bradin">
@@ -299,39 +297,71 @@
             
               <div class="markdown-body">
                 
-                <h1 id="整数规划"><a href="#整数规划" class="headerlink" title="整数规划"></a>整数规划</h1><h2 id="整数规划-1"><a href="#整数规划-1" class="headerlink" title="整数规划"></a>整数规划</h2><ul>
+                <h1 id="整数规划">整数规划</h1>
+<h2 id="整数规划-1">整数规划</h2>
+<ul>
 <li>整数线性规划用intlinprog求解</li>
 <li>整数非线性规划无求解算法，只能模拟，使用蒙特卡罗或其他智能算法</li>
 <li>个人觉得，选取决策变量是建模时及其关键的一步！</li>
 </ul>
-<p><img src="https://t.tutu.to/img/B8pKK" srcset="/img/loading.gif" lazyload></p>
-<h2 id="01整数规划"><a href="#01整数规划" class="headerlink" title="01整数规划"></a>01整数规划</h2><p>依然可以考虑使用求解器求解，只要限制lb&#x3D;0，ub&#x3D;1即可</p>
-<h2 id="一些例题"><a href="#一些例题" class="headerlink" title="一些例题"></a>一些例题</h2><h3 id="学校选址要求覆盖全部小区"><a href="#学校选址要求覆盖全部小区" class="headerlink" title="学校选址要求覆盖全部小区"></a>学校选址要求覆盖全部小区</h3><p>$\begin{array}{|c|c|c|c|c|c|c|c|c|}\hline\text{备选校址}&amp;\text{B1}&amp;\text{B2}&amp;\text{B3}&amp;\text{B4}&amp;\text{B5}&amp;\text{B6}\\hline\text{覆盖小区}&amp;\text{A1,A5,A7}&amp;\text{A1,A2,A5,A8}&amp;\text{A1,A3,A5}&amp;\text{A2,A4,A8}&amp;\text{A3,A6}&amp;\text{A4,A6,A8}\\hline\end{array}$</p>
-<p> 设$x_i&#x3D;\begin{cases}1,&amp;\text{在备选校址 }B_i\text{ 建学校},\0,&amp;\text{在备选校址 }B_i\text{ 不建学校}&amp;\end{cases}$</p>
-<p> 约束条件应当是每个小区至少有一个学校覆盖，得到8个不等式</p>
-<p> $$\begin{gathered}\text{s. t.}\begin{cases}x_1+x_2+x_3\geqslant1\x_4+x_6\geqslant1\x_3+x_5\geqslant1\x_2+x_4\geqslant1\x_5+x_6\geqslant1\x_1\geqslant1\x_2+x_4+x_6\geqslant1\end{cases}\end{gathered}$$</p>
-<p> 求解$\min\sum_{i&#x3D;1}^6x_i$即可</p>
-<h3 id="指派问题"><a href="#指派问题" class="headerlink" title="指派问题"></a>指派问题</h3><p>某公司购置了设备6台，想要分配给四个企业，每个企业得到设备后年利润如下，且每个企业至少分配得到一台设备，问如何分配使得年总利润最大</p>
-<p><a target="_blank" rel="noopener" href="https://imgse.com/i/pkqYLh6"><img src="https://s21.ax1x.com/2024/07/27/pkqYLh6.png" srcset="/img/loading.gif" lazyload alt="pkqYLh6.png"></a></p>
-<p>$x_{ij}$表示第i个机器分给了第j个企业</p>
-<p>$$\begin{aligned}&amp;\max\sum_{i&#x3D;1}^6\sum_{j&#x3D;1}^4c_{ij}x_{ij},\mathrm{<del>s.t.</del>}\begin{cases}\sum_{i&#x3D;1}^6x_{ij}\geqslant1,j&#x3D;1,2,3,4,\\sum_{j&#x3D;1}^4x_{ij}&#x3D;1,i&#x3D;1,\cdots,6,\x_{ij}&#x3D;0\text{ 或 }1,i&#x3D;1,\cdots,6;j&#x3D;1,2,3,4.\end{cases}\end{aligned}$$</p>
-<h3 id="通用方法：蒙特卡罗-随机数硬试"><a href="#通用方法：蒙特卡罗-随机数硬试" class="headerlink" title="通用方法：蒙特卡罗(随机数硬试)"></a>通用方法：蒙特卡罗(随机数硬试)</h3><figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><code class="hljs matlab"><span class="hljs-comment">%% 用蒙特卡洛解决工厂分配设备问题</span><br>clear;clc;<br>n = <span class="hljs-number">10000</span>; <span class="hljs-comment">%模拟次数</span><br>C = [<span class="hljs-number">4</span>,<span class="hljs-number">2</span>,<span class="hljs-number">3</span>,<span class="hljs-number">4</span>;<br>     <span class="hljs-number">6</span>,<span class="hljs-number">4</span>,<span class="hljs-number">5</span>,<span class="hljs-number">5</span>;<br>     <span class="hljs-number">7</span>,<span class="hljs-number">6</span>,<span class="hljs-number">7</span>,<span class="hljs-number">6</span>;<br>     <span class="hljs-number">7</span>,<span class="hljs-number">8</span>,<span class="hljs-number">8</span>,<span class="hljs-number">6</span>;<br>     <span class="hljs-number">7</span>,<span class="hljs-number">9</span>,<span class="hljs-number">8</span>,<span class="hljs-number">6</span>;<br>     <span class="hljs-number">7</span>,<span class="hljs-number">10</span>,<span class="hljs-number">8</span>,<span class="hljs-number">6</span>];<br> res_x = <span class="hljs-number">0</span>;<br> res = <span class="hljs-number">0</span>;<br> <span class="hljs-keyword">for</span> k = <span class="hljs-number">1</span>:n<br>     flag = <span class="hljs-number">1</span>;<br>     x = randi([<span class="hljs-number">1</span>,<span class="hljs-number">4</span>],<span class="hljs-number">1</span>,<span class="hljs-number">6</span>); <span class="hljs-comment">%生成一个1*6的向量，元素为1-4的整数，表示该设备分配给了哪个企业</span><br>     <span class="hljs-keyword">for</span> <span class="hljs-built_in">j</span> = <span class="hljs-number">1</span> : <span class="hljs-number">4</span> <span class="hljs-comment">%检查每个企业至少分配一台</span><br>         <br>         <span class="hljs-keyword">if</span>(<span class="hljs-built_in">ismember</span>(<span class="hljs-built_in">j</span>,x) == <span class="hljs-number">0</span>)<br>             flag = <span class="hljs-number">0</span>;<br>             <span class="hljs-keyword">break</span>;<br>         <span class="hljs-keyword">end</span><br>     <span class="hljs-keyword">end</span><br>     <br>     <span class="hljs-keyword">if</span>(flag == <span class="hljs-number">1</span>)<br>         sum = <span class="hljs-number">0</span>;<br>         <span class="hljs-keyword">for</span> <span class="hljs-built_in">j</span> = <span class="hljs-number">1</span> : <span class="hljs-number">6</span><br>             sum = sum + C(<span class="hljs-built_in">j</span>, x(<span class="hljs-built_in">j</span>));<br>         <span class="hljs-keyword">end</span><br>         <br>         <span class="hljs-keyword">if</span>(sum &gt; res)<br>             res = sum;<br>             res_x = x;<br>         <span class="hljs-keyword">end</span><br>     <span class="hljs-keyword">end</span><br> <span class="hljs-keyword">end</span><br></code></pre></td></tr></table></figure>
-
-
-<h1 id="非线性规划"><a href="#非线性规划" class="headerlink" title="非线性规划"></a>非线性规划</h1><p>利用matlab求解器求解，关键是合理建模，找好非线性约束。比如著名的飞机调度问题。</p>
-<p>在约10000米的高空的某边长为160公里的正方形区域内，经常有若干架飞机作水平飞行，区域内每架飞机的位置和速度向量均有计算机记录其数据，以便进行飞行管理。当一架欲进入该区域的飞机到达区域边缘时，记录其数据后，要立即计算并判断是否会与区域内的飞机发生碰撞，如果会碰撞，则应计算如何调整每架（包括新进入的）飞机飞行角度的方向角，以避免碰撞。现假定条件如下：                      </p>
-<ul>
-<li>①不碰撞的标准为任意两架飞机的距离大于8公里          </li>
-<li>②飞机飞行方向角调整的幅度不应该超过30度         </li>
-<li>③所有飞机飞行速度均为每小时800公里              </li>
-<li>④进入该区域的飞机在到达区域边缘时与区域内飞机的距离应在60公里以上               </li>
-<li>⑤最多需考虑6架飞机          </li>
-<li>⑥不必考虑飞机离开此区域后的情况</li>
-</ul>
-<p>请你对这个碰撞的飞行管理问题建立数学模型，列出计算步骤，要求飞机飞行方向角调整的幅度尽量小。并对一下数据进行计算（方向角误差不超过0.01°）                   </p>
-<p><a target="_blank" rel="noopener" href="https://imgse.com/i/pkqUqNn"><img src="https://s21.ax1x.com/2024/07/27/pkqUqNn.png" srcset="/img/loading.gif" lazyload alt="pkqUqNn.png"></a></p>
-<p>这是一个求解$\min\sum_{i&#x3D;1}^6(\Delta\theta_i)^2$的问题，下面写约束条件。<br>任意两架飞机i，j在时间t时刻的距离<br>$$d_{ij}^{(2)}(t)&#x3D;[x_i(t)-x_j(t)]^2+[y_i(t)-y_j(t)]^2$$<br>求导<br>$$\begin{aligned}d_{ij}^{(2)}&amp;’(t)&#x3D;2[x_i(t)-x_j(t)][x_i(t)-x_j(t)]’+2[y_i(t)-y_j(t)][y_i(t)-y_j(t)]’\&amp;&#x3D;2[x_i(t)-x_j(t)][v\cos(\theta_i+\Delta\theta_i)-v\cos(\theta_j+\Delta\theta_j)]+2[y_i(t)-y_j(t)][v\sin(\theta_i+\Delta\theta_i)-v\sin(\theta_j+\Delta\theta_j)]\end{aligned}$$<br>容易看出其二阶导大于等于0，一阶导等于0求出极值点$t_0$因此只需要保证在极值点时刻<br>$$t_0&#x3D;-\frac{(x_i^0-x_j^0)\left(\cos(\theta_i+\Delta\theta_i)-\cos(\theta_j+\Delta\theta_j)\right)+(y_i^0-y_j^0)\left(\sin(\theta_i+\Delta\theta_i)-\sin(\theta_j+\Delta\theta_j)\right)}{v[\left(\cos(\theta_i+\Delta\theta_i)-\cos(\theta_j+\Delta\theta_j)\right)^2+(\sin(\theta_i+\Delta\theta_i)-\sin(\theta_j+\Delta\theta_j))^2]}$$<br>满足<br>$$d_{ij}^{(2)}(t_0)&gt;64$$<br>飞机就是安全的</p>
-<p>另外两个约束条件分别是<br>$$\mid\Delta\theta_i\mid&lt;\frac\pi6$$<br>与<br>$$\sqrt{\left(x_i(T_i)-x_j(t)\right)^2+\left(y_i(T_i)-y_j(t)\right)^2}&gt;60(i\neq j)$$</p>
+<p><img src="https://t.tutu.to/img/B8pKK" srcset="/img/loading.gif" lazyload /></p>
+<h2 id="整数规划-2">01整数规划</h2>
+<p>依然可以考虑使用求解器求解，只要限制lb=0，ub=1即可</p>
+<h2 id="一些例题">一些例题</h2>
+<h3 id="学校选址要求覆盖全部小区">学校选址要求覆盖全部小区</h3>
+<p><span
+class="math inline">$\begin{array}{|c|c|c|c|c|c|c|c|c|}\hline\text{备选校址}&amp;\text{B1}&amp;\text{B2}&amp;\text{B3}&amp;\text{B4}&amp;\text{B5}&amp;\text{B6}\\\hline\text{覆盖小区}&amp;\text{A1,A5,A7}&amp;\text{A1,A2,A5,A8}&amp;\text{A1,A3,A5}&amp;\text{A2,A4,A8}&amp;\text{A3,A6}&amp;\text{A4,A6,A8}\\\hline\end{array}$</span></p>
+<p>设<span class="math inline">$x_i=\begin{cases}1,&amp;\text{在备选校址
+}B_i\text{ 建学校},\\0,&amp;\text{在备选校址 }B_i\text{
+不建学校}&amp;\end{cases}$</span></p>
+<p>约束条件应当是每个小区至少有一个学校覆盖，得到8个不等式</p>
+<p><span class="math display">$$\begin{gathered}\text{s.
+t.}\begin{cases}x_1+x_2+x_3\geqslant1\\x_4+x_6\geqslant1\\x_3+x_5\geqslant1\\x_2+x_4\geqslant1\\x_5+x_6\geqslant1\\x_1\geqslant1\\x_2+x_4+x_6\geqslant1\end{cases}\end{gathered}$$</span></p>
+<p>求解<span class="math inline">$\min\sum_{i=1}^6x_i$</span>即可</p>
+<p>### 指派问题</p>
+<p>某公司购置了设备6台，想要分配给四个企业，每个企业得到设备后年利润如下，且每个企业至少分配得到一台设备，问如何分配使得年总利润最大</p>
+<p><a target="_blank" rel="noopener" href="https://imgse.com/i/pkqYLh6"><img
+src="https://s21.ax1x.com/2024/07/27/pkqYLh6.png" srcset="/img/loading.gif" lazyload
+alt="pkqYLh6.png" /></a></p>
+<p><span
+class="math inline"><em>x</em><sub><em>i</em><em>j</em></sub></span>表示第i个机器分给了第j个企业</p>
+<p><span
+class="math display">$$\begin{aligned}&amp;\max\sum_{i=1}^6\sum_{j=1}^4c_{ij}x_{ij},\mathrm{~s.t.~}\begin{cases}\sum_{i=1}^6x_{ij}\geqslant1,j=1,2,3,4,\\\sum_{j=1}^4x_{ij}=1,i=1,\cdots,6,\\x_{ij}=0\text{
+或 }1,i=1,\cdots,6;j=1,2,3,4.\end{cases}\end{aligned}$$</span></p>
+<h3 id="通用方法蒙特卡罗随机数硬试">通用方法：蒙特卡罗(随机数硬试)</h3>
+<figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><code class="hljs matlab"><span class="hljs-comment">%% 用蒙特卡洛解决工厂分配设备问题</span><br>clear;clc;<br>n = <span class="hljs-number">10000</span>; <span class="hljs-comment">%模拟次数</span><br>C = [<span class="hljs-number">4</span>,<span class="hljs-number">2</span>,<span class="hljs-number">3</span>,<span class="hljs-number">4</span>;<br>     <span class="hljs-number">6</span>,<span class="hljs-number">4</span>,<span class="hljs-number">5</span>,<span class="hljs-number">5</span>;<br>     <span class="hljs-number">7</span>,<span class="hljs-number">6</span>,<span class="hljs-number">7</span>,<span class="hljs-number">6</span>;<br>     <span class="hljs-number">7</span>,<span class="hljs-number">8</span>,<span class="hljs-number">8</span>,<span class="hljs-number">6</span>;<br>     <span class="hljs-number">7</span>,<span class="hljs-number">9</span>,<span class="hljs-number">8</span>,<span class="hljs-number">6</span>;<br>     <span class="hljs-number">7</span>,<span class="hljs-number">10</span>,<span class="hljs-number">8</span>,<span class="hljs-number">6</span>];<br> res_x = <span class="hljs-number">0</span>;<br> res = <span class="hljs-number">0</span>;<br> <span class="hljs-keyword">for</span> k = <span class="hljs-number">1</span>:n<br>     flag = <span class="hljs-number">1</span>;<br>     x = randi([<span class="hljs-number">1</span>,<span class="hljs-number">4</span>],<span class="hljs-number">1</span>,<span class="hljs-number">6</span>); <span class="hljs-comment">%生成一个1*6的向量，元素为1-4的整数，表示该设备分配给了哪个企业</span><br>     <span class="hljs-keyword">for</span> <span class="hljs-built_in">j</span> = <span class="hljs-number">1</span> : <span class="hljs-number">4</span> <span class="hljs-comment">%检查每个企业至少分配一台</span><br>         <br>         <span class="hljs-keyword">if</span>(<span class="hljs-built_in">ismember</span>(<span class="hljs-built_in">j</span>,x) == <span class="hljs-number">0</span>)<br>             flag = <span class="hljs-number">0</span>;<br>             <span class="hljs-keyword">break</span>;<br>         <span class="hljs-keyword">end</span><br>     <span class="hljs-keyword">end</span><br>     <br>     <span class="hljs-keyword">if</span>(flag == <span class="hljs-number">1</span>)<br>         sum = <span class="hljs-number">0</span>;<br>         <span class="hljs-keyword">for</span> <span class="hljs-built_in">j</span> = <span class="hljs-number">1</span> : <span class="hljs-number">6</span><br>             sum = sum + C(<span class="hljs-built_in">j</span>, x(<span class="hljs-built_in">j</span>));<br>         <span class="hljs-keyword">end</span><br>         <br>         <span class="hljs-keyword">if</span>(sum &gt; res)<br>             res = sum;<br>             res_x = x;<br>         <span class="hljs-keyword">end</span><br>     <span class="hljs-keyword">end</span><br> <span class="hljs-keyword">end</span><br></code></pre></td></tr></table></figure>
+<h1 id="非线性规划">非线性规划</h1>
+<p>利用matlab求解器求解，关键是合理建模，找好非线性约束。比如著名的飞机调度问题。</p>
+<p>在约10000米的高空的某边长为160公里的正方形区域内，经常有若干架飞机作水平飞行，区域内每架飞机的位置和速度向量均有计算机记录其数据，以便进行飞行管理。当一架欲进入该区域的飞机到达区域边缘时，记录其数据后，要立即计算并判断是否会与区域内的飞机发生碰撞，如果会碰撞，则应计算如何调整每架（包括新进入的）飞机飞行角度的方向角，以避免碰撞。现假定条件如下：<br />
+- ①不碰撞的标准为任意两架飞机的距离大于8公里<br />
+- ②飞机飞行方向角调整的幅度不应该超过30度<br />
+- ③所有飞机飞行速度均为每小时800公里<br />
+-
+④进入该区域的飞机在到达区域边缘时与区域内飞机的距离应在60公里以上<br />
+- ⑤最多需考虑6架飞机<br />
+- ⑥不必考虑飞机离开此区域后的情况</p>
+<p>请你对这个碰撞的飞行管理问题建立数学模型，列出计算步骤，要求飞机飞行方向角调整的幅度尽量小。并对一下数据进行计算（方向角误差不超过0.01°）</p>
+<p><a target="_blank" rel="noopener" href="https://imgse.com/i/pkqUqNn"><img
+src="https://s21.ax1x.com/2024/07/27/pkqUqNn.png" srcset="/img/loading.gif" lazyload
+alt="pkqUqNn.png" /></a></p>
+<p>这是一个求解<span
+class="math inline">$\min\sum_{i=1}^6(\Delta\theta_i)^2$</span>的问题，下面写约束条件。<br />
+任意两架飞机i，j在时间t时刻的距离 <span
+class="math display"><em>d</em><sub><em>i</em><em>j</em></sub><sup>(2)</sup>(<em>t</em>) = [<em>x</em><sub><em>i</em></sub>(<em>t</em>) − <em>x</em><sub><em>j</em></sub>(<em>t</em>)]<sup>2</sup> + [<em>y</em><sub><em>i</em></sub>(<em>t</em>) − <em>y</em><sub><em>j</em></sub>(<em>t</em>)]<sup>2</sup></span>
+求导 <span
+class="math display">$$\begin{aligned}d_{ij}^{(2)}&amp;'(t)=2[x_i(t)-x_j(t)][x_i(t)-x_j(t)]'+2[y_i(t)-y_j(t)][y_i(t)-y_j(t)]'\\&amp;=2[x_i(t)-x_j(t)][v\cos(\theta_i+\Delta\theta_i)-v\cos(\theta_j+\Delta\theta_j)]+2[y_i(t)-y_j(t)][v\sin(\theta_i+\Delta\theta_i)-v\sin(\theta_j+\Delta\theta_j)]\end{aligned}$$</span>
+容易看出其二阶导大于等于0，一阶导等于0求出极值点<span
+class="math inline"><em>t</em><sub>0</sub></span>因此只需要保证在极值点时刻
+<span
+class="math display">$$t_0=-\frac{(x_i^0-x_j^0)\left(\cos(\theta_i+\Delta\theta_i)-\cos(\theta_j+\Delta\theta_j)\right)+(y_i^0-y_j^0)\left(\sin(\theta_i+\Delta\theta_i)-\sin(\theta_j+\Delta\theta_j)\right)}{v[\left(\cos(\theta_i+\Delta\theta_i)-\cos(\theta_j+\Delta\theta_j)\right)^2+(\sin(\theta_i+\Delta\theta_i)-\sin(\theta_j+\Delta\theta_j))^2]}$$</span>
+满足 <span
+class="math display"><em>d</em><sub><em>i</em><em>j</em></sub><sup>(2)</sup>(<em>t</em><sub>0</sub>) &gt; 64</span>
+飞机就是安全的</p>
+<p>另外两个约束条件分别是 <span
+class="math display">$$\mid\Delta\theta_i\mid&lt;\frac\pi6$$</span> 与
+<span
+class="math display">$$\sqrt{\left(x_i(T_i)-x_j(t)\right)^2+\left(y_i(T_i)-y_j(t)\right)^2}&gt;60(i\neq
+j)$$</span></p>
 
                 
               </div>

@@ -16,12 +16,12 @@
   <meta name="author" content="bradin">
   <meta name="keywords" content="">
   
-    <meta name="description" content="综述：线性分类包括什么？对于分类任务，线性回归模型就无能为力了，但是我们可以在线性模型的函数进行后再加入一层激活函数 下面我们依次介绍几种线性分类模型 硬输出：感知机我们要解决的问题是：二分类$N$个样本点$(x_{i},y_{i})$，其中$x_{i}\in R^p$引入：$$sign(a)&#x3D;\left{\begin{matrix}+1,a\geq0\-1,a&lt;0\end{mat">
+    <meta name="description" content="综述：线性分类包括什么？ 对于分类任务，线性回归模型就无能为力了，但是我们可以在线性模型的函数进行后再加入一层激活函数 下面我们依次介绍几种线性分类模型 硬输出：感知机 我们要解决的问题是：二分类N个样本点(xi, yi)，其中xi ∈ Rp 引入： $$sign(a)&#x3D;\left\{\begin{matrix}+1,a\geq0\\-1,a&lt;0\end{matrix}\right.$$ 感">
 <meta property="og:type" content="article">
 <meta property="og:title" content="线性分类">
 <meta property="og:url" content="http://example.com/2023/07/12/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E7%BA%BF%E6%80%A7%E5%88%86%E7%B1%BB/index.html">
 <meta property="og:site_name" content="鸭蛋仙人的博客">
-<meta property="og:description" content="综述：线性分类包括什么？对于分类任务，线性回归模型就无能为力了，但是我们可以在线性模型的函数进行后再加入一层激活函数 下面我们依次介绍几种线性分类模型 硬输出：感知机我们要解决的问题是：二分类$N$个样本点$(x_{i},y_{i})$，其中$x_{i}\in R^p$引入：$$sign(a)&#x3D;\left{\begin{matrix}+1,a\geq0\-1,a&lt;0\end{mat">
+<meta property="og:description" content="综述：线性分类包括什么？ 对于分类任务，线性回归模型就无能为力了，但是我们可以在线性模型的函数进行后再加入一层激活函数 下面我们依次介绍几种线性分类模型 硬输出：感知机 我们要解决的问题是：二分类N个样本点(xi, yi)，其中xi ∈ Rp 引入： $$sign(a)&#x3D;\left\{\begin{matrix}+1,a\geq0\\-1,a&lt;0\end{matrix}\right.$$ 感">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2023-07-11T16:00:00.000Z">
 <meta property="article:modified_time" content="2025-04-28T11:14:04.907Z">
@@ -295,50 +295,153 @@
             
               <div class="markdown-body">
                 
-                <h1 id="综述：线性分类包括什么？"><a href="#综述：线性分类包括什么？" class="headerlink" title="综述：线性分类包括什么？"></a>综述：线性分类包括什么？</h1><p>对于分类任务，线性回归模型就无能为力了，但是我们可以在线性模型的函数进行后再加入一层激活函数</p>
+                <h1 id="综述线性分类包括什么">综述：线性分类包括什么？</h1>
+<p>对于分类任务，线性回归模型就无能为力了，但是我们可以在线性模型的函数进行后再加入一层激活函数</p>
 <p>下面我们依次介绍几种线性分类模型</p>
-<h1 id="硬输出：感知机"><a href="#硬输出：感知机" class="headerlink" title="硬输出：感知机"></a>硬输出：感知机</h1><p>我们要解决的问题是：二分类$N$个样本点$(x_{i},y_{i})$，其中$x_{i}\in R^p$<br>引入：<br>$$sign(a)&#x3D;\left{\begin{matrix}+1,a\geq0\-1,a&lt;0\end{matrix}\right.$$</p>
-<p>感知机的思路是把线性回归的结果填充到激活函数中：<br>$$f(x)&#x3D;sign(w^Tx)$$</p>
-<p>这样$f(x)$即为预测结果。<br>此时，问题变为如何求解$w$。我们使用梯度下降的策略，那么自然的需要引入loss函数。为了引入合适的loss函数，做一些必要的讨论   </p>
-<p>我们考虑一个被正确分类的点$(x_i,y_i)$，若 $w^Tx_i&gt;0$，则 $y_i&#x3D;+1$,若$w^Tx_i&lt;0$，则 $y_i&#x3D;-1$,因此对于正确分类的点$(x_i,y_i)$，总有$y_iw^Tx_i&gt;0$      </p>
-<p>综上所述，我们引入形如下式的loss函数<br>$$ L(w)&#x3D;\sum_{x_i\in\mathcal{D}_{wrong}}-y_iw^Tx_i $$</p>
+<h1 id="硬输出感知机">硬输出：感知机</h1>
+<p>我们要解决的问题是：二分类<span
+class="math inline"><em>N</em></span>个样本点<span
+class="math inline">(<em>x</em><sub><em>i</em></sub>, <em>y</em><sub><em>i</em></sub>)</span>，其中<span
+class="math inline"><em>x</em><sub><em>i</em></sub> ∈ <em>R</em><sup><em>p</em></sup></span><br />
+引入： <span
+class="math display">$$sign(a)=\left\{\begin{matrix}+1,a\geq0\\-1,a&lt;0\end{matrix}\right.$$</span></p>
+<p>感知机的思路是把线性回归的结果填充到激活函数中：<br />
+<span
+class="math display"><em>f</em>(<em>x</em>) = <em>s</em><em>i</em><em>g</em><em>n</em>(<em>w</em><sup><em>T</em></sup><em>x</em>)</span></p>
+<p>这样<span
+class="math inline"><em>f</em>(<em>x</em>)</span>即为预测结果。<br />
+此时，问题变为如何求解<span
+class="math inline"><em>w</em></span>。我们使用梯度下降的策略，那么自然的需要引入loss函数。为了引入合适的loss函数，做一些必要的讨论</p>
+<p>我们考虑一个被正确分类的点<span
+class="math inline">(<em>x</em><sub><em>i</em></sub>, <em>y</em><sub><em>i</em></sub>)</span>，若
+<span
+class="math inline"><em>w</em><sup><em>T</em></sup><em>x</em><sub><em>i</em></sub> &gt; 0</span>，则
+<span
+class="math inline"><em>y</em><sub><em>i</em></sub> = +1</span>,若<span
+class="math inline"><em>w</em><sup><em>T</em></sup><em>x</em><sub><em>i</em></sub> &lt; 0</span>，则
+<span
+class="math inline"><em>y</em><sub><em>i</em></sub> = −1</span>,因此对于正确分类的点<span
+class="math inline">(<em>x</em><sub><em>i</em></sub>, <em>y</em><sub><em>i</em></sub>)</span>，总有<span
+class="math inline"><em>y</em><sub><em>i</em></sub><em>w</em><sup><em>T</em></sup><em>x</em><sub><em>i</em></sub> &gt; 0</span></p>
+<p>综上所述，我们引入形如下式的loss函数 <span
+class="math display"><em>L</em>(<em>w</em>) = ∑<sub><em>x</em><sub><em>i</em></sub> ∈ 𝒟<sub><em>w</em><em>r</em><em>o</em><em>n</em><em>g</em></sub></sub> − <em>y</em><sub><em>i</em></sub><em>w</em><sup><em>T</em></sup><em>x</em><sub><em>i</em></sub></span></p>
 <p>应用梯度下降法可得</p>
-<p>$$\frac\partial{\partial w}L(w)&#x3D;\sum_{x_i\in\mathcal{D}_{wrong}}-y_ix_i$$</p>
-<p>$$w^{t+1}\leftarrow w^t+\lambda y_ix_i$$</p>
-<h1 id="硬输出：线性判别"><a href="#硬输出：线性判别" class="headerlink" title="硬输出：线性判别"></a>硬输出：线性判别</h1><p>在 LDA 中，我们的基本想法是选定一个方向，将试验样本顺着这个方向投影，投影后的数据需要满足两个条件，从而可以更好地分类：</p>
-<ol>
+<p><span class="math display">$$\frac\partial{\partial
+w}L(w)=\sum_{x_i\in\mathcal{D}_{wrong}}-y_ix_i$$</span></p>
+<p><span
+class="math display"><em>w</em><sup><em>t</em> + 1</sup> ← <em>w</em><sup><em>t</em></sup> + <em>λ</em><em>y</em><sub><em>i</em></sub><em>x</em><sub><em>i</em></sub></span></p>
+<h1 id="硬输出线性判别">硬输出：线性判别</h1>
+<p>在 LDA
+中，我们的基本想法是选定一个方向，将试验样本顺着这个方向投影，投影后的数据需要满足两个条件，从而可以更好地分类：</p>
+<ol type="1">
 <li>相同类内部的试验样本距离接近。</li>
 <li>不同类别之间的距离较大。</li>
 </ol>
 <p>引入x顺着w方向的投影(有正有负的标量)</p>
-<p>$$z&#x3D;w^T\cdot x(&#x3D;|w|\cdot|x|\cos\theta)$$</p>
-<p>假设属于两类$C_1,C_2$的样本点数量是$N_1,N_2$,我们采用方差矩阵来表征两个类内的总体分布</p>
-<p>$$\begin{aligned}<br>&amp;C_1:Var_z[C_1] &#x3D;\frac1{N_1}\sum_{i&#x3D;1}^{N_1}(z_i-\overline{z_{c1}})(z_i-\overline{z_{c1}})^T \<br>&amp;&#x3D;\frac1{N_1}\sum_{i&#x3D;1}^{N_1}(w^Tx_i-\frac1{N_1}\sum_{j&#x3D;1}^{N_1}w^Tx_j)(w^Tx_i-\frac1{N_1}\sum_{j&#x3D;1}^{N_1}w^Tx_j)^T \<br>&amp;&#x3D;w^T\frac1{N_1}\sum_{i&#x3D;1}^{N_1}(x_i-\overline{x_{c1}})(x_i-\overline{x_{c1}})^Tw \<br>&amp;&#x3D;w^TS_1w \<br>&amp;C_2:Var_z[C_2] &#x3D;\frac1{N_2}\sum_{i&#x3D;1}^{N_2}(z_i-\overline{z_{c2}})(z_i-\overline{z_{c2}})^T \<br>&amp;&#x3D;w^TS_2w<br>\end{aligned}$$</p>
-<p>其中$S_1,S_2$就定义为两个类的方差矩阵，我们想让类内距离小，必然希望两个类的类内距离都是小的，为此定义类内距离函数为<br>$$Var_z[C_1]+Var_z[C_2]&#x3D;w^T(S_1+S_2)w$$</p>
-<p>同时定义类间距离为        </p>
-<p>$$\begin{aligned}<br>(\overline{z_{c1}}-\overline{z_{c2}})^2&amp; &#x3D;(\frac1{N_1}\sum_{i&#x3D;1}^{N_1}w^Tx_i-\frac1{N_2}\sum_{i&#x3D;1}^{N_2}w^Tx_i)^2 \<br>&amp;&#x3D;(w^T(\overline{x_{c1}}-\overline{x_{c2}}))^2 \<br>&amp;&#x3D;w^T(\overline{x_{c1}}-\overline{x_{c2}})(\overline{x_{c1}}-\overline{x_{c2}})^Tw<br>\end{aligned}$$</p>
-<p>用两个值相除作为损失函数，我们要求的$w$就是</p>
-<p>$$\begin{aligned}<br>\hat{w}&#x3D;argmax J(w)&amp; &#x3D;argmax\frac{(\overline{z_{c1}}-\overline{z_{c2}})^2}{Var_z[C_1]+Var_z[C_2]} \<br>&amp;&#x3D;argmax\frac{w^T(\overline{x_{c1}}-\overline{x_{c2}})(\overline{x_{c1}}-\overline{x_{c2}})^Tw}{w^T(S_1+S_2)w} \<br>&amp;&#x3D;\underset{w}{\operatorname*{argmax}}\frac{w^TS_bw}{w^TS_ww}<br>\end{aligned}$$</p>
-<p>显然，我们并不需要知道$w$的具体大小，我们只需要知道$w$的方向即可，对损失函数求导</p>
-<p>$$\frac\partial{\partial w}J(w)&#x3D;0$$</p>
-<p>$$\begin{aligned}&amp;\Longrightarrow S_bw(w^TS_ww)&#x3D;(w^TS_bw)S_ww\&amp;\Longrightarrow w\propto S_w^{-1}S_bw&#x3D;S_w^{-1}(\overline{x_{c1}}-\overline{x_{c2}})(\overline{x_{c1}}-\overline{x_{c2}})^Tw\propto S_w^{-1}(\overline{x_{c1}}-\overline{x_{c2}})\end{aligned}$$</p>
-<p>$S_w^{-1}(\overline{x_{c1}}-\overline{x_{c2}})$就是$w$的方向，再进行归一化即可。<br>$w^Tx&#x3D;0$就是我们的决策边界</p>
-<h1 id="软输出：逻辑回归"><a href="#软输出：逻辑回归" class="headerlink" title="软输出：逻辑回归"></a>软输出：逻辑回归</h1><p>对于一次观测，获得分类$y$的概率为(假定$C_1&#x3D;1,C_2&#x3D;0$ ):<br>$$p(y|x)&#x3D;p_1^yp_0^{1-y}$$<br>那么对于$N$次独立全同的观测 MLE为：<br>$$\hat{w}&#x3D;argmax_wJ(w)&#x3D;argmax_w\sum_{i&#x3D;1}^N(y_i\log p_1+(1-y_i)\log p_0)$$</p>
+<p><span
+class="math display"><em>z</em> = <em>w</em><sup><em>T</em></sup> ⋅ <em>x</em>( = |<em>w</em>|⋅|<em>x</em>|cos <em>θ</em>)</span></p>
+<p>假设属于两类<span
+class="math inline"><em>C</em><sub>1</sub>, <em>C</em><sub>2</sub></span>的样本点数量是<span
+class="math inline"><em>N</em><sub>1</sub>, <em>N</em><sub>2</sub></span>,我们采用方差矩阵来表征两个类内的总体分布</p>
+<p><span class="math display">$$\begin{aligned}
+&amp;C_1:Var_z[C_1]
+=\frac1{N_1}\sum_{i=1}^{N_1}(z_i-\overline{z_{c1}})(z_i-\overline{z_{c1}})^T
+\\
+&amp;=\frac1{N_1}\sum_{i=1}^{N_1}(w^Tx_i-\frac1{N_1}\sum_{j=1}^{N_1}w^Tx_j)(w^Tx_i-\frac1{N_1}\sum_{j=1}^{N_1}w^Tx_j)^T
+\\
+&amp;=w^T\frac1{N_1}\sum_{i=1}^{N_1}(x_i-\overline{x_{c1}})(x_i-\overline{x_{c1}})^Tw
+\\
+&amp;=w^TS_1w \\
+&amp;C_2:Var_z[C_2]
+=\frac1{N_2}\sum_{i=1}^{N_2}(z_i-\overline{z_{c2}})(z_i-\overline{z_{c2}})^T
+\\
+&amp;=w^TS_2w
+\end{aligned}$$</span></p>
+<p>其中<span
+class="math inline"><em>S</em><sub>1</sub>, <em>S</em><sub>2</sub></span>就定义为两个类的方差矩阵，我们想让类内距离小，必然希望两个类的类内距离都是小的，为此定义类内距离函数为
+<span
+class="math display"><em>V</em><em>a</em><em>r</em><sub><em>z</em></sub>[<em>C</em><sub>1</sub>] + <em>V</em><em>a</em><em>r</em><sub><em>z</em></sub>[<em>C</em><sub>2</sub>] = <em>w</em><sup><em>T</em></sup>(<em>S</em><sub>1</sub> + <em>S</em><sub>2</sub>)<em>w</em></span></p>
+<p>同时定义类间距离为</p>
+<p><span class="math display">$$\begin{aligned}
+(\overline{z_{c1}}-\overline{z_{c2}})^2&amp;
+=(\frac1{N_1}\sum_{i=1}^{N_1}w^Tx_i-\frac1{N_2}\sum_{i=1}^{N_2}w^Tx_i)^2
+\\
+&amp;=(w^T(\overline{x_{c1}}-\overline{x_{c2}}))^2 \\
+&amp;=w^T(\overline{x_{c1}}-\overline{x_{c2}})(\overline{x_{c1}}-\overline{x_{c2}})^Tw
+\end{aligned}$$</span></p>
+<p>用两个值相除作为损失函数，我们要求的<span
+class="math inline"><em>w</em></span>就是</p>
+<p><span class="math display">$$\begin{aligned}
+\hat{w}=argmax J(w)&amp;
+=argmax\frac{(\overline{z_{c1}}-\overline{z_{c2}})^2}{Var_z[C_1]+Var_z[C_2]}
+\\
+&amp;=argmax\frac{w^T(\overline{x_{c1}}-\overline{x_{c2}})(\overline{x_{c1}}-\overline{x_{c2}})^Tw}{w^T(S_1+S_2)w}
+\\
+&amp;=\underset{w}{\operatorname*{argmax}}\frac{w^TS_bw}{w^TS_ww}
+\end{aligned}$$</span></p>
+<p>显然，我们并不需要知道<span
+class="math inline"><em>w</em></span>的具体大小，我们只需要知道<span
+class="math inline"><em>w</em></span>的方向即可，对损失函数求导</p>
+<p><span class="math display">$$\frac\partial{\partial
+w}J(w)=0$$</span></p>
+<p><span class="math display">$$\begin{aligned}&amp;\Longrightarrow
+S_bw(w^TS_ww)=(w^TS_bw)S_ww\\&amp;\Longrightarrow w\propto
+S_w^{-1}S_bw=S_w^{-1}(\overline{x_{c1}}-\overline{x_{c2}})(\overline{x_{c1}}-\overline{x_{c2}})^Tw\propto
+S_w^{-1}(\overline{x_{c1}}-\overline{x_{c2}})\end{aligned}$$</span></p>
+<p><span
+class="math inline">$S_w^{-1}(\overline{x_{c1}}-\overline{x_{c2}})$</span>就是<span
+class="math inline"><em>w</em></span>的方向，再进行归一化即可。 <span
+class="math inline"><em>w</em><sup><em>T</em></sup><em>x</em> = 0</span>就是我们的决策边界</p>
+<h1 id="软输出逻辑回归">软输出：逻辑回归</h1>
+<p>对于一次观测，获得分类<span
+class="math inline"><em>y</em></span>的概率为(假定<span
+class="math inline"><em>C</em><sub>1</sub> = 1, <em>C</em><sub>2</sub> = 0</span>
+): <span
+class="math display"><em>p</em>(<em>y</em>|<em>x</em>) = <em>p</em><sub>1</sub><sup><em>y</em></sup><em>p</em><sub>0</sub><sup>1 − <em>y</em></sup></span>
+那么对于<span class="math inline"><em>N</em></span>次独立全同的观测
+MLE为： <span
+class="math display">$$\hat{w}=argmax_wJ(w)=argmax_w\sum_{i=1}^N(y_i\log
+p_1+(1-y_i)\log p_0)$$</span></p>
 <p>接着使用梯度下降推导即可，我们相当于在这里直接导出了交叉熵函数</p>
-<h1 id="软输出：高斯判别-关注数据本身特征"><a href="#软输出：高斯判别-关注数据本身特征" class="headerlink" title="软输出：高斯判别:关注数据本身特征"></a>软输出：高斯判别:关注数据本身特征</h1><p>假设数据分布满足这样的形式</p>
-<p>$\begin{aligned}&amp;1.\quad y\sim Bernoulli(\phi)\&amp;2.\quad x|y&#x3D;1\sim\mathcal{N}(\mu_1,\Sigma)\&amp;3.\quad x|y&#x3D;0\sim\mathcal{N}(\mu_0,\Sigma)\end{aligned}$</p>
-<p>$$argmax_{\phi,\mu_0,\mu_1,\Sigma}\log p(X|Y)p(Y)&#x3D;argmax_{\phi,\mu_0,\mu_1,\Sigma}\sum_{i&#x3D;1}^N(\log p(x_i|y_i)+\log p(y_i))$$</p>
+<h1
+id="软输出高斯判别关注数据本身特征">软输出：高斯判别:关注数据本身特征</h1>
+<p>假设数据分布满足这样的形式</p>
+<p><span class="math inline">$\begin{aligned}&amp;1.\quad y\sim
+Bernoulli(\phi)\\&amp;2.\quad
+x|y=1\sim\mathcal{N}(\mu_1,\Sigma)\\&amp;3.\quad
+x|y=0\sim\mathcal{N}(\mu_0,\Sigma)\end{aligned}$</span></p>
+<p><span class="math display">$$argmax_{\phi,\mu_0,\mu_1,\Sigma}\log
+p(X|Y)p(Y)=argmax_{\phi,\mu_0,\mu_1,\Sigma}\sum_{i=1}^N(\log
+p(x_i|y_i)+\log p(y_i))$$</span></p>
 <p>利用交叉熵形式技巧把上面的概率式子展开</p>
-<p>$$&#x3D;argmax_{\phi,\mu_0,\mu_1,\Sigma}\sum_{i&#x3D;1}^N((1-y_i)\log\mathcal{N}(\mu_0,\Sigma)+y_i\log\mathcal{N}(\mu_1,\Sigma)+y_i\log\phi+(1-y_i)\log(1-\phi))$$</p>
-<p>求解$\phi$,对$\phi$求偏导数令其等于零即可<br>$$\begin{aligned}\sum_{i&#x3D;1}^N\frac{y_i}\phi+\frac{y_i-1}{1-\phi}&#x3D;0\\sum_{i&#x3D;1}^Ny_i\\Longrightarrow\phi&#x3D;\frac{\sum_{i&#x3D;1}^Ny_i}N&#x3D;\frac{N_1}N\end{aligned}$$</p>
-<p>求解$\mu_1$,对$\mu_1$求偏导</p>
-<p>$$\begin{aligned}<br>\hat{\mu}<em>{1}&amp; &#x3D;argmax</em>{\mu_1}\sum_{i&#x3D;1}^Ny_i\log\mathcal{N}(\mu_1,\Sigma) \<br>&amp;&#x3D;argmin_{\mu_1}\sum_{i&#x3D;1}^Ny_i(x_i-\mu_1)^T\Sigma^{-1}(x_i-\mu_1)<br>\end{aligned}$$</p>
-<p>$$\mu_1&#x3D;\frac{\sum_{i&#x3D;1}^Ny_ix_i}{\sum_{i&#x3D;1}^Ny_i}&#x3D;\frac{\sum_{i&#x3D;1}^Ny_ix_i}{N_1}$$</p>
-<p>根据对称性，<br>$$\mu_0&#x3D;\frac{\sum_{i&#x3D;1}^N(1-y_i)x_i}{N_0}$$</p>
+<p><span
+class="math display">$$=argmax_{\phi,\mu_0,\mu_1,\Sigma}\sum_{i=1}^N((1-y_i)\log\mathcal{N}(\mu_0,\Sigma)+y_i\log\mathcal{N}(\mu_1,\Sigma)+y_i\log\phi+(1-y_i)\log(1-\phi))$$</span></p>
+<p>求解<span class="math inline"><em>ϕ</em></span>,对<span
+class="math inline"><em>ϕ</em></span>求偏导数令其等于零即可 <span
+class="math display">$$\begin{aligned}\sum_{i=1}^N\frac{y_i}\phi+\frac{y_i-1}{1-\phi}=0\\\sum_{i=1}^Ny_i\\\Longrightarrow\phi=\frac{\sum_{i=1}^Ny_i}N=\frac{N_1}N\end{aligned}$$</span></p>
+<p>求解<span class="math inline"><em>μ</em><sub>1</sub></span>,对<span
+class="math inline"><em>μ</em><sub>1</sub></span>求偏导</p>
+<p><span class="math display">$$\begin{aligned}
+\hat{\mu}_{1}&amp;
+=argmax_{\mu_1}\sum_{i=1}^Ny_i\log\mathcal{N}(\mu_1,\Sigma) \\
+&amp;=argmin_{\mu_1}\sum_{i=1}^Ny_i(x_i-\mu_1)^T\Sigma^{-1}(x_i-\mu_1)
+\end{aligned}$$</span></p>
+<p><span
+class="math display">$$\mu_1=\frac{\sum_{i=1}^Ny_ix_i}{\sum_{i=1}^Ny_i}=\frac{\sum_{i=1}^Ny_ix_i}{N_1}$$</span></p>
+<p>根据对称性， <span
+class="math display">$$\mu_0=\frac{\sum_{i=1}^N(1-y_i)x_i}{N_0}$$</span></p>
 <p>求解方差，需要一些技巧，这里直接给出结果</p>
-<p>$$\Sigma&#x3D;\frac{N_1S_1+N_2S_2}N$$</p>
-<h1 id="软输出-朴素贝叶斯分类器"><a href="#软输出-朴素贝叶斯分类器" class="headerlink" title="软输出:朴素贝叶斯分类器"></a>软输出:朴素贝叶斯分类器</h1><p><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1eT411V7jM/?spm_id_from=333.337.search-card.all.click&vd_source=84b977d2834d5eca6c0ca78bd619156f">链接</a></p>
-<p>$$\begin{aligned}<br>&amp;T&#x3D;{(x_{1},y_{1}),(x_{2},y_{2}),\ldots,(x_{N},y_{N})} \<br>&amp;x_i&#x3D;(x^1,\ldots,x^n) \<br>&amp;y_{i}&#x3D;c_{k}, \text{其中}k&#x3D;1\ldots K \<br>&amp;&amp;y\neq argmax_{c_k}P(y&#x3D;c_k)\prod_jP(x^j|y&#x3D;c_k)<br>\end{aligned}$$</p>
+<p><span
+class="math display">$$\Sigma=\frac{N_1S_1+N_2S_2}N$$</span></p>
+<h1 id="软输出朴素贝叶斯分类器">软输出:朴素贝叶斯分类器</h1>
+<p><a
+target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1eT411V7jM/?spm_id_from=333.337.search-card.all.click&amp;vd_source=84b977d2834d5eca6c0ca78bd619156f">链接</a></p>
+<p><span class="math display">$$\begin{aligned}
+&amp;T=\{(x_{1},y_{1}),(x_{2},y_{2}),\ldots,(x_{N},y_{N})\} \\
+&amp;x_i=(x^1,\ldots,x^n) \\
+&amp;y_{i}=c_{k}, \text{其中}k=1\ldots K \\
+&amp;&amp;y\neq argmax_{c_k}P(y=c_k)\prod_jP(x^j|y=c_k)
+\end{aligned}$$</span></p>
 <p>我们选择概率最大的作为分类结果</p>
 
                 

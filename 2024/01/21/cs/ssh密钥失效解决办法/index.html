@@ -16,19 +16,13 @@
   <meta name="author" content="bradin">
   <meta name="keywords" content="">
   
-    <meta name="description" content="解决ssh密钥过期等一系列问题由于期末考试，大概两三周没有更新博客，再次git提交时出现了如下问题。经过一系列搜索，初步判断是由于时间问题，ssh密钥失效，于是重新生成了ssh密钥并提交到github，流程如下。 重新生成提交ssh密钥1 由C:\Users\bradin\.ssh 找到.ssh文件夹，删除该文件夹下所有文件2 查看git全局配置是否正确 在任意位置git bash 1git co">
+    <meta name="description" content="解决ssh密钥过期等一系列问题 由于期末考试，大概两三周没有更新博客，再次git提交时出现了如下问题。  经过一系列搜索，初步判断是由于时间问题，ssh密钥失效，于是重新生成了ssh密钥并提交到github，流程如下。 重新生成提交ssh密钥 1 由C:\Users\bradin\.ssh找到.ssh文件夹，删除该文件夹下所有文件  2 查看git全局配置是否正确 在任意位置git bash 1g">
 <meta property="og:type" content="article">
 <meta property="og:title" content="ssh密钥失效解决办法">
 <meta property="og:url" content="http://example.com/2024/01/21/cs/ssh%E5%AF%86%E9%92%A5%E5%A4%B1%E6%95%88%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/index.html">
 <meta property="og:site_name" content="鸭蛋仙人的博客">
-<meta property="og:description" content="解决ssh密钥过期等一系列问题由于期末考试，大概两三周没有更新博客，再次git提交时出现了如下问题。经过一系列搜索，初步判断是由于时间问题，ssh密钥失效，于是重新生成了ssh密钥并提交到github，流程如下。 重新生成提交ssh密钥1 由C:\Users\bradin\.ssh 找到.ssh文件夹，删除该文件夹下所有文件2 查看git全局配置是否正确 在任意位置git bash 1git co">
+<meta property="og:description" content="解决ssh密钥过期等一系列问题 由于期末考试，大概两三周没有更新博客，再次git提交时出现了如下问题。  经过一系列搜索，初步判断是由于时间问题，ssh密钥失效，于是重新生成了ssh密钥并提交到github，流程如下。 重新生成提交ssh密钥 1 由C:\Users\bradin\.ssh找到.ssh文件夹，删除该文件夹下所有文件  2 查看git全局配置是否正确 在任意位置git bash 1g">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://picdm.sunbangyan.cn/2024/01/21/0ddd2812d6dfd55ee3946182163166b8.jpeg">
-<meta property="og:image" content="https://picdm.sunbangyan.cn/2024/01/21/d6fcfb6e055c4be1b1fa3645b118676d.jpeg">
-<meta property="og:image" content="https://picdm.sunbangyan.cn/2024/01/21/53dffd3b4f3ad71184841a5dfe2ddd10.jpeg">
-<meta property="og:image" content="https://picdl.sunbangyan.cn/2024/01/21/781ff758163fc6ce36d851bbb620e077.jpeg">
-<meta property="og:image" content="https://picst.sunbangyan.cn/2024/01/21/b4f2290ab983b4cd98da541d7294efea.jpeg">
-<meta property="og:image" content="https://picdl.sunbangyan.cn/2024/01/21/519523872b41e4084da1588819b2afdd.jpeg">
 <meta property="article:published_time" content="2024-01-21T11:47:20.000Z">
 <meta property="article:modified_time" content="2024-01-21T11:48:18.000Z">
 <meta property="article:author" content="bradin">
@@ -36,7 +30,6 @@
 <meta property="article:tag" content="ssh">
 <meta property="article:tag" content="github">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://picdm.sunbangyan.cn/2024/01/21/0ddd2812d6dfd55ee3946182163166b8.jpeg">
   
   
     <meta name="referrer" content="no-referrer-when-downgrade">
@@ -304,36 +297,55 @@
             
               <div class="markdown-body">
                 
-                <h2 id="解决ssh密钥过期等一系列问题"><a href="#解决ssh密钥过期等一系列问题" class="headerlink" title="解决ssh密钥过期等一系列问题"></a>解决ssh密钥过期等一系列问题</h2><p>由于期末考试，大概两三周没有更新博客，再次git提交时出现了如下问题。<br><img src="https://picdm.sunbangyan.cn/2024/01/21/0ddd2812d6dfd55ee3946182163166b8.jpeg" srcset="/img/loading.gif" lazyload><br>经过一系列搜索，初步判断是由于时间问题，ssh密钥失效，于是重新生成了ssh密钥并提交到github，流程如下。</p>
-<h4 id="重新生成提交ssh密钥"><a href="#重新生成提交ssh密钥" class="headerlink" title="重新生成提交ssh密钥"></a>重新生成提交ssh密钥</h4><p>1 由<code>C:\Users\bradin\.ssh </code>找到.ssh文件夹，删除该文件夹下所有文件<br><img src="https://picdm.sunbangyan.cn/2024/01/21/d6fcfb6e055c4be1b1fa3645b118676d.jpeg" srcset="/img/loading.gif" lazyload><br>2 查看git全局配置是否正确 在任意位置git bash</p>
+                <h2 id="解决ssh密钥过期等一系列问题">解决ssh密钥过期等一系列问题</h2>
+<p>由于期末考试，大概两三周没有更新博客，再次git提交时出现了如下问题。
+<img
+src="https://picdm.sunbangyan.cn/2024/01/21/0ddd2812d6dfd55ee3946182163166b8.jpeg" srcset="/img/loading.gif" lazyload />
+经过一系列搜索，初步判断是由于时间问题，ssh密钥失效，于是重新生成了ssh密钥并提交到github，流程如下。</p>
+<h4 id="重新生成提交ssh密钥">重新生成提交ssh密钥</h4>
+<p>1
+由<code>C:\Users\bradin\.ssh</code>找到.ssh文件夹，删除该文件夹下所有文件
+<img
+src="https://picdm.sunbangyan.cn/2024/01/21/d6fcfb6e055c4be1b1fa3645b118676d.jpeg" srcset="/img/loading.gif" lazyload />
+2 查看git全局配置是否正确 在任意位置git bash</p>
 <figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs lua">git <span class="hljs-built_in">config</span> <span class="hljs-comment">--list</span><br></code></pre></td></tr></table></figure>
-
 <p>如果不正确，通过以下命令修改邮箱或用户名</p>
 <figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs stylus">修改用户名<br>git config <span class="hljs-attr">--global</span> user<span class="hljs-selector-class">.name</span> <span class="hljs-string">&#x27;brandinzhang&#x27;</span><br>修改邮箱<br>git config <span class="hljs-attr">--global</span> user<span class="hljs-selector-class">.email</span> <span class="hljs-string">&#x27;brandin_zhang@163.com&#x27;</span><br></code></pre></td></tr></table></figure>
-
 <p>3 修改本地ssh</p>
 <figure class="highlight excel"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs excel">ssh-keygen -<span class="hljs-built_in">t</span> rsa -C <span class="hljs-string">&quot;brandin_zhang@163.com&quot;</span><br></code></pre></td></tr></table></figure>
-
-<p>一路回车，遇到y&#x2F;n 键入y</p>
-<p>4 打开<code>C:\Users\bradin\.ssh\id_rsa.pub</code> 复制该文件中的密钥内容<br>5 进入github，在settings中找到SSH and GPG keys<br><img src="https://picdm.sunbangyan.cn/2024/01/21/53dffd3b4f3ad71184841a5dfe2ddd10.jpeg" srcset="/img/loading.gif" lazyload><br>6 删除旧的ssh密钥，加入新的ssh密钥（new ssh key）</p>
-<p><img src="https://picdl.sunbangyan.cn/2024/01/21/781ff758163fc6ce36d851bbb620e077.jpeg" srcset="/img/loading.gif" lazyload></p>
-<p>将<code>C:\Users\bradin\.ssh\id_rsa.pub</code> 文件中的密钥内容粘贴进来</p>
-<p><img src="https://picst.sunbangyan.cn/2024/01/21/b4f2290ab983b4cd98da541d7294efea.jpeg" srcset="/img/loading.gif" lazyload><br>7 最后需要连接git与github 在任意位置git bash键入以下内容</p>
+<p>一路回车，遇到y/n 键入y</p>
+<p>4 打开<code>C:\Users\bradin\.ssh\id_rsa.pub</code>
+复制该文件中的密钥内容 5 进入github，在settings中找到SSH and GPG keys
+<img
+src="https://picdm.sunbangyan.cn/2024/01/21/53dffd3b4f3ad71184841a5dfe2ddd10.jpeg" srcset="/img/loading.gif" lazyload />
+6 删除旧的ssh密钥，加入新的ssh密钥（new ssh key）</p>
+<p><img
+src="https://picdl.sunbangyan.cn/2024/01/21/781ff758163fc6ce36d851bbb620e077.jpeg" srcset="/img/loading.gif" lazyload /></p>
+<p>将<code>C:\Users\bradin\.ssh\id_rsa.pub</code>
+文件中的密钥内容粘贴进来</p>
+<p><img
+src="https://picst.sunbangyan.cn/2024/01/21/b4f2290ab983b4cd98da541d7294efea.jpeg" srcset="/img/loading.gif" lazyload />
+7 最后需要连接git与github 在任意位置git bash键入以下内容</p>
 <figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs nginx"><span class="hljs-attribute">ssh</span> -T git<span class="hljs-variable">@github</span>.com<br></code></pre></td></tr></table></figure>
-
 <p>理论上这样就结束了，等待连接成功即可。但是我又出现了新的问题：</p>
 <figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs pgsql"># ssh:<span class="hljs-keyword">connect</span> <span class="hljs-keyword">to</span> host github.com port <span class="hljs-number">22</span>: <span class="hljs-keyword">Connection</span> timed <span class="hljs-keyword">out</span><br></code></pre></td></tr></table></figure>
-
 <p>也是就说github在端口号22上面的链接超时了。经过搜索最终通过下面方法解决了这一问题</p>
-<h4 id="解决github22-端口超时问题"><a href="#解决github22-端口超时问题" class="headerlink" title="解决github22 端口超时问题"></a>解决github22 端口超时问题</h4><p>参考<br>1 <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/521340971">坑：ssh: connect to host github.com port 22: Connection refused - 知乎 (zhihu.com)</a><br>2 <a target="_blank" rel="noopener" href="https://blog.csdn.net/m0_54944506/article/details/135652028">Git问题：解决“ssh:connect to host github.com port 22: Connection timed out”_github ssh 无法连接-CSDN博客</a><br>得到以下解决方案<br>1 在.ssh文件夹中新建一个config文件</p>
+<h4 id="解决github22-端口超时问题">解决github22 端口超时问题</h4>
+<p>参考 1 <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/521340971">坑：ssh:
+connect to host github.com port 22: Connection refused - 知乎
+(zhihu.com)</a> 2 <a
+target="_blank" rel="noopener" href="https://blog.csdn.net/m0_54944506/article/details/135652028">Git问题：解决“ssh:connect
+to host github.com port 22: Connection timed out”_github ssh
+无法连接-CSDN博客</a> 得到以下解决方案 1
+在.ssh文件夹中新建一个config文件</p>
 <figure class="highlight arduino"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs arduino">touch config<br></code></pre></td></tr></table></figure>
-
 <p>2 创建完成后打开输入以下内容</p>
 <figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs crmsh">Host github.com<br><span class="hljs-keyword">User</span> <span class="hljs-title">git</span><br>Hostname ssh.github.com<br>PreferredAuthentications publickey<br>IdentityFile ~/.ssh/id_rsa<br>Port <span class="hljs-number">443</span><br></code></pre></td></tr></table></figure>
-
-<p>这样ssh连接GitHub的时候就会使用443端口。<br>3 一路回车，提示处输入yes而非y 显示下图就连接成功了<br><img src="https://picdl.sunbangyan.cn/2024/01/21/519523872b41e4084da1588819b2afdd.jpeg" srcset="/img/loading.gif" lazyload><br>4 回到原来blog目录利用hexo 上传文件</p>
+<p>这样ssh连接GitHub的时候就会使用443端口。 3
+一路回车，提示处输入yes而非y 显示下图就连接成功了 <img
+src="https://picdl.sunbangyan.cn/2024/01/21/519523872b41e4084da1588819b2afdd.jpeg" srcset="/img/loading.gif" lazyload />
+4 回到原来blog目录利用hexo 上传文件</p>
 <figure class="highlight crystal"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs crystal"><span class="hljs-variable">$ </span>hexo clean<br><span class="hljs-variable">$ </span>hexo g<br><span class="hljs-variable">$ </span>hexo d<br></code></pre></td></tr></table></figure>
-
 <p>即可正常上传</p>
 
                 

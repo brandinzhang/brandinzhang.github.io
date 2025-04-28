@@ -16,26 +16,22 @@
   <meta name="author" content="bradin">
   <meta name="keywords" content="">
   
-    <meta name="description" content="凸函数的四种判别第一定义$f$是凸函数，当且仅当其定义域为凸集，且 $$\forall x, y\in S, \forall \theta \in [ 0, 1],f( \theta x+ ( 1- \theta ) y) \leq \theta f( x) + ( 1- \theta ) f( y)$$ 第二定义$dom f$ 为凸,且 $\forall x \in dom f, \forall">
+    <meta name="description" content="凸函数的四种判别 第一定义 f是凸函数，当且仅当其定义域为凸集，且 ∀x, y ∈ S, ∀θ ∈ [0, 1], f(θx + (1 − θ)y) ≤ θf(x) + (1 − θ)f(y) 第二定义 domf 为凸,且 ∀x ∈ domf, ∀v, g(t) &#x3D; f(x + tv) 为凸函数 几何意义是用一个超平面去截凸函数，截面一定也是凸函数 一阶条件 设f : Rn → R可微，则f为凸函">
 <meta property="og:type" content="article">
 <meta property="og:title" content="凸函数">
 <meta property="og:url" content="http://example.com/2024/08/23/%E6%95%B0%E5%AD%A6/%E5%87%B8%E4%BC%98%E5%8C%96/%E5%87%B8%E5%87%BD%E6%95%B0/index.html">
 <meta property="og:site_name" content="鸭蛋仙人的博客">
-<meta property="og:description" content="凸函数的四种判别第一定义$f$是凸函数，当且仅当其定义域为凸集，且 $$\forall x, y\in S, \forall \theta \in [ 0, 1],f( \theta x+ ( 1- \theta ) y) \leq \theta f( x) + ( 1- \theta ) f( y)$$ 第二定义$dom f$ 为凸,且 $\forall x \in dom f, \forall">
+<meta property="og:description" content="凸函数的四种判别 第一定义 f是凸函数，当且仅当其定义域为凸集，且 ∀x, y ∈ S, ∀θ ∈ [0, 1], f(θx + (1 − θ)y) ≤ θf(x) + (1 − θ)f(y) 第二定义 domf 为凸,且 ∀x ∈ domf, ∀v, g(t) &#x3D; f(x + tv) 为凸函数 几何意义是用一个超平面去截凸函数，截面一定也是凸函数 一阶条件 设f : Rn → R可微，则f为凸函">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://www.freeimg.cn/i/2024/08/30/66d17900db001.png">
-<meta property="og:image" content="https://www.freeimg.cn/i/2024/08/30/66d189a7cd984.png">
-<meta property="og:image" content="https://www.freeimg.cn/i/2024/08/30/66d1e402469f1.png">
 <meta property="og:image" content="https://www.freeimg.cn/i/2024/08/30/66d1e4038e3a2.png">
 <meta property="og:image" content="https://www.freeimg.cn/i/2024/08/30/66d1e42caf796.png">
 <meta property="og:image" content="https://www.freeimg.cn/i/2024/08/30/66d1e46138e80.png">
-<meta property="og:image" content="https://www.freeimg.cn/i/2024/08/30/66d1e559ce465.png">
 <meta property="article:published_time" content="2024-08-22T16:00:00.000Z">
 <meta property="article:modified_time" content="2025-04-28T11:14:57.072Z">
 <meta property="article:author" content="bradin">
 <meta property="article:tag" content="数学">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://www.freeimg.cn/i/2024/08/30/66d17900db001.png">
+<meta name="twitter:image" content="https://www.freeimg.cn/i/2024/08/30/66d1e4038e3a2.png">
   
   
     <meta name="referrer" content="no-referrer-when-downgrade">
@@ -303,129 +299,360 @@
             
               <div class="markdown-body">
                 
-                <h1 id="凸函数的四种判别"><a href="#凸函数的四种判别" class="headerlink" title="凸函数的四种判别"></a>凸函数的四种判别</h1><h3 id="第一定义"><a href="#第一定义" class="headerlink" title="第一定义"></a>第一定义</h3><p>$f$是凸函数，当且仅当其定义域为凸集，且</p>
-<p>$$\forall x, y\in S, \forall \theta \in [ 0, 1],f( \theta x+ ( 1- \theta ) y) \leq \theta f( x) + ( 1- \theta ) f( y)$$</p>
-<h3 id="第二定义"><a href="#第二定义" class="headerlink" title="第二定义"></a>第二定义</h3><p>$dom f$ 为凸,且 $\forall x \in dom f, \forall v, g(t) &#x3D; f(x+tv)$ 为凸函数</p>
+                <h1 id="凸函数的四种判别">凸函数的四种判别</h1>
+<h3 id="第一定义">第一定义</h3>
+<p><span
+class="math inline"><em>f</em></span>是凸函数，当且仅当其定义域为凸集，且</p>
+<p><span
+class="math display">∀<em>x</em>, <em>y</em> ∈ <em>S</em>, ∀<em>θ</em> ∈ [0, 1], <em>f</em>(<em>θ</em><em>x</em> + (1 − <em>θ</em>)<em>y</em>) ≤ <em>θ</em><em>f</em>(<em>x</em>) + (1 − <em>θ</em>)<em>f</em>(<em>y</em>)</span></p>
+<h3 id="第二定义">第二定义</h3>
+<p><span
+class="math inline"><em>d</em><em>o</em><em>m</em><em>f</em></span>
+为凸,且 <span
+class="math inline">∀<em>x</em> ∈ <em>d</em><em>o</em><em>m</em><em>f</em>, ∀<em>v</em>, <em>g</em>(<em>t</em>) = <em>f</em>(<em>x</em> + <em>t</em><em>v</em>)</span>
+为凸函数</p>
 <p>几何意义是用一个超平面去截凸函数，截面一定也是凸函数</p>
-<h3 id="一阶条件"><a href="#一阶条件" class="headerlink" title="一阶条件"></a>一阶条件</h3><p>设$f: R^{n}\to R$可微，则$f$为凸函数等价于以下两点同时成立      </p>
-<ul>
-<li>$dom f$为凸集</li>
-<li>$f(y)\geq f(x)+\nabla f^{T}(x)(y-x), \forall x,y\in dom f$</li>
-</ul>
-<p><img src="https://www.freeimg.cn/i/2024/08/30/66d17900db001.png" srcset="/img/loading.gif" lazyload></p>
-<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/c_1280779583399882752">证明从略，复习点击此处</a></p>
-<h3 id="二阶条件"><a href="#二阶条件" class="headerlink" title="二阶条件"></a>二阶条件</h3><p>若$f$二阶可微，则$f$为凸函数等价于</p>
-<p>$$\nabla^{2}f(x)\succeq0, \forall x\in dom f$$</p>
-<h3 id="凸函数的扩展"><a href="#凸函数的扩展" class="headerlink" title="凸函数的扩展"></a>凸函数的扩展</h3><p>$f:$ $R^{n}\to R$为凸函数，dom $f:$ $C\subseteq R^{n}$</p>
-<p>$\tilde{f} &#x3D; \begin{cases} f( x) :&amp; x\in dom:f\ \infty :&amp; x\notin dom:f&amp; \end{cases}$, $\tilde{f} :$ $R^n\to R$, dom $\tilde{f} :$ $R$,即将 f 的定义域由 C 扩展到 R，此函数依然为凸函数</p>
-<h1 id="常见凸函数与凹函数"><a href="#常见凸函数与凹函数" class="headerlink" title="常见凸函数与凹函数"></a>常见凸函数与凹函数</h1><h3 id="仿射函数"><a href="#仿射函数" class="headerlink" title="仿射函数"></a>仿射函数</h3><p>$f(x)&#x3D;Ax+b$,显然$\nabla^2f(x)&#x3D;0$,因此仿射函数非凸非凹</p>
-<h3 id="指数函数"><a href="#指数函数" class="headerlink" title="指数函数"></a>指数函数</h3><p>$f(x)&#x3D;e^{ax}, x\in R, \nabla^{2}f(x)&#x3D;a^{2}e^{ax}\geq0$，凸函数</p>
-<h3 id="幂函数"><a href="#幂函数" class="headerlink" title="幂函数"></a>幂函数</h3><p>$f(x)&#x3D;x^{a}, x\in R_{++}$<br>$$\nabla^2f(x)&#x3D;a(a-1)x^{a-2}&#x3D;\begin{cases}\ge0&amp;a\ge1, a\le0&amp;\text{凸}\\\le0&amp;a\in[0,1]&amp;\text{凹}\end{cases}$$</p>
-<h3 id="负熵"><a href="#负熵" class="headerlink" title="负熵"></a>负熵</h3><p>$f(x)&#x3D;xlogx, x\in R_{++}, f’’(x)&#x3D;\frac{1}{x}&gt;0$，凸函数</p>
-<h3 id="范数"><a href="#范数" class="headerlink" title="范数"></a>范数</h3><p>函数$P(x)$要想能称为范数，等价于满足以下三个条件</p>
-<ul>
-<li>$P(ax)&#x3D;|a|P(x)$</li>
-<li>$P(x+y)\leq P(x)+P(y)$</li>
-<li>$P(x)&#x3D;0\Leftrightarrow x&#x3D;0$<br>由第二条性质可以容易的证明范数是凸函数</li>
-</ul>
-<h3 id="极大值函数"><a href="#极大值函数" class="headerlink" title="极大值函数"></a>极大值函数</h3><p>$f(x)&#x3D;\max{x_1,\ldots,x_n}, x\in R^n$</p>
-<p>证明:<br>$$\begin{aligned}&amp;\forall x,y\in R^n, \forall\theta\in[0,1]\&amp;f(\theta x+(1-\theta)y)&#x3D;max{\theta x_i+(1-\theta)y_i, i&#x3D;1,\ldots,n}\leq\theta\max{x_i}+(1-\theta)\max{y_i}\end{aligned}$$</p>
-<h3 id="log-aum-up函数"><a href="#log-aum-up函数" class="headerlink" title="log-aum-up函数"></a>log-aum-up函数</h3><p>$f(x)&#x3D;\log(e^{x_1}+\cdots+e^{x_n}),x\in R^n$是凸的<br>由于极大函数往往不可导，log-sum-up函数其实就是对极大函数的解析逼近，<br>$$\max{x_1,\cdots,x_n}\leq f(x)\leq\max{x_1+\cdots+x_n}+\log n$$</p>
-<p>讨论该函数的海森矩阵<br>$$H_{ij}&#x3D;\begin{cases}\frac{\partial^2f}{\partial x_i\partial x_j}&#x3D;\frac{-e^{x_i}e^{x_j}}{(e^{x_1}+\cdots+e^{x_n})^2}&amp;\quad i\neq j\[2ex]\frac{\partial^2f}{\partial x_i\partial x_i}&#x3D;\frac{-e^{x_i}e^{x_i}+e^{x_i}(e^{x_1}+\cdots+e^{x_n})}{(e^{x_1}+\cdots+e^{x_n})^2}&amp;\quad i&#x3D;j\end{cases}$$</p>
-<p>$$\left.H&#x3D;\frac{1}{(e^{x_1}+\cdots+e^{x_n})^2}\left{\left[\begin{array}{ccc}e^{x_1}(e^{x_1}+\cdots+e^{x_n})&amp;\cdots&amp;0\\vdots&amp;\ddots&amp;\vdots\0&amp;\cdots&amp;e^{x_n}(e^{x_1}+\cdots+e^{x_n})\end{array}\right.\right]-\left[\begin{array}{c}e^{x_1}\\vdots\e^{x_n}\end{array}\right]\cdot\left[\begin{array}{ccc}e^{x_1}&amp;\cdots&amp;e^{x_n}\end{array}\right]\right}$$</p>
-<p>令$z&#x3D;[e^{x_{1}},\ldots,e^{x_{n}}]$，则上式可以写为</p>
-<p>$$H&#x3D;\frac{1}{(1\cdot z)^{2}}\left((1^{T}\cdot z) diag{z}-z\cdot z^{T}\right)$$</p>
-<p>欲证明log-sum-up为凸，只需利用二阶条件证明 Hessian 矩阵的半正定性 计算$v^THv$</p>
-<p>$$\begin{aligned}&amp;&#x3D;(1^{T}\cdot z) v^{T}diag{z}v-v^{T}z\cdot z^{T}v\&amp;&#x3D;(\sum_{i}z_{i})(\sum_{i}v_{i}^{2} z_{i})-(\sum_{i}v_{i} z_{i})^{2}\end{aligned}$$</p>
-<p>$$\begin{aligned}&amp;\text{令 }a_i&#x3D;v_i\sqrt{z_i}, b_i&#x3D;\sqrt{z_i}\&amp;&#x3D;(b^Tb)(a^Ta)-(a^Tb)^2\geq0\quad[Cauchy-Schwarz\text{不等式,得证}]\end{aligned}$$</p>
-<h3 id="行列式的对数"><a href="#行列式的对数" class="headerlink" title="行列式的对数"></a>行列式的对数</h3><p>凹函数<br>$f(x)&#x3D;log det(x), dom f &#x3D; S_{++}^{n}$</p>
+<h3 id="一阶条件">一阶条件</h3>
+<p>设<span
+class="math inline"><em>f</em> : <em>R</em><sup><em>n</em></sup> → <em>R</em></span>可微，则<span
+class="math inline"><em>f</em></span>为凸函数等价于以下两点同时成立<br />
+- <span
+class="math inline"><em>d</em><em>o</em><em>m</em><em>f</em></span>为凸集
+- <span
+class="math inline"><em>f</em>(<em>y</em>) ≥ <em>f</em>(<em>x</em>) + ∇<em>f</em><sup><em>T</em></sup>(<em>x</em>)(<em>y</em> − <em>x</em>), ∀<em>x</em>, <em>y</em> ∈ <em>d</em><em>o</em><em>m</em><em>f</em></span></p>
+<p><img
+src="https://www.freeimg.cn/i/2024/08/30/66d17900db001.png" srcset="/img/loading.gif" lazyload /></p>
+<p><a
+target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/c_1280779583399882752">证明从略，复习点击此处</a></p>
+<h3 id="二阶条件">二阶条件</h3>
+<p>若<span class="math inline"><em>f</em></span>二阶可微，则<span
+class="math inline"><em>f</em></span>为凸函数等价于</p>
+<p><span
+class="math display">∇<sup>2</sup><em>f</em>(<em>x</em>) ≽ 0, ∀<em>x</em> ∈ <em>d</em><em>o</em><em>m</em><em>f</em></span></p>
+<h3 id="凸函数的扩展">凸函数的扩展</h3>
+<p><span class="math inline"><em>f</em>:</span> <span
+class="math inline"><em>R</em><sup><em>n</em></sup> → <em>R</em></span>为凸函数，dom
+<span class="math inline"><em>f</em>:</span> <span
+class="math inline"><em>C</em> ⊆ <em>R</em><sup><em>n</em></sup></span></p>
+<p><span class="math inline">$\tilde{f} = \begin{cases} f( x) \:&amp;
+x\in dom\:f\\ \infty \:&amp; x\notin dom\:f&amp; \end{cases}$</span>,
+<span class="math inline"><em>f̃</em>:</span> <span
+class="math inline"><em>R</em><sup><em>n</em></sup> → <em>R</em></span>,
+dom <span class="math inline"><em>f̃</em>:</span> <span
+class="math inline"><em>R</em></span>,即将 f 的定义域由 C 扩展到
+R，此函数依然为凸函数</p>
+<h1 id="常见凸函数与凹函数">常见凸函数与凹函数</h1>
+<h3 id="仿射函数">仿射函数</h3>
+<p><span
+class="math inline"><em>f</em>(<em>x</em>) = <em>A</em><em>x</em> + <em>b</em></span>,显然<span
+class="math inline">∇<sup>2</sup><em>f</em>(<em>x</em>) = 0</span>,因此仿射函数非凸非凹</p>
+<h3 id="指数函数">指数函数</h3>
+<p><span
+class="math inline"><em>f</em>(<em>x</em>) = <em>e</em><sup><em>a</em><em>x</em></sup>, <em>x</em> ∈ <em>R</em>, ∇<sup>2</sup><em>f</em>(<em>x</em>) = <em>a</em><sup>2</sup><em>e</em><sup><em>a</em><em>x</em></sup> ≥ 0</span>，凸函数</p>
+<h3 id="幂函数">幂函数</h3>
+<p><span
+class="math inline"><em>f</em>(<em>x</em>) = <em>x</em><sup><em>a</em></sup>, <em>x</em> ∈ <em>R</em><sub>++</sub></span>
+<span
+class="math display">$$\nabla^2f(x)=a(a-1)x^{a-2}=\begin{cases}\ge0&amp;a\ge1,
+a\le0&amp;\text{凸}\\\\\le0&amp;a\in[0,1]&amp;\text{凹}\end{cases}$$</span></p>
+<h3 id="负熵">负熵</h3>
+<p><span class="math inline">$f(x)=xlogx, x\in R_{++},
+f''(x)=\frac{1}{x}&gt;0$</span>，凸函数</p>
+<h3 id="范数">范数</h3>
+<p>函数<span
+class="math inline"><em>P</em>(<em>x</em>)</span>要想能称为范数，等价于满足以下三个条件
+- <span
+class="math inline"><em>P</em>(<em>a</em><em>x</em>) = |<em>a</em>|<em>P</em>(<em>x</em>)</span>
+- <span
+class="math inline"><em>P</em>(<em>x</em> + <em>y</em>) ≤ <em>P</em>(<em>x</em>) + <em>P</em>(<em>y</em>)</span>
+- <span
+class="math inline"><em>P</em>(<em>x</em>) = 0 ⇔ <em>x</em> = 0</span>
+由第二条性质可以容易的证明范数是凸函数</p>
+<h3 id="极大值函数">极大值函数</h3>
+<p><span
+class="math inline"><em>f</em>(<em>x</em>) = max {<em>x</em><sub>1</sub>, …, <em>x</em><sub><em>n</em></sub>}, <em>x</em> ∈ <em>R</em><sup><em>n</em></sup></span></p>
+<p>证明: <span class="math display">$$\begin{aligned}&amp;\forall x,y\in
+R^n, \forall\theta\in[0,1]\\&amp;f(\theta x+(1-\theta)y)=max\{\theta
+x_i+(1-\theta)y_i,
+i=1,\ldots,n\}\leq\theta\max\{x_i\}+(1-\theta)\max\{y_i\}\end{aligned}$$</span></p>
+<h3 id="log-aum-up函数">log-aum-up函数</h3>
+<p><span
+class="math inline"><em>f</em>(<em>x</em>) = log (<em>e</em><sup><em>x</em><sub>1</sub></sup> + ⋯ + <em>e</em><sup><em>x</em><sub><em>n</em></sub></sup>), <em>x</em> ∈ <em>R</em><sup><em>n</em></sup></span>是凸的
+由于极大函数往往不可导，log-sum-up函数其实就是对极大函数的解析逼近，
+<span
+class="math display">max {<em>x</em><sub>1</sub>, ⋯, <em>x</em><sub><em>n</em></sub>} ≤ <em>f</em>(<em>x</em>) ≤ max {<em>x</em><sub>1</sub> + ⋯ + <em>x</em><sub><em>n</em></sub>} + log <em>n</em></span></p>
+<p>讨论该函数的海森矩阵 <span
+class="math display">$$H_{ij}=\begin{cases}\frac{\partial^2f}{\partial
+x_i\partial
+x_j}=\frac{-e^{x_i}e^{x_j}}{(e^{x_1}+\cdots+e^{x_n})^2}&amp;\quad i\neq
+j\\[2ex]\frac{\partial^2f}{\partial x_i\partial
+x_i}=\frac{-e^{x_i}e^{x_i}+e^{x_i}(e^{x_1}+\cdots+e^{x_n})}{(e^{x_1}+\cdots+e^{x_n})^2}&amp;\quad
+i=j\end{cases}$$</span></p>
+<p><span
+class="math display">$$\left.H=\frac{1}{(e^{x_1}+\cdots+e^{x_n})^2}\left\{\left[\begin{array}{ccc}e^{x_1}(e^{x_1}+\cdots+e^{x_n})&amp;\cdots&amp;0\\\vdots&amp;\ddots&amp;\vdots\\0&amp;\cdots&amp;e^{x_n}(e^{x_1}+\cdots+e^{x_n})\end{array}\right.\right]-\left[\begin{array}{c}e^{x_1}\\\vdots\\e^{x_n}\end{array}\right]\cdot\left[\begin{array}{ccc}e^{x_1}&amp;\cdots&amp;e^{x_n}\end{array}\right]\right\}$$</span></p>
+<p>令<span
+class="math inline"><em>z</em> = [<em>e</em><sup><em>x</em><sub>1</sub></sup>, …, <em>e</em><sup><em>x</em><sub><em>n</em></sub></sup>]</span>，则上式可以写为</p>
+<p><span class="math display">$$H=\frac{1}{(1\cdot
+z)^{2}}\left((1^{T}\cdot z) diag\{z\}-z\cdot z^{T}\right)$$</span></p>
+<p>欲证明log-sum-up为凸，只需利用二阶条件证明 Hessian 矩阵的半正定性
+计算<span
+class="math inline"><em>v</em><sup><em>T</em></sup><em>H</em><em>v</em></span></p>
+<p><span class="math display">$$\begin{aligned}&amp;=(1^{T}\cdot z)
+v^{T}diag\{z\}v-v^{T}z\cdot
+z^{T}v\\&amp;=(\sum_{i}z_{i})(\sum_{i}v_{i}^{2} z_{i})-(\sum_{i}v_{i}
+z_{i})^{2}\end{aligned}$$</span></p>
+<p><span class="math display">$$\begin{aligned}&amp;\text{令
+}a_i=v_i\sqrt{z_i},
+b_i=\sqrt{z_i}\\&amp;=(b^Tb)(a^Ta)-(a^Tb)^2\geq0\quad[Cauchy-Schwarz\text{不等式,得证}]\end{aligned}$$</span></p>
+<h3 id="行列式的对数">行列式的对数</h3>
+<p>凹函数 <span
+class="math inline"><em>f</em>(<em>x</em>) = <em>l</em><em>o</em><em>g</em><em>d</em><em>e</em><em>t</em>(<em>x</em>), <em>d</em><em>o</em><em>m</em><em>f</em> = <em>S</em><sub>++</sub><sup><em>n</em></sup></span></p>
 <p>我们常使用定义二来证明高维的凸函数情况</p>
-<p>$$\forall z\in S_{++}^{n}, \forall t\in R, \forall v\in R^{n\times n}, z+tv\in S_{++}^{n} &#x3D; dom f$$</p>
-<p>$$\begin{aligned}<br>g(t)&#x3D;f(z+tv)&amp; &#x3D;log det(z+tv) \<br>&amp;&#x3D;log det{z^{\frac12}(I+tz^{-\frac12}vz^{-\frac12})z^{\frac12}} \<br>&amp;&#x3D;log det{z}+log det(I+tz^{-\frac12}vz^{-\frac12})<br>\end{aligned}$$</p>
-<p>对后半部分做对称分解，有$log det(QQ^{T}+tQ\Lambda Q^{T})&#x3D;log det(I+t\Lambda)$</p>
-<p>$$&#x3D;log det{z}+\sum^nlog(1+t\lambda_i)\quad[\lambda_i\text{是}tz^{-\frac12}vz^{-\frac12}\text{的第 i 个特征根}]$$</p>
-<p>$$\begin{aligned}g’(t)&#x3D;\sum_i\frac{\lambda_i}{1+t\lambda_i},\quad g’’(x)&#x3D;\sum_i\frac{-\lambda_i}{(1+t\lambda_i)^2}\leq0\end{aligned}$$</p>
-<h1 id="保凸映射"><a href="#保凸映射" class="headerlink" title="保凸映射"></a>保凸映射</h1><h3 id="非负加权和"><a href="#非负加权和" class="headerlink" title="非负加权和"></a>非负加权和</h3><ul>
-<li><p>若$f_1,\ldots,f_m$都是凸函数，则$f&#x3D;\sum_iw_if_i$为凸，其中$w_i\geq0,\forall i$<br>加权和函数定义域dom $f&#x3D;\cap_idom$ $f_i$</p>
-</li>
-<li><p>求和推广到积分也成立$g(x)&#x3D;\int w(y)f(x,y)dy,w(y)\geq0$</p>
-</li>
-</ul>
-<h3 id="仿射映射和凸映射的复合函数"><a href="#仿射映射和凸映射的复合函数" class="headerlink" title="仿射映射和凸映射的复合函数"></a>仿射映射和凸映射的复合函数</h3><p>若$f(x)$为凸函数</p>
+<p><span
+class="math display">∀<em>z</em> ∈ <em>S</em><sub>++</sub><sup><em>n</em></sup>, ∀<em>t</em> ∈ <em>R</em>, ∀<em>v</em> ∈ <em>R</em><sup><em>n</em> × <em>n</em></sup>, <em>z</em> + <em>t</em><em>v</em> ∈ <em>S</em><sub>++</sub><sup><em>n</em></sup> = <em>d</em><em>o</em><em>m</em><em>f</em></span></p>
+<p><span class="math display">$$\begin{aligned}
+g(t)=f(z+tv)&amp; =log det(z+tv) \\
+&amp;=log det\{z^{\frac12}(I+tz^{-\frac12}vz^{-\frac12})z^{\frac12}\} \\
+&amp;=log det\{z\}+log det(I+tz^{-\frac12}vz^{-\frac12})
+\end{aligned}$$</span></p>
+<p>对后半部分做对称分解，有<span
+class="math inline"><em>l</em><em>o</em><em>g</em><em>d</em><em>e</em><em>t</em>(<em>Q</em><em>Q</em><sup><em>T</em></sup> + <em>t</em><em>Q</em><em>Λ</em><em>Q</em><sup><em>T</em></sup>) = <em>l</em><em>o</em><em>g</em><em>d</em><em>e</em><em>t</em>(<em>I</em> + <em>t</em><em>Λ</em>)</span></p>
+<p><span class="math display">$$=log
+det\{z\}+\sum^nlog(1+t\lambda_i)\quad[\lambda_i\text{是}tz^{-\frac12}vz^{-\frac12}\text{的第
+i 个特征根}]$$</span></p>
+<p><span
+class="math display">$$\begin{aligned}g'(t)=\sum_i\frac{\lambda_i}{1+t\lambda_i},\quad
+g''(x)=\sum_i\frac{-\lambda_i}{(1+t\lambda_i)^2}\leq0\end{aligned}$$</span></p>
+<h1 id="保凸映射">保凸映射</h1>
+<h3 id="非负加权和">非负加权和</h3>
 <ul>
-<li>$g(x)&#x3D;f(Ax+b)$是凸函数</li>
-<li>$g(x)&#x3D;A^T\begin{bmatrix}f_1(x)\\vdots\f_n(x)\end{bmatrix}+b$是凸的，其中$A\in R^{n},b\in R.$</li>
+<li><p>若<span
+class="math inline"><em>f</em><sub>1</sub>, …, <em>f</em><sub><em>m</em></sub></span>都是凸函数，则<span
+class="math inline"><em>f</em> = ∑<sub><em>i</em></sub><em>w</em><sub><em>i</em></sub><em>f</em><sub><em>i</em></sub></span>为凸，其中<span
+class="math inline"><em>w</em><sub><em>i</em></sub> ≥ 0, ∀<em>i</em></span>
+加权和函数定义域dom <span
+class="math inline"><em>f</em> = ∩<sub><em>i</em></sub><em>d</em><em>o</em><em>m</em></span>
+<span
+class="math inline"><em>f</em><sub><em>i</em></sub></span></p></li>
+<li><p>求和推广到积分也成立<span
+class="math inline"><em>g</em>(<em>x</em>) = ∫<em>w</em>(<em>y</em>)<em>f</em>(<em>x</em>, <em>y</em>)<em>d</em><em>y</em>, <em>w</em>(<em>y</em>) ≥ 0</span></p></li>
 </ul>
-<h3 id="凸函数的极大值函数"><a href="#凸函数的极大值函数" class="headerlink" title="凸函数的极大值函数"></a>凸函数的极大值函数</h3><p>若 $f_1,f_2$为凸函数,则极大值函数$f(x)&#x3D;\max_x{f_1(x),f_2(x)}$也为凸函数,其定义域为$domf&#x3D;domf_1\cap domf_2\text{。}$</p>
-<p>$$\begin{aligned}<br>f(\theta x+(1-\theta)y)&#x3D;&amp; \begin{aligned}\max{f_{1}(\theta x+(1-\theta)y),f_{2}(\theta x+(1-\theta)y)}\end{aligned} \<br>&amp;\leq\max{\theta f_1(x)+(1-\theta)f_1(y),\theta f_2(x)+(1-\theta)f_2(y)} \<br>&amp;\leq\max{\theta f_1(x),\theta f_2(x)}+(1-\theta)\max{(1-\theta)f_1(y),(1-\theta)f_2(y)} \<br>&amp;&#x3D;\theta f(x)+(1-\theta)f(y)<br>\end{aligned}$$<br><img src="https://www.freeimg.cn/i/2024/08/30/66d189a7cd984.png" srcset="/img/loading.gif" lazyload></p>
+<h3 id="仿射映射和凸映射的复合函数">仿射映射和凸映射的复合函数</h3>
+<p>若<span class="math inline"><em>f</em>(<em>x</em>)</span>为凸函数 -
+<span
+class="math inline"><em>g</em>(<em>x</em>) = <em>f</em>(<em>A</em><em>x</em> + <em>b</em>)</span>是凸函数
+- <span
+class="math inline">$g(x)=A^T\begin{bmatrix}f_1(x)\\\vdots\\f_n(x)\end{bmatrix}+b$</span>是凸的，其中<span
+class="math inline"><em>A</em> ∈ <em>R</em><sup><em>n</em></sup>, <em>b</em> ∈ <em>R</em>.</span></p>
+<h3 id="凸函数的极大值函数">凸函数的极大值函数</h3>
+<p>若 <span
+class="math inline"><em>f</em><sub>1</sub>, <em>f</em><sub>2</sub></span>为凸函数,则极大值函数<span
+class="math inline"><em>f</em>(<em>x</em>) = max<sub><em>x</em></sub>{<em>f</em><sub>1</sub>(<em>x</em>), <em>f</em><sub>2</sub>(<em>x</em>)}</span>也为凸函数,其定义域为<span
+class="math inline"><em>d</em><em>o</em><em>m</em><em>f</em> = <em>d</em><em>o</em><em>m</em><em>f</em><sub>1</sub> ∩ <em>d</em><em>o</em><em>m</em><em>f</em><sub>2</sub>。</span></p>
+<p><span class="math display">$$\begin{aligned}
+f(\theta x+(1-\theta)y)=&amp; \begin{aligned}\max\{f_{1}(\theta
+x+(1-\theta)y),f_{2}(\theta x+(1-\theta)y)\}\end{aligned} \\
+&amp;\leq\max\{\theta f_1(x)+(1-\theta)f_1(y),\theta
+f_2(x)+(1-\theta)f_2(y)\} \\
+&amp;\leq\max\{\theta f_1(x),\theta
+f_2(x)\}+(1-\theta)\max\{(1-\theta)f_1(y),(1-\theta)f_2(y)\} \\
+&amp;=\theta f(x)+(1-\theta)f(y)
+\end{aligned}$$</span> <img
+src="https://www.freeimg.cn/i/2024/08/30/66d189a7cd984.png" srcset="/img/loading.gif" lazyload /></p>
 <p>自然地，推广到无穷个凸函数的极大值函数依然成立，因为无穷个凸函数的比较总可以看为多次进行函数之间的两两比较。</p>
-<p>即：如果对于任意的$y\in A$,函数$f(x,y)$都是关于$x$的凸函数，则函数$g(x)&#x3D;\sup_{y\in\mathcal{A}}f(x,y)$关于$x$也是凸的<br>其中$sup$为逐点取最大操作，称为上确界。</p>
-<p>Q：求实对称矩阵的最大特征值，$f(x)&#x3D;\lambda_{max}(x), dom f&#x3D;S^{m}$<br>A：<br>$$\begin{aligned}&amp;Xy&#x3D;\lambda y\Rightarrow y^TXy&#x3D;\lambda y^Ty&#x3D;\lambda|y|_2^2\Rightarrow\lambda&#x3D;\frac{y^TXy}{|y|_2^2}\&amp;\text{令 }|y|<em>2^2&#x3D;1\text{,则 }\lambda&#x3D;y^TXy\&amp;f(x)&#x3D;\lambda</em>{max}(x)&#x3D;\sup{y^TXy\mid|y|_2^2&#x3D;1}\&amp;\text{注意到 }y^TXy\text{ 是关于 x 的线性组合(将 }y^2\text{ 看作系数),同时 }\sup\text{保凸,所以该函数为凸函数}\end{aligned}$$</p>
-<h3 id="推导出：逐点上确界也是保凸映射1"><a href="#推导出：逐点上确界也是保凸映射1" class="headerlink" title="推导出：逐点上确界也是保凸映射1"></a>推导出：逐点上确界也是保凸映射1</h3><h3 id="复合函数"><a href="#复合函数" class="headerlink" title="复合函数"></a>复合函数</h3><p>$f&#x3D;h(g(x))$<br>当函数都为一元函数时，$f^{\prime\prime}&#x3D;h^{\prime\prime}g^{\prime2}+h^{\prime}g^{\prime\prime}$,分析这个式子与0的大小，可得</p>
-<ul>
-<li>若$h$为不降的凸函数，$g$为凸函数，则$f$为凸函数</li>
-<li>若$h$为不增的凸函数，$g$为凹函数，则$f$为凸函数</li>
-<li>若$h$为不降的凹函数，$g$为凹函数，则$f$为凹函数</li>
-<li>若$h$为不增的凹函数，$g$为凸函数，则$f$为凹函数</li>
-</ul>
-<p>多元函数时，情况类似，需要对函数$f$的定义域做出扩展，例如</p>
-<ul>
-<li>若$g$为凸，则$\exp{g(x)}$为凸，因为满足上述1式 ·</li>
-<li>若$g$为凹，则$\log{g(x}$为凹，因为满足上述3式</li>
-<li>若$g$为凹，$g(x)&gt;0$,则$1&#x2F;g(x)$为凸，因为满足上述2式</li>
-<li>若$g$为凸，$g(x)\geq0$,$p\geq1$,则$g(x)^p$为凸，因为满足上述1式</li>
-</ul>
-<h3 id="函数的透视"><a href="#函数的透视" class="headerlink" title="函数的透视"></a>函数的透视</h3><p>$$\begin{aligned}f: R^{n}&amp;\to R, g: R^{n}\times R_{++}\to R\&amp;g(x,t)&#x3D;tf(\frac{x}{t})\quad dom g&#x3D;{(x,t)\mid t\in R_{++},\frac{x}{t}\in dom f}\end{aligned}$$</p>
-<p>函数的透视有一个很重要的性质，若f为凸函数，则g也为凸函数，且对(x,t)是联合凸的，若f<br>为凹函数，则g对(x,t) 联合凹</p>
-<p>由此导出的一些常用函数的凸性：<br>加权负对数是凸的<br>$$u,v\in R_{++}^n,g(u,v)&#x3D;\sum_{i&#x3D;1}^nu_i\log\frac{u_i}{v_i}$$<br>KL-Divergence是凸的（凸+线性&#x3D;凸）<br>$$D_{KL}(u,v)\triangleq\sum_{i&#x3D;1}^{n}u_{i}log\frac{u_{i} }{v_{i} }-u_{i}+v_{i}$$</p>
-<h1 id="函数的共轭"><a href="#函数的共轭" class="headerlink" title="函数的共轭"></a>函数的共轭</h1><p>函数$f:R^n\to R$的共轭$f^*:R^n\to R$表示为<br>$$f^*(y)&#x3D;\sup_{x\in domf}{y^Tx-f(x)}$$</p>
-<p><strong>性质</strong></p>
-<ul>
-<li>无论$f$是否凸，$f^*(y)$总是凸的(相当于无数条线取max，因此恒为凸)</li>
-<li>$f(x)$如果可微，则$f^*(y)$对应的$x$就是$f^{‘}(x)&#x3D;y$的点($[f^{*}(y)]_{x}^{\prime}&#x3D;y-f^{\prime}(x)&#x3D;0$)</li>
-</ul>
+<p>即：如果对于任意的<span
+class="math inline"><em>y</em> ∈ <em>A</em></span>,函数<span
+class="math inline"><em>f</em>(<em>x</em>, <em>y</em>)</span>都是关于<span
+class="math inline"><em>x</em></span>的凸函数，则函数<span
+class="math inline"><em>g</em>(<em>x</em>) = sup<sub><em>y</em> ∈ 𝒜</sub><em>f</em>(<em>x</em>, <em>y</em>)</span>关于<span
+class="math inline"><em>x</em></span>也是凸的<br />
+其中<span
+class="math inline"><em>s</em><em>u</em><em>p</em></span>为逐点取最大操作，称为上确界。</p>
+<p>Q：求实对称矩阵的最大特征值，<span
+class="math inline"><em>f</em>(<em>x</em>) = <em>λ</em><sub><em>m</em><em>a</em><em>x</em></sub>(<em>x</em>), <em>d</em><em>o</em><em>m</em><em>f</em> = <em>S</em><sup><em>m</em></sup></span>
+A： <span class="math display">$$\begin{aligned}&amp;Xy=\lambda
+y\Rightarrow y^TXy=\lambda
+y^Ty=\lambda\|y\|_2^2\Rightarrow\lambda=\frac{y^TXy}{\|y\|_2^2}\\&amp;\text{令
+}\|y\|_2^2=1\text{,则
+}\lambda=y^TXy\\&amp;f(x)=\lambda_{max}(x)=\sup\{y^TXy\mid\|y\|_2^2=1\}\\&amp;\text{注意到
+}y^TXy\text{ 是关于 x 的线性组合(将 }y^2\text{ 看作系数),同时
+}\sup\text{保凸,所以该函数为凸函数}\end{aligned}$$</span></p>
+<h3
+id="推导出逐点上确界也是保凸映射1">推导出：逐点上确界也是保凸映射1</h3>
+<h3 id="复合函数">复合函数</h3>
+<p><span
+class="math inline"><em>f</em> = <em>h</em>(<em>g</em>(<em>x</em>))</span>
+当函数都为一元函数时，<span
+class="math inline"><em>f</em><sup>′′</sup> = <em>h</em><sup>′′</sup><em>g</em><sup>′2</sup> + <em>h</em><sup>′</sup><em>g</em><sup>′′</sup></span>,分析这个式子与0的大小，可得
+- 若<span class="math inline"><em>h</em></span>为不降的凸函数，<span
+class="math inline"><em>g</em></span>为凸函数，则<span
+class="math inline"><em>f</em></span>为凸函数 - 若<span
+class="math inline"><em>h</em></span>为不增的凸函数，<span
+class="math inline"><em>g</em></span>为凹函数，则<span
+class="math inline"><em>f</em></span>为凸函数 - 若<span
+class="math inline"><em>h</em></span>为不降的凹函数，<span
+class="math inline"><em>g</em></span>为凹函数，则<span
+class="math inline"><em>f</em></span>为凹函数 - 若<span
+class="math inline"><em>h</em></span>为不增的凹函数，<span
+class="math inline"><em>g</em></span>为凸函数，则<span
+class="math inline"><em>f</em></span>为凹函数</p>
+<p>多元函数时，情况类似，需要对函数<span
+class="math inline"><em>f</em></span>的定义域做出扩展，例如 - 若<span
+class="math inline"><em>g</em></span>为凸，则<span
+class="math inline">exp {<em>g</em>(<em>x</em>)}</span>为凸，因为满足上述1式
+· - 若<span class="math inline"><em>g</em></span>为凹，则<span
+class="math inline">log {<em>g</em>(<em>x</em>}</span>为凹，因为满足上述3式
+- 若<span class="math inline"><em>g</em></span>为凹，<span
+class="math inline"><em>g</em>(<em>x</em>) &gt; 0</span>,则<span
+class="math inline">1/<em>g</em>(<em>x</em>)</span>为凸，因为满足上述2式
+- 若<span class="math inline"><em>g</em></span>为凸，<span
+class="math inline"><em>g</em>(<em>x</em>) ≥ 0</span>,<span
+class="math inline"><em>p</em> ≥ 1</span>,则<span
+class="math inline"><em>g</em>(<em>x</em>)<sup><em>p</em></sup></span>为凸，因为满足上述1式</p>
+<h3 id="函数的透视">函数的透视</h3>
+<p><span class="math display">$$\begin{aligned}f: R^{n}&amp;\to R, g:
+R^{n}\times R_{++}\to R\\&amp;g(x,t)=tf(\frac{x}{t})\quad dom
+g=\{(x,t)\mid t\in R_{++},\frac{x}{t}\in dom
+f\}\end{aligned}$$</span></p>
+<p>函数的透视有一个很重要的性质，若f为凸函数，则g也为凸函数，且对(x,t)是联合凸的，若f
+为凹函数，则g对(x,t) 联合凹</p>
+<p>由此导出的一些常用函数的凸性：<br />
+加权负对数是凸的 <span class="math display">$$u,v\in
+R_{++}^n,g(u,v)=\sum_{i=1}^nu_i\log\frac{u_i}{v_i}$$</span>
+KL-Divergence是凸的（凸+线性=凸） <span
+class="math display">$$D_{KL}(u,v)\triangleq\sum_{i=1}^{n}u_{i}log\frac{u_{i}
+}{v_{i} }-u_{i}+v_{i}$$</span></p>
+<h1 id="函数的共轭">函数的共轭</h1>
+<p>函数<span
+class="math inline"><em>f</em> : <em>R</em><sup><em>n</em></sup> → <em>R</em></span>的共轭<span
+class="math inline"><em>f</em><sup>*</sup> : <em>R</em><sup><em>n</em></sup> → <em>R</em></span>表示为
+<span
+class="math display"><em>f</em><sup>*</sup>(<em>y</em>) = sup<sub><em>x</em> ∈ <em>d</em><em>o</em><em>m</em><em>f</em></sub>{<em>y</em><sup><em>T</em></sup><em>x</em> − <em>f</em>(<em>x</em>)}</span></p>
+<p><strong>性质</strong> - 无论<span
+class="math inline"><em>f</em></span>是否凸，<span
+class="math inline"><em>f</em><sup>*</sup>(<em>y</em>)</span>总是凸的(相当于无数条线取max，因此恒为凸)
+- <span
+class="math inline"><em>f</em>(<em>x</em>)</span>如果可微，则<span
+class="math inline"><em>f</em><sup>*</sup>(<em>y</em>)</span>对应的<span
+class="math inline"><em>x</em></span>就是<span
+class="math inline"><em>f</em><sup>′</sup>(<em>x</em>) = <em>y</em></span>的点(<span
+class="math inline">[<em>f</em><sup>*</sup>(<em>y</em>)]<sub><em>x</em></sub><sup>′</sup> = <em>y</em> − <em>f</em><sup>′</sup>(<em>x</em>) = 0</span>)</p>
 <p>对于函数而言常常说共轭，对于问题而言常常说对偶</p>
 <p>举几个求函数共轭的例子</p>
-<p><strong>求$f(x)&#x3D;ax+b \ ,dom \ f&#x3D;R$的共轭函数</strong><br>$$f^*(y)&#x3D;\sup\limits_{x\in dom}\left(yx-(ax+b)\right)&#x3D;\sup\limits_{x\in dom}\left((y-a)x+b\right)&#x3D;\begin{cases}-b&amp;\quad y&#x3D;a\[2ex]+\infty&amp;\quad y\neq a\end{cases}$$</p>
-<p><strong>求$f(x)&#x3D;-logx, dom f&#x3D;R_{++}$的共轭函数</strong></p>
-<p>$$\begin{aligned}\text{利用 }[f^*(x)]<em>x’&amp;&#x3D;y+\frac1x&#x3D;0\text{,将 }x&#x3D;-\frac1y\text{ 回代有 }-1-log(-y)\f^*(y)&amp;&#x3D;\sup</em>{x&gt;0} (yx+logx)&#x3D;\begin{cases}-1-log(-y)&amp;\quad y&lt;0\\+\infty&amp;\quad y\ge0\end{cases}\end{aligned}$$</p>
-<p><strong>求二次函数$f(x)&#x3D;\frac{1}{2}x^{T}Q x, Q\in S_{++}^{n}, dom f&#x3D;R^{n}$的共轭函数</strong></p>
-<p>$$f^*(y)&#x3D;\sup (y^Tx-\frac{1}{2}x^TQx), [f^*(y)]_x^{\prime}&#x3D;y-Qx&#x3D;0$$<br>回带消去$x$，$y^Tx-\frac{1}{2}x^TQx$化为<br>$$\begin{aligned}y^TQ^{-1}y-\frac{1}{2}y^TQ^{-1}Q^TQ^{-1}y&#x3D;\frac{1}{2}y^TQ^{-1}y\end{aligned}$$</p>
-<p>对于数而言，共轭的共轭为其自身，而这对函数并不成立，因为函数的共轭一定是凸函数，凹函数<br>的共轭的共轭一定不为自身<br>只有在f 为凸函数，并且为闭函数时，f的共轭的共轭才为自身</p>
-<h1 id="拟凸函数"><a href="#拟凸函数" class="headerlink" title="拟凸函数"></a>拟凸函数</h1><p>$\alpha$-sublevel-set (下水平集):任意函数 $f:R^n\to R$的 $\alpha$-sublevel-set 为：<br>$$C_\alpha&#x3D;{x\in domf|f(x)\leq\alpha}.$$</p>
-<h3 id="定义一"><a href="#定义一" class="headerlink" title="定义一"></a>定义一</h3><p>对于任意的$\alpha$,其$\alpha$-sublevel set均为凸集的函数为拟凸函数，又叫做单模态函数。</p>
-<h3 id="定义二"><a href="#定义二" class="headerlink" title="定义二"></a>定义二</h3><p>$$\forall x,y\in dom f, \theta\in[0,1], \max{f(x),f(y)}\geq f(\theta x+(1-\theta)y)$$</p>
-<p>例子：<strong>向量的长度</strong>，向量$x \in R^n$，即</p>
-<p>$$f(x)&#x3D;\left{\begin{array}{ll}\max{i,x_i\neq0},&amp;x\neq0\0,&amp;x&#x3D;0\end{array}\right.$$</p>
-<p>$$S_\alpha&#x3D;{f(x)\leq\alpha}\Rightarrow \forall i&#x3D;\lfloor i\rfloor+1\ldots n, x_i&#x3D;0$$</p>
-<p>相当于取子空间，$S_{\alpha}$代表的是一些轴上取零，其余轴上的值任意，为凸集，因此$f(x)$为拟凸函数</p>
-<p>例子：<strong>线性分数函数</strong> $\begin{aligned}f(x)&#x3D;\frac{a^Tx+b}{c^Tx+d}, dom f&#x3D;{x\mid c^Tx+d&gt;0}\end{aligned}$</p>
-<p>$$S_{\alpha}&#x3D;{x\mid c^{T}x+d&gt;0, \frac{a^{T}x+b}{c^{T}x+d}&lt;\alpha}&#x3D;{x\mid c^{T}x+d&gt;0, ax+b\leq\alpha(c^{T}x+d)}$$</p>
+<p><strong>求<span
+class="math inline"><em>f</em>(<em>x</em>) = <em>a</em><em>x</em> + <em>b</em> , <em>d</em><em>o</em><em>m</em> <em>f</em> = <em>R</em></span>的共轭函数</strong>
+<span class="math display">$$f^*(y)=\sup\limits_{x\in
+dom}\left(yx-(ax+b)\right)=\sup\limits_{x\in
+dom}\left((y-a)x+b\right)=\begin{cases}-b&amp;\quad
+y=a\\[2ex]+\infty&amp;\quad y\neq a\end{cases}$$</span></p>
+<p><strong>求<span
+class="math inline"><em>f</em>(<em>x</em>) = −<em>l</em><em>o</em><em>g</em><em>x</em>, <em>d</em><em>o</em><em>m</em><em>f</em> = <em>R</em><sub>++</sub></span>的共轭函数</strong></p>
+<p><span class="math display">$$\begin{aligned}\text{利用
+}[f^*(x)]_x'&amp;=y+\frac1x=0\text{,将 }x=-\frac1y\text{ 回代有
+}-1-log(-y)\\f^*(y)&amp;=\sup_{x&gt;0}
+(yx+logx)=\begin{cases}-1-log(-y)&amp;\quad y&lt;0\\\\+\infty&amp;\quad
+y\ge0\end{cases}\end{aligned}$$</span></p>
+<p><strong>求二次函数<span class="math inline">$f(x)=\frac{1}{2}x^{T}Q
+x, Q\in S_{++}^{n}, dom f=R^{n}$</span>的共轭函数</strong></p>
+<p><span class="math display">$$f^*(y)=\sup (y^Tx-\frac{1}{2}x^TQx),
+[f^*(y)]_x^{\prime}=y-Qx=0$$</span> 回带消去<span
+class="math inline"><em>x</em></span>，<span
+class="math inline">$y^Tx-\frac{1}{2}x^TQx$</span>化为 <span
+class="math display">$$\begin{aligned}y^TQ^{-1}y-\frac{1}{2}y^TQ^{-1}Q^TQ^{-1}y=\frac{1}{2}y^TQ^{-1}y\end{aligned}$$</span></p>
+<p>对于数而言，共轭的共轭为其自身，而这对函数并不成立，因为函数的共轭一定是凸函数，凹函数
+的共轭的共轭一定不为自身 只有在f
+为凸函数，并且为闭函数时，f的共轭的共轭才为自身</p>
+<h1 id="拟凸函数">拟凸函数</h1>
+<p><span class="math inline"><em>α</em></span>-sublevel-set
+(下水平集):任意函数 <span
+class="math inline"><em>f</em> : <em>R</em><sup><em>n</em></sup> → <em>R</em></span>的
+<span class="math inline"><em>α</em></span>-sublevel-set 为： <span
+class="math display"><em>C</em><sub><em>α</em></sub> = {<em>x</em> ∈ <em>d</em><em>o</em><em>m</em><em>f</em>|<em>f</em>(<em>x</em>) ≤ <em>α</em>}.</span></p>
+<h3 id="定义一">定义一</h3>
+<p>对于任意的<span class="math inline"><em>α</em></span>,其<span
+class="math inline"><em>α</em></span>-sublevel
+set均为凸集的函数为拟凸函数，又叫做单模态函数。</p>
+<h3 id="定义二">定义二</h3>
+<p><span
+class="math display">∀<em>x</em>, <em>y</em> ∈ <em>d</em><em>o</em><em>m</em><em>f</em>, <em>θ</em> ∈ [0, 1], max {<em>f</em>(<em>x</em>), <em>f</em>(<em>y</em>)} ≥ <em>f</em>(<em>θ</em><em>x</em> + (1 − <em>θ</em>)<em>y</em>)</span></p>
+<p>例子：<strong>向量的长度</strong>，向量<span
+class="math inline"><em>x</em> ∈ <em>R</em><sup><em>n</em></sup></span>，即</p>
+<p><span
+class="math display">$$f(x)=\left\{\begin{array}{ll}\max\{i,x_i\neq0\},&amp;x\neq0\\0,&amp;x=0\end{array}\right.$$</span></p>
+<p><span
+class="math display"><em>S</em><sub><em>α</em></sub> = {<em>f</em>(<em>x</em>) ≤ <em>α</em>} ⇒ ∀<em>i</em> = ⌊<em>i</em>⌋ + 1…<em>n</em>, <em>x</em><sub><em>i</em></sub> = 0</span></p>
+<p>相当于取子空间，<span
+class="math inline"><em>S</em><sub><em>α</em></sub></span>代表的是一些轴上取零，其余轴上的值任意，为凸集，因此<span
+class="math inline"><em>f</em>(<em>x</em>)</span>为拟凸函数</p>
+<p>例子：<strong>线性分数函数</strong> <span
+class="math inline">$\begin{aligned}f(x)=\frac{a^Tx+b}{c^Tx+d}, dom
+f=\{x\mid c^Tx+d&gt;0\}\end{aligned}$</span></p>
+<p><span class="math display">$$S_{\alpha}=\{x\mid c^{T}x+d&gt;0,
+\frac{a^{T}x+b}{c^{T}x+d}&lt;\alpha\}=\{x\mid c^{T}x+d&gt;0,
+ax+b\leq\alpha(c^{T}x+d)\}$$</span></p>
 <p>该集合表示一个多面体，为凸集，因此f(x)为拟凸函数</p>
-<h3 id="优化性质分析"><a href="#优化性质分析" class="headerlink" title="优化性质分析"></a>优化性质分析</h3><p>一般来说凸函数能用的算法拟凸函数也能用，拟凸函数是相对比较好做的非凸优化问题，不过与凸优化问题不同的是，他往往很难找到多项式时间内可以求解的算法</p>
-<h3 id="凸松弛"><a href="#凸松弛" class="headerlink" title="凸松弛"></a>凸松弛</h3><p>例，向量的零范数$x\in\mathbb{R}^n\textit{,}f(x)&#x3D;|x|_0$</p>
-<p> 一维情况，函数图像如下，不是凸函数，是拟凸函数<br><img src="https://www.freeimg.cn/i/2024/08/30/66d1e402469f1.png" srcset="/img/loading.gif" lazyload alt="1725031149696.png"></p>
-<p>  二维情况，函数图像如下，下水平集不是凸集，不是拟凸函数</p>
-<p><img src="https://www.freeimg.cn/i/2024/08/30/66d1e4038e3a2.png" srcset="/img/loading.gif" lazyload alt="1725031417805.png"></p>
+<h3 id="优化性质分析">优化性质分析</h3>
+<p>一般来说凸函数能用的算法拟凸函数也能用，拟凸函数是相对比较好做的非凸优化问题，不过与凸优化问题不同的是，他往往很难找到多项式时间内可以求解的算法</p>
+<h3 id="凸松弛">凸松弛</h3>
+<p>例，向量的零范数<span
+class="math inline"><em>x</em> ∈ ℝ<sup><em>n</em></sup><em>,</em><em>f</em>(<em>x</em>) = ∥<em>x</em>∥<sub>0</sub></span></p>
+<p>一维情况，函数图像如下，不是凸函数，是拟凸函数 <img
+src="https://www.freeimg.cn/i/2024/08/30/66d1e402469f1.png" srcset="/img/loading.gif" lazyload
+alt="1725031149696.png" /></p>
+<p>二维情况，函数图像如下，下水平集不是凸集，不是拟凸函数</p>
+<figure>
+<img src="https://www.freeimg.cn/i/2024/08/30/66d1e4038e3a2.png" srcset="/img/loading.gif" lazyload
+alt="1725031417805.png" />
+<figcaption aria-hidden="true">1725031417805.png</figcaption>
+</figure>
 <p>通常求解稀疏约束问题时，可将零范数放缩、松弛为1范数</p>
-<p><img src="https://www.freeimg.cn/i/2024/08/30/66d1e42caf796.png" srcset="/img/loading.gif" lazyload alt="1725031464851.png"></p>
+<figure>
+<img src="https://www.freeimg.cn/i/2024/08/30/66d1e42caf796.png" srcset="/img/loading.gif" lazyload
+alt="1725031464851.png" />
+<figcaption aria-hidden="true">1725031464851.png</figcaption>
+</figure>
 <p>有的人会使用性质更好的函数去近似一范数</p>
-<p><img src="https://www.freeimg.cn/i/2024/08/30/66d1e46138e80.png" srcset="/img/loading.gif" lazyload alt="1725031517660.png"></p>
-<h3 id="一阶条件-1"><a href="#一阶条件-1" class="headerlink" title="一阶条件"></a>一阶条件</h3><p>$$f\text{ 拟凸}\Leftrightarrow domf\text{ 凸,且若}f(y)\leq f(x)\text{,则 }\nabla^Tf(x)(y-x)\leq0.$$</p>
+<figure>
+<img src="https://www.freeimg.cn/i/2024/08/30/66d1e46138e80.png" srcset="/img/loading.gif" lazyload
+alt="1725031517660.png" />
+<figcaption aria-hidden="true">1725031517660.png</figcaption>
+</figure>
+<h3 id="一阶条件-1">一阶条件</h3>
+<p><span class="math display"><em>f</em>
+拟凸 ⇔ <em>d</em><em>o</em><em>m</em><em>f</em>
+凸,且若<em>f</em>(<em>y</em>) ≤ <em>f</em>(<em>x</em>),则
+∇<sup><em>T</em></sup><em>f</em>(<em>x</em>)(<em>y</em> − <em>x</em>) ≤ 0.</span></p>
 <p>以上公式文字表述为：拟凸函数只有一个极小值点。</p>
-<p>拟凸函数梯度为0的点不一定是极小值点<br><img src="https://www.freeimg.cn/i/2024/08/30/66d1e559ce465.png" srcset="/img/loading.gif" lazyload alt="1725031765905.png"></p>
-<h3 id="二阶条件-1"><a href="#二阶条件-1" class="headerlink" title="二阶条件"></a>二阶条件</h3><p>$$dom f\text{ 为凸,且 }y^T\nabla f(x)\geq0\Rightarrow y^T\nabla^2f(x)y\geq0$$</p>
+<p>拟凸函数梯度为0的点不一定是极小值点 <img
+src="https://www.freeimg.cn/i/2024/08/30/66d1e559ce465.png" srcset="/img/loading.gif" lazyload
+alt="1725031765905.png" /></p>
+<h3 id="二阶条件-1">二阶条件</h3>
+<p><span class="math display"><em>d</em><em>o</em><em>m</em><em>f</em>
+为凸,且
+<em>y</em><sup><em>T</em></sup>∇<em>f</em>(<em>x</em>) ≥ 0 ⇒ <em>y</em><sup><em>T</em></sup>∇<sup>2</sup><em>f</em>(<em>x</em>)<em>y</em> ≥ 0</span></p>
 <ul>
-<li>log 凸：$f(x)&gt;0$,若$\log f$为凸函数，则$f$为log凸函数       </li>
-<li>log 凹：$f(x)&gt;0$,若$\log f$为凹函数，则$f$为log凹函数       </li>
-<li>若$f$为log凸，则$f$为凸。(提示：用复合函数凹凸性可判断) </li>
-<li>若$f$为凹，则$\log f$为log凹</li>
+<li>log 凸：<span
+class="math inline"><em>f</em>(<em>x</em>) &gt; 0</span>,若<span
+class="math inline">log <em>f</em></span>为凸函数，则<span
+class="math inline"><em>f</em></span>为log凸函数<br />
+</li>
+<li>log 凹：<span
+class="math inline"><em>f</em>(<em>x</em>) &gt; 0</span>,若<span
+class="math inline">log <em>f</em></span>为凹函数，则<span
+class="math inline"><em>f</em></span>为log凹函数<br />
+</li>
+<li>若<span class="math inline"><em>f</em></span>为log凸，则<span
+class="math inline"><em>f</em></span>为凸。(提示：用复合函数凹凸性可判断)</li>
+<li>若<span class="math inline"><em>f</em></span>为凹，则<span
+class="math inline">log <em>f</em></span>为log凹</li>
 </ul>
-<h1 id="参考文献-blog"><a href="#参考文献-blog" class="headerlink" title="参考文献&#x2F;blog"></a>参考文献&#x2F;blog</h1><ul>
-<li><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV19M411T7S7?p=20&vd_source=84b977d2834d5eca6c0ca78bd619156f%EF%BC%8C%E4%B8%AD%E7%A7%91%E5%A4%A7/%E5%87%8C%E9%9D%92%E3%80%8A%E5%87%B8%E4%BC%98%E5%8C%96%E3%80%8B%EF%BC%8Cchapter9-20">https://www.bilibili.com/video/BV19M411T7S7?p=20&amp;vd_source=84b977d2834d5eca6c0ca78bd619156f，中科大/凌青《凸优化》，chapter9-20</a></li>
-<li>知乎专栏，<a target="_blank" rel="noopener" href="https://www.zhihu.com/column/c_1492543238217478144">https://www.zhihu.com/column/c_1492543238217478144</a></li>
-<li>知乎专栏，<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/c_1280779583399882752">https://zhuanlan.zhihu.com/c_1280779583399882752</a></li>
-<li>《ConvexOptimizationnotes》，<a target="_blank" rel="noopener" href="https://github.com/ZxyGed/ConvexOptimization%EF%BC%8CConvex_Function">https://github.com/ZxyGed/ConvexOptimization，Convex_Function</a> pdf笔记</li>
+<h1 id="参考文献blog">参考文献/blog</h1>
+<ul>
+<li>https://www.bilibili.com/video/BV19M411T7S7?p=20&amp;vd_source=84b977d2834d5eca6c0ca78bd619156f，中科大/凌青《凸优化》，chapter9-20</li>
+<li>知乎专栏，https://www.zhihu.com/column/c_1492543238217478144</li>
+<li>知乎专栏，https://zhuanlan.zhihu.com/c_1280779583399882752</li>
+<li>《ConvexOptimizationnotes》，https://github.com/ZxyGed/ConvexOptimization，Convex_Function
+pdf笔记</li>
 </ul>
 
                 

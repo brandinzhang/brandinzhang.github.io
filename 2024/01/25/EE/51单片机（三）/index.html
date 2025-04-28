@@ -16,22 +16,18 @@
   <meta name="author" content="bradin">
   <meta name="keywords" content="">
   
-    <meta name="description" content="8 串口通信通信的基本概念串行通信 使用一条数据线，将数据一位一位地依次传输，每一位数据占据一个固定的时间长度。其只需要少数几条线就可以在系统间交换信息，特别适用于计算机与计算机、计算机与外设之间的远距离通信。并行通信 将数据字节的各位用多条数据线同时进行传送，通常是 8位、16 位、32 位等数据一起传输。控制简单、传输速度快；由于传输线较多，长距离传送时成本高且接收方的各位同时接收存在困难，抗">
+    <meta name="description" content="8 串口通信 通信的基本概念 串行通信 使用一条数据线，将数据一位一位地依次传输，每一位数据占 据一个固定的时间长度。其只需要少数几条线就可以在系统间交换信息，特别适 用于计算机与计算机、计算机与外设之间的远距离通信。 并行通信 将数据字节的各位用多条数据线同时进行传送，通常是 8 位、16 位、32 位等数据一起传输。控制简单、传输速度快；由于传输线较多，长距离传送时成本高且接收方的各位同时接收">
 <meta property="og:type" content="article">
 <meta property="og:title" content="51单片机（三）">
 <meta property="og:url" content="http://example.com/2024/01/25/EE/51%E5%8D%95%E7%89%87%E6%9C%BA%EF%BC%88%E4%B8%89%EF%BC%89/index.html">
 <meta property="og:site_name" content="鸭蛋仙人的博客">
-<meta property="og:description" content="8 串口通信通信的基本概念串行通信 使用一条数据线，将数据一位一位地依次传输，每一位数据占据一个固定的时间长度。其只需要少数几条线就可以在系统间交换信息，特别适用于计算机与计算机、计算机与外设之间的远距离通信。并行通信 将数据字节的各位用多条数据线同时进行传送，通常是 8位、16 位、32 位等数据一起传输。控制简单、传输速度快；由于传输线较多，长距离传送时成本高且接收方的各位同时接收存在困难，抗">
+<meta property="og:description" content="8 串口通信 通信的基本概念 串行通信 使用一条数据线，将数据一位一位地依次传输，每一位数据占 据一个固定的时间长度。其只需要少数几条线就可以在系统间交换信息，特别适 用于计算机与计算机、计算机与外设之间的远距离通信。 并行通信 将数据字节的各位用多条数据线同时进行传送，通常是 8 位、16 位、32 位等数据一起传输。控制简单、传输速度快；由于传输线较多，长距离传送时成本高且接收方的各位同时接收">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://picst.sunbangyan.cn/2024/02/01/0c54c179b959c354a1f7ad4b0aae6ae8.jpeg">
-<meta property="og:image" content="https://picdm.sunbangyan.cn/2024/02/01/cf1a5919bea388120ab120ee50efb104.jpeg">
-<meta property="og:image" content="https://krseoul.imgtbl.com/i/2024/02/16/65cf20b9908b8.png">
 <meta property="article:published_time" content="2024-01-25T09:17:04.000Z">
 <meta property="article:modified_time" content="2025-04-28T11:03:35.306Z">
 <meta property="article:author" content="bradin">
 <meta property="article:tag" content="51单片机">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://picst.sunbangyan.cn/2024/02/01/0c54c179b959c354a1f7ad4b0aae6ae8.jpeg">
   
   
     <meta name="referrer" content="no-referrer-when-downgrade">
@@ -299,10 +295,56 @@
             
               <div class="markdown-body">
                 
-                <h2 id="8-串口通信"><a href="#8-串口通信" class="headerlink" title="8 串口通信"></a>8 串口通信</h2><h3 id="通信的基本概念"><a href="#通信的基本概念" class="headerlink" title="通信的基本概念"></a>通信的基本概念</h3><p><strong>串行通信</strong> 使用一条数据线，将数据一位一位地依次传输，每一位数据占<br>据一个固定的时间长度。其只需要少数几条线就可以在系统间交换信息，特别适<br>用于计算机与计算机、计算机与外设之间的远距离通信。<br><strong>并行通信</strong> 将数据字节的各位用多条数据线同时进行传送，通常是 8<br>位、16 位、32 位等数据一起传输。控制简单、传输速度快；由于传输线较多，长距离传送时成本高且接收方的各位同时接收存在困难，抗干扰能力差。<br><strong>异步通信</strong> 异步通信是指通信的发送与接收设备使用各自的时钟控制数据的发送和接<br>收过程。为使双方的收发协调，要求发送和接收设备的时钟尽可能一致。<br>异步通信是以字符（构成的帧）为单位进行传输，字符与字符之间的间隙（时<br>间间隔）是任意的，但每个字符中的各位是以固定的时间传送的，即字符之间不<br>一定有“位间隔”的整数倍的关系，但同一字符内的各位之间的距离均为“ 位<br>间隔”的整数倍。如下图所示：<br><img src="https://picst.sunbangyan.cn/2024/02/01/0c54c179b959c354a1f7ad4b0aae6ae8.jpeg" srcset="/img/loading.gif" lazyload>      </p>
-<p><strong>同步通信</strong> 同步通信时要建立发送方时钟对接收方时钟的直接控制，使双方达到完全同<br>步。此时，传输数据的位之间的距离均为“位间隔”的整数倍，同时传送的字符<br>间不留间隙，即保持位同步关系，也保持字符同步关系。发送方对接收方的同步<br>可以通过两种方法实现。<br><img src="https://picdm.sunbangyan.cn/2024/02/01/cf1a5919bea388120ab120ee50efb104.jpeg" srcset="/img/loading.gif" lazyload><br><strong>单工通信</strong><br>单工是指数据传输仅能沿一个方向，不能实现反向传输。<br><strong>半双工通信</strong> 数据传输可以沿两个方向，但需要分时进行。（共用一根线）<br><strong>双工通信</strong> 数据可以同时进行双向传输。</p>
-<h3 id="通信速率"><a href="#通信速率" class="headerlink" title="通信速率"></a>通信速率</h3><p><strong>比特率</strong>  比特率是每秒钟传输二进制代码的位数，单位是：位／秒（ bps）。如<br>每秒钟传送 240 个字符，而每个字符格式包含 10 位(1 个起始位、1 个停止位、<br>8 个数据位)，这时的比特率为：<br>                    $10 位×240 个&#x2F;秒 &#x3D; 2400 bps$<br><strong>波特率</strong>   它表示每秒钟传输了多少个码元。而<br>码元是通信信号调制的概念，通信中常用时间间隔相同的符号来表示一个二进制<br>数字，这样的信号称为码元。如常见的通信传输中，用 0V 表示数字 0，5V 表<br>示数字 1，那么一个码元可以表示两种状态 0 和 1，所以一个码元等于一个二<br>进制比特位，此时波特率的大小与比特率一致；如果在通信传输中，有 0V、2V、<br>4V 以及 6V 分别表示二进制数 00、 01、 10、 11，那么每个码元可以表示四<br>种状态，即两个二进制比特位，所以码元数是二进制比特位数的一半，这个时候<br>的波特率为比特率的一半。由于很多常见的通信中一个码元都是表示两种状态，<br>所以我们常常直接以波特率来表示比特率。         </p>
-<h3 id="相关寄存器"><a href="#相关寄存器" class="headerlink" title="相关寄存器"></a>相关寄存器</h3><p>串口通信的接口标准有很多，常用的是 RS-232 和 RS-485，下面是相关的寄存器。<br>串口控制寄存器SCON<br><img src="https://krseoul.imgtbl.com/i/2024/02/16/65cf20b9908b8.png" srcset="/img/loading.gif" lazyload>           </p>
+                <h2 id="串口通信">8 串口通信</h2>
+<h3 id="通信的基本概念">通信的基本概念</h3>
+<p><strong>串行通信</strong>
+使用一条数据线，将数据一位一位地依次传输，每一位数据占
+据一个固定的时间长度。其只需要少数几条线就可以在系统间交换信息，特别适
+用于计算机与计算机、计算机与外设之间的远距离通信。<br />
+<strong>并行通信</strong>
+将数据字节的各位用多条数据线同时进行传送，通常是 8 位、16 位、32
+位等数据一起传输。控制简单、传输速度快；由于传输线较多，长距离传送时成本高且接收方的各位同时接收存在困难，抗干扰能力差。
+<strong>异步通信</strong>
+异步通信是指通信的发送与接收设备使用各自的时钟控制数据的发送和接
+收过程。为使双方的收发协调，要求发送和接收设备的时钟尽可能一致。
+异步通信是以字符（构成的帧）为单位进行传输，字符与字符之间的间隙（时
+间间隔）是任意的，但每个字符中的各位是以固定的时间传送的，即字符之间不
+一定有“位间隔”的整数倍的关系，但同一字符内的各位之间的距离均为“ 位
+间隔”的整数倍。如下图所示：<br />
+<img
+src="https://picst.sunbangyan.cn/2024/02/01/0c54c179b959c354a1f7ad4b0aae6ae8.jpeg" srcset="/img/loading.gif" lazyload /></p>
+<p><strong>同步通信</strong>
+同步通信时要建立发送方时钟对接收方时钟的直接控制，使双方达到完全同
+步。此时，传输数据的位之间的距离均为“位间隔”的整数倍，同时传送的字符
+间不留间隙，即保持位同步关系，也保持字符同步关系。发送方对接收方的同步
+可以通过两种方法实现。<br />
+<img
+src="https://picdm.sunbangyan.cn/2024/02/01/cf1a5919bea388120ab120ee50efb104.jpeg" srcset="/img/loading.gif" lazyload /><br />
+<strong>单工通信</strong>
+单工是指数据传输仅能沿一个方向，不能实现反向传输。<br />
+<strong>半双工通信</strong>
+数据传输可以沿两个方向，但需要分时进行。（共用一根线）<br />
+<strong>双工通信</strong> 数据可以同时进行双向传输。 ### 通信速率<br />
+<strong>比特率</strong>
+比特率是每秒钟传输二进制代码的位数，单位是：位／秒（ bps）。如
+每秒钟传送 240 个字符，而每个字符格式包含 10 位(1 个起始位、1 个停止位、
+8 个数据位)，这时的比特率为：<br />
+<span
+class="math inline">10<em>位</em> × 240<em>个</em>/<em>秒</em> = 2400<em>b</em><em>p</em><em>s</em></span><br />
+<strong>波特率</strong> 它表示每秒钟传输了多少个码元。而
+码元是通信信号调制的概念，通信中常用时间间隔相同的符号来表示一个二进制
+数字，这样的信号称为码元。如常见的通信传输中，用 0V 表示数字 0，5V 表
+示数字 1，那么一个码元可以表示两种状态 0 和 1，所以一个码元等于一个二
+进制比特位，此时波特率的大小与比特率一致；如果在通信传输中，有 0V、2V、
+4V 以及 6V 分别表示二进制数 00、 01、 10、 11，那么每个码元可以表示四
+种状态，即两个二进制比特位，所以码元数是二进制比特位数的一半，这个时候
+的波特率为比特率的一半。由于很多常见的通信中一个码元都是表示两种状态，
+所以我们常常直接以波特率来表示比特率。<br />
+### 相关寄存器 串口通信的接口标准有很多，常用的是 RS-232 和
+RS-485，下面是相关的寄存器。<br />
+串口控制寄存器SCON<br />
+<img
+src="https://krseoul.imgtbl.com/i/2024/02/16/65cf20b9908b8.png" srcset="/img/loading.gif" lazyload /></p>
 
                 
               </div>

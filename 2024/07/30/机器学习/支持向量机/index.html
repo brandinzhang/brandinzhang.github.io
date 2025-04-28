@@ -16,12 +16,12 @@
   <meta name="author" content="bradin">
   <meta name="keywords" content="">
   
-    <meta name="description" content="基本思想支持向量机的基本思想就是用一个超平面来划分一群点，达到二分类效果。寻找超平面过程中。我们使用最小化间隔的思想，使得svm具有鲁棒性。 硬间隔SVM欲分类点记为${(x_i,y_i)}_{i&#x3D;1}^N$共N个，预测结果$y_i$取值为0，1 我们的判别模型可以表示为$$f(w)&#x3D;sign(w^Tx+b) $$其中$w^Tx+b&#x3D;0$就是1划分所用的超平面，因此约">
+    <meta name="description" content="基本思想 支持向量机的基本思想就是用一个超平面来划分一群点，达到二分类效果。寻找超平面过程中。我们使用最小化间隔的思想，使得svm具有鲁棒性。 硬间隔SVM 欲分类点记为(xi, yi)i &#x3D; 1N共N个，预测结果yi取值为0，1 我们的判别模型可以表示为 f(w) &#x3D; sign(wTx + b) 其中wTx + b &#x3D; 0就是1划分所用的超平面，因此约束条件可以表示为 yi(wTx + b) &amp;">
 <meta property="og:type" content="article">
 <meta property="og:title" content="支持向量机">
 <meta property="og:url" content="http://example.com/2024/07/30/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E6%94%AF%E6%8C%81%E5%90%91%E9%87%8F%E6%9C%BA/index.html">
 <meta property="og:site_name" content="鸭蛋仙人的博客">
-<meta property="og:description" content="基本思想支持向量机的基本思想就是用一个超平面来划分一群点，达到二分类效果。寻找超平面过程中。我们使用最小化间隔的思想，使得svm具有鲁棒性。 硬间隔SVM欲分类点记为${(x_i,y_i)}_{i&#x3D;1}^N$共N个，预测结果$y_i$取值为0，1 我们的判别模型可以表示为$$f(w)&#x3D;sign(w^Tx+b) $$其中$w^Tx+b&#x3D;0$就是1划分所用的超平面，因此约">
+<meta property="og:description" content="基本思想 支持向量机的基本思想就是用一个超平面来划分一群点，达到二分类效果。寻找超平面过程中。我们使用最小化间隔的思想，使得svm具有鲁棒性。 硬间隔SVM 欲分类点记为(xi, yi)i &#x3D; 1N共N个，预测结果yi取值为0，1 我们的判别模型可以表示为 f(w) &#x3D; sign(wTx + b) 其中wTx + b &#x3D; 0就是1划分所用的超平面，因此约束条件可以表示为 yi(wTx + b) &amp;">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://www.freeimg.cn/i/2024/08/08/66b4b7cbc40f9.jpg">
 <meta property="article:published_time" content="2024-07-29T16:00:00.000Z">
@@ -236,7 +236,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          871 字
+          875 字
         
       </span>
     
@@ -297,46 +297,121 @@
             
               <div class="markdown-body">
                 
-                <h1 id="基本思想"><a href="#基本思想" class="headerlink" title="基本思想"></a>基本思想</h1><p>支持向量机的基本思想就是用一个超平面来划分一群点，达到二分类效果。寻找超平面过程中。我们使用最小化间隔的思想，使得svm具有鲁棒性。</p>
-<h1 id="硬间隔SVM"><a href="#硬间隔SVM" class="headerlink" title="硬间隔SVM"></a>硬间隔SVM</h1><p>欲分类点记为${(x_i,y_i)}_{i&#x3D;1}^N$共N个，预测结果$y_i$取值为0，1 我们的判别模型可以表示为<br>$$f(w)&#x3D;sign(w^Tx+b) $$<br>其中$w^Tx+b&#x3D;0$就是1划分所用的超平面，因此约束条件可以表示为<br>$$y_i(w^Tx+b)&gt;0 $$</p>
-<p><img src="https://www.freeimg.cn/i/2024/08/08/66b4b7cbc40f9.jpg" srcset="/img/loading.gif" lazyload alt="最小距离"></p>
-<p>由上图可以看到，对称地，总能找到连两个点距离超平面最近，我们的目的就是最大化这个”最小距离”，优化任务记为<br>$$\begin{cases}\max_{w,b}\min\frac{1}{||w||}|w^{T}x_{i}+b|\\s.t.\quad y_{i}(w^{T}x_{i}+b)&gt;0\end{cases}$$<br>化简为<br>$$\begin{cases}\max_{w,b}\min\frac{1}{||w||}y_i(w^{T}x_{i}+b)\\s.t.\quad y_{i}(w^{T}x_{i}+b)&gt;0\end{cases}$$<br>超平面方程为$w^Tx+b&#x3D;0$,可以任意缩放倍数，因此不妨规定$min \ y_i(w^Tx+b)&#x3D;1$<br>原问题化为<br>$$\begin{cases}min, \frac{1}{2}w^Tw\\s.t.\quad y_{i}(w^{T}x_{i}+b)\geq1\end{cases}$$</p>
+                <h1 id="基本思想">基本思想</h1>
+<p>支持向量机的基本思想就是用一个超平面来划分一群点，达到二分类效果。寻找超平面过程中。我们使用最小化间隔的思想，使得svm具有鲁棒性。</p>
+<h1 id="硬间隔svm">硬间隔SVM</h1>
+<p>欲分类点记为<span
+class="math inline">(<em>x</em><sub><em>i</em></sub>, <em>y</em><sub><em>i</em></sub>)<sub><em>i</em> = 1</sub><sup><em>N</em></sup></span>共N个，预测结果<span
+class="math inline"><em>y</em><sub><em>i</em></sub></span>取值为0，1
+我们的判别模型可以表示为 <span
+class="math display"><em>f</em>(<em>w</em>) = <em>s</em><em>i</em><em>g</em><em>n</em>(<em>w</em><sup><em>T</em></sup><em>x</em> + <em>b</em>)</span>
+其中<span
+class="math inline"><em>w</em><sup><em>T</em></sup><em>x</em> + <em>b</em> = 0</span>就是1划分所用的超平面，因此约束条件可以表示为
+<span
+class="math display"><em>y</em><sub><em>i</em></sub>(<em>w</em><sup><em>T</em></sup><em>x</em> + <em>b</em>) &gt; 0</span></p>
+<figure>
+<img src="https://www.freeimg.cn/i/2024/08/08/66b4b7cbc40f9.jpg" srcset="/img/loading.gif" lazyload
+alt="最小距离" />
+<figcaption aria-hidden="true">最小距离</figcaption>
+</figure>
+<p>由上图可以看到，对称地，总能找到连两个点距离超平面最近，我们的目的就是最大化这个”最小距离”，优化任务记为
+<span
+class="math display">$$\begin{cases}\max_{w,b}\min\frac{1}{||w||}|w^{T}x_{i}+b|\\\\s.t.\quad
+y_{i}(w^{T}x_{i}+b)&gt;0\end{cases}$$</span> 化简为 <span
+class="math display">$$\begin{cases}\max_{w,b}\min\frac{1}{||w||}y_i(w^{T}x_{i}+b)\\\\s.t.\quad
+y_{i}(w^{T}x_{i}+b)&gt;0\end{cases}$$</span> 超平面方程为<span
+class="math inline"><em>w</em><sup><em>T</em></sup><em>x</em> + <em>b</em> = 0</span>,可以任意缩放倍数，因此不妨规定<span
+class="math inline"><em>m</em><em>i</em><em>n</em> <em>y</em><sub><em>i</em></sub>(<em>w</em><sup><em>T</em></sup><em>x</em> + <em>b</em>) = 1</span>
+原问题化为 <span class="math display">$$\begin{cases}min\,
+\frac{1}{2}w^Tw\\\\s.t.\quad
+y_{i}(w^{T}x_{i}+b)\geq1\end{cases}$$</span></p>
 <p>由于其约束都是仿射的，因此符合放松的slater条件，问题变为一个纯粹的N个约束的凸优化问题。</p>
-<h1 id="对偶问题"><a href="#对偶问题" class="headerlink" title="对偶问题"></a>对偶问题</h1><p>但是，如果样本数量或维度非常高，直接求解困难甚至不可解，于是需要对这个问题进一步处理。引入 Lagrange 函数：</p>
-<p>$$L(w,b,\lambda)&#x3D;\frac12w^Tw+\sum_{i&#x3D;1}^N\lambda_i(1-y_i(w^Tx_i+b))$$</p>
+<h1 id="对偶问题">对偶问题</h1>
+<p>但是，如果样本数量或维度非常高，直接求解困难甚至不可解，于是需要对这个问题进一步处理。引入
+Lagrange 函数：</p>
+<p><span
+class="math display">$$L(w,b,\lambda)=\frac12w^Tw+\sum_{i=1}^N\lambda_i(1-y_i(w^Tx_i+b))$$</span></p>
 <p>原问题为</p>
-<p>$$\begin{cases}min, \frac12 w^Tw\\s.t.\quad 1-y_{i}(w^{T}x_{i}+b)\leq0\end{cases}$$</p>
+<p><span class="math display">$$\begin{cases}min\, \frac12
+w^Tw\\\\s.t.\quad 1-y_{i}(w^{T}x_{i}+b)\leq0\end{cases}$$</span></p>
 <p>可以证明，原问题的等价问题为</p>
-<p>$$\begin{cases}min_{w,b}\max_{\lambda}L(w,b,\lambda_i)\mathrm{<del>}\\\mathrm{</del>}\lambda_i\geq0\end{cases}$$</p>
+<p><span
+class="math display">$$\begin{cases}min_{w,b}\max_{\lambda}L(w,b,\lambda_i)\mathrm{~}\\\\\mathrm{~}\lambda_i\geq0\end{cases}$$</span></p>
 <p>交换最小和最大值的符号得到对偶问题：</p>
-<p>$$\max_{\lambda_i}\min_{w,b}L(w,b,\lambda_i)\mathrm{<del>}s.t.\mathrm{</del>}\lambda_i\geq0$$</p>
-<p>由于不等式约束是仿射函数，对偶问题和原问题等价      </p>
-<blockquote>
-<p>引入:原问题和对偶问题满足强对偶关系的充要条件为其满足 KKT 条件：<br>$$\begin{aligned}<br> &amp;\frac{\partial L}{\partial w}&#x3D;0,\frac{\partial L}{\partial b}&#x3D;0 \<br> &amp;\large\lambda_k(1-y_k(w^Tx_k+b))&#x3D;0(slackness complementary) \<br> &amp;\lambda_{i}\geq0 \<br> &amp;1-y_i(w^Tx_i+b)\leq0<br> \end{aligned}$$</p>
-</blockquote>
-<p>利用KKT条件将上述优化问题变为只和$\lambda$有关的优化问题</p>
-<p>$$\frac\partial{\partial b}L&#x3D;0\Rightarrow\sum_{i&#x3D;1}^N\lambda_iy_i&#x3D;0$$</p>
-<p>$$\frac\partial{\partial w}L&#x3D;0\Rightarrow w&#x3D;\sum_{i&#x3D;1}^N\lambda_iy_ix_i$$</p>
+<p><span
+class="math display">max<sub><em>λ</em><sub><em>i</em></sub></sub>min<sub><em>w</em>, <em>b</em></sub><em>L</em>(<em>w</em>, <em>b</em>, <em>λ</em><sub><em>i</em></sub>) <em>s</em>.<em>t</em>. <em>λ</em><sub><em>i</em></sub> ≥ 0</span></p>
+<p>由于不等式约束是仿射函数，对偶问题和原问题等价<br />
+&gt;引入:原问题和对偶问题满足强对偶关系的充要条件为其满足 KKT
+条件：<br />
+&gt;<span class="math display">$$\begin{aligned}
+&amp;\frac{\partial L}{\partial w}=0,\frac{\partial L}{\partial b}=0 \\
+&amp;\large\lambda_k(1-y_k(w^Tx_k+b))=0(slackness complementary) \\
+&amp;\lambda_{i}\geq0 \\
+&amp;1-y_i(w^Tx_i+b)\leq0
+\end{aligned}$$</span></p>
+<p>利用KKT条件将上述优化问题变为只和<span
+class="math inline"><em>λ</em></span>有关的优化问题</p>
+<p><span class="math display">$$\frac\partial{\partial
+b}L=0\Rightarrow\sum_{i=1}^N\lambda_iy_i=0$$</span></p>
+<p><span class="math display">$$\frac\partial{\partial w}L=0\Rightarrow
+w=\sum_{i=1}^N\lambda_iy_ix_i$$</span></p>
 <p>带入原始拉格朗日函数得到</p>
-<p>$$L(w,b,\lambda_i)&#x3D;-\frac12\sum_{i&#x3D;1}^N\sum_{j&#x3D;1}^N\lambda_i\lambda_jy_iy_jx_i^Tx_j+\sum_{i&#x3D;1}^N\lambda_i$$</p>
-<p>问题转化为了对$\lambda$的优化问题</p>
-<p>$$\max_\lambda\boldsymbol{-}\frac12\sum_{i&#x3D;1}^N\sum_{j&#x3D;1}^N\lambda_i\lambda_jy_iy_jx_i^Tx_j+\sum_{i&#x3D;1}^N\lambda_i,\mathrm{<del>}s.t.\mathrm{</del>}\lambda_i\geq0$$</p>
-<p>使用优化手段求解得到$\lambda_i$，进而求解$w$, $b$ ,</p>
-<p>$$\hat{w}&#x3D;\sum_{i&#x3D;1}^N\lambda_iy_ix_i\\hat{b}&#x3D;y_k-w^Tx_k&#x3D;y_k-\sum_{i&#x3D;1}^N\lambda_iy_ix_i^Tx_k,\exists k,1-y_k(w^Tx_k+b)&#x3D;0$$</p>
-<p>容易看出上面的$x_k$就是距离超平面最近的点(向量)，我们把它称之为支持向量，这也是支持向量机名字的由来。而这里也可以看出，互补松弛条件就是说只有支持向量对应的$\lambda_i$为0.</p>
-<h1 id="软间隔SVM"><a href="#软间隔SVM" class="headerlink" title="软间隔SVM"></a>软间隔SVM</h1><p>Hard-margin 的 SVM 只对可分数据可解，如果不可分的情况，我们的基本想法是在损失函数中加入错误分类的可能性。为此我们考虑修正想要min的函数</p>
-<p>$$\begin{cases}min, \frac12 w^Tw+loss \\s.t.\quad 1-y_{i}(w^{T}x_{i}+b)\leq0\end{cases}$$</p>
+<p><span
+class="math display">$$L(w,b,\lambda_i)=-\frac12\sum_{i=1}^N\sum_{j=1}^N\lambda_i\lambda_jy_iy_jx_i^Tx_j+\sum_{i=1}^N\lambda_i$$</span></p>
+<p>问题转化为了对<span
+class="math inline"><em>λ</em></span>的优化问题</p>
+<p><span
+class="math display">$$\max_\lambda\boldsymbol{-}\frac12\sum_{i=1}^N\sum_{j=1}^N\lambda_i\lambda_jy_iy_jx_i^Tx_j+\sum_{i=1}^N\lambda_i,\mathrm{~}s.t.\mathrm{~}\lambda_i\geq0$$</span></p>
+<p>使用优化手段求解得到<span
+class="math inline"><em>λ</em><sub><em>i</em></sub></span>，进而求解<span
+class="math inline"><em>w</em></span>, <span
+class="math inline"><em>b</em></span> ,</p>
+<p><span
+class="math display">$$\hat{w}=\sum_{i=1}^N\lambda_iy_ix_i\\\hat{b}=y_k-w^Tx_k=y_k-\sum_{i=1}^N\lambda_iy_ix_i^Tx_k,\exists
+k,1-y_k(w^Tx_k+b)=0$$</span></p>
+<p>容易看出上面的<span
+class="math inline"><em>x</em><sub><em>k</em></sub></span>就是距离超平面最近的点(向量)，我们把它称之为支持向量，这也是支持向量机名字的由来。而这里也可以看出，互补松弛条件就是说只有支持向量对应的<span
+class="math inline"><em>λ</em><sub><em>i</em></sub></span>为0.</p>
+<h1 id="软间隔svm">软间隔SVM</h1>
+<p>Hard-margin 的 SVM
+只对可分数据可解，如果不可分的情况，我们的基本想法是在损失函数中加入错误分类的可能性。为此我们考虑修正想要min的函数</p>
+<p><span class="math display">$$\begin{cases}min\, \frac12 w^Tw+loss
+\\\\s.t.\quad 1-y_{i}(w^{T}x_{i}+b)\leq0\end{cases}$$</span></p>
 <p>loss应当允许错误分类同时使得错误分类最小，为了尽量保持loss可导，直观地想法是</p>
-<p>当$y_i(w^Tx_i+b)&gt;&#x3D;1$,此时为正确分类的情况，那么$loss&#x3D;0$<br>当$y_i(w^Tx_i+b)&lt;1$,此时为错误分类的情况，不妨直接取距离作为loss，也即取$loss&#x3D;1-y_i(w^Tx_i+b)$</p>
+<p>当<span
+class="math inline"><em>y</em><sub><em>i</em></sub>(<em>w</em><sup><em>T</em></sup><em>x</em><sub><em>i</em></sub> + <em>b</em>) &gt;  = 1</span>,此时为正确分类的情况，那么<span
+class="math inline"><em>l</em><em>o</em><em>s</em><em>s</em> = 0</span><br />
+当<span
+class="math inline"><em>y</em><sub><em>i</em></sub>(<em>w</em><sup><em>T</em></sup><em>x</em><sub><em>i</em></sub> + <em>b</em>) &lt; 1</span>,此时为错误分类的情况，不妨直接取距离作为loss，也即取<span
+class="math inline"><em>l</em><em>o</em><em>s</em><em>s</em> = 1 − <em>y</em><sub><em>i</em></sub>(<em>w</em><sup><em>T</em></sup><em>x</em><sub><em>i</em></sub> + <em>b</em>)</span></p>
 <p>因此loss表示为</p>
-<p>$$loss&#x3D;\sum_{i&#x3D;1}^N\max{0,1-y_i(w^Tx_i+b)}$$</p>
+<p><span
+class="math display">$$loss=\sum_{i=1}^N\max\{0,1-y_i(w^Tx_i+b)\}$$</span></p>
 <p>求和符号中的式子又叫做 Hinge Function。</p>
 <p>优化问题进一步修正为</p>
-<p>$$\begin{cases}min,<br>\frac12w^Tw+C\sum_{i&#x3D;1}^N\max{0,1-y_i(w^Tx_i+b)} \\s.t.\quad 1-y_{i}(w^{T}x_{i}+b)\leq0\end{cases}$$</p>
-<p>这个式子中，常数$C$可以看作允许的错误水平，同时上式为了进一步消除<br>$\max$符号，对数据集中的每一个观测，我们可以认为其大部分满足约束，但是其<br>中部分违反约束，因此这部分约束变成$y_i(w^Tx+b)\geq1-\xi_i$ ,其中<br>$\xi_i&#x3D;1-y_i(w^Tx_i+b)$ ,进一步的修正为：</p>
-<p>$$\begin{cases}min_{w,b}\frac12w^Tw+C\sum_{i&#x3D;1}^N\xi_i \\ s.t.\quad y_i(w^Tx_i+b)\geq1-loss_i,loss_i\geq0\end{cases}$$</p>
-<p>对于正确分类的点，$loss_i&#x3D;0$,约束变为$y_i(w^Tx_i+b)\geq1-0$<br>对于错误分类的点，$loss_i&#x3D;1-y_i(w^Tx_i+b)$，约束恒成立，相当于没有约束。</p>
-<h1 id="一些凸分析杂谈与核方法"><a href="#一些凸分析杂谈与核方法" class="headerlink" title="一些凸分析杂谈与核方法"></a>一些凸分析杂谈与核方法</h1><p>latex有空再敲，太多了太多了</p>
+<p><span class="math display">$$\begin{cases}min\,
+\frac12w^Tw+C\sum_{i=1}^N\max\{0,1-y_i(w^Tx_i+b)\} \\\\s.t.\quad
+1-y_{i}(w^{T}x_{i}+b)\leq0\end{cases}$$</span></p>
+<p>这个式子中，常数<span
+class="math inline"><em>C</em></span>可以看作允许的错误水平，同时上式为了进一步消除
+<span
+class="math inline">max </span>符号，对数据集中的每一个观测，我们可以认为其大部分满足约束，但是其
+中部分违反约束，因此这部分约束变成<span
+class="math inline"><em>y</em><sub><em>i</em></sub>(<em>w</em><sup><em>T</em></sup><em>x</em> + <em>b</em>) ≥ 1 − <em>ξ</em><sub><em>i</em></sub></span>
+,其中 <span
+class="math inline"><em>ξ</em><sub><em>i</em></sub> = 1 − <em>y</em><sub><em>i</em></sub>(<em>w</em><sup><em>T</em></sup><em>x</em><sub><em>i</em></sub> + <em>b</em>)</span>
+,进一步的修正为：</p>
+<p><span
+class="math display">$$\begin{cases}min_{w,b}\frac12w^Tw+C\sum_{i=1}^N\xi_i
+\\\\ s.t.\quad
+y_i(w^Tx_i+b)\geq1-loss_i,loss_i\geq0\end{cases}$$</span></p>
+<p>对于正确分类的点，<span
+class="math inline"><em>l</em><em>o</em><em>s</em><em>s</em><sub><em>i</em></sub> = 0</span>,约束变为<span
+class="math inline"><em>y</em><sub><em>i</em></sub>(<em>w</em><sup><em>T</em></sup><em>x</em><sub><em>i</em></sub> + <em>b</em>) ≥ 1 − 0</span><br />
+对于错误分类的点，<span
+class="math inline"><em>l</em><em>o</em><em>s</em><em>s</em><sub><em>i</em></sub> = 1 − <em>y</em><sub><em>i</em></sub>(<em>w</em><sup><em>T</em></sup><em>x</em><sub><em>i</em></sub> + <em>b</em>)</span>，约束恒成立，相当于没有约束。</p>
+<h1 id="一些凸分析杂谈与核方法">一些凸分析杂谈与核方法</h1>
+<p>latex有空再敲，太多了太多了</p>
 <p>主要就是在讲一些十分凸分析的内容，比如</p>
 <ul>
 <li>凸优化+slater条件是强对偶关系的充要条件</li>

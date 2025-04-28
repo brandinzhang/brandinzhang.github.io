@@ -16,15 +16,14 @@
   <meta name="author" content="bradin">
   <meta name="keywords" content="">
   
-    <meta name="description" content="问题定义凸优化问题一般优化问题的描述： $$\begin{array}{lll}\min&amp;f_0(x)\\s.t.&amp;f_i(x)\leq0&amp;i&#x3D;1,\ldots,m\\&amp;h_i(x)&#x3D;0&amp;i&#x3D;1,\ldots,p\end{array}$$ 广义凸问题：凸目标，凸集约束狭义凸问题：     $$\begin{aligned}&amp;am">
+    <meta name="description" content="问题定义 凸优化问题 一般优化问题的描述： $$\begin{array}{lll}\min&amp;f_0(x)\\\\s.t.&amp;f_i(x)\leq0&amp;i&#x3D;1,\ldots,m\\\\&amp;h_i(x)&#x3D;0&amp;i&#x3D;1,\ldots,p\end{array}$$ 广义凸问题：凸目标，凸集约束 狭义凸问题： $$\begin{aligned}&amp;\min\quad">
 <meta property="og:type" content="article">
 <meta property="og:title" content="凸问题">
 <meta property="og:url" content="http://example.com/2024/09/03/%E6%95%B0%E5%AD%A6/%E5%87%B8%E4%BC%98%E5%8C%96/%E5%87%B8%E9%97%AE%E9%A2%98/index.html">
 <meta property="og:site_name" content="鸭蛋仙人的博客">
-<meta property="og:description" content="问题定义凸优化问题一般优化问题的描述： $$\begin{array}{lll}\min&amp;f_0(x)\\s.t.&amp;f_i(x)\leq0&amp;i&#x3D;1,\ldots,m\\&amp;h_i(x)&#x3D;0&amp;i&#x3D;1,\ldots,p\end{array}$$ 广义凸问题：凸目标，凸集约束狭义凸问题：     $$\begin{aligned}&amp;am">
+<meta property="og:description" content="问题定义 凸优化问题 一般优化问题的描述： $$\begin{array}{lll}\min&amp;f_0(x)\\\\s.t.&amp;f_i(x)\leq0&amp;i&#x3D;1,\ldots,m\\\\&amp;h_i(x)&#x3D;0&amp;i&#x3D;1,\ldots,p\end{array}$$ 广义凸问题：凸目标，凸集约束 狭义凸问题： $$\begin{aligned}&amp;\min\quad">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://www.freeimg.cn/i/2024/08/31/66d321b2e0ae2.png">
-<meta property="og:image" content="https://www.freeimg.cn/i/2024/08/31/66d326a5b97e5.png">
 <meta property="og:image" content="https://www.freeimg.cn/i/2024/08/31/66d32867cbc98.png">
 <meta property="og:image" content="https://www.freeimg.cn/i/2024/08/31/66d32b2a6d859.png">
 <meta property="og:image" content="https://www.freeimg.cn/i/2024/09/01/66d3cf7abef7c.png">
@@ -304,87 +303,290 @@
             
               <div class="markdown-body">
                 
-                <h1 id="问题定义"><a href="#问题定义" class="headerlink" title="问题定义"></a>问题定义</h1><h3 id="凸优化问题"><a href="#凸优化问题" class="headerlink" title="凸优化问题"></a>凸优化问题</h3><p>一般优化问题的描述：</p>
-<p>$$\begin{array}{lll}\min&amp;f_0(x)\\s.t.&amp;f_i(x)\leq0&amp;i&#x3D;1,\ldots,m\\&amp;h_i(x)&#x3D;0&amp;i&#x3D;1,\ldots,p\end{array}$$</p>
-<p>广义凸问题：凸目标，凸集约束<br>狭义凸问题：    </p>
-<p>$$\begin{aligned}&amp;\min\quad f_{0}(x)&amp;&amp;f_{0}(x)\text{为凸}\&amp;s.t.\quad f_{i}(x)\leq0\quad i&#x3D;1,\ldots,m&amp;&amp;f_{i}(x)\text{均为凸}\&amp;a_{i}^{T}x&#x3D;b_{i}\quad i&#x3D;1,\ldots,p&amp;&amp;\text{等式约束为仿射函数}\end{aligned}$$</p>
-<h3 id="常用定义"><a href="#常用定义" class="headerlink" title="常用定义"></a>常用定义</h3><ul>
-<li><p>**优化问题的域(domain)**：$\text{D&#x3D;}\bigcap\limits_{i&#x3D;0}^mdom f_i \cap \bigcap\limits_{i&#x3D;1}^pdom h_i$</p>
-</li>
-<li><p>**可行解集(feasibleset)**：$X_{f}&#x3D;{x\mid x\in D, f_{i}(x)\leq0,i&#x3D;1,\dots,m, h_{i}(x)&#x3D;0,i&#x3D;1,\dots,p}$</p>
-</li>
-<li><p>**最优值(optimizationvalue)*<em>：$p^</em>&#x3D;\inf\left{f_0(x)\mid x\in X_f\right]$</p>
-</li>
-<li><p>*<em>最优解(optimizationpoint&#x2F;solution)*<em>：$\text{若 }x^</em>\text{ 可行,且 }f_0(x^*)&#x3D;p^</em>\text{,称 }x^*\text{ 为最优解}$</p>
-</li>
-<li><p><strong>局部最优解(locallyoptional)</strong>:$f_0(x)&#x3D;\inf \left{\begin{array}{ll} \quad \quad \quad f_i(x)\leq0,i&#x3D;1,\dots,m\[1ex]f_0(z)    | \quad  h_i(z)&#x3D;0,i&#x3D;1,\dots,p\ \quad \quad \quad  |z-x|\leq R\end{array}\right}$</p>
-</li>
+                <h1 id="问题定义">问题定义</h1>
+<h3 id="凸优化问题">凸优化问题</h3>
+<p>一般优化问题的描述：</p>
+<p><span
+class="math display">$$\begin{array}{lll}\min&amp;f_0(x)\\\\s.t.&amp;f_i(x)\leq0&amp;i=1,\ldots,m\\\\&amp;h_i(x)=0&amp;i=1,\ldots,p\end{array}$$</span></p>
+<p>广义凸问题：凸目标，凸集约束<br />
+狭义凸问题：</p>
+<p><span class="math display">$$\begin{aligned}&amp;\min\quad
+f_{0}(x)&amp;&amp;f_{0}(x)\text{为凸}\\&amp;s.t.\quad f_{i}(x)\leq0\quad
+i=1,\ldots,m&amp;&amp;f_{i}(x)\text{均为凸}\\&amp;a_{i}^{T}x=b_{i}\quad
+i=1,\ldots,p&amp;&amp;\text{等式约束为仿射函数}\end{aligned}$$</span></p>
+<h3 id="常用定义">常用定义</h3>
+<ul>
+<li><p><strong>优化问题的域(domain)</strong>：<span
+class="math inline">$\text{D=}\bigcap\limits_{i=0}^mdom f_i \cap
+\bigcap\limits_{i=1}^pdom h_i$</span></p></li>
+<li><p><strong>可行解集(feasibleset)</strong>：<span
+class="math inline"><em>X</em><sub><em>f</em></sub> = {<em>x</em> ∣ <em>x</em> ∈ <em>D</em>, <em>f</em><sub><em>i</em></sub>(<em>x</em>) ≤ 0, <em>i</em> = 1, …, <em>m</em>, <em>h</em><sub><em>i</em></sub>(<em>x</em>) = 0, <em>i</em> = 1, …, <em>p</em>}</span></p></li>
+<li><p><strong>最优值(optimizationvalue)</strong>：<span
+class="math inline"><em>p</em><sup>*</sup> = inf {<em>f</em><sub>0</sub>(<em>x</em>) ∣ <em>x</em> ∈ <em>X</em><sub><em>f</em></sub>]</span></p></li>
+<li><p><strong>最优解(optimizationpoint/solution)</strong>：<span
+class="math inline">若 <em>x</em><sup>*</sup> 可行,且
+<em>f</em><sub>0</sub>(<em>x</em><sup>*</sup>) = <em>p</em><sup>*</sup>,称
+<em>x</em><sup>*</sup> 为最优解</span></p></li>
+<li><p><strong>局部最优解(locallyoptional)</strong>:<span
+class="math inline">$f_0(x)=\inf \left\{\begin{array}{ll} \quad \quad
+\quad f_i(x)\leq0,i=1,\dots,m\\[1ex]f_0(z)    |
+\quad  h_i(z)=0,i=1,\dots,p\\ \quad \quad \quad  \|z-x\|\leq
+R\end{array}\right\}$</span></p></li>
 </ul>
-<p><img src="https://www.freeimg.cn/i/2024/08/31/66d321b2e0ae2.png" srcset="/img/loading.gif" lazyload alt="1725112752619.png"></p>
-<h1 id="问题性质"><a href="#问题性质" class="headerlink" title="问题性质"></a>问题性质</h1><h3 id="常用等价变换"><a href="#常用等价变换" class="headerlink" title="常用等价变换"></a>常用等价变换</h3><p><strong>BoxConstraint</strong>(箱约束)转化为标准形式</p>
-<p>$$l_i\leq x\leq u_i\Rightarrow\begin{cases}l_i-x_i\leq0\[2ex]x_i-u_i\leq0\end{cases}$$</p>
+<figure>
+<img src="https://www.freeimg.cn/i/2024/08/31/66d321b2e0ae2.png" srcset="/img/loading.gif" lazyload
+alt="1725112752619.png" />
+<figcaption aria-hidden="true">1725112752619.png</figcaption>
+</figure>
+<h1 id="问题性质">问题性质</h1>
+<h3 id="常用等价变换">常用等价变换</h3>
+<p><strong>BoxConstraint</strong>(箱约束)转化为标准形式</p>
+<p><span class="math display">$$l_i\leq x\leq
+u_i\Rightarrow\begin{cases}l_i-x_i\leq0\\[2ex]x_i-u_i\leq0\end{cases}$$</span></p>
 <p><strong>缩放</strong>，给目标函数或约束条件乘上一些正系数，类似于数据清洗</p>
-<p>$$\begin{aligned}\operatorname*{min}&amp; \alpha_0 f_0(x)\[2ex]s.t.&amp; \alpha_i f_i(x)\leq0\quad i&#x3D;1,\dots,m\[2ex]&amp; \beta_i h_i(x)&#x3D;0\quad i&#x3D;1,\dots,p\end{aligned}$$</p>
+<p><span class="math display">$$\begin{aligned}\operatorname*{min}&amp;
+\alpha_0 f_0(x)\\[2ex]s.t.&amp; \alpha_i f_i(x)\leq0\quad
+i=1,\dots,m\\[2ex]&amp; \beta_i h_i(x)=0\quad
+i=1,\dots,p\end{aligned}$$</span></p>
 <p><strong>消除等式约束</strong>，可以把等式约束当做方程解出来带入其他部分</p>
 <p><strong>引入松弛变量</strong></p>
-<p>$$\begin{aligned}&amp;\operatorname*{min}\quad f_{0}(x)\&amp;s.t.\quad s_{i}\leq0\&amp;f_{i}(x)-s_{i}&#x3D;0\quad i&#x3D;1,\ldots,m\&amp;a_{i}^{T}x&#x3D;b_{i}\quad i&#x3D;1,\ldots,p\end{aligned}$$</p>
+<p><span
+class="math display">$$\begin{aligned}&amp;\operatorname*{min}\quad
+f_{0}(x)\\&amp;s.t.\quad s_{i}\leq0\\&amp;f_{i}(x)-s_{i}=0\quad
+i=1,\ldots,m\\&amp;a_{i}^{T}x=b_{i}\quad
+i=1,\ldots,p\end{aligned}$$</span></p>
 <p>许多优化算法（如线性规划、二次规划等）都是针对具有特定形式（如线性约束、凸目标函数）的问题设计的。通过引入松弛变量，可以将原始问题转化为这些算法能够处理的形式，从而利用这些算法来求解问题。</p>
-<h3 id="局部最优即是全局最优"><a href="#局部最优即是全局最优" class="headerlink" title="局部最优即是全局最优"></a>局部最优即是全局最优</h3><p>证明：若找到了局部最优解$x$,用反证法证明$x$一定是全局最优解<br>$$\begin{aligned}&amp;\text{设 x 不是全局最优,那么必然}\exists y\in X_f, s.t. f_0(y)&lt;f_0(x)\&amp;\because\text{x 为局部最优,}\Rightarrow|y-x|_2&gt;R\&amp;\text{令 }z&#x3D;\theta y+(1-\theta)x\text{,取 }\theta&#x3D;\frac R{2|y-x|_2}\in[0,1]\&amp;\therefore\text{z 为凸组合,}z\in X_f\text{ 且 }f_0(z)\leq\theta f_0(y)+(1-\theta)f_0(x)\&amp;|z-x|_2&#x3D;\theta|x-y|_2&#x3D;\frac R2&lt;R\text{,由 x 局部最优有 }f_0(x)\leq f_0(z)\&amp;\text{由此应该有 }f_0(y)&lt;f_0(x)\leq f_0(z)\text{ (两条结论矛盾,因此原假设成立)}\end{aligned}$$</p>
+<h3 id="局部最优即是全局最优">局部最优即是全局最优</h3>
+<p>证明：若找到了局部最优解<span
+class="math inline"><em>x</em></span>,用反证法证明<span
+class="math inline"><em>x</em></span>一定是全局最优解 <span
+class="math display">$$\begin{aligned}&amp;\text{设 x
+不是全局最优,那么必然}\exists y\in X_f, s.t.
+f_0(y)&lt;f_0(x)\\&amp;\because\text{x
+为局部最优,}\Rightarrow\|y-x\|_2&gt;R\\&amp;\text{令 }z=\theta
+y+(1-\theta)x\text{,取 }\theta=\frac
+R{2\|y-x\|_2}\in[0,1]\\&amp;\therefore\text{z 为凸组合,}z\in X_f\text{
+且 }f_0(z)\leq\theta
+f_0(y)+(1-\theta)f_0(x)\\&amp;\|z-x\|_2=\theta\|x-y\|_2=\frac
+R2&lt;R\text{,由 x 局部最优有 }f_0(x)\leq f_0(z)\\&amp;\text{由此应该有
+}f_0(y)&lt;f_0(x)\leq f_0(z)\text{
+(两条结论矛盾,因此原假设成立)}\end{aligned}$$</span></p>
 <p>对千拟凸优化问题，局部最优解是全局朵优解这一性质不成立</p>
-<h3 id="最优解处的一阶条件"><a href="#最优解处的一阶条件" class="headerlink" title="最优解处的一阶条件"></a>最优解处的一阶条件</h3><p>设凸优化问题的目标函数是可微的，记最优解为$x^*$,可行域为$X_f$对于任意的$y \in X_f$,均满足<br>$$\nabla f_{0}^{T}(x^{<em>})(y-x^{</em>})\geq0$$</p>
-<p>简单证明一下，我们都知道凸函数的一阶性质是<br>$$f(y)\geq f(x)+\nabla f^{T}(x)(y-x) \quad \quad （1）$$</p>
-<p>如果最优解处的一阶条件是满足$\nabla f_{0}^{T}(x^{<em>})(y-x^{</em>})\geq0$的，那么代入（1）可以得到$f(y) \geq f(x^*)$,符合$x^*$是最优解得要求</p>
-<p>如果最优解处的一阶条件不满足$\nabla f_{0}^{T}(x^{<em>})(y-x^{</em>})\geq0$<br>考虑点 $z(t) &#x3D; ty + (1- t)x$, 其中 $t \in (0, 1]$ 为参数。因为 $z(t)$ 在 $x$ 和 $y$ 之间的线段上，<br>而可行集是凸集，因此 $z(t)$ 可行。我们可断言对于总有小正数$t$, 使得$f_0(z(t) ) &lt; f_0(x)$, 这证<br>明了x不是最优的。为说明这一点，注意<br>$$\left.\frac{d}{dt}f_0(z(t))\right|_{t&#x3D;0}&#x3D;\nabla f_0(x)^T(y-x)&lt;0,$$</p>
+<h3 id="最优解处的一阶条件">最优解处的一阶条件</h3>
+<p>设凸优化问题的目标函数是可微的，记最优解为<span
+class="math inline"><em>x</em><sup>*</sup></span>,可行域为<span
+class="math inline"><em>X</em><sub><em>f</em></sub></span>对于任意的<span
+class="math inline"><em>y</em> ∈ <em>X</em><sub><em>f</em></sub></span>,均满足
+<span
+class="math display">∇<em>f</em><sub>0</sub><sup><em>T</em></sup>(<em>x</em><sup>*</sup>)(<em>y</em> − <em>x</em><sup>*</sup>) ≥ 0</span></p>
+<p>简单证明一下，我们都知道凸函数的一阶性质是 <span
+class="math display"><em>f</em>(<em>y</em>) ≥ <em>f</em>(<em>x</em>) + ∇<em>f</em><sup><em>T</em></sup>(<em>x</em>)(<em>y</em> − <em>x</em>)    （1）</span></p>
+<p>如果最优解处的一阶条件是满足<span
+class="math inline">∇<em>f</em><sub>0</sub><sup><em>T</em></sup>(<em>x</em><sup>*</sup>)(<em>y</em> − <em>x</em><sup>*</sup>) ≥ 0</span>的，那么代入（1）可以得到<span
+class="math inline"><em>f</em>(<em>y</em>) ≥ <em>f</em>(<em>x</em><sup>*</sup>)</span>,符合<span
+class="math inline"><em>x</em><sup>*</sup></span>是最优解得要求</p>
+<p>如果最优解处的一阶条件不满足<span
+class="math inline">∇<em>f</em><sub>0</sub><sup><em>T</em></sup>(<em>x</em><sup>*</sup>)(<em>y</em> − <em>x</em><sup>*</sup>) ≥ 0</span><br />
+考虑点 <span
+class="math inline"><em>z</em>(<em>t</em>) = <em>t</em><em>y</em> + (1 − <em>t</em>)<em>x</em></span>,
+其中 <span class="math inline"><em>t</em> ∈ (0, 1]</span> 为参数。因为
+<span class="math inline"><em>z</em>(<em>t</em>)</span> 在 <span
+class="math inline"><em>x</em></span> 和 <span
+class="math inline"><em>y</em></span> 之间的线段上，
+而可行集是凸集，因此 <span
+class="math inline"><em>z</em>(<em>t</em>)</span>
+可行。我们可断言对于总有小正数<span
+class="math inline"><em>t</em></span>, 使得<span
+class="math inline"><em>f</em><sub>0</sub>(<em>z</em>(<em>t</em>)) &lt; <em>f</em><sub>0</sub>(<em>x</em>)</span>,
+这证 明了x不是最优的。为说明这一点，注意 <span
+class="math display">$$\left.\frac{d}{dt}f_0(z(t))\right|_{t=0}=\nabla
+f_0(x)^T(y-x)&lt;0,$$</span></p>
 <p>综上所述，最优解处的一阶条件成立</p>
-<p><img src="https://www.freeimg.cn/i/2024/08/31/66d326a5b97e5.png" srcset="/img/loading.gif" lazyload></p>
-<p>看看上述式子的几何意义，设$X$为可行域，$x$为最优解，图中虚线簇为优化函数$f_0$的等高线，则最优解处的一阶条件给出了一个超平面$\nabla f_0(x)^T(y-x)&#x3D;0$，可行域作为一个凸集总在超平面的一侧,也就是$\nabla f_0(x)^T(y-x)&lt;0$</p>
-<h3 id="仅有等式约束"><a href="#仅有等式约束" class="headerlink" title="仅有等式约束"></a>仅有等式约束</h3><p>$$\begin{array}{ll}\min&amp;f_0(x)\quad dom\mathrm{~}f_0&#x3D;\mathbb{R}^n\s.t.&amp;Ax&#x3D;b\end{array}$$</p>
-<p>带入一阶最优条件<br>$$\text{令}v&#x3D;y-x^<em>\text{,}约束条件化为\nabla f_0^T(x^</em>)v\geq0\text{,}v\in\mathcal{N}(A)\text{,则 }\nabla f_0^T(x^*)\perp v$$</p>
-<p>为何由$\nabla f_0^T(x^*)v\geq0$便可以断言$\nabla f_0^T(x^*)\perp v$?,不妨从几何的角度来理解。图上看结果是：最优解处函数梯度垂直于$A$的化零空间</p>
-<p><img src="https://www.freeimg.cn/i/2024/08/31/66d32867cbc98.png" srcset="/img/loading.gif" lazyload alt="1725114468739.png"></p>
-<p>可以想象:无论如何调整$\nabla f_0(t)$方向，也无法使所有的$v\in\mathcal{N}(A)$(对应$Ax&#x3D;0$)都做到$\nabla f_0^T(x^*)v\geq0$,因此只能是<br>$$\nabla f_0^T(x^*)\perp v$$</p>
-<h3 id="仅有非负约束"><a href="#仅有非负约束" class="headerlink" title="仅有非负约束"></a>仅有非负约束</h3><p>$$\begin{aligned}&amp;\min f_0(x)\&amp;s.t. x\geq0\&amp;\nabla f_0^T(x^*)y-\nabla f_0^T(x^*)x^*\geq0 \quad \quad (1)\end{aligned}$$</p>
-<p>上式是关于任意$y \geq 0$的线性函数($y$的约束与x相同)，若想要(1)式子大于等于0恒成立，则系数必然有<br>$$\nabla f_0(x^*)\geq0  \quad \quad (2)$$<br>为什么？倘若$\nabla f^T_0(x^*)$有负数分量$\nabla f^T_{0i}(x^*)$,由于$y$在正数范围内任取，令$y_i$取到足够大的正无穷，其余分量为0，则(1)不成立。因此$\nabla f^T_0(x^*)$是不能有负数分量的</p>
-<p>再看看其他有用的性质，令$y&#x3D;0$，由(1)可以得到.$-\nabla f_0^T(x^*)x^*\geq0 \quad \quad (3)$</p>
-<p>结合(2)(3)和$x$非负的约束，可以得到$\nabla f_0^T(x^*)x^*&#x3D;0$，这两项内积为0，且都非负，所以$(\nabla f_0(x^*))<em>ix_i^*&#x3D;0,\forall i\text{。}$，注意这里得出了一个重要性质，最优解处考察每一个维度，要么梯度值分量为0，要么约束取等号，这个条件叫做互补条件(complementary)。以下图为例检验一下,蓝色线为目标函数等高线，约束为第一象限$\mathbb{R}^2</em>{++}$，此时满足互补条件</p>
-<p><img src="https://www.freeimg.cn/i/2024/08/31/66d32b2a6d859.png" srcset="/img/loading.gif" lazyload alt="1725115176564.png"></p>
-<h1 id="问题举例"><a href="#问题举例" class="headerlink" title="问题举例"></a>问题举例</h1><h3 id="线性规划"><a href="#线性规划" class="headerlink" title="线性规划"></a>线性规划</h3><p>$$\begin{aligned}<br>&amp;\mathrm{min} c^{T}x+d \<br>&amp;s.t. Gx+s&#x3D;h \<br>&amp;Ax&#x3D;b \<br>&amp;s\geq0<br>\end{aligned}$$</p>
+<p><img
+src="https://www.freeimg.cn/i/2024/08/31/66d326a5b97e5.png" srcset="/img/loading.gif" lazyload /></p>
+<p>看看上述式子的几何意义，设<span
+class="math inline"><em>X</em></span>为可行域，<span
+class="math inline"><em>x</em></span>为最优解，图中虚线簇为优化函数<span
+class="math inline"><em>f</em><sub>0</sub></span>的等高线，则最优解处的一阶条件给出了一个超平面<span
+class="math inline">∇<em>f</em><sub>0</sub>(<em>x</em>)<sup><em>T</em></sup>(<em>y</em> − <em>x</em>) = 0</span>，可行域作为一个凸集总在超平面的一侧,也就是<span
+class="math inline">∇<em>f</em><sub>0</sub>(<em>x</em>)<sup><em>T</em></sup>(<em>y</em> − <em>x</em>) &lt; 0</span></p>
+<h3 id="仅有等式约束">仅有等式约束</h3>
+<p><span class="math display">$$\begin{array}{ll}\min&amp;f_0(x)\quad
+dom\mathrm{~}f_0=\mathbb{R}^n\\s.t.&amp;Ax=b\end{array}$$</span></p>
+<p>带入一阶最优条件 <span
+class="math display">令<em>v</em> = <em>y</em> − <em>x</em><sup>*</sup>,<em>约</em><em>束</em><em>条</em><em>件</em><em>化</em><em>为</em>∇<em>f</em><sub>0</sub><sup><em>T</em></sup>(<em>x</em><sup>*</sup>)<em>v</em> ≥ 0,<em>v</em> ∈ 𝒩(<em>A</em>),则
+∇<em>f</em><sub>0</sub><sup><em>T</em></sup>(<em>x</em><sup>*</sup>) ⟂ <em>v</em></span></p>
+<p>为何由<span
+class="math inline">∇<em>f</em><sub>0</sub><sup><em>T</em></sup>(<em>x</em><sup>*</sup>)<em>v</em> ≥ 0</span>便可以断言<span
+class="math inline">∇<em>f</em><sub>0</sub><sup><em>T</em></sup>(<em>x</em><sup>*</sup>) ⟂ <em>v</em></span>?,不妨从几何的角度来理解。图上看结果是：最优解处函数梯度垂直于<span
+class="math inline"><em>A</em></span>的化零空间</p>
+<figure>
+<img src="https://www.freeimg.cn/i/2024/08/31/66d32867cbc98.png" srcset="/img/loading.gif" lazyload
+alt="1725114468739.png" />
+<figcaption aria-hidden="true">1725114468739.png</figcaption>
+</figure>
+<p>可以想象:无论如何调整<span
+class="math inline">∇<em>f</em><sub>0</sub>(<em>t</em>)</span>方向，也无法使所有的<span
+class="math inline"><em>v</em> ∈ 𝒩(<em>A</em>)</span>(对应<span
+class="math inline"><em>A</em><em>x</em> = 0</span>)都做到<span
+class="math inline">∇<em>f</em><sub>0</sub><sup><em>T</em></sup>(<em>x</em><sup>*</sup>)<em>v</em> ≥ 0</span>,因此只能是
+<span
+class="math display">∇<em>f</em><sub>0</sub><sup><em>T</em></sup>(<em>x</em><sup>*</sup>) ⟂ <em>v</em></span></p>
+<h3 id="仅有非负约束">仅有非负约束</h3>
+<p><span class="math display">$$\begin{aligned}&amp;\min
+f_0(x)\\&amp;s.t. x\geq0\\&amp;\nabla f_0^T(x^*)y-\nabla
+f_0^T(x^*)x^*\geq0 \quad \quad (1)\end{aligned}$$</span></p>
+<p>上式是关于任意<span
+class="math inline"><em>y</em> ≥ 0</span>的线性函数(<span
+class="math inline"><em>y</em></span>的约束与x相同)，若想要(1)式子大于等于0恒成立，则系数必然有
+<span
+class="math display">∇<em>f</em><sub>0</sub>(<em>x</em><sup>*</sup>) ≥ 0    (2)</span>
+为什么？倘若<span
+class="math inline">∇<em>f</em><sub>0</sub><sup><em>T</em></sup>(<em>x</em><sup>*</sup>)</span>有负数分量<span
+class="math inline">∇<em>f</em><sub>0<em>i</em></sub><sup><em>T</em></sup>(<em>x</em><sup>*</sup>)</span>,由于<span
+class="math inline"><em>y</em></span>在正数范围内任取，令<span
+class="math inline"><em>y</em><sub><em>i</em></sub></span>取到足够大的正无穷，其余分量为0，则(1)不成立。因此<span
+class="math inline">∇<em>f</em><sub>0</sub><sup><em>T</em></sup>(<em>x</em><sup>*</sup>)</span>是不能有负数分量的</p>
+<p>再看看其他有用的性质，令<span
+class="math inline"><em>y</em> = 0</span>，由(1)可以得到.<span
+class="math inline">−∇<em>f</em><sub>0</sub><sup><em>T</em></sup>(<em>x</em><sup>*</sup>)<em>x</em><sup>*</sup> ≥ 0    (3)</span></p>
+<p>结合(2)(3)和<span
+class="math inline"><em>x</em></span>非负的约束，可以得到<span
+class="math inline">∇<em>f</em><sub>0</sub><sup><em>T</em></sup>(<em>x</em><sup>*</sup>)<em>x</em><sup>*</sup> = 0</span>，这两项内积为0，且都非负，所以<span
+class="math inline">(∇<em>f</em><sub>0</sub>(<em>x</em><sup>*</sup>))<sub><em>i</em></sub><em>x</em><sub><em>i</em></sub><sup>*</sup> = 0, ∀<em>i</em>。</span>，注意这里得出了一个重要性质，最优解处考察每一个维度，要么梯度值分量为0，要么约束取等号，这个条件叫做互补条件(complementary)。以下图为例检验一下,蓝色线为目标函数等高线，约束为第一象限<span
+class="math inline">ℝ<sub>++</sub><sup>2</sup></span>，此时满足互补条件</p>
+<figure>
+<img src="https://www.freeimg.cn/i/2024/08/31/66d32b2a6d859.png" srcset="/img/loading.gif" lazyload
+alt="1725115176564.png" />
+<figcaption aria-hidden="true">1725115176564.png</figcaption>
+</figure>
+<h1 id="问题举例">问题举例</h1>
+<h3 id="线性规划">线性规划</h3>
+<p><span class="math display">$$\begin{aligned}
+&amp;\mathrm{min} c^{T}x+d \\
+&amp;s.t. Gx+s=h \\
+&amp;Ax=b \\
+&amp;s\geq0
+\end{aligned}$$</span></p>
 <p>等价变换</p>
-<p>$$\begin{aligned}&amp;\mathrm{min}&amp;&amp;c^{T}x^{+}-c^{T}x^{-}+d\&amp;s.t.&amp;&amp;Gx^{+}-Gx^{-}+s&#x3D;h\&amp;&amp;&amp;Ax^{+}-Ax^{-}&#x3D;b\&amp;&amp;&amp;s\geq0, x^{+}\geq0, x^{-}\geq0\end{aligned}$$</p>
-<p>其中$x^+$和$x^-$是只有0分量和正分量的向量，举个例子：<br>x&#x3D;[-2,1,-2,3],则$x^+$&#x3D;[0,1,0,3],$x^-$&#x3D;[2,0,2,0]</p>
-<p>通过这种变换能够将问题化为线性约束以及非负约束，这方便使用函数(linprog)进行求解。<br>根据一阶最优条件线性规划的解在边界上</p>
-<p><img src="https://www.freeimg.cn/i/2024/09/01/66d3cf7abef7c.png" srcset="/img/loading.gif" lazyload alt="1725157239220.png"></p>
-<h3 id="线性分数规划"><a href="#线性分数规划" class="headerlink" title="线性分数规划"></a>线性分数规划</h3><p>$$\begin{aligned}<br>&amp;\mathrm{min}&amp;&amp; \frac{c^{T}x+d}{e^{T}x+f} \<br>&amp;s.t.&amp;&amp; Gx\leq h \<br>&amp;&amp;&amp;Ax&#x3D;b \<br>&amp;&amp;&amp;e^{T}x+f&gt;0<br>\end{aligned}$$<br>这个问题不是凸优化问题，但是可以化为线性规划问题</p>
-<p>取$y&#x3D;\frac{x}{e^{T}x+f}, z&#x3D;\frac{1}{e^{T}x+f}$，得到等价问题</p>
-<p>$$\begin{aligned}<br>&amp;\mathrm{min}&amp;&amp; c^{T}y+dz \<br>&amp;s.t.&amp;&amp; Gy-hz\leq0 \<br>&amp;&amp;&amp;Ay-bz&#x3D;0 \<br>&amp;&amp;&amp;e^{T}y+fz&#x3D;1 \<br>&amp;&amp;&amp;z\geq0<br>\end{aligned}$$</p>
-<p>【如何判断两个优化问题等价？】              </p>
+<p><span
+class="math display">$$\begin{aligned}&amp;\mathrm{min}&amp;&amp;c^{T}x^{+}-c^{T}x^{-}+d\\&amp;s.t.&amp;&amp;Gx^{+}-Gx^{-}+s=h\\&amp;&amp;&amp;Ax^{+}-Ax^{-}=b\\&amp;&amp;&amp;s\geq0,
+x^{+}\geq0, x^{-}\geq0\end{aligned}$$</span></p>
+<p>其中<span class="math inline"><em>x</em><sup>+</sup></span>和<span
+class="math inline"><em>x</em><sup>−</sup></span>是只有0分量和正分量的向量，举个例子：
+x=[-2,1,-2,3],则<span
+class="math inline"><em>x</em><sup>+</sup></span>=[0,1,0,3],<span
+class="math inline"><em>x</em><sup>−</sup></span>=[2,0,2,0]</p>
+<p>通过这种变换能够将问题化为线性约束以及非负约束，这方便使用函数(linprog)进行求解。<br />
+根据一阶最优条件线性规划的解在边界上</p>
+<figure>
+<img src="https://www.freeimg.cn/i/2024/09/01/66d3cf7abef7c.png" srcset="/img/loading.gif" lazyload
+alt="1725157239220.png" />
+<figcaption aria-hidden="true">1725157239220.png</figcaption>
+</figure>
+<h3 id="线性分数规划">线性分数规划</h3>
+<p><span class="math display">$$\begin{aligned}
+&amp;\mathrm{min}&amp;&amp; \frac{c^{T}x+d}{e^{T}x+f} \\
+&amp;s.t.&amp;&amp; Gx\leq h \\
+&amp;&amp;&amp;Ax=b \\
+&amp;&amp;&amp;e^{T}x+f&gt;0
+\end{aligned}$$</span>
+这个问题不是凸优化问题，但是可以化为线性规划问题</p>
+<p>取<span class="math inline">$y=\frac{x}{e^{T}x+f},
+z=\frac{1}{e^{T}x+f}$</span>，得到等价问题</p>
+<p><span class="math display">$$\begin{aligned}
+&amp;\mathrm{min}&amp;&amp; c^{T}y+dz \\
+&amp;s.t.&amp;&amp; Gy-hz\leq0 \\
+&amp;&amp;&amp;Ay-bz=0 \\
+&amp;&amp;&amp;e^{T}y+fz=1 \\
+&amp;&amp;&amp;z\geq0
+\end{aligned}$$</span></p>
+<p>【如何判断两个优化问题等价？】</p>
 <p>【在一个优化问题里面找一个可行解，使得能在另一个那里找到对应的可行集，且这两个解对应的目标函数值是相等的】</p>
-<h3 id="二次规划"><a href="#二次规划" class="headerlink" title="二次规划"></a>二次规划</h3><p>(quadratic programming, QP)目标函数为二次函数，约束为放射约束</p>
-<p>$$\begin{array}{rl}\min&amp;\frac{1}{2}X^TPX+q^Tx+r\\s.t.&amp;Qx\leq h\quad P\in S_+^n\\&amp;Ax&#x3D;b\end{array}$$</p>
+<h3 id="二次规划">二次规划</h3>
+<p>(quadratic programming, QP)目标函数为二次函数，约束为放射约束</p>
+<p><span
+class="math display">$$\begin{array}{rl}\min&amp;\frac{1}{2}X^TPX+q^Tx+r\\\\s.t.&amp;Qx\leq
+h\quad P\in S_+^n\\\\&amp;Ax=b\end{array}$$</span></p>
 <p>线性规划问题的最优解只能在边界点取到，二次规划问题的最优解可能在内部取到</p>
-<p><img src="https://www.freeimg.cn/i/2024/09/01/66d3d1d153953.png" srcset="/img/loading.gif" lazyload alt="1725157839000.png"></p>
-<p><strong>二次约束的二次规划(Quadratically Constrained Quadratic Programing, QCQP)</strong></p>
-<p>$$\begin{aligned}&amp;\text{min}&amp;&amp;\frac{1}{2}X^{T}PX+q^{T}x+r\&amp;s.t.&amp;&amp;\frac{1}{2}X^{T}P_{i}X+q_{i}^{T}x+r\leq0&amp;&amp;P\in S_{++}^{n}\&amp;&amp;&amp;Ax&#x3D;b&amp;&amp;P_{i}\in S_{+}^{n}, i&#x3D;1,\ldots,m\end{aligned}$$</p>
-<h3 id="稀疏约束的最小二乘"><a href="#稀疏约束的最小二乘" class="headerlink" title="稀疏约束的最小二乘"></a>稀疏约束的最小二乘</h3><p>之前提到可以使用1范数取代0范数</p>
-<p>$$\begin{array}{ll}\hat{x}&#x3D;\arg\min_x&amp;|b-Ax|_2^2+\lambda_0|x|_0\\&#x3D;\arg\min_x&amp;|b-Ax|_2^2+\lambda_1|x|_1&amp;(l_1-regularized least squares)\end{array}$$</p>
+<figure>
+<img src="https://www.freeimg.cn/i/2024/09/01/66d3d1d153953.png" srcset="/img/loading.gif" lazyload
+alt="1725157839000.png" />
+<figcaption aria-hidden="true">1725157839000.png</figcaption>
+</figure>
+<p><strong>二次约束的二次规划(Quadratically Constrained Quadratic
+Programing, QCQP)</strong></p>
+<p><span
+class="math display">$$\begin{aligned}&amp;\text{min}&amp;&amp;\frac{1}{2}X^{T}PX+q^{T}x+r\\&amp;s.t.&amp;&amp;\frac{1}{2}X^{T}P_{i}X+q_{i}^{T}x+r\leq0&amp;&amp;P\in
+S_{++}^{n}\\&amp;&amp;&amp;Ax=b&amp;&amp;P_{i}\in S_{+}^{n},
+i=1,\ldots,m\end{aligned}$$</span></p>
+<h3 id="稀疏约束的最小二乘">稀疏约束的最小二乘</h3>
+<p>之前提到可以使用1范数取代0范数</p>
+<p><span
+class="math display">$$\begin{array}{ll}\hat{x}=\arg\min_x&amp;\|b-Ax\|_2^2+\lambda_0\|x\|_0\\\\=\arg\min_x&amp;\|b-Ax\|_2^2+\lambda_1\|x\|_1&amp;(l_1-regularized
+least squares)\end{array}$$</span></p>
 <p>但是带有绝对值的目标函数显然是不好优化的，为此做一些变换</p>
-<p>令$x&#x3D;x^+-x^-$,则$\lambda_{1}|x^{+}-x^{-}|<em>{1}&#x3D;\lambda</em>{1}1^{T}x^{+}+\lambda_{1}1^{T}x^{-}$，从而消除绝对值，化为二次规划的问题</p>
-<p>$$\begin{array}{rl}\hat{x}&#x3D;\arg\min_x&amp;|b-Ax^+-Ax^-|_2^2+\lambda_11^Tx^++\lambda_11^Tx^-\\s.t.&amp;x^+,x^-\geq0\end{array}$$</p>
-<h3 id="半正定规划"><a href="#半正定规划" class="headerlink" title="半正定规划"></a>半正定规划</h3><p>半正定规划有两种形式，一种是矩阵形式，一种是向量形式<br>半正定规划的矩阵形式，这实际上是矩阵空间的线性规划（因为trace 的操作实际上是线性操作，<br>可从特例对角矩阵理解）</p>
-<p>$$\begin{array}{rl}\mathrm{min}&amp;tr(CX)\\s.t.&amp;tr(A_iX)&#x3D;b_i, i&#x3D;1,\ldots,p\\&amp;X\succeq0, X\in S_{+}^{n}, C\in R^{n\times n}, A_{i}\in R^{n\times n}, b_{i}\in R\end{array}$$</p>
+<p>令<span
+class="math inline"><em>x</em> = <em>x</em><sup>+</sup> − <em>x</em><sup>−</sup></span>,则<span
+class="math inline"><em>λ</em><sub>1</sub>∥<em>x</em><sup>+</sup> − <em>x</em><sup>−</sup>∥<sub>1</sub> = <em>λ</em><sub>1</sub>1<sup><em>T</em></sup><em>x</em><sup>+</sup> + <em>λ</em><sub>1</sub>1<sup><em>T</em></sup><em>x</em><sup>−</sup></span>，从而消除绝对值，化为二次规划的问题</p>
+<p><span
+class="math display">$$\begin{array}{rl}\hat{x}=\arg\min_x&amp;\|b-Ax^+-Ax^-\|_2^2+\lambda_11^Tx^++\lambda_11^Tx^-\\\\s.t.&amp;x^+,x^-\geq0\end{array}$$</span></p>
+<h3 id="半正定规划">半正定规划</h3>
+<p>半正定规划有两种形式，一种是矩阵形式，一种是向量形式<br />
+半正定规划的矩阵形式，这实际上是矩阵空间的线性规划（因为trace
+的操作实际上是线性操作， 可从特例对角矩阵理解）</p>
+<p><span
+class="math display">$$\begin{array}{rl}\mathrm{min}&amp;tr(CX)\\\\s.t.&amp;tr(A_iX)=b_i,
+i=1,\ldots,p\\\\&amp;X\succeq0, X\in S_{+}^{n}, C\in R^{n\times n},
+A_{i}\in R^{n\times n}, b_{i}\in R\end{array}$$</span></p>
 <p>向量形式</p>
-<p>$$\begin{array}{ll}\min&amp;c^Tx\\s.t.&amp;x_1A_1+\cdots+x_nA_n\preceq B\\&amp;x\in R^n, B,A_1,\ldots,A_n\in S^k, C\in R^n\end{array}$$</p>
-<p>经典的问题：谱范数(最大奇异值)问题<br>谱范数指的是矩阵的最大奇异值<br>求$A(x)&#x3D;A+x_1A_1+\cdots+x_nA_n,A_i\in\mathbb{R}^{p\times q}$最小谱范数？<br>由于谱范数恒正，记优化函数为$\sqrt{S}$,问题表述为</p>
-<p>$$\begin{aligned}<br>\mathrm{min}&amp; \sqrt{S} (\text{非凸})\quad\Leftrightarrow\quad S (\text{凸}) \<br>s.t.&amp; A(x)^TA(x)\preceq SI \<br>\Rightarrow\mathrm{min}&amp; \text{t} \<br>s.t.&amp; A(x)^TA(x)\preceq t^2I, t\geq0 \<br>\Rightarrow\mathrm{min}&amp; \text{t} \<br>s.t.&amp; \left.\left[\begin{array}{cc}tI&amp;A(x)\\A^T(x)&amp;tI\end{array}\right.\right]\succeq0, t\geq0 \<br>&amp;&amp;\Rightarrow\mathrm{min} t \text{:} \<br>s.t.&amp; Y&#x3D;\left[\begin{array}{cc}tI&amp;A(x)\[0.3em]A^T(x)&amp;tI\end{array}\right], Y\succeq0, t\geq0<br>\end{aligned}$$</p>
+<p><span
+class="math display">$$\begin{array}{ll}\min&amp;c^Tx\\\\s.t.&amp;x_1A_1+\cdots+x_nA_n\preceq
+B\\\\&amp;x\in R^n, B,A_1,\ldots,A_n\in S^k, C\in
+R^n\end{array}$$</span></p>
+<p>经典的问题：谱范数(最大奇异值)问题<br />
+谱范数指的是矩阵的最大奇异值<br />
+求<span
+class="math inline"><em>A</em>(<em>x</em>) = <em>A</em> + <em>x</em><sub>1</sub><em>A</em><sub>1</sub> + ⋯ + <em>x</em><sub><em>n</em></sub><em>A</em><sub><em>n</em></sub>, <em>A</em><sub><em>i</em></sub> ∈ ℝ<sup><em>p</em> × <em>q</em></sup></span>最小谱范数？
+由于谱范数恒正，记优化函数为<span
+class="math inline">$\sqrt{S}$</span>,问题表述为</p>
+<p><span class="math display">$$\begin{aligned}
+\mathrm{min}&amp; \sqrt{S} (\text{非凸})\quad\Leftrightarrow\quad S
+(\text{凸}) \\
+s.t.&amp; A(x)^TA(x)\preceq SI \\
+\Rightarrow\mathrm{min}&amp; \text{t} \\
+s.t.&amp; A(x)^TA(x)\preceq t^2I, t\geq0 \\
+\Rightarrow\mathrm{min}&amp; \text{t} \\
+s.t.&amp;
+\left.\left[\begin{array}{cc}tI&amp;A(x)\\\\A^T(x)&amp;tI\end{array}\right.\right]\succeq0,
+t\geq0 \\
+&amp;&amp;\Rightarrow\mathrm{min} t \text{:} \\
+s.t.&amp;
+Y=\left[\begin{array}{cc}tI&amp;A(x)\\[0.3em]A^T(x)&amp;tI\end{array}\right],
+Y\succeq0, t\geq0
+\end{aligned}$$</span></p>
 <p>具体的等价证明参见附录</p>
-<h3 id="多目标优化"><a href="#多目标优化" class="headerlink" title="多目标优化"></a>多目标优化</h3><ul>
+<h3 id="多目标优化">多目标优化</h3>
+<ul>
 <li>例如，投资要在总成本限制下，最小化风险，最大化收益；发展要在一定资源限制下，最大化发展速度与发展质量。</li>
-<li>此时有多个目标，通常在某个指标上变好，就会在另外一个指标上变差，权衡不同目标，得出最优解的集合称为帕累托曲面(Pareto front)</li>
+<li>此时有多个目标，通常在某个指标上变好，就会在另外一个指标上变差，权衡不同目标，得出最优解的集合称为帕累托曲面(Pareto
+front)</li>
 </ul>
-<p><img src="https://www.freeimg.cn/i/2024/09/01/66d41b08d3956.png" srcset="/img/loading.gif" lazyload alt="1725176582131.png"></p>
-<p>帕累托曲面通常很难找到，因此多目标优化事实上是个很难做的问题，我们一般会定住某些目标将问题变为单目标优化问题，比如使用罚函数的思想。以岭回归为例<br>$$\begin{array}{l}\min|b-Ax|_2^2\text{,}\min|x|_2^2\\min|b-Ax|_2^2+\lambda|x|_2^2\end{array}$$</p>
-<p>遍历不同的超参数$\lambda$即可得到帕累托曲面</p>
-<p><img src="https://www.freeimg.cn/i/2024/09/01/66d41b9700b6b.png" srcset="/img/loading.gif" lazyload alt="1725176724670.png"></p>
+<figure>
+<img src="https://www.freeimg.cn/i/2024/09/01/66d41b08d3956.png" srcset="/img/loading.gif" lazyload
+alt="1725176582131.png" />
+<figcaption aria-hidden="true">1725176582131.png</figcaption>
+</figure>
+<p>帕累托曲面通常很难找到，因此多目标优化事实上是个很难做的问题，我们一般会定住某些目标将问题变为单目标优化问题，比如使用罚函数的思想。以岭回归为例<br />
+<span
+class="math display">$$\begin{array}{l}\min\|b-Ax\|_2^2\text{,}\min\|x\|_2^2\\\min\|b-Ax\|_2^2+\lambda\|x\|_2^2\end{array}$$</span></p>
+<p>遍历不同的超参数<span
+class="math inline"><em>λ</em></span>即可得到帕累托曲面</p>
+<figure>
+<img src="https://www.freeimg.cn/i/2024/09/01/66d41b9700b6b.png" srcset="/img/loading.gif" lazyload
+alt="1725176724670.png" />
+<figcaption aria-hidden="true">1725176724670.png</figcaption>
+</figure>
 
                 
               </div>

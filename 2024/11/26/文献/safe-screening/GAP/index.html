@@ -16,12 +16,12 @@
   <meta name="author" content="bradin">
   <meta name="keywords" content="">
   
-    <meta name="description" content="动态筛选的提出以往的安全筛选法则，都是脱离训练过程所存在的筛选。我们称之为静态筛选规则(We will refer to such safe rules as static safe rules)他大致分为全局的(利用$\lambda_0$)和递归的(加速筛选一系列$\lambda$),动态筛选规则为我们提供了新的思路。作者用简单的伪代码为我们展示了何为动态筛选：(字典D就是上篇里的X，x是上篇的">
+    <meta name="description" content="动态筛选的提出 以往的安全筛选法则，都是脱离训练过程所存在的筛选。我们称之为静态筛选规则(We will refer to such safe rules as static safe rules)他大致分为全局的(利用λ0)和递归的(加速筛选一系列λ),动态筛选规则为我们提供了新的思路。作者用简单的伪代码为我们展示了何为动态筛选：(字典D就是上篇里的X，x是上篇的w) 它通过在优化过程中迭代减少">
 <meta property="og:type" content="article">
 <meta property="og:title" content="GAP">
 <meta property="og:url" content="http://example.com/2024/11/26/%E6%96%87%E7%8C%AE/safe-screening/GAP/index.html">
 <meta property="og:site_name" content="鸭蛋仙人的博客">
-<meta property="og:description" content="动态筛选的提出以往的安全筛选法则，都是脱离训练过程所存在的筛选。我们称之为静态筛选规则(We will refer to such safe rules as static safe rules)他大致分为全局的(利用$\lambda_0$)和递归的(加速筛选一系列$\lambda$),动态筛选规则为我们提供了新的思路。作者用简单的伪代码为我们展示了何为动态筛选：(字典D就是上篇里的X，x是上篇的">
+<meta property="og:description" content="动态筛选的提出 以往的安全筛选法则，都是脱离训练过程所存在的筛选。我们称之为静态筛选规则(We will refer to such safe rules as static safe rules)他大致分为全局的(利用λ0)和递归的(加速筛选一系列λ),动态筛选规则为我们提供了新的思路。作者用简单的伪代码为我们展示了何为动态筛选：(字典D就是上篇里的X，x是上篇的w) 它通过在优化过程中迭代减少">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2024-11-25T16:00:00.000Z">
 <meta property="article:modified_time" content="2025-04-28T11:35:16.598Z">
@@ -294,37 +294,87 @@
             
               <div class="markdown-body">
                 
-                <h1 id="动态筛选的提出"><a href="#动态筛选的提出" class="headerlink" title="动态筛选的提出"></a>动态筛选的提出</h1><p>以往的安全筛选法则，都是脱离训练过程所存在的筛选。我们称之为静态筛选规则(We will refer to such safe rules as static safe rules)他大致分为全局的(利用$\lambda_0$)和递归的(加速筛选一系列$\lambda$),动态筛选规则为我们提供了新的思路。作者用简单的伪代码为我们展示了何为动态筛选：(字典D就是上篇里的X，x是上篇的w)</p>
-<p>它通过在优化过程中迭代减少字典的大小，丢弃已知不属于 Lasso 解的元素，从而加速了一大类优化算法。</p>
+                <h1 id="动态筛选的提出">动态筛选的提出</h1>
+<p>以往的安全筛选法则，都是脱离训练过程所存在的筛选。我们称之为静态筛选规则(We
+will refer to such safe rules as static safe
+rules)他大致分为全局的(利用<span
+class="math inline"><em>λ</em><sub>0</sub></span>)和递归的(加速筛选一系列<span
+class="math inline"><em>λ</em></span>),动态筛选规则为我们提供了新的思路。作者用简单的伪代码为我们展示了何为动态筛选：(字典D就是上篇里的X，x是上篇的w)</p>
+<p>它通过在优化过程中迭代减少字典的大小，丢弃已知不属于 Lasso
+解的元素，从而加速了一大类优化算法。</p>
 <p>动态筛选的符号选择跟前面处处有不同，看得我挺难受，同时一些处理做了细微改动。主要区别在于以下：</p>
 <p>字典D就是上篇里的X，x是上篇的w,原问题写为</p>
-<p>$$<br>\mathcal{P}(\lambda,\mathbf{D},\mathbf{y}):\tilde { \mathbf {x} }\triangleq\arg\min_\mathbf{x}\frac12|\mathbf{D}\mathbf{x}-\mathbf{y}|_2^2+\lambda|\mathbf{x}|_1<br>$$</p>
-<p>对偶问题除以了$\lambda$，变成了这样：</p>
-<p>$$<br>\tilde{\boldsymbol{\theta}} \triangleq \arg\max_{ {\boldsymbol{\theta}} } \frac{1}{2}\left|\mathbf{y}\right|<em>{2}^{2}-\frac{\lambda^{2}}{2}\left|\boldsymbol{\theta}-\frac{\mathbf{y}}{\lambda}\right|</em>{2}^{2} \quad \mathrm{s.t.~}\forall i\in\Omega,|\boldsymbol{\theta}^{T}\mathbf{d}_{i}|\leq1.<br>$$</p>
+<p><span class="math display">$$
+\mathcal{P}(\lambda,\mathbf{D},\mathbf{y}):\tilde { \mathbf {x}
+}\triangleq\arg\min_\mathbf{x}\frac12\|\mathbf{D}\mathbf{x}-\mathbf{y}\|_2^2+\lambda\|\mathbf{x}\|_1
+$$</span></p>
+<p>对偶问题除以了<span
+class="math inline"><em>λ</em></span>，变成了这样：</p>
+<p><span class="math display">$$
+\tilde{\boldsymbol{\theta}} \triangleq \arg\max_{ {\boldsymbol{\theta}}
+}
+\frac{1}{2}\left\|\mathbf{y}\right\|_{2}^{2}-\frac{\lambda^{2}}{2}\left\|\boldsymbol{\theta}-\frac{\mathbf{y}}{\lambda}\right\|_{2}^{2}
+\quad \mathrm{s.t.~}\forall
+i\in\Omega,|\boldsymbol{\theta}^{T}\mathbf{d}_{i}|\leq1.
+$$</span></p>
 <p>抛弃了之前求出的闭式解，在有球形约束的情况下采用了计算量较小的筛选规则：</p>
-<p><strong>Lemma 1 (Sphere Test Principle [7])</strong><br>If the solution $\tilde{\boldsymbol{\theta}}$of (2) satisfies $\exists { r, \mathbf{c} } \in \mathbb{R} \times \mathbb{R}^{N}, | \widetilde{\boldsymbol{\theta}} - \mathbf{c} | _{2}\leq r$, then:</p>
-<p>$$<br>|\mathbf{c}^T\mathbf{d}_i|&lt;1-r\Rightarrow\tilde{\mathbf{x}}(i)&#x3D;0.<br>$$</p>
-<p>这种思路是很好的，他使得safe screen技术由一种预处理技术变为了对solver的加速技术，作者给出算法如主要利用了对偶缩放技巧，意在使得$r_k$尽可能的收敛，从而使得加速效率越来越快。但是作者并没有很好的处理好“如何让$r_k$必然收敛”这件事，于是新的方法诞生了。</p>
-<h1 id="GAP-SAFE-Rule"><a href="#GAP-SAFE-Rule" class="headerlink" title="GAP SAFE Rule"></a>GAP SAFE Rule</h1><p>针对于上一篇文章提出的方法，本文的作者进行了一种关键的改进。insight在于，由于强对偶性的存在，对偶间隙必然是不断缩小直到趋于0的，那么我们如果构建一个与对偶间隙成比例的安全区域，那么这个安全区域也是严格收敛的，这样的加速方法大概率更优。定义本文的gapsafe区：</p>
-<p>$$<br>\widehat{R}<em>{\lambda}(\beta):&#x3D;\frac{1}{\lambda}\big(\left|y\right|^{2}-\left|X\beta-y\right|^{2}-2\lambda\left|\beta\right|</em>{1}\big)_{+}^{1&#x2F;2},<br>$$</p>
-<p>$$<br>\check{R}_{\lambda}(\theta):&#x3D; \left|\theta-\frac{y}{\lambda}\right|,<br>$$</p>
-<p>$\hat{\theta}^{(\lambda)}$为 dual optimal Lasso solution，并且定义：</p>
-<p>$$<br>\tilde{r}_\lambda(\beta,\theta):&#x3D;\sqrt{\breve{R}_\lambda(\theta)^2-\widehat{R}_\lambda(\beta)^2},<br>$$</p>
+<p><strong>Lemma 1 (Sphere Test Principle [7])</strong><br />
+If the solution <span
+class="math inline">$\tilde{\boldsymbol{\theta}}$</span>of (2) satisfies
+<span class="math inline">$\exists \{ r, \mathbf{c} \} \in \mathbb{R}
+\times \mathbb{R}^{N}, \| \widetilde{\boldsymbol{\theta}} - \mathbf{c}
+\| _{2}\leq r$</span>, then:</p>
+<p><span class="math display">$$
+|\mathbf{c}^T\mathbf{d}_i|&lt;1-r\Rightarrow\tilde{\mathbf{x}}(i)=0.
+$$</span></p>
+<p>这种思路是很好的，他使得safe
+screen技术由一种预处理技术变为了对solver的加速技术，作者给出算法如主要利用了对偶缩放技巧，意在使得<span
+class="math inline"><em>r</em><sub><em>k</em></sub></span>尽可能的收敛，从而使得加速效率越来越快。但是作者并没有很好的处理好“如何让<span
+class="math inline"><em>r</em><sub><em>k</em></sub></span>必然收敛”这件事，于是新的方法诞生了。</p>
+<h1 id="gap-safe-rule">GAP SAFE Rule</h1>
+<p>针对于上一篇文章提出的方法，本文的作者进行了一种关键的改进。insight在于，由于强对偶性的存在，对偶间隙必然是不断缩小直到趋于0的，那么我们如果构建一个与对偶间隙成比例的安全区域，那么这个安全区域也是严格收敛的，这样的加速方法大概率更优。定义本文的gapsafe区：</p>
+<p><span class="math display">$$
+\widehat{R}_{\lambda}(\beta):=\frac{1}{\lambda}\big(\left\|y\right\|^{2}-\left\|X\beta-y\right\|^{2}-2\lambda\left\|\beta\right\|_{1}\big)_{+}^{1/2},
+$$</span></p>
+<p><span class="math display">$$
+\check{R}_{\lambda}(\theta):= \left\|\theta-\frac{y}{\lambda}\right\|,
+$$</span></p>
+<p><span class="math inline"><em>θ̂</em><sup>(<em>λ</em>)</sup></span>为
+dual optimal Lasso solution，并且定义：</p>
+<p><span class="math display">$$
+\tilde{r}_\lambda(\beta,\theta):=\sqrt{\breve{R}_\lambda(\theta)^2-\widehat{R}_\lambda(\beta)^2},
+$$</span></p>
 <p>那么：</p>
-<p>$$<br>\text{(15)}<br>$$</p>
+<p><span class="math display">(15)</span></p>
 <p>证明是很简洁的，根据对偶关系可以得到</p>
-<p>$$<br>\frac{1}{2}\left|y\right|^{2}-\frac{\lambda^{2}}{2}\left|\theta-\frac{y}{\lambda}\right|^{2} \leqslant \frac{1}{2}\left|X\beta-y\right|^{2}+\lambda\left|\beta\right|_{1}<br>$$</p>
+<p><span class="math display">$$
+\frac{1}{2}\left\|y\right\|^{2}-\frac{\lambda^{2}}{2}\left\|\theta-\frac{y}{\lambda}\right\|^{2}
+\leqslant
+\frac{1}{2}\left\|X\beta-y\right\|^{2}+\lambda\left\|\beta\right\|_{1}
+$$</span></p>
 <p>因此：</p>
-<p>$$<br>\left|\theta-\frac{y}{\lambda}\right| \geqslant \frac{\sqrt{\left(\left|y\right|^2-\left|X\beta-y\right|^2-2\lambda\left|\beta\right|_1\right)}}{\lambda}.<br>$$</p>
-<p>同时利用原先的SAFE技巧，任取一个对偶可行点，可以约束得到$\check{R}_{\lambda}(\theta)$，因此安全区域夹在了两个圆之间的环上，根据几何关系可以直观地推导出最终的安全区域：</p>
+<p><span class="math display">$$
+\left\|\theta-\frac{y}{\lambda}\right\| \geqslant
+\frac{\sqrt{\left(\left\|y\right\|^2-\left\|X\beta-y\right\|^2-2\lambda\left\|\beta\right\|_1\right)}}{\lambda}.
+$$</span></p>
+<p>同时利用原先的SAFE技巧，任取一个对偶可行点，可以约束得到<span
+class="math inline"><em>Ř</em><sub><em>λ</em></sub>(<em>θ</em>)</span>，因此安全区域夹在了两个圆之间的环上，根据几何关系可以直观地推导出最终的安全区域：</p>
 <p><strong>GAP SAFE sphere:</strong></p>
-<p>$$<br>\mathcal{C}<em>{k}&#x3D;B(\theta</em>{k},r_{\lambda}(\beta,\theta))<br>$$</p>
+<p><span
+class="math display">𝒞<sub><em>k</em></sub> = <em>B</em>(<em>θ</em><sub><em>k</em></sub>, <em>r</em><sub><em>λ</em></sub>(<em>β</em>, <em>θ</em>))</span></p>
 <p><strong>GAP SAFE dome:</strong></p>
-<p>$$<br>\mathcal{C}_k&#x3D;D\Bigg(\frac{\frac{y}{\lambda}+\theta_k}{2},\frac{\breve{R}_\lambda(\theta_k)}{2},2\left(\frac{\widehat{R}_\lambda(\beta_k)}{\check{R}_\lambda(\theta_k)}\right)^2-1,\frac{\theta_k-\frac{y}{\lambda}}{|\theta_k-\frac{y}{\lambda}|}\Bigg)<br>$$</p>
-<p>回到本来的思路，我们探究gap safe sphere和对偶间隔$G_{\lambda}(\beta,\theta)&#x3D;P_{\lambda}(\beta)-D_{\lambda}(\theta)$的关系，容易证明得到：</p>
-<p>$$<br>\tilde{r}_\lambda(\beta,\theta)^2\leqslant r_\lambda(\beta,\theta)^2:&#x3D;\frac{2}{\lambda^2}G_\lambda(\beta,\theta).<br>$$</p>
+<p><span class="math display">$$
+\mathcal{C}_k=D\Bigg(\frac{\frac{y}{\lambda}+\theta_k}{2},\frac{\breve{R}_\lambda(\theta_k)}{2},2\left(\frac{\widehat{R}_\lambda(\beta_k)}{\check{R}_\lambda(\theta_k)}\right)^2-1,\frac{\theta_k-\frac{y}{\lambda}}{\|\theta_k-\frac{y}{\lambda}\|}\Bigg)
+$$</span></p>
+<p>回到本来的思路，我们探究gap safe sphere和对偶间隔<span
+class="math inline"><em>G</em><sub><em>λ</em></sub>(<em>β</em>, <em>θ</em>) = <em>P</em><sub><em>λ</em></sub>(<em>β</em>) − <em>D</em><sub><em>λ</em></sub>(<em>θ</em>)</span>的关系，容易证明得到：</p>
+<p><span class="math display">$$
+\tilde{r}_\lambda(\beta,\theta)^2\leqslant
+r_\lambda(\beta,\theta)^2:=\frac{2}{\lambda^2}G_\lambda(\beta,\theta).
+$$</span></p>
 <p>为此作者一开始的insight得到了利用，区域的收敛性有了保障。</p>
-<p>K表示优化步骤最多进行的次数，f表示每隔几次单独的优化步骤便进行一次筛选。<br>作者进行了时间比较，在加速以及特征筛选方面效果显著。</p>
+<p>K表示优化步骤最多进行的次数，f表示每隔几次单独的优化步骤便进行一次筛选。<br />
+作者进行了时间比较，在加速以及特征筛选方面效果显著。</p>
 
                 
               </div>

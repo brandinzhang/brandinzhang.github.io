@@ -16,12 +16,12 @@
   <meta name="author" content="bradin">
   <meta name="keywords" content="">
   
-    <meta name="description" content="通用模版由于matplotlib的知识点非常繁杂，在实际使用过程中也不可能将全部API都记住，很多时候都是边用边查。因此这里提供一个通用的绘图基础模板，任何复杂的图表几乎都可以基于这个模板骨架填充内容而成。初学者刚开始学习时只需要牢记这一模板就足以应对大部分简单图表的绘制，在学习过程中可以将这个模板模块化，了解每个模块在做什么，在绘制复杂图表时如何修改，填充对应的模块。 1234567891011">
+    <meta name="description" content="通用模版 由于matplotlib的知识点非常繁杂，在实际使用过程中也不可能将全部API都记住，很多时候都是边用边查。因此这里提供一个通用的绘图基础模板，任何复杂的图表几乎都可以基于这个模板骨架填充内容而成。初学者刚开始学习时只需要牢记这一模板就足以应对大部分简单图表的绘制，在学习过程中可以将这个模板模块化，了解每个模块在做什么，在绘制复杂图表时如何修改，填充对应的模块。 123456789101">
 <meta property="og:type" content="article">
 <meta property="og:title" content="matplotlib画图">
 <meta property="og:url" content="http://example.com/2024/08/12/%E5%AD%A6%E6%9C%AF%E5%B7%A5%E5%85%B7/matplotlib/index.html">
 <meta property="og:site_name" content="鸭蛋仙人的博客">
-<meta property="og:description" content="通用模版由于matplotlib的知识点非常繁杂，在实际使用过程中也不可能将全部API都记住，很多时候都是边用边查。因此这里提供一个通用的绘图基础模板，任何复杂的图表几乎都可以基于这个模板骨架填充内容而成。初学者刚开始学习时只需要牢记这一模板就足以应对大部分简单图表的绘制，在学习过程中可以将这个模板模块化，了解每个模块在做什么，在绘制复杂图表时如何修改，填充对应的模块。 1234567891011">
+<meta property="og:description" content="通用模版 由于matplotlib的知识点非常繁杂，在实际使用过程中也不可能将全部API都记住，很多时候都是边用边查。因此这里提供一个通用的绘图基础模板，任何复杂的图表几乎都可以基于这个模板骨架填充内容而成。初学者刚开始学习时只需要牢记这一模板就足以应对大部分简单图表的绘制，在学习过程中可以将这个模板模块化，了解每个模块在做什么，在绘制复杂图表时如何修改，填充对应的模块。 123456789101">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2024-08-11T16:00:00.000Z">
 <meta property="article:modified_time" content="2025-04-28T11:02:48.882Z">
@@ -295,10 +295,11 @@
             
               <div class="markdown-body">
                 
-                <h1 id="通用模版"><a href="#通用模版" class="headerlink" title="通用模版"></a>通用模版</h1><p>由于matplotlib的知识点非常繁杂，在实际使用过程中也不可能将全部API都记住，很多时候都是边用边查。因此这里提供一个通用的绘图基础模板，任何复杂的图表几乎都可以基于这个模板骨架填充内容而成。初学者刚开始学习时只需要牢记这一模板就足以应对大部分简单图表的绘制，在学习过程中可以将这个模板模块化，了解每个模块在做什么，在绘制复杂图表时如何修改，填充对应的模块。</p>
+                <h1 id="通用模版">通用模版</h1>
+<p>由于matplotlib的知识点非常繁杂，在实际使用过程中也不可能将全部API都记住，很多时候都是边用边查。因此这里提供一个通用的绘图基础模板，任何复杂的图表几乎都可以基于这个模板骨架填充内容而成。初学者刚开始学习时只需要牢记这一模板就足以应对大部分简单图表的绘制，在学习过程中可以将这个模板模块化，了解每个模块在做什么，在绘制复杂图表时如何修改，填充对应的模块。</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># step1 准备数据</span><br>x = np.linspace(<span class="hljs-number">0</span>, <span class="hljs-number">2</span>, <span class="hljs-number">100</span>)<br>y = x**<span class="hljs-number">2</span><br><br><span class="hljs-comment"># step2 设置绘图样式，这一模块的扩展参考第五章进一步学习，这一步不是必须的，样式也可以在绘制图像是进行设置</span><br>mpl.rc(<span class="hljs-string">&#x27;lines&#x27;</span>, linewidth=<span class="hljs-number">4</span>, linestyle=<span class="hljs-string">&#x27;-.&#x27;</span>)<br><br><span class="hljs-comment"># step3 定义布局， 这一模块的扩展参考第三章进一步学习</span><br>fig, ax = plt.subplots()  <br><br><span class="hljs-comment"># step4 绘制图像， 这一模块的扩展参考第二章进一步学习</span><br>ax.plot(x, y, label=<span class="hljs-string">&#x27;linear&#x27;</span>)  <br><br><span class="hljs-comment"># step5 添加标签，文字和图例，这一模块的扩展参考第四章进一步学习</span><br>ax.set_xlabel(<span class="hljs-string">&#x27;x label&#x27;</span>) <br>ax.set_ylabel(<span class="hljs-string">&#x27;y label&#x27;</span>) <br>ax.set_title(<span class="hljs-string">&quot;Simple Plot&quot;</span>)  <br>ax.legend() ;<br></code></pre></td></tr></table></figure>
+<h1 id="第二章绘制图像">第二章:绘制图像</h1>
 
-<h1 id="第二章-绘制图像"><a href="#第二章-绘制图像" class="headerlink" title="第二章:绘制图像"></a>第二章:绘制图像</h1>
                 
               </div>
             

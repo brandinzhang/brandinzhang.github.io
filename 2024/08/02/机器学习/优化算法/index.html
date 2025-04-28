@@ -16,12 +16,12 @@
   <meta name="author" content="bradin">
   <meta name="keywords" content="">
   
-    <meta name="description" content="优化算法概论理想的优化算法有以下几个特点  数值解 ${x_k}_{k&#x3D;0}^{\infty}$的迭代，实际中操作使用有限次，满足一定条件停止迭代即可 单调性，满足$f(x_{k+1})&lt;f(x_{k-m})$就很好，但是往往碰到螺旋下降的情况 策略 ：$x_k$如何到$x_{k+1}$?  线搜索方法$$x_{k+1}&#x3D;x_k+\alpha_kp_k$$ 这里$\alp">
+    <meta name="description" content="优化算法概论 理想的优化算法有以下几个特点  数值解 {xk}k &#x3D; 0∞的迭代，实际中操作使用有限次，满足一定条件停止迭代即可 单调性，满足f(xk + 1) &lt; f(xk − m)就很好，但是往往碰到螺旋下降的情况 策略 ：xk如何到xk + 1?  线搜索方法 xk + 1 &#x3D; xk + αkpk 这里αk是一个很小的正量表示步长，pk表示方向，线搜索方法就是先定方向，再定步长 信赖域">
 <meta property="og:type" content="article">
 <meta property="og:title" content="优化算法">
 <meta property="og:url" content="http://example.com/2024/08/02/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E4%BC%98%E5%8C%96%E7%AE%97%E6%B3%95/index.html">
 <meta property="og:site_name" content="鸭蛋仙人的博客">
-<meta property="og:description" content="优化算法概论理想的优化算法有以下几个特点  数值解 ${x_k}_{k&#x3D;0}^{\infty}$的迭代，实际中操作使用有限次，满足一定条件停止迭代即可 单调性，满足$f(x_{k+1})&lt;f(x_{k-m})$就很好，但是往往碰到螺旋下降的情况 策略 ：$x_k$如何到$x_{k+1}$?  线搜索方法$$x_{k+1}&#x3D;x_k+\alpha_kp_k$$ 这里$\alp">
+<meta property="og:description" content="优化算法概论 理想的优化算法有以下几个特点  数值解 {xk}k &#x3D; 0∞的迭代，实际中操作使用有限次，满足一定条件停止迭代即可 单调性，满足f(xk + 1) &lt; f(xk − m)就很好，但是往往碰到螺旋下降的情况 策略 ：xk如何到xk + 1?  线搜索方法 xk + 1 &#x3D; xk + αkpk 这里αk是一个很小的正量表示步长，pk表示方向，线搜索方法就是先定方向，再定步长 信赖域">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2024-08-01T16:00:00.000Z">
 <meta property="article:modified_time" content="2025-04-28T11:13:34.866Z">
@@ -295,99 +295,249 @@
             
               <div class="markdown-body">
                 
-                <h1 id="优化算法概论"><a href="#优化算法概论" class="headerlink" title="优化算法概论"></a>优化算法概论</h1><p>理想的优化算法有以下几个特点</p>
+                <h1 id="优化算法概论">优化算法概论</h1>
+<p>理想的优化算法有以下几个特点</p>
 <ul>
-<li>数值解 ${x_k}_{k&#x3D;0}^{\infty}$的迭代，实际中操作使用有限次，满足一定条件停止迭代即可</li>
-<li>单调性，满足$f(x_{k+1})&lt;f(x_{k-m})$就很好，但是往往碰到螺旋下降的情况</li>
-<li>策略 ：$x_k$如何到$x_{k+1}$?</li>
+<li>数值解 <span
+class="math inline">{<em>x</em><sub><em>k</em></sub>}<sub><em>k</em> = 0</sub><sup>∞</sup></span>的迭代，实际中操作使用有限次，满足一定条件停止迭代即可</li>
+<li>单调性，满足<span
+class="math inline"><em>f</em>(<em>x</em><sub><em>k</em> + 1</sub>) &lt; <em>f</em>(<em>x</em><sub><em>k</em> − <em>m</em></sub>)</span>就很好，但是往往碰到螺旋下降的情况</li>
+<li>策略 ：<span
+class="math inline"><em>x</em><sub><em>k</em></sub></span>如何到<span
+class="math inline"><em>x</em><sub><em>k</em> + 1</sub></span>?</li>
 </ul>
-<h3 id="线搜索方法"><a href="#线搜索方法" class="headerlink" title="线搜索方法"></a>线搜索方法</h3><p>$$x_{k+1}&#x3D;x_k+\alpha_kp_k$$</p>
-<p>这里$\alpha_k$是一个很小的正量表示步长，$p_k$表示方向，线搜索方法就是先定方向，再定步长</p>
-<h3 id="信赖域方法"><a href="#信赖域方法" class="headerlink" title="信赖域方法"></a>信赖域方法</h3><p>$$x_{k+1}&#x3D;x_k+p_k$$</p>
+<h3 id="线搜索方法">线搜索方法</h3>
+<p><span
+class="math display"><em>x</em><sub><em>k</em> + 1</sub> = <em>x</em><sub><em>k</em></sub> + <em>α</em><sub><em>k</em></sub><em>p</em><sub><em>k</em></sub></span></p>
+<p>这里<span
+class="math inline"><em>α</em><sub><em>k</em></sub></span>是一个很小的正量表示步长，<span
+class="math inline"><em>p</em><sub><em>k</em></sub></span>表示方向，线搜索方法就是先定方向，再定步长</p>
+<h3 id="信赖域方法">信赖域方法</h3>
+<p><span
+class="math display"><em>x</em><sub><em>k</em> + 1</sub> = <em>x</em><sub><em>k</em></sub> + <em>p</em><sub><em>k</em></sub></span></p>
 <p>方向和步长合二为一</p>
-<h1 id="线搜索方法理论"><a href="#线搜索方法理论" class="headerlink" title="线搜索方法理论"></a>线搜索方法理论</h1><h2 id="确定方向"><a href="#确定方向" class="headerlink" title="确定方向"></a>确定方向</h2><p>假定</p>
-<ul>
-<li>${ f(x_k)}_{k&#x3D;0}^{\infty}$是单调下降的          </li>
-<li>$\alpha_k$足够小              </li>
-<li>$||p_k||&#x3D;1$</li>
-</ul>
-<p>则有<br>$$<br>\begin{align*}<br>f(x_{k+1}) &amp;&#x3D; f(x_k + \alpha_k p_k) \<br>           &amp;&#x3D; f(x_k) + \nabla f(x_k)^T \cdot \alpha_k p_k + o(|\alpha_k p_k|) \<br>f(x_{k+1}) - f(x_k) &amp;\approx \nabla f(x_k)^T \cdot \alpha_k p_k &lt; 0 \<br>\text{由于 } \alpha_k &amp;&gt; 0 \quad \text{因此} \<br>\nabla f(x_k)^T \cdot p_k &amp;&lt; 0<br>\end{align*}<br>$$<br>所以下降方向就是负梯度方向</p>
-<h2 id="关于步长的三个约束条件"><a href="#关于步长的三个约束条件" class="headerlink" title="关于步长的三个约束条件"></a>关于步长的三个约束条件</h2><h3 id="Armijo-Condition"><a href="#Armijo-Condition" class="headerlink" title="Armijo Condition"></a>Armijo Condition</h3><p>假定$p_k$是下降方向，我们令<br>$$\phi(\alpha)&#x3D;f(x_{k+1})&#x3D;f(x_k+\alpha p_k)  $$</p>
+<h1 id="线搜索方法理论">线搜索方法理论</h1>
+<h2 id="确定方向">确定方向</h2>
+<p>假定 - <span
+class="math inline">{<em>f</em>(<em>x</em><sub><em>k</em></sub>)}<sub><em>k</em> = 0</sub><sup>∞</sup></span>是单调下降的<br />
+- <span
+class="math inline"><em>α</em><sub><em>k</em></sub></span>足够小<br />
+- <span
+class="math inline">||<em>p</em><sub><em>k</em></sub>|| = 1</span></p>
+<p>则有 <span class="math display">$$
+\begin{align*}  
+f(x_{k+1}) &amp;= f(x_k + \alpha_k p_k) \\  
+           &amp;= f(x_k) + \nabla f(x_k)^T \cdot \alpha_k p_k +
+o(\|\alpha_k p_k\|) \\  
+f(x_{k+1}) - f(x_k) &amp;\approx \nabla f(x_k)^T \cdot \alpha_k p_k &lt;
+0 \\  
+\text{由于 } \alpha_k &amp;&gt; 0 \quad \text{因此} \\  
+\nabla f(x_k)^T \cdot p_k &amp;&lt; 0  
+\end{align*}
+$$</span> 所以下降方向就是负梯度方向</p>
+<h2 id="关于步长的三个约束条件">关于步长的三个约束条件</h2>
+<h3 id="armijo-condition">Armijo Condition</h3>
+<p>假定<span
+class="math inline"><em>p</em><sub><em>k</em></sub></span>是下降方向，我们令
+<span
+class="math display"><em>ϕ</em>(<em>α</em>) = <em>f</em>(<em>x</em><sub><em>k</em> + 1</sub>) = <em>f</em>(<em>x</em><sub><em>k</em></sub> + <em>α</em><em>p</em><sub><em>k</em></sub>)</span></p>
 <p>于是</p>
-<p>$$\phi^{‘}(\alpha)&#x3D;\nabla f(x_k+\alpha p_k)^T p_k $$</p>
-<p>$$\phi(0)&#x3D;f(x_k) $$</p>
-<p>$$\phi^{‘}(0)&#x3D;\nabla f_k^{T}p_k $$</p>
-<p>我们想让a取到一个良好的位置，应当满足</p>
+<p><span
+class="math display"><em>ϕ</em><sup>′</sup>(<em>α</em>) = ∇<em>f</em>(<em>x</em><sub><em>k</em></sub> + <em>α</em><em>p</em><sub><em>k</em></sub>)<sup><em>T</em></sup><em>p</em><sub><em>k</em></sub></span></p>
+<p><span
+class="math display"><em>ϕ</em>(0) = <em>f</em>(<em>x</em><sub><em>k</em></sub>)</span></p>
+<p><span
+class="math display"><em>ϕ</em><sup>′</sup>(0) = ∇<em>f</em><sub><em>k</em></sub><sup><em>T</em></sup><em>p</em><sub><em>k</em></sub></span></p>
+<p>我们想让a取到一个良好的位置，应当满足 - 必要条件(f序列单调减) <span
+class="math display"><em>ϕ</em>(<em>α</em>) &lt; <em>ϕ</em>(0)</span></p>
 <ul>
-<li><p>必要条件(f序列单调减)<br>$$\phi(\alpha)&lt;\phi(0) $$</p>
-</li>
-<li><p>充分条件</p>
-</li>
+<li>充分条件</li>
 </ul>
-<p>$$\phi(\alpha) \le f(x_k)+c_1\nabla f_k^Tp_k \alpha \<br>c_1 \in (0,1)<br>$$ </p>
-<h3 id="Glodstein-Condition"><a href="#Glodstein-Condition" class="headerlink" title="Glodstein Condition"></a>Glodstein Condition</h3><p>Glodstein发现Armijo条件总会导致筛选出特别小的a，但是这在数值计算中没有意义，为此他提出了新的筛选方法</p>
-<p>$$f(x_k)+(1-c)\nabla f_k^Tp_k\alpha \le \phi(\alpha) \le f(x_k)+c\nabla f_k^Tp_k \alpha<br>\<br>c \in (0,\frac12)<br>$$</p>
-<h3 id="wolfe-condition"><a href="#wolfe-condition" class="headerlink" title="wolfe condition"></a>wolfe condition</h3><p>wolfe综合了上述思想，又考虑到Glodstein的约束条件过于狭窄，在c趋于0.5的时候几乎不留区间，于是最终演化出我们现在通用的筛选标准</p>
-<p>$$\phi(\alpha)\leq f(x_{k})+C_{1}\nabla f_{k}^T p_{k}\alpha  $$</p>
-<p>$$\nabla f_{k+1}^{T}\cdot p_{k}\geq C_{2}\nabla f_{k}^{T}P_{k}$$</p>
-<p>$$C_{1}\in(0,1)\C_{2}\in(C_{1},1)$$</p>
-<p>第二个式子中$\nabla f_{k+1}^{T}$就是函数图像中$\phi(a)$在a处的斜率，这样就不冒进的排除掉了$\alpha$靠近0的一小段区间</p>
-<h2 id="收敛性证明"><a href="#收敛性证明" class="headerlink" title="收敛性证明"></a>收敛性证明</h2><p>记 $x_{k+1}&#x3D;x_k+\alpha_kp_k$ ,我们有以下几点要求，</p>
+<p><span class="math display">$$\phi(\alpha) \le f(x_k)+c_1\nabla
+f_k^Tp_k \alpha \\
+c_1 \in (0,1)
+$$</span></p>
+<h3 id="glodstein-condition">Glodstein Condition</h3>
+<p>Glodstein发现Armijo条件总会导致筛选出特别小的a，但是这在数值计算中没有意义，为此他提出了新的筛选方法</p>
+<p><span class="math display">$$f(x_k)+(1-c)\nabla f_k^Tp_k\alpha \le
+\phi(\alpha) \le f(x_k)+c\nabla f_k^Tp_k \alpha
+\\
+c \in (0,\frac12)
+$$</span></p>
+<h3 id="wolfe-condition">wolfe condition</h3>
+<p>wolfe综合了上述思想，又考虑到Glodstein的约束条件过于狭窄，在c趋于0.5的时候几乎不留区间，于是最终演化出我们现在通用的筛选标准</p>
+<p><span
+class="math display"><em>ϕ</em>(<em>α</em>) ≤ <em>f</em>(<em>x</em><sub><em>k</em></sub>) + <em>C</em><sub>1</sub>∇<em>f</em><sub><em>k</em></sub><sup><em>T</em></sup><em>p</em><sub><em>k</em></sub><em>α</em></span></p>
+<p><span
+class="math display">∇<em>f</em><sub><em>k</em> + 1</sub><sup><em>T</em></sup> ⋅ <em>p</em><sub><em>k</em></sub> ≥ <em>C</em><sub>2</sub>∇<em>f</em><sub><em>k</em></sub><sup><em>T</em></sup><em>P</em><sub><em>k</em></sub></span></p>
+<p><span
+class="math display">$$C_{1}\in(0,1)\\C_{2}\in(C_{1},1)$$</span></p>
+<p>第二个式子中<span
+class="math inline">∇<em>f</em><sub><em>k</em> + 1</sub><sup><em>T</em></sup></span>就是函数图像中<span
+class="math inline"><em>ϕ</em>(<em>a</em>)</span>在a处的斜率，这样就不冒进的排除掉了<span
+class="math inline"><em>α</em></span>靠近0的一小段区间</p>
+<h2 id="收敛性证明">收敛性证明</h2>
+<p>记 <span
+class="math inline"><em>x</em><sub><em>k</em> + 1</sub> = <em>x</em><sub><em>k</em></sub> + <em>α</em><sub><em>k</em></sub><em>p</em><sub><em>k</em></sub></span>
+,我们有以下几点要求，</p>
 <ul>
-<li><p>$\nabla f(x)$满足Lipschitz连续，即$|\nabla f(x)-\nabla f(\hat{x})|\leq L|x-\hat{x}|,\quad\forall x,\hat{x}$    (1)</p>
-</li>
-<li><p>$p_k$是下降方向，即$\nabla f_k^Tp_k&lt; 0$    (2)</p>
-</li>
-<li><p>$\alpha_k$满足wolfe条件，即：<br>$$f_{k+1}&lt;f_k+c_1\alpha_k\nabla f_k^Tp_k  \quad (3)$$<br>$$\nabla f_{k+1}^Tp_k\geq c_2\nabla f_k^Tp_k  \quad (4)$$</p>
-</li>
+<li><p><span
+class="math inline">∇<em>f</em>(<em>x</em>)</span>满足Lipschitz连续，即<span
+class="math inline">∥∇<em>f</em>(<em>x</em>) − ∇<em>f</em>(<em>x̂</em>)∥ ≤ <em>L</em>∥<em>x</em> − <em>x̂</em>∥,  ∀<em>x</em>, <em>x̂</em></span>
+(1)</p></li>
+<li><p><span
+class="math inline"><em>p</em><sub><em>k</em></sub></span>是下降方向，即<span
+class="math inline">∇<em>f</em><sub><em>k</em></sub><sup><em>T</em></sup><em>p</em><sub><em>k</em></sub> &lt; 0</span>
+(2)</p></li>
+<li><p><span
+class="math inline"><em>α</em><sub><em>k</em></sub></span>满足wolfe条件，即：
+<span
+class="math display"><em>f</em><sub><em>k</em> + 1</sub> &lt; <em>f</em><sub><em>k</em></sub> + <em>c</em><sub>1</sub><em>α</em><sub><em>k</em></sub>∇<em>f</em><sub><em>k</em></sub><sup><em>T</em></sup><em>p</em><sub><em>k</em></sub>  (3)</span><br />
+<span
+class="math display">∇<em>f</em><sub><em>k</em> + 1</sub><sup><em>T</em></sup><em>p</em><sub><em>k</em></sub> ≥ <em>c</em><sub>2</sub>∇<em>f</em><sub><em>k</em></sub><sup><em>T</em></sup><em>p</em><sub><em>k</em></sub>  (4)</span></p></li>
 </ul>
 <p>这几点要求对大多数优化问题来说都是比较容易满足的。在这样的已知条件下，我们可以推导出一个重要的结论:Zoutendijk条件</p>
-<p><strong>Proof</strong>       </p>
-<p>由(4)<br>$$(\nabla f_{k+1}-\nabla f_k)^Tp_k\geq(c_2-1)(\nabla f_k^Tp_k)  \quad (5)$$<br>又由李普希兹连续条件可得<br>$$|\nabla f_{k+1}-\nabla f_k|\leq\alpha_kL|p_k|$$<br>$$|\nabla f_{k+1}-\nabla f_k||p_k|\leq\alpha_kL|p_k|^2$$<br>$$(\nabla f_{k+1}-\nabla f_k)^Tp_k\leq\alpha_kL|p_k|^2   \quad (6)$$</p>
-<p>联立（5）,（6）可得<br>$$\alpha_k\geq\frac{c_2-1}{L}\frac{\nabla f_k^Tp_k}{\left|p_k\right|^2}$$<br>代入（3）（注意到$\alpha_k\nabla f_k^Tp_k&lt;0$）<br>$$f_{k+1}\leq f_k+c_1\frac{c_2-1}{L}\frac{\left(\nabla f_k^Tp_k\right)^2}{\left|p_k\right|^2}$$<br>$$f_k-f_{k+1}\geq c\cos^2\theta_k|\nabla f_k|^2 \quad  c&#x3D;c_1\frac{1-c_2}{L}&gt;0$$<br>两边累加可得<br>$$f_0-f_{k+1}\geq c\Sigma_{j&#x3D;0}^k\cos^2\theta_j|\nabla f_j|^2$$<br>因为f有下界，因此左边收敛，那么由数列和的收敛判断，必然有<br>$$\lim_{k\to\infty}\cos^2\theta_k|\nabla f_k|^2&#x3D;0$$</p>
-<p>上面我们已经证明了在一定条件下，可以推导出Zoutendijk条件：<br>$$\lim_{k\to\infty}\cos^2\theta_k|\nabla f_k|^2&#x3D;0$$<br> 更进一步，如果能够证明<br>$$\cos\theta_k\geq\delta&gt;0,\forall k$$</p>
-<p>那么显然要想仍然满足Zoutendijk条件，则只能要求$\lim_{k\to\infty}|\nabla f_k|&#x3D;0$ ,从而证明了收敛性。对于最速下降方向$p_k&#x3D;-\nabla f_k$,天然的$\cos\theta_k&#x3D;1$,则自然满足收敛性。</p>
-<h2 id="收敛速度"><a href="#收敛速度" class="headerlink" title="收敛速度"></a>收敛速度</h2><p>记$x^{*}$为局部的最优解</p>
-<h3 id="Q收敛速度"><a href="#Q收敛速度" class="headerlink" title="Q收敛速度"></a>Q收敛速度</h3><h4 id="次线性收敛"><a href="#次线性收敛" class="headerlink" title="次线性收敛"></a>次线性收敛</h4><p>$$\lim_{k\to\infty}\frac{\left|x_{k+1}-x^{<em>}\right|}{\left|x_{k}-x^{</em>}\right|}&#x3D;1$$</p>
-<h4 id="线性收敛"><a href="#线性收敛" class="headerlink" title="线性收敛"></a>线性收敛</h4><p>$$\frac{\parallel x_{k+1}-x^{<em>}\parallel}{\parallel x_{k}-x^{</em>}\parallel}\leq a\in(0,1)$$</p>
-<h4 id="超线性收敛"><a href="#超线性收敛" class="headerlink" title="超线性收敛"></a>超线性收敛</h4><p>$$\lim_{k\to\infty}\frac{\parallel x_{k+1}-x^{<em>}\parallel}{\parallel x_{k}-x^{</em>}\parallel}&#x3D;0$$</p>
-<h4 id="二次收敛"><a href="#二次收敛" class="headerlink" title="二次收敛"></a>二次收敛</h4><p>$$\frac{|x_{k+1}-x^{<em>}|}{|x_{k}-x^{</em>}|^{2}}\leq a\in(0,+\infty)$$</p>
-<h3 id="R收敛速度（类似于比较收敛）"><a href="#R收敛速度（类似于比较收敛）" class="headerlink" title="R收敛速度（类似于比较收敛）"></a>R收敛速度（类似于比较收敛）</h3><ul>
-<li>$k$充分大</li>
+<p><strong>Proof</strong></p>
+<p>由(4) <span
+class="math display">(∇<em>f</em><sub><em>k</em> + 1</sub> − ∇<em>f</em><sub><em>k</em></sub>)<sup><em>T</em></sup><em>p</em><sub><em>k</em></sub> ≥ (<em>c</em><sub>2</sub> − 1)(∇<em>f</em><sub><em>k</em></sub><sup><em>T</em></sup><em>p</em><sub><em>k</em></sub>)  (5)</span>
+又由李普希兹连续条件可得 <span
+class="math display">∥∇<em>f</em><sub><em>k</em> + 1</sub> − ∇<em>f</em><sub><em>k</em></sub>∥ ≤ <em>α</em><sub><em>k</em></sub><em>L</em>∥<em>p</em><sub><em>k</em></sub>∥</span>
+<span
+class="math display">∥∇<em>f</em><sub><em>k</em> + 1</sub> − ∇<em>f</em><sub><em>k</em></sub>∥∥<em>p</em><sub><em>k</em></sub>∥ ≤ <em>α</em><sub><em>k</em></sub><em>L</em>∥<em>p</em><sub><em>k</em></sub>∥<sup>2</sup></span>
+<span
+class="math display">(∇<em>f</em><sub><em>k</em> + 1</sub> − ∇<em>f</em><sub><em>k</em></sub>)<sup><em>T</em></sup><em>p</em><sub><em>k</em></sub> ≤ <em>α</em><sub><em>k</em></sub><em>L</em>∥<em>p</em><sub><em>k</em></sub>∥<sup>2</sup>  (6)</span></p>
+<p>联立（5）,（6）可得 <span
+class="math display">$$\alpha_k\geq\frac{c_2-1}{L}\frac{\nabla
+f_k^Tp_k}{\left\|p_k\right\|^2}$$</span> 代入（3）（注意到<span
+class="math inline"><em>α</em><sub><em>k</em></sub>∇<em>f</em><sub><em>k</em></sub><sup><em>T</em></sup><em>p</em><sub><em>k</em></sub> &lt; 0</span>）
+<span class="math display">$$f_{k+1}\leq
+f_k+c_1\frac{c_2-1}{L}\frac{\left(\nabla
+f_k^Tp_k\right)^2}{\left\|p_k\right\|^2}$$</span> <span
+class="math display">$$f_k-f_{k+1}\geq c\cos^2\theta_k\|\nabla f_k\|^2
+\quad  c=c_1\frac{1-c_2}{L}&gt;0$$</span> 两边累加可得 <span
+class="math display"><em>f</em><sub>0</sub> − <em>f</em><sub><em>k</em> + 1</sub> ≥ <em>c</em><em>Σ</em><sub><em>j</em> = 0</sub><sup><em>k</em></sup>cos<sup>2</sup><em>θ</em><sub><em>j</em></sub>∥∇<em>f</em><sub><em>j</em></sub>∥<sup>2</sup></span>
+因为f有下界，因此左边收敛，那么由数列和的收敛判断，必然有 <span
+class="math display">lim<sub><em>k</em> → ∞</sub>cos<sup>2</sup><em>θ</em><sub><em>k</em></sub>∥∇<em>f</em><sub><em>k</em></sub>∥<sup>2</sup> = 0</span></p>
+<p>上面我们已经证明了在一定条件下，可以推导出Zoutendijk条件： <span
+class="math display">lim<sub><em>k</em> → ∞</sub>cos<sup>2</sup><em>θ</em><sub><em>k</em></sub>∥∇<em>f</em><sub><em>k</em></sub>∥<sup>2</sup> = 0</span>
+更进一步，如果能够证明 <span
+class="math display">cos <em>θ</em><sub><em>k</em></sub> ≥ <em>δ</em> &gt; 0, ∀<em>k</em></span></p>
+<p>那么显然要想仍然满足Zoutendijk条件，则只能要求<span
+class="math inline">lim<sub><em>k</em> → ∞</sub>∥∇<em>f</em><sub><em>k</em></sub>∥ = 0</span>
+,从而证明了收敛性。对于最速下降方向<span
+class="math inline"><em>p</em><sub><em>k</em></sub> = −∇<em>f</em><sub><em>k</em></sub></span>,天然的<span
+class="math inline">cos <em>θ</em><sub><em>k</em></sub> = 1</span>,则自然满足收敛性。</p>
+<h2 id="收敛速度">收敛速度</h2>
+<p>记<span
+class="math inline"><em>x</em><sup>*</sup></span>为局部的最优解 ###
+Q收敛速度</p>
+<h4 id="次线性收敛">次线性收敛</h4>
+<p><span
+class="math display">$$\lim_{k\to\infty}\frac{\left\|x_{k+1}-x^{*}\right\|}{\left\|x_{k}-x^{*}\right\|}=1$$</span></p>
+<h4 id="线性收敛">线性收敛</h4>
+<p><span class="math display">$$\frac{\parallel
+x_{k+1}-x^{*}\parallel}{\parallel x_{k}-x^{*}\parallel}\leq
+a\in(0,1)$$</span></p>
+<h4 id="超线性收敛">超线性收敛</h4>
+<p><span class="math display">$$\lim_{k\to\infty}\frac{\parallel
+x_{k+1}-x^{*}\parallel}{\parallel x_{k}-x^{*}\parallel}=0$$</span></p>
+<h4 id="二次收敛">二次收敛</h4>
+<p><span
+class="math display">$$\frac{\|x_{k+1}-x^{*}\|}{\|x_{k}-x^{*}\|^{2}}\leq
+a\in(0,+\infty)$$</span></p>
+<h3 id="r收敛速度类似于比较收敛">R收敛速度（类似于比较收敛）</h3>
+<ul>
+<li><span class="math inline"><em>k</em></span>充分大</li>
 </ul>
-<p>例子<br>${ \frac 1 k}$ 是Q次线性<br>$2^{-k}$是Q线性<br>$2^{2^{-k}}$是二次线性</p>
-<h1 id="梯度下降法"><a href="#梯度下降法" class="headerlink" title="梯度下降法"></a>梯度下降法</h1><h2 id="关于凸函数性质的理解"><a href="#关于凸函数性质的理解" class="headerlink" title="关于凸函数性质的理解"></a>关于凸函数性质的理解</h2><p>在数学上，我们应当有这样的直觉:     </p>
+<p>例子<br />
+<span class="math inline">$\{ \frac 1 k\}$</span> 是Q次线性<br />
+<span class="math inline">2<sup>−<em>k</em></sup></span>是Q线性<br />
+<span
+class="math inline">2<sup>2<sup>−<em>k</em></sup></sup></span>是二次线性</p>
+<h1 id="梯度下降法">梯度下降法</h1>
+<h2 id="关于凸函数性质的理解">关于凸函数性质的理解</h2>
+<p>在数学上，我们应当有这样的直觉:</p>
 <ul>
 <li>李普希兹连续保证了我们的研究函数有二次上界</li>
 <li>强凸这一性质保证了研究函数大于了一个二次下界</li>
 </ul>
-<h3 id="proof-李普希兹连续-二次上界"><a href="#proof-李普希兹连续-二次上界" class="headerlink" title="proof:李普希兹连续-&gt;二次上界"></a>proof:李普希兹连续-&gt;二次上界</h3><p>命题:若$f$可微，$\nabla f$Lipschitz连续，则f有二次上界：</p>
-<p>$$ f(y) \le f(x)+\nabla f(x)^T(y-x)+\frac L2||y-x||^2 $$</p>
-<p>证明: 记 $g(\theta)&#x3D;f(x+\theta (y-x))$<br>原命题变为证明</p>
-<p>$$g(1)-g(0)-\nabla f(x)^T(y-x) \le \frac L2||y-x||^2 $$<br>左边等于<br>$$&#x3D;\int_{0}^{1}g^{\prime}(\theta)d\theta-\int_{0}^{1}\nabla f(x)^{T}(y-x)d\theta $$</p>
-<p>$$&#x3D;\int_{0}^{1}\left(\nabla f(x+\theta(y-x))^{T}\cdot(y-x)-\nabla f(x)^{T}(y-x))d\theta\right.$$</p>
-<p>$$&#x3D;\int_{0}^{1}\left(\nabla f\left(x+\theta\left(y-x\right)\right)-\nabla f\left(x\right)\right)^{T}\cdot\left(y-x\right)d\theta .\\leq\int_{0}^{1}|\nabla f\left(x+\theta\left(y-x\right)\right)-\nabla f\left(x\right)|\cdot|y-x|d\theta .$$</p>
-<p>$$\leq\int_{0}^{1}L||\theta(y-x)||\cdot||y-x||d\theta$$</p>
-<p>$$&#x3D; \frac L2||y-x||^2 $$</p>
+<h3 id="proof李普希兹连续-二次上界">proof:李普希兹连续-&gt;二次上界</h3>
+<p>命题:若<span class="math inline"><em>f</em></span>可微，<span
+class="math inline">∇<em>f</em></span>Lipschitz连续，则f有二次上界：</p>
+<p><span class="math display">$$ f(y) \le f(x)+\nabla f(x)^T(y-x)+\frac
+L2||y-x||^2 $$</span></p>
+<p>证明: 记 <span
+class="math inline"><em>g</em>(<em>θ</em>) = <em>f</em>(<em>x</em> + <em>θ</em>(<em>y</em> − <em>x</em>))</span><br />
+原命题变为证明</p>
+<p><span class="math display">$$g(1)-g(0)-\nabla f(x)^T(y-x) \le \frac
+L2||y-x||^2 $$</span> 左边等于 <span
+class="math display"> = ∫<sub>0</sub><sup>1</sup><em>g</em><sup>′</sup>(<em>θ</em>)<em>d</em><em>θ</em> − ∫<sub>0</sub><sup>1</sup>∇<em>f</em>(<em>x</em>)<sup><em>T</em></sup>(<em>y</em> − <em>x</em>)<em>d</em><em>θ</em></span></p>
+<p><span
+class="math display"> = ∫<sub>0</sub><sup>1</sup>(∇<em>f</em>(<em>x</em> + <em>θ</em>(<em>y</em> − <em>x</em>))<sup><em>T</em></sup> ⋅ (<em>y</em> − <em>x</em>) − ∇<em>f</em>(<em>x</em>)<sup><em>T</em></sup>(<em>y</em> − <em>x</em>))<em>d</em><em>θ</em></span></p>
+<p><span class="math display">$$=\int_{0}^{1}\left(\nabla
+f\left(x+\theta\left(y-x\right)\right)-\nabla
+f\left(x\right)\right)^{T}\cdot\left(y-x\right)d\theta
+.\\\leq\int_{0}^{1}\|\nabla
+f\left(x+\theta\left(y-x\right)\right)-\nabla
+f\left(x\right)\|\cdot\|y-x\|d\theta .$$</span></p>
+<p><span
+class="math display"> ≤ ∫<sub>0</sub><sup>1</sup><em>L</em>||<em>θ</em>(<em>y</em> − <em>x</em>)||⋅||<em>y</em> − <em>x</em>||<em>d</em><em>θ</em></span></p>
+<p><span class="math display">$$= \frac L2||y-x||^2 $$</span></p>
 <p>证毕</p>
-<h2 id="凸函数-梯度下降法收敛性分析"><a href="#凸函数-梯度下降法收敛性分析" class="headerlink" title="凸函数:梯度下降法收敛性分析"></a>凸函数:梯度下降法收敛性分析</h2><p>先引入一种求解$\alpha$最小上界的思路</p>
+<h2 id="凸函数梯度下降法收敛性分析">凸函数:梯度下降法收敛性分析</h2>
+<p>先引入一种求解<span
+class="math inline"><em>α</em></span>最小上界的思路</p>
 <p>回到算法本身</p>
-<p>x的更新公式为<br>$$x_{k+1}&#x3D;x_k-\alpha_k\nabla f(x_k)$$<br>根据二次上界不等式可得<br>$$\begin{aligned}<br>f_{k+1}&amp; &#x3D;f\left(x_k-\alpha\nabla f(x_k)\right) \<br>&amp;\leq f(x_k)-\alpha|\nabla f(x_k)|^2+\frac{L\alpha^2}2|\nabla f(x_k)|^2 \<br>&amp;&#x3D;f(x_k)-\alpha\left(1-\frac{\alpha L}2\right)|\nabla f(x_k)|^2<br>\end{aligned}$$</p>
-<p>由凸函数的性质可知:$f^*&gt;f(x_k)-\nabla f(x_k)^\top\left(x_k-x^*\right)$</p>
-<p>由于$\alpha\in\left(0,\frac1L\right)$,则</p>
-<p>$$\begin{aligned}</p>
-<p>f_{k+1}&amp; \leq f(x_k)-\frac\alpha2|\nabla f(x_k)|^2 \<br>&amp;\leq f^*+\nabla f(x_k)^\top\left(x_k-x^<em>\right)-\frac\alpha2|\nabla f(x_k)|^2 \<br>&amp;&#x3D;f^</em>+\frac1{2\alpha}(2\alpha \nabla f(x_k)^\top\left(x_k-x^<em>\right)-\alpha^2|\nabla f(x_k)|^2-|x_k-x^</em>|^2+|x_k-x^<em>|^2)              \<br>&amp;&#x3D;f^</em>+\frac1{2\alpha}\left(|x_k-x^<em>|^2-|x_k-x^</em>-\alpha\nabla f(x_k)|^2\right) \<br>&amp;&#x3D;f^*+\frac1{2\alpha}{\left(|x_k-x^<em>|^2-|x_{k+1}-x^</em>|^2\right)}<br>\end{aligned}$$</p>
-<p>进一步有<br>$$f_{k+1}-f^*&#x3D;\frac1{2\alpha}\left(|x_k-x^<em>|^2-|x_{k+1}-x^</em>|^2\right)$$<br>$$\begin{gathered}<br>\sum_{k&#x3D;0}^n(f_{k+1}-f^*) \leq\frac1{2\alpha}\big(|x_0-x^<em>|^2-|x_{k+1}-x^</em>|^2\big) \<br>&#x3D;\frac1{2\alpha}|x_0-x^*|^2<br>\end{gathered}$$</p>
-<p>由于$f_k$单调下降，因此<br>$$f_{n+1}-f^<em>\leq\frac1{n+1}\sum_{k&#x3D;0}^n(f_{k+1}-f^</em>)\leq\frac1{2(n+1)\alpha}|x_0-x^<em>|^2$$<br>算法使得以$O(\frac 1k)$收敛到$f^</em>$</p>
-<h2 id="重要的引理-白老爹定理"><a href="#重要的引理-白老爹定理" class="headerlink" title="重要的引理:白老爹定理"></a>重要的引理:白老爹定理</h2><h2 id="强凸函数应用梯度下降法的收敛性分析"><a href="#强凸函数应用梯度下降法的收敛性分析" class="headerlink" title="强凸函数应用梯度下降法的收敛性分析"></a>强凸函数应用梯度下降法的收敛性分析</h2><ul>
-<li>$f$有下界，m-强凸，可微</li>
-<li>$\nabla f$李普希兹连续</li>
-<li>$\alpha \in (0,\frac{2}{L+m})$</li>
+<p>x的更新公式为 <span
+class="math display"><em>x</em><sub><em>k</em> + 1</sub> = <em>x</em><sub><em>k</em></sub> − <em>α</em><sub><em>k</em></sub>∇<em>f</em>(<em>x</em><sub><em>k</em></sub>)</span>
+根据二次上界不等式可得 <span class="math display">$$\begin{aligned}
+f_{k+1}&amp; =f\left(x_k-\alpha\nabla f(x_k)\right) \\
+&amp;\leq f(x_k)-\alpha\|\nabla f(x_k)\|^2+\frac{L\alpha^2}2\|\nabla
+f(x_k)\|^2 \\
+&amp;=f(x_k)-\alpha\left(1-\frac{\alpha L}2\right)\|\nabla f(x_k)\|^2
+\end{aligned}$$</span></p>
+<p>由凸函数的性质可知:<span
+class="math inline"><em>f</em><sup>*</sup> &gt; <em>f</em>(<em>x</em><sub><em>k</em></sub>) − ∇<em>f</em>(<em>x</em><sub><em>k</em></sub>)<sup>⊤</sup>(<em>x</em><sub><em>k</em></sub> − <em>x</em><sup>*</sup>)</span></p>
+<p>由于<span
+class="math inline">$\alpha\in\left(0,\frac1L\right)$</span>,则</p>
+$$
+<p>$$</p>
+<p>进一步有 <span
+class="math display">$$f_{k+1}-f^*=\frac1{2\alpha}\left(\|x_k-x^*\|^2-\|x_{k+1}-x^*\|^2\right)$$</span>
+<span class="math display">$$\begin{gathered}
+\sum_{k=0}^n(f_{k+1}-f^*)
+\leq\frac1{2\alpha}\big(\|x_0-x^*\|^2-\|x_{k+1}-x^*\|^2\big) \\
+=\frac1{2\alpha}\|x_0-x^*\|^2
+\end{gathered}$$</span></p>
+<p>由于<span
+class="math inline"><em>f</em><sub><em>k</em></sub></span>单调下降，因此
+<span
+class="math display">$$f_{n+1}-f^*\leq\frac1{n+1}\sum_{k=0}^n(f_{k+1}-f^*)\leq\frac1{2(n+1)\alpha}\|x_0-x^*\|^2$$</span>
+算法使得以<span class="math inline">$O(\frac 1k)$</span>收敛到<span
+class="math inline"><em>f</em><sup>*</sup></span></p>
+<h2 id="重要的引理白老爹定理">重要的引理:白老爹定理</h2>
+<h2
+id="强凸函数应用梯度下降法的收敛性分析">强凸函数应用梯度下降法的收敛性分析</h2>
+<ul>
+<li><span class="math inline"><em>f</em></span>有下界，m-强凸，可微</li>
+<li><span class="math inline">∇<em>f</em></span>李普希兹连续</li>
+<li><span class="math inline">$\alpha \in (0,\frac{2}{L+m})$</span></li>
 </ul>
-<p>则$x_k$Q线性收敛到$x^*$</p>
-<p>$$||x_{k+1}-x^{<em>}||^{2}&#x3D;||x_{k}-\alpha \nabla f(x_{k})-x^{</em>}||^{2}$$<br>$$&#x3D;|x_{k}-x^{<em>}|^{2}-2\alpha\nabla f(x_{k})^{T}(x_{k}-x^{</em>})+\alpha^{2}|\nabla f(x_{k})|^{2}$$<br>$$&#x3D;||x_{k}-x^{<em>}||^{2}-2\alpha(\nabla f(x_{k})-\nabla f(x^{</em>}))^{T}(x_{k}-x^{<em>})+\alpha^{2}||\nabla f(x_{k})||^{2}$$<br>现在的任务就是为$(\nabla f(x_{k})-\nabla f(x^{</em>}))^{T}(x_{k}-x^{*})$寻找一个合适的下界</p>
+<p>则<span
+class="math inline"><em>x</em><sub><em>k</em></sub></span>Q线性收敛到<span
+class="math inline"><em>x</em><sup>*</sup></span></p>
+<p><span
+class="math display">||<em>x</em><sub><em>k</em> + 1</sub> − <em>x</em><sup>*</sup>||<sup>2</sup> = ||<em>x</em><sub><em>k</em></sub> − <em>α</em>∇<em>f</em>(<em>x</em><sub><em>k</em></sub>) − <em>x</em><sup>*</sup>||<sup>2</sup></span>
+<span
+class="math display"> = ∥<em>x</em><sub><em>k</em></sub> − <em>x</em><sup>*</sup>∥<sup>2</sup> − 2<em>α</em>∇<em>f</em>(<em>x</em><sub><em>k</em></sub>)<sup><em>T</em></sup>(<em>x</em><sub><em>k</em></sub> − <em>x</em><sup>*</sup>) + <em>α</em><sup>2</sup>∥∇<em>f</em>(<em>x</em><sub><em>k</em></sub>)∥<sup>2</sup></span>
+<span
+class="math display"> = ||<em>x</em><sub><em>k</em></sub> − <em>x</em><sup>*</sup>||<sup>2</sup> − 2<em>α</em>(∇<em>f</em>(<em>x</em><sub><em>k</em></sub>) − ∇<em>f</em>(<em>x</em><sup>*</sup>))<sup><em>T</em></sup>(<em>x</em><sub><em>k</em></sub> − <em>x</em><sup>*</sup>) + <em>α</em><sup>2</sup>||∇<em>f</em>(<em>x</em><sub><em>k</em></sub>)||<sup>2</sup></span>
+现在的任务就是为<span
+class="math inline">(∇<em>f</em>(<em>x</em><sub><em>k</em></sub>) − ∇<em>f</em>(<em>x</em><sup>*</sup>))<sup><em>T</em></sup>(<em>x</em><sub><em>k</em></sub> − <em>x</em><sup>*</sup>)</span>寻找一个合适的下界</p>
 <p>带入原始的式子</p>
-<h2 id="梯度下降法的缺点-在病态条件下收敛过慢"><a href="#梯度下降法的缺点-在病态条件下收敛过慢" class="headerlink" title="梯度下降法的缺点:在病态条件下收敛过慢"></a>梯度下降法的缺点:在病态条件下收敛过慢</h2>
+<h2
+id="梯度下降法的缺点在病态条件下收敛过慢">梯度下降法的缺点:在病态条件下收敛过慢</h2>
+
                 
               </div>
             

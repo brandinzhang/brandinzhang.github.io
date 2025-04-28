@@ -16,12 +16,12 @@
   <meta name="author" content="bradin">
   <meta name="keywords" content="">
   
-    <meta name="description" content="最小二乘法 假设数据集为：$$\mathcal{D}&#x3D;{(x_1,y_1),(x_2,y_2),\cdots,(x_N,y_N)}$$后面我们记：$$X&#x3D;(x_1,x_2,\cdots,x_N)^T,Y&#x3D;(y_1,y_2,\cdots,y_N)^T$$线性回归假设：$$f(w)&#x3D;w^Tx$$ 我们的任务是寻找到最合适的一个$w$，这必然需要定义合适的损失函数">
+    <meta name="description" content="最小二乘法 假设数据集为： 𝒟 &#x3D; {(x1, y1), (x2, y2), ⋯, (xN, yN)} 后面我们记： X &#x3D; (x1, x2, ⋯, xN)T, Y &#x3D; (y1, y2, ⋯, yN)T 线性回归假设： f(w) &#x3D; wTx 我们的任务是寻找到最合适的一个w，这必然需要定义合适的损失函数，如何定义？ 合理的假设：噪声是高斯分布的，那么有y &#x3D; wTx + ϵ, ϵ ∼ 𝒩(0,">
 <meta property="og:type" content="article">
 <meta property="og:title" content="线性回归">
 <meta property="og:url" content="http://example.com/2024/07/13/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92/index.html">
 <meta property="og:site_name" content="鸭蛋仙人的博客">
-<meta property="og:description" content="最小二乘法 假设数据集为：$$\mathcal{D}&#x3D;{(x_1,y_1),(x_2,y_2),\cdots,(x_N,y_N)}$$后面我们记：$$X&#x3D;(x_1,x_2,\cdots,x_N)^T,Y&#x3D;(y_1,y_2,\cdots,y_N)^T$$线性回归假设：$$f(w)&#x3D;w^Tx$$ 我们的任务是寻找到最合适的一个$w$，这必然需要定义合适的损失函数">
+<meta property="og:description" content="最小二乘法 假设数据集为： 𝒟 &#x3D; {(x1, y1), (x2, y2), ⋯, (xN, yN)} 后面我们记： X &#x3D; (x1, x2, ⋯, xN)T, Y &#x3D; (y1, y2, ⋯, yN)T 线性回归假设： f(w) &#x3D; wTx 我们的任务是寻找到最合适的一个w，这必然需要定义合适的损失函数，如何定义？ 合理的假设：噪声是高斯分布的，那么有y &#x3D; wTx + ϵ, ϵ ∼ 𝒩(0,">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2024-07-12T16:00:00.000Z">
 <meta property="article:modified_time" content="2025-04-28T10:58:05.864Z">
@@ -295,20 +295,72 @@
             
               <div class="markdown-body">
                 
-                <h1 id="最小二乘法"><a href="#最小二乘法" class="headerlink" title="最小二乘法"></a>最小二乘法</h1><p> 假设数据集为：<br>$$\mathcal{D}&#x3D;{(x_1,y_1),(x_2,y_2),\cdots,(x_N,y_N)}$$<br>后面我们记：<br>$$X&#x3D;(x_1,x_2,\cdots,x_N)^T,Y&#x3D;(y_1,y_2,\cdots,y_N)^T$$<br>线性回归假设：<br>$$f(w)&#x3D;w^Tx$$</p>
-<p>我们的任务是寻找到最合适的一个$w$，这必然需要定义合适的损失函数，如何定义？</p>
-<p>合理的假设：噪声是高斯分布的，那么有$y&#x3D;w^Tx+\epsilon,\epsilon\sim\mathcal{N}(0,\sigma^2)$，也就是$y\sim\mathcal{N}(w^Tx,\sigma^2)$</p>
-<p>我们使用使用最大似然估计求解$w$,也就是<br>$$w&#x3D;   argmax\log p(Y|X,w) $$</p>
-<p><strong>这个式子表示表示在模型参数$w$ 固定且已知输入数据 $X$ 的条件下，输出数据 $Y$ 出现的概率。我们要求的就是:给定怎样的$w$可以使得这个概率最大</strong><br>$$\begin{aligned}&amp;&#x3D;argmax\log\prod_{i&#x3D;1}^Np(y_i|x_i,w)\&amp;&#x3D;argmax\sum_{i&#x3D;1}^N\log(\frac1{\sqrt{2\pi\sigma}}e^{-\frac{(y_i-w^Tx_i)^2}{2\sigma^2}})\end{aligned} $$<br>$$&#x3D;argmin\sum_{i&#x3D;1}^N(y_i-w^Tx_i)^2$$</p>
+                <h1 id="最小二乘法">最小二乘法</h1>
+<p>假设数据集为： <span
+class="math display">𝒟 = {(<em>x</em><sub>1</sub>, <em>y</em><sub>1</sub>), (<em>x</em><sub>2</sub>, <em>y</em><sub>2</sub>), ⋯, (<em>x</em><sub><em>N</em></sub>, <em>y</em><sub><em>N</em></sub>)}</span>
+后面我们记： <span
+class="math display"><em>X</em> = (<em>x</em><sub>1</sub>, <em>x</em><sub>2</sub>, ⋯, <em>x</em><sub><em>N</em></sub>)<sup><em>T</em></sup>, <em>Y</em> = (<em>y</em><sub>1</sub>, <em>y</em><sub>2</sub>, ⋯, <em>y</em><sub><em>N</em></sub>)<sup><em>T</em></sup></span>
+线性回归假设： <span
+class="math display"><em>f</em>(<em>w</em>) = <em>w</em><sup><em>T</em></sup><em>x</em></span></p>
+<p>我们的任务是寻找到最合适的一个<span
+class="math inline"><em>w</em></span>，这必然需要定义合适的损失函数，如何定义？</p>
+<p>合理的假设：噪声是高斯分布的，那么有<span
+class="math inline"><em>y</em> = <em>w</em><sup><em>T</em></sup><em>x</em> + <em>ϵ</em>, <em>ϵ</em> ∼ 𝒩(0, <em>σ</em><sup>2</sup>)</span>，也就是<span
+class="math inline"><em>y</em> ∼ 𝒩(<em>w</em><sup><em>T</em></sup><em>x</em>, <em>σ</em><sup>2</sup>)</span></p>
+<p>我们使用使用最大似然估计求解<span
+class="math inline"><em>w</em></span>,也就是 <span
+class="math display"><em>w</em> = <em>a</em><em>r</em><em>g</em><em>m</em><em>a</em><em>x</em>log <em>p</em>(<em>Y</em>|<em>X</em>, <em>w</em>)</span></p>
+<p><strong>这个式子表示表示在模型参数<span
+class="math inline"><em>w</em></span> 固定且已知输入数据 <span
+class="math inline"><em>X</em></span> 的条件下，输出数据 <span
+class="math inline"><em>Y</em></span>
+出现的概率。我们要求的就是:给定怎样的<span
+class="math inline"><em>w</em></span>可以使得这个概率最大</strong> <span
+class="math display">$$\begin{aligned}&amp;=argmax\log\prod_{i=1}^Np(y_i|x_i,w)\\&amp;=argmax\sum_{i=1}^N\log(\frac1{\sqrt{2\pi\sigma}}e^{-\frac{(y_i-w^Tx_i)^2}{2\sigma^2}})\end{aligned}
+$$</span> <span
+class="math display">$$=argmin\sum_{i=1}^N(y_i-w^Tx_i)^2$$</span></p>
 <p>因此使用二范数定义损失函数</p>
-<p>$$L(w)&#x3D;\sum_{i&#x3D;1}^N||w^Tx_i-y_i||_2^2$$</p>
-<p>$$&#x3D;(w^TX^T-Y^T)\cdot(Xw-Y)$$</p>
-<p>$$\begin{aligned}<br>\hat{w}&#x3D;argmin L(w)&amp; \longrightarrow\frac\partial{\partial w}L(w)&#x3D;0 \<br>&amp;\longrightarrow2X^TX\hat{w}-2X^TY&#x3D;0 \<br>&amp;\longrightarrow\hat{w}&#x3D;(X^TX)^{-1}X^TY&#x3D;X^+Y<br>\end{aligned}$$</p>
-<p>这个式子中$(X^TX)^{-1}X^T$又被称为伪逆。对于行满秩或者列满秩的$X$ ,可以直接求解，但是对于非满秩的样本集合，需要使用奇异值分解 (SVD)的方法，对$X$求奇异值分解，得到<br>$$X&#x3D;U\Sigma V^T$$<br>于是：<br>$$X^+&#x3D;V\Sigma^{-1}U^T$$</p>
-<h1 id="正则化"><a href="#正则化" class="headerlink" title="正则化"></a>正则化</h1><p>正则化是防止过拟合的关键手段，从代数上朴素的看，就是在原有loss函数的基础上加上一项有关于$w$的惩罚项，防止$w$过大，$L_1$正则化和$L_2$正则化可以写为下式</p>
-<p>$$L1:argmin L(w)+\lambda||w||_1,\lambda&gt;0\L2:argmin L(w)+\lambda||w||_2^2,\lambda&gt;0$$</p>
-<p>然而正则化的引入依然有其概率意义，关于惩罚项的引入实际上出自于我们对最大似然估计的修正，最大似然估计看似合乎直觉，实际上并没有考虑到先验概率对于某一条件概率的影响，事实上最大后验估计往往比最大似然估计更准确!<br>假设权重先验分布满足高斯分布，则<br>$$\begin{aligned}<br> w\sim\mathcal{N}(0,\sigma_0^2) \<br>\hat{w}&#x3D;argmax \log p(w|Y)&amp; &#x3D;\underset{w}{\operatorname*{argmax}}p(Y|w)p(w) \<br>&amp;&#x3D;argmax\log p(Y|w)p(w) \<br>&amp;&#x3D;argmax(\log p(Y|w)+\log p(w)) \<br>&amp;&#x3D;argmin[(y-w^Tx)^2+\frac{\sigma^2}{\sigma_0^2}w^Tw]<br>\end{aligned}$$</p>
-<p>这就是$L_2$正则化的由来,本质上是考虑了$p(w)$带来的修正项</p>
+<p><span
+class="math display">$$L(w)=\sum_{i=1}^N||w^Tx_i-y_i||_2^2$$</span></p>
+<p><span
+class="math display"> = (<em>w</em><sup><em>T</em></sup><em>X</em><sup><em>T</em></sup> − <em>Y</em><sup><em>T</em></sup>) ⋅ (<em>X</em><em>w</em> − <em>Y</em>)</span></p>
+<p><span class="math display">$$\begin{aligned}
+\hat{w}=argmin L(w)&amp; \longrightarrow\frac\partial{\partial w}L(w)=0
+\\
+&amp;\longrightarrow2X^TX\hat{w}-2X^TY=0 \\
+&amp;\longrightarrow\hat{w}=(X^TX)^{-1}X^TY=X^+Y
+\end{aligned}$$</span></p>
+<p>这个式子中<span
+class="math inline">(<em>X</em><sup><em>T</em></sup><em>X</em>)<sup>−1</sup><em>X</em><sup><em>T</em></sup></span>又被称为伪逆。对于行满秩或者列满秩的<span
+class="math inline"><em>X</em></span>
+,可以直接求解，但是对于非满秩的样本集合，需要使用奇异值分解
+(SVD)的方法，对<span
+class="math inline"><em>X</em></span>求奇异值分解，得到 <span
+class="math display"><em>X</em> = <em>U</em><em>Σ</em><em>V</em><sup><em>T</em></sup></span>
+于是： <span
+class="math display"><em>X</em><sup>+</sup> = <em>V</em><em>Σ</em><sup>−1</sup><em>U</em><sup><em>T</em></sup></span></p>
+<h1 id="正则化">正则化</h1>
+<p>正则化是防止过拟合的关键手段，从代数上朴素的看，就是在原有loss函数的基础上加上一项有关于<span
+class="math inline"><em>w</em></span>的惩罚项，防止<span
+class="math inline"><em>w</em></span>过大，<span
+class="math inline"><em>L</em><sub>1</sub></span>正则化和<span
+class="math inline"><em>L</em><sub>2</sub></span>正则化可以写为下式</p>
+<p><span class="math display">$$L1:argmin
+L(w)+\lambda||w||_1,\lambda&gt;0\\L2:argmin
+L(w)+\lambda||w||_2^2,\lambda&gt;0$$</span></p>
+<p>然而正则化的引入依然有其概率意义，关于惩罚项的引入实际上出自于我们对最大似然估计的修正，最大似然估计看似合乎直觉，实际上并没有考虑到先验概率对于某一条件概率的影响，事实上最大后验估计往往比最大似然估计更准确!<br />
+假设权重先验分布满足高斯分布，则 <span
+class="math display">$$\begin{aligned}
+w\sim\mathcal{N}(0,\sigma_0^2) \\
+\hat{w}=argmax \log p(w|Y)&amp;
+=\underset{w}{\operatorname*{argmax}}p(Y|w)p(w) \\
+&amp;=argmax\log p(Y|w)p(w) \\
+&amp;=argmax(\log p(Y|w)+\log p(w)) \\
+&amp;=argmin[(y-w^Tx)^2+\frac{\sigma^2}{\sigma_0^2}w^Tw]
+\end{aligned}$$</span></p>
+<p>这就是<span
+class="math inline"><em>L</em><sub>2</sub></span>正则化的由来,本质上是考虑了<span
+class="math inline"><em>p</em>(<em>w</em>)</span>带来的修正项</p>
 
                 
               </div>

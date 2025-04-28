@@ -16,12 +16,12 @@
   <meta name="author" content="bradin">
   <meta name="keywords" content="">
   
-    <meta name="description" content="创建并关联仓库以下是在 macOS 上配置 Git 并创建、关联 GitHub 仓库的详细教程，同时默认分支名为 main： 1. 安装 Git如果你的 macOS 还未安装 Git，可通过 Homebrew 进行安装。若已安装，可跳过此步骤。 12345# 安装 Homebrew&#x2F;bin&#x2F;bash -c &quot;$(curl -fsSL https:&#x2F;&#x2F;raw.githubuserconte">
+    <meta name="description" content="创建并关联仓库 以下是在 macOS 上配置 Git 并创建、关联 GitHub 仓库的详细教程，同时默认分支名为 main： 1. 安装 Git 如果你的 macOS 还未安装 Git，可通过 Homebrew 进行安装。若已安装，可跳过此步骤。 12345# 安装 Homebrew&#x2F;bin&#x2F;bash -c &quot;$(curl -fsSL https:&#x2F;&#x2F;raw.githubusercon">
 <meta property="og:type" content="article">
 <meta property="og:title" content="git协作开发指南">
 <meta property="og:url" content="http://example.com/2025/03/22/cs/git%E7%AC%94%E8%AE%B0/index.html">
 <meta property="og:site_name" content="鸭蛋仙人的博客">
-<meta property="og:description" content="创建并关联仓库以下是在 macOS 上配置 Git 并创建、关联 GitHub 仓库的详细教程，同时默认分支名为 main： 1. 安装 Git如果你的 macOS 还未安装 Git，可通过 Homebrew 进行安装。若已安装，可跳过此步骤。 12345# 安装 Homebrew&#x2F;bin&#x2F;bash -c &quot;$(curl -fsSL https:&#x2F;&#x2F;raw.githubuserconte">
+<meta property="og:description" content="创建并关联仓库 以下是在 macOS 上配置 Git 并创建、关联 GitHub 仓库的详细教程，同时默认分支名为 main： 1. 安装 Git 如果你的 macOS 还未安装 Git，可通过 Homebrew 进行安装。若已安装，可跳过此步骤。 12345# 安装 Homebrew&#x2F;bin&#x2F;bash -c &quot;$(curl -fsSL https:&#x2F;&#x2F;raw.githubusercon">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2025-03-21T16:42:14.856Z">
 <meta property="article:modified_time" content="2025-03-21T16:48:04.947Z">
@@ -297,146 +297,209 @@
             
               <div class="markdown-body">
                 
-                <h1 id="创建并关联仓库"><a href="#创建并关联仓库" class="headerlink" title="创建并关联仓库"></a>创建并关联仓库</h1><p>以下是在 macOS 上配置 Git 并创建、关联 GitHub 仓库的详细教程，同时默认分支名为 <code>main</code>：</p>
-<h3 id="1-安装-Git"><a href="#1-安装-Git" class="headerlink" title="1. 安装 Git"></a>1. 安装 Git</h3><p>如果你的 macOS 还未安装 Git，可通过 Homebrew 进行安装。若已安装，可跳过此步骤。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 安装 Homebrew</span><br>/bin/bash -c <span class="hljs-string">&quot;<span class="hljs-subst">$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)</span>&quot;</span><br><br><span class="hljs-comment"># 使用 Homebrew 安装 Git</span><br>brew install git<br></code></pre></td></tr></table></figure>
-<p><strong>意义</strong>：Git 是版本控制系统，借助它你能对项目进行版本管理。Homebrew 是 macOS 上常用的包管理器，方便软件的安装与管理。</p>
-<h3 id="2-配置-Git-用户名和邮箱"><a href="#2-配置-Git-用户名和邮箱" class="headerlink" title="2. 配置 Git 用户名和邮箱"></a>2. 配置 Git 用户名和邮箱</h3><p>你需要设置自己的 Git 用户名和邮箱，这些信息会关联到你提交的代码。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">git config --global user.name <span class="hljs-string">&quot;Your Name&quot;</span><br>git config --global user.email <span class="hljs-string">&quot;your.email@example.com&quot;</span><br></code></pre></td></tr></table></figure>
-<p><strong>意义</strong>：Git 利用用户名和邮箱来识别代码提交者，这些信息会记录在每次提交的日志中。</p>
-<h3 id="3-生成-SSH-密钥"><a href="#3-生成-SSH-密钥" class="headerlink" title="3. 生成 SSH 密钥"></a>3. 生成 SSH 密钥</h3><p>为了能安全地与 GitHub 进行通信，你需要生成 SSH 密钥并将公钥添加到 GitHub 账户。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 生成 SSH 密钥</span><br>ssh-keygen -t rsa -b 4096 -C <span class="hljs-string">&quot;your.email@example.com&quot;</span><br><br><span class="hljs-comment"># 按提示操作，通常直接按回车键接受默认设置即可</span><br><span class="hljs-comment"># 生成的密钥默认存储在 ~/.ssh/id_rsa 和 ~/.ssh/id_rsa.pub</span><br><br><span class="hljs-comment"># 启动 SSH 代理</span><br><span class="hljs-built_in">eval</span> <span class="hljs-string">&quot;<span class="hljs-subst">$(ssh-agent -s)</span>&quot;</span><br><br><span class="hljs-comment"># 将私钥添加到 SSH 代理</span><br>ssh-add ~/.ssh/id_rsa<br></code></pre></td></tr></table></figure>
-<p><strong>意义</strong>：SSH 密钥提供了一种安全的方式让你与 GitHub 服务器进行通信，避免每次操作都输入用户名和密码。</p>
-<h3 id="4-将-SSH-公钥添加到-GitHub-账户"><a href="#4-将-SSH-公钥添加到-GitHub-账户" class="headerlink" title="4. 将 SSH 公钥添加到 GitHub 账户"></a>4. 将 SSH 公钥添加到 GitHub 账户</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 复制公钥到剪贴板</span><br>pbcopy &lt; ~/.ssh/id_rsa.pub<br></code></pre></td></tr></table></figure>
+                <h1 id="创建并关联仓库">创建并关联仓库</h1>
+<p>以下是在 macOS 上配置 Git 并创建、关联 GitHub
+仓库的详细教程，同时默认分支名为 <code>main</code>：</p>
+<h3 id="安装-git">1. 安装 Git</h3>
+<p>如果你的 macOS 还未安装 Git，可通过 Homebrew
+进行安装。若已安装，可跳过此步骤。 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 安装 Homebrew</span><br>/bin/bash -c <span class="hljs-string">&quot;<span class="hljs-subst">$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)</span>&quot;</span><br><br><span class="hljs-comment"># 使用 Homebrew 安装 Git</span><br>brew install git<br></code></pre></td></tr></table></figure>
+<strong>意义</strong>：Git
+是版本控制系统，借助它你能对项目进行版本管理。Homebrew 是 macOS
+上常用的包管理器，方便软件的安装与管理。</p>
+<h3 id="配置-git-用户名和邮箱">2. 配置 Git 用户名和邮箱</h3>
+<p>你需要设置自己的 Git 用户名和邮箱，这些信息会关联到你提交的代码。
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">git config --global user.name <span class="hljs-string">&quot;Your Name&quot;</span><br>git config --global user.email <span class="hljs-string">&quot;your.email@example.com&quot;</span><br></code></pre></td></tr></table></figure> <strong>意义</strong>：Git
+利用用户名和邮箱来识别代码提交者，这些信息会记录在每次提交的日志中。</p>
+<h3 id="生成-ssh-密钥">3. 生成 SSH 密钥</h3>
+<p>为了能安全地与 GitHub 进行通信，你需要生成 SSH 密钥并将公钥添加到
+GitHub 账户。 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 生成 SSH 密钥</span><br>ssh-keygen -t rsa -b 4096 -C <span class="hljs-string">&quot;your.email@example.com&quot;</span><br><br><span class="hljs-comment"># 按提示操作，通常直接按回车键接受默认设置即可</span><br><span class="hljs-comment"># 生成的密钥默认存储在 ~/.ssh/id_rsa 和 ~/.ssh/id_rsa.pub</span><br><br><span class="hljs-comment"># 启动 SSH 代理</span><br><span class="hljs-built_in">eval</span> <span class="hljs-string">&quot;<span class="hljs-subst">$(ssh-agent -s)</span>&quot;</span><br><br><span class="hljs-comment"># 将私钥添加到 SSH 代理</span><br>ssh-add ~/.ssh/id_rsa<br></code></pre></td></tr></table></figure> <strong>意义</strong>：SSH
+密钥提供了一种安全的方式让你与 GitHub
+服务器进行通信，避免每次操作都输入用户名和密码。</p>
+<h3 id="将-ssh-公钥添加到-github-账户">4. 将 SSH 公钥添加到 GitHub
+账户</h3>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 复制公钥到剪贴板</span><br>pbcopy &lt; ~/.ssh/id_rsa.pub<br></code></pre></td></tr></table></figure>
 <ul>
 <li>打开 GitHub 网站，登录你的账户。</li>
 <li>点击右上角的头像，选择 “Settings”。</li>
 <li>在左侧菜单中选择 “SSH and GPG keys”。</li>
-<li>点击 “New SSH key”，将剪贴板中的公钥粘贴到 “Key” 字段，输入一个标题（如 “MacBook Pro”），然后点击 “Add SSH key”。<br><strong>意义</strong>：GitHub 服务器借助公钥来验证你的身份，确认是你本人在操作。</li>
+<li>点击 “New SSH key”，将剪贴板中的公钥粘贴到 “Key”
+字段，输入一个标题（如 “MacBook Pro”），然后点击 “Add SSH key”。
+<strong>意义</strong>：GitHub
+服务器借助公钥来验证你的身份，确认是你本人在操作。</li>
 </ul>
-<h3 id="5-创建本地-Git-仓库"><a href="#5-创建本地-Git-仓库" class="headerlink" title="5. 创建本地 Git 仓库"></a>5. 创建本地 Git 仓库</h3><p>在本地创建一个新的项目目录，并将其初始化为 Git 仓库。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 创建一个新的项目目录</span><br><span class="hljs-built_in">mkdir</span> my-project<br><span class="hljs-built_in">cd</span> my-project<br><br><span class="hljs-comment"># 初始化 Git 仓库，默认分支名为 main</span><br>git init -b main<br></code></pre></td></tr></table></figure>
-<p><strong>意义</strong>：<code>git init</code> 命令会在当前目录下创建一个新的 Git 仓库，<code>-b main</code> 参数指定默认分支名为 <code>main</code>。</p>
-<h3 id="6-添加文件并提交"><a href="#6-添加文件并提交" class="headerlink" title="6. 添加文件并提交"></a>6. 添加文件并提交</h3><p>在项目目录下创建一些文件，然后将它们添加到暂存区并提交。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 创建一个示例文件</span><br><span class="hljs-built_in">touch</span> README.md<br><br><span class="hljs-comment"># 将文件添加到暂存区</span><br>git add README.md<br><br><span class="hljs-comment"># 提交文件到本地仓库</span><br>git commit -m <span class="hljs-string">&quot;Initial commit&quot;</span><br></code></pre></td></tr></table></figure>
-<p><strong>意义</strong>：<code>git add</code> 命令把文件添加到暂存区，<code>git commit</code> 命令将暂存区的文件提交到本地仓库，并添加一条提交信息。</p>
-<h3 id="7-在-GitHub-上创建新仓库"><a href="#7-在-GitHub-上创建新仓库" class="headerlink" title="7. 在 GitHub 上创建新仓库"></a>7. 在 GitHub 上创建新仓库</h3><ul>
-<li>登录 GitHub 网站，点击右上角的 “+” 按钮，选择 “New repository”。</li>
+<h3 id="创建本地-git-仓库">5. 创建本地 Git 仓库</h3>
+<p>在本地创建一个新的项目目录，并将其初始化为 Git 仓库。 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 创建一个新的项目目录</span><br><span class="hljs-built_in">mkdir</span> my-project<br><span class="hljs-built_in">cd</span> my-project<br><br><span class="hljs-comment"># 初始化 Git 仓库，默认分支名为 main</span><br>git init -b main<br></code></pre></td></tr></table></figure>
+<strong>意义</strong>：<code>git init</code>
+命令会在当前目录下创建一个新的 Git 仓库，<code>-b main</code>
+参数指定默认分支名为 <code>main</code>。</p>
+<h3 id="添加文件并提交">6. 添加文件并提交</h3>
+<p>在项目目录下创建一些文件，然后将它们添加到暂存区并提交。
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 创建一个示例文件</span><br><span class="hljs-built_in">touch</span> README.md<br><br><span class="hljs-comment"># 将文件添加到暂存区</span><br>git add README.md<br><br><span class="hljs-comment"># 提交文件到本地仓库</span><br>git commit -m <span class="hljs-string">&quot;Initial commit&quot;</span><br></code></pre></td></tr></table></figure> <strong>意义</strong>：<code>git add</code>
+命令把文件添加到暂存区，<code>git commit</code>
+命令将暂存区的文件提交到本地仓库，并添加一条提交信息。</p>
+<h3 id="在-github-上创建新仓库">7. 在 GitHub 上创建新仓库</h3>
+<ul>
+<li>登录 GitHub 网站，点击右上角的 “+” 按钮，选择 “New
+repository”。</li>
 <li>输入仓库名称、描述等信息，然后点击 “Create repository”。</li>
 </ul>
-<h3 id="8-将本地仓库关联到-GitHub-仓库"><a href="#8-将本地仓库关联到-GitHub-仓库" class="headerlink" title="8. 将本地仓库关联到 GitHub 仓库"></a>8. 将本地仓库关联到 GitHub 仓库</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 获取 GitHub 仓库的 SSH 地址</span><br><span class="hljs-comment"># 在 GitHub 仓库页面中，点击 “Code” 按钮，复制 SSH 地址</span><br><br><span class="hljs-comment"># 将本地仓库与 GitHub 仓库关联</span><br>git remote add origin git@github.com:yourusername/my-project.git<br><br><span class="hljs-comment"># 将本地的 main 分支推送到 GitHub 仓库</span><br>git push -u origin main<br></code></pre></td></tr></table></figure>
-<p><strong>意义</strong>：<code>git remote add</code> 命令将本地仓库与 GitHub 仓库关联起来，<code>git push</code> 命令把本地仓库的代码推送到 GitHub 仓库，<code>-u</code> 参数会将本地的 <code>main</code> 分支与远程的 <code>main</code> 分支关联起来，以后使用 <code>git push</code> 时就不需要再指定分支名了。</p>
-<p>完成以上步骤后，你就成功在 macOS 上配置了 Git，并将本地仓库与 GitHub 仓库关联起来。之后你可以继续在本地进行开发，使用 <code>git add</code>、<code>git commit</code> 和 <code>git push</code> 命令来管理和同步代码。 </p>
-<p>最后可能会出错，因为原始仓库里会有一个readme文件，需要</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 拉取远程仓库的更新并合并</span><br>git pull --rebase origin main<br><br><span class="hljs-comment"># 如果拉取和合并过程中没有冲突，再次推送本地分支</span><br>git push -u origin main<br></code></pre></td></tr></table></figure>
-
-
-<h1 id="创建自己的分支，上传"><a href="#创建自己的分支，上传" class="headerlink" title="创建自己的分支，上传"></a>创建自己的分支，上传</h1><p>下面为你详细介绍创建新分支、在新分支开发、推送新分支以及将分支合并到 <code>main</code> 分支的具体步骤，同时说明合并操作的相关情况。</p>
-<h3 id="1-创建新分支"><a href="#1-创建新分支" class="headerlink" title="1. 创建新分支"></a>1. 创建新分支</h3><p>在本地仓库中创建新分支有两种常用方式，具体如下：</p>
-<h4 id="先创建分支，再切换到新分支"><a href="#先创建分支，再切换到新分支" class="headerlink" title="先创建分支，再切换到新分支"></a>先创建分支，再切换到新分支</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 创建新分支</span><br>git branch new-feature<br><span class="hljs-comment"># 切换到新分支</span><br>git checkout new-feature<br></code></pre></td></tr></table></figure>
-<p>这里的 <code>new-feature</code> 是新分支的名称，可以根据实际开发的功能来命名。</p>
-<h3 id="2-在新分支上进行开发创作"><a href="#2-在新分支上进行开发创作" class="headerlink" title="2. 在新分支上进行开发创作"></a>2. 在新分支上进行开发创作</h3><p>切换到新分支后，就可以像平常一样进行代码编写、修改等操作了。完成一些工作后，将修改的文件添加到暂存区并提交到本地仓库，示例如下：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 查看文件状态，确认修改的文件</span><br>git status<br><span class="hljs-comment"># 将修改的文件添加到暂存区</span><br>git add .  <span class="hljs-comment"># 添加当前目录下所有修改和新增的文件</span><br><span class="hljs-comment"># 或者添加指定文件</span><br>git add file1.txt file2.py<br><span class="hljs-comment"># 提交暂存区的文件到本地仓库，并添加提交信息</span><br>git commit -m <span class="hljs-string">&quot;完成新功能的部分开发&quot;</span><br></code></pre></td></tr></table></figure>
-
-<h3 id="3-推送新分支到远程仓库"><a href="#3-推送新分支到远程仓库" class="headerlink" title="3. 推送新分支到远程仓库"></a>3. 推送新分支到远程仓库</h3><p>当你在本地新分支上完成一定的开发工作后，需要将新分支推送到远程仓库，以便团队成员可以查看和协作。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 第一次推送新分支，同时建立本地分支和远程分支的关联</span><br>git push -u origin new-feature<br><span class="hljs-comment"># 后续推送该分支的更新，只需执行</span><br>git push<br></code></pre></td></tr></table></figure>
-<p><code>origin</code> 是远程仓库的默认别名，<code>new-feature</code> 是你要推送的本地分支名称。执行 <code>git push -u origin new-feature</code> 后，本地的 <code>new-feature</code> 分支就会和远程仓库的 <code>new-feature</code> 分支建立关联，之后再推送该分支的更新时，直接使用 <code>git push</code> 即可。</p>
-<h3 id="4-合并分支到-main-分支"><a href="#4-合并分支到-main-分支" class="headerlink" title="4. 合并分支到 main 分支"></a>4. 合并分支到 <code>main</code> 分支</h3><p>在完成新功能的开发并测试通过后，需要将新分支合并到 <code>main</code> 分支。以下是具体步骤：</p>
-<h4 id="步骤一：切换到-main-分支并拉取最新代码"><a href="#步骤一：切换到-main-分支并拉取最新代码" class="headerlink" title="步骤一：切换到 main 分支并拉取最新代码"></a>步骤一：切换到 <code>main</code> 分支并拉取最新代码</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 切换到 main 分支</span><br>git checkout main<br><span class="hljs-comment"># 拉取远程 main 分支的最新代码</span><br>git pull origin main<br></code></pre></td></tr></table></figure>
-<p>这一步的目的是确保本地的 <code>main</code> 分支是最新的，避免在合并时出现冲突。</p>
-<h4 id="步骤二：合并新分支到-main-分支"><a href="#步骤二：合并新分支到-main-分支" class="headerlink" title="步骤二：合并新分支到 main 分支"></a>步骤二：合并新分支到 <code>main</code> 分支</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 合并新分支到 main 分支</span><br>git merge new-feature<br></code></pre></td></tr></table></figure>
-<p>执行该命令后，Git 会尝试将 <code>new-feature</code> 分支的修改合并到 <code>main</code> 分支。如果没有冲突，合并会自动完成；如果有冲突，需要手动解决冲突。</p>
-<h4 id="步骤三：解决冲突（如果有）"><a href="#步骤三：解决冲突（如果有）" class="headerlink" title="步骤三：解决冲突（如果有）"></a>步骤三：解决冲突（如果有）</h4><p>当合并分支时出现冲突，Git 会在冲突的文件中标记出冲突的部分，你需要手动打开这些文件，根据实际情况修改冲突内容。例如，文件中可能会出现类似以下的标记：</p>
+<h3 id="将本地仓库关联到-github-仓库">8. 将本地仓库关联到 GitHub
+仓库</h3>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 获取 GitHub 仓库的 SSH 地址</span><br><span class="hljs-comment"># 在 GitHub 仓库页面中，点击 “Code” 按钮，复制 SSH 地址</span><br><br><span class="hljs-comment"># 将本地仓库与 GitHub 仓库关联</span><br>git remote add origin git@github.com:yourusername/my-project.git<br><br><span class="hljs-comment"># 将本地的 main 分支推送到 GitHub 仓库</span><br>git push -u origin main<br></code></pre></td></tr></table></figure>
+<p><strong>意义</strong>：<code>git remote add</code> 命令将本地仓库与
+GitHub 仓库关联起来，<code>git push</code> 命令把本地仓库的代码推送到
+GitHub 仓库，<code>-u</code> 参数会将本地的 <code>main</code>
+分支与远程的 <code>main</code> 分支关联起来，以后使用
+<code>git push</code> 时就不需要再指定分支名了。</p>
+<p>完成以上步骤后，你就成功在 macOS 上配置了 Git，并将本地仓库与 GitHub
+仓库关联起来。之后你可以继续在本地进行开发，使用
+<code>git add</code>、<code>git commit</code> 和 <code>git push</code>
+命令来管理和同步代码。</p>
+<p>最后可能会出错，因为原始仓库里会有一个readme文件，需要
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 拉取远程仓库的更新并合并</span><br>git pull --rebase origin main<br><br><span class="hljs-comment"># 如果拉取和合并过程中没有冲突，再次推送本地分支</span><br>git push -u origin main<br></code></pre></td></tr></table></figure></p>
+<h1 id="创建自己的分支上传">创建自己的分支，上传</h1>
+<p>下面为你详细介绍创建新分支、在新分支开发、推送新分支以及将分支合并到
+<code>main</code> 分支的具体步骤，同时说明合并操作的相关情况。</p>
+<h3 id="创建新分支">1. 创建新分支</h3>
+<p>在本地仓库中创建新分支有两种常用方式，具体如下：</p>
+<h4 id="先创建分支再切换到新分支">先创建分支，再切换到新分支</h4>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 创建新分支</span><br>git branch new-feature<br><span class="hljs-comment"># 切换到新分支</span><br>git checkout new-feature<br></code></pre></td></tr></table></figure>
+<p>这里的 <code>new-feature</code>
+是新分支的名称，可以根据实际开发的功能来命名。</p>
+<h3 id="在新分支上进行开发创作">2. 在新分支上进行开发创作</h3>
+<p>切换到新分支后，就可以像平常一样进行代码编写、修改等操作了。完成一些工作后，将修改的文件添加到暂存区并提交到本地仓库，示例如下：
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 查看文件状态，确认修改的文件</span><br>git status<br><span class="hljs-comment"># 将修改的文件添加到暂存区</span><br>git add .  <span class="hljs-comment"># 添加当前目录下所有修改和新增的文件</span><br><span class="hljs-comment"># 或者添加指定文件</span><br>git add file1.txt file2.py<br><span class="hljs-comment"># 提交暂存区的文件到本地仓库，并添加提交信息</span><br>git commit -m <span class="hljs-string">&quot;完成新功能的部分开发&quot;</span><br></code></pre></td></tr></table></figure></p>
+<h3 id="推送新分支到远程仓库">3. 推送新分支到远程仓库</h3>
+<p>当你在本地新分支上完成一定的开发工作后，需要将新分支推送到远程仓库，以便团队成员可以查看和协作。
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 第一次推送新分支，同时建立本地分支和远程分支的关联</span><br>git push -u origin new-feature<br><span class="hljs-comment"># 后续推送该分支的更新，只需执行</span><br>git push<br></code></pre></td></tr></table></figure> <code>origin</code>
+是远程仓库的默认别名，<code>new-feature</code>
+是你要推送的本地分支名称。执行
+<code>git push -u origin new-feature</code> 后，本地的
+<code>new-feature</code> 分支就会和远程仓库的 <code>new-feature</code>
+分支建立关联，之后再推送该分支的更新时，直接使用 <code>git push</code>
+即可。</p>
+<h3 id="合并分支到-main-分支">4. 合并分支到 <code>main</code> 分支</h3>
+<p>在完成新功能的开发并测试通过后，需要将新分支合并到 <code>main</code>
+分支。以下是具体步骤：</p>
+<h4 id="步骤一切换到-main-分支并拉取最新代码">步骤一：切换到
+<code>main</code> 分支并拉取最新代码</h4>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 切换到 main 分支</span><br>git checkout main<br><span class="hljs-comment"># 拉取远程 main 分支的最新代码</span><br>git pull origin main<br></code></pre></td></tr></table></figure>
+<p>这一步的目的是确保本地的 <code>main</code>
+分支是最新的，避免在合并时出现冲突。</p>
+<h4 id="步骤二合并新分支到-main-分支">步骤二：合并新分支到
+<code>main</code> 分支</h4>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 合并新分支到 main 分支</span><br>git merge new-feature<br></code></pre></td></tr></table></figure>
+<p>执行该命令后，Git 会尝试将 <code>new-feature</code> 分支的修改合并到
+<code>main</code>
+分支。如果没有冲突，合并会自动完成；如果有冲突，需要手动解决冲突。</p>
+<h4 id="步骤三解决冲突如果有">步骤三：解决冲突（如果有）</h4>
+<p>当合并分支时出现冲突，Git
+会在冲突的文件中标记出冲突的部分，你需要手动打开这些文件，根据实际情况修改冲突内容。例如，文件中可能会出现类似以下的标记：
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs plaintext">&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD<br>// main 分支的代码<br>=======<br>// new-feature 分支的代码<br>&gt;&gt;&gt;&gt;&gt;&gt;&gt; new-feature<br></code></pre></td></tr></table></figure>
-<p>你需要根据需求选择保留哪部分代码，或者将两部分代码进行整合，然后删除这些标记。修改完成后，将文件添加到暂存区并提交：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">git add conflict-file.txt<br>git commit -m <span class="hljs-string">&quot;解决合并冲突&quot;</span><br></code></pre></td></tr></table></figure>
-
-<h4 id="步骤四：将合并后的-main-分支推送到远程仓库"><a href="#步骤四：将合并后的-main-分支推送到远程仓库" class="headerlink" title="步骤四：将合并后的 main 分支推送到远程仓库"></a>步骤四：将合并后的 <code>main</code> 分支推送到远程仓库</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">git push origin main<br></code></pre></td></tr></table></figure>
-
-<h1 id="成员协作"><a href="#成员协作" class="headerlink" title="成员协作"></a>成员协作</h1><p>在多人协作开发场景下，为避免冲突和代码混乱，管理同学分支的合并可以采用以下流程和方法：</p>
-<h3 id="1-使用代码托管平台的合并请求（Pull-Request，简称-PR）功能"><a href="#1-使用代码托管平台的合并请求（Pull-Request，简称-PR）功能" class="headerlink" title="1. 使用代码托管平台的合并请求（Pull Request，简称 PR）功能"></a>1. 使用代码托管平台的合并请求（Pull Request，简称 PR）功能</h3><p>多数代码托管平台（如 GitHub、GitLab、Gitee 等）都提供了合并请求功能，这是管理分支合并的有效方式。</p>
-<h4 id="同学端操作"><a href="#同学端操作" class="headerlink" title="同学端操作"></a>同学端操作</h4><ul>
-<li><strong>完成开发并推送分支</strong>：同学在完成自己分支（如 <code>feature-branch</code>）的开发工作后，将该分支推送到远程仓库。<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">git push -u origin feature-branch<br></code></pre></td></tr></table></figure></li>
-<li><strong>发起合并请求</strong>：同学登录代码托管平台，在仓库页面发起从 <code>feature-branch</code> 到 <code>main</code> 分支的合并请求。在发起合并请求时，通常需要填写合并请求的标题和描述，说明本次开发的功能和修改内容。</li>
+你需要根据需求选择保留哪部分代码，或者将两部分代码进行整合，然后删除这些标记。修改完成后，将文件添加到暂存区并提交：
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">git add conflict-file.txt<br>git commit -m <span class="hljs-string">&quot;解决合并冲突&quot;</span><br></code></pre></td></tr></table></figure></p>
+<h4 id="步骤四将合并后的-main-分支推送到远程仓库">步骤四：将合并后的
+<code>main</code> 分支推送到远程仓库</h4>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">git push origin main<br></code></pre></td></tr></table></figure>
+<h1 id="成员协作">成员协作</h1>
+<p>在多人协作开发场景下，为避免冲突和代码混乱，管理同学分支的合并可以采用以下流程和方法：</p>
+<h3 id="使用代码托管平台的合并请求pull-request简称-pr功能">1.
+使用代码托管平台的合并请求（Pull Request，简称 PR）功能</h3>
+<p>多数代码托管平台（如 GitHub、GitLab、Gitee
+等）都提供了合并请求功能，这是管理分支合并的有效方式。</p>
+<h4 id="同学端操作">同学端操作</h4>
+<ul>
+<li><strong>完成开发并推送分支</strong>：同学在完成自己分支（如
+<code>feature-branch</code>）的开发工作后，将该分支推送到远程仓库。
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">git push -u origin feature-branch<br></code></pre></td></tr></table></figure></li>
+<li><strong>发起合并请求</strong>：同学登录代码托管平台，在仓库页面发起从
+<code>feature-branch</code> 到 <code>main</code>
+分支的合并请求。在发起合并请求时，通常需要填写合并请求的标题和描述，说明本次开发的功能和修改内容。</li>
 </ul>
-<h4 id="你端操作"><a href="#你端操作" class="headerlink" title="你端操作"></a>你端操作</h4><ul>
+<h4 id="你端操作">你端操作</h4>
+<ul>
 <li><strong>审核合并请求</strong>：当收到同学的合并请求通知后，你可以在代码托管平台上查看合并请求的详细信息，包括修改的文件、代码差异等。</li>
 <li><strong>代码审查</strong>：仔细审查同学提交的代码，检查代码质量、功能实现、是否符合项目规范等。你可以在代码托管平台上对代码进行评论和反馈，提出修改建议。</li>
-<li><strong>解决冲突（如果有）</strong>：如果合并请求中存在冲突，代码托管平台会提示你。你可以选择在平台上直接解决冲突，或者将代码拉取到本地进行解决。<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 拉取远程分支</span><br>git fetch origin feature-branch<br><span class="hljs-comment"># 创建本地分支并切换到该分支</span><br>git switch -c feature-branch origin/feature-branch<br><span class="hljs-comment"># 切换到 main 分支</span><br>git switch main<br><span class="hljs-comment"># 尝试合并分支</span><br>git merge feature-branch<br></code></pre></td></tr></table></figure>
-解决冲突后，提交修改并推送到远程仓库。</li>
-<li><strong>批准并合并</strong>：在审核通过且解决了所有冲突后，你可以在代码托管平台上批准并合并该分支到 <code>main</code> 分支。</li>
+<li><strong>解决冲突（如果有）</strong>：如果合并请求中存在冲突，代码托管平台会提示你。你可以选择在平台上直接解决冲突，或者将代码拉取到本地进行解决。
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 拉取远程分支</span><br>git fetch origin feature-branch<br><span class="hljs-comment"># 创建本地分支并切换到该分支</span><br>git switch -c feature-branch origin/feature-branch<br><span class="hljs-comment"># 切换到 main 分支</span><br>git switch main<br><span class="hljs-comment"># 尝试合并分支</span><br>git merge feature-branch<br></code></pre></td></tr></table></figure> 解决冲突后，提交修改并推送到远程仓库。</li>
+<li><strong>批准并合并</strong>：在审核通过且解决了所有冲突后，你可以在代码托管平台上批准并合并该分支到
+<code>main</code> 分支。</li>
 </ul>
-<h3 id="2-定期沟通和同步"><a href="#2-定期沟通和同步" class="headerlink" title="2. 定期沟通和同步"></a>2. 定期沟通和同步</h3><p>除了使用合并请求功能，定期与同学进行沟通和同步也非常重要。</p>
+<h3 id="定期沟通和同步">2. 定期沟通和同步</h3>
+<p>除了使用合并请求功能，定期与同学进行沟通和同步也非常重要。</p>
 <ul>
 <li><strong>进度沟通</strong>：定期与同学交流各自的开发进度，了解他们是否完成了开发任务，是否准备好发起合并请求。</li>
 <li><strong>问题讨论</strong>：在开发过程中，可能会遇到一些技术问题或设计问题。通过沟通和讨论，可以及时解决这些问题，避免在合并时出现更大的冲突。</li>
 </ul>
-<h3 id="3-制定合并规则和流程"><a href="#3-制定合并规则和流程" class="headerlink" title="3. 制定合并规则和流程"></a>3. 制定合并规则和流程</h3><p>为了确保合并过程的顺利进行，建议制定明确的合并规则和流程。</p>
+<h3 id="制定合并规则和流程">3. 制定合并规则和流程</h3>
+<p>为了确保合并过程的顺利进行，建议制定明确的合并规则和流程。</p>
 <ul>
 <li><strong>代码规范</strong>：制定统一的代码规范，要求团队成员在开发过程中遵循这些规范。这样可以减少代码风格不一致导致的冲突。</li>
 <li><strong>测试要求</strong>：规定在发起合并请求之前，必须对代码进行充分的测试，确保代码的质量和稳定性。</li>
 <li><strong>合并时间</strong>：确定合适的合并时间，避免在项目关键时期进行大规模的合并操作，以免影响项目进度。</li>
 </ul>
-<h1 id="总结-🚀-Git-快速指令手册（GitHub-协作）"><a href="#总结-🚀-Git-快速指令手册（GitHub-协作）" class="headerlink" title="总结:🚀 Git 快速指令手册（GitHub 协作）"></a>总结:🚀 <strong>Git 快速指令手册（GitHub 协作）</strong></h1><h4 id="一、初始化配置"><a href="#一、初始化配置" class="headerlink" title="一、初始化配置"></a><strong>一、初始化配置</strong></h4><ol>
-<li><p><strong>安装 Git</strong>（已装跳过）  </p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">brew install git<br></code></pre></td></tr></table></figure>
-</li>
-<li><p><strong>设置用户名&#x2F;邮箱</strong>（全局）  </p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">git config --global user.name <span class="hljs-string">&quot;你的名字&quot;</span><br>git config --global user.email <span class="hljs-string">&quot;你的邮箱&quot;</span><br></code></pre></td></tr></table></figure>
-</li>
-<li><p><strong>生成 SSH 密钥</strong>（自定义路径示例）  </p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">ssh-keygen -t rsa -b 4096 -C <span class="hljs-string">&quot;注释&quot;</span>  <span class="hljs-comment"># 如：-C &quot;macbook-work&quot;</span><br><span class="hljs-comment"># 保存路径：/Users/你/Desktop/gitkey/id_rsa（按提示回车）</span><br></code></pre></td></tr></table></figure>
-</li>
-<li><p><strong>加载密钥到代理</strong>  </p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">eval</span> <span class="hljs-string">&quot;<span class="hljs-subst">$(ssh-agent -s)</span>&quot;</span><br>ssh-add /Users/你/Desktop/gitkey/id_rsa  <span class="hljs-comment"># 替换实际路径</span><br></code></pre></td></tr></table></figure>
-</li>
-<li><p><strong>复制公钥到 GitHub</strong>  </p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">pbcopy &lt; /Users/你/Desktop/gitkey/id_rsa.pub  <span class="hljs-comment"># 粘贴到 GitHub 设置</span><br></code></pre></td></tr></table></figure></li>
+<h1 id="总结-git-快速指令手册github-协作">总结:🚀 <strong>Git
+快速指令手册（GitHub 协作）</strong></h1>
+<h4 id="一初始化配置"><strong>一、初始化配置</strong></h4>
+<ol type="1">
+<li><p><strong>安装 Git</strong>（已装跳过）<br />
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">brew install git<br></code></pre></td></tr></table></figure></p></li>
+<li><p><strong>设置用户名/邮箱</strong>（全局）<br />
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">git config --global user.name <span class="hljs-string">&quot;你的名字&quot;</span><br>git config --global user.email <span class="hljs-string">&quot;你的邮箱&quot;</span><br></code></pre></td></tr></table></figure></p></li>
+<li><p><strong>生成 SSH 密钥</strong>（自定义路径示例）<br />
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">ssh-keygen -t rsa -b 4096 -C <span class="hljs-string">&quot;注释&quot;</span>  <span class="hljs-comment"># 如：-C &quot;macbook-work&quot;</span><br><span class="hljs-comment"># 保存路径：/Users/你/Desktop/gitkey/id_rsa（按提示回车）</span><br></code></pre></td></tr></table></figure></p></li>
+<li><p><strong>加载密钥到代理</strong><br />
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">eval</span> <span class="hljs-string">&quot;<span class="hljs-subst">$(ssh-agent -s)</span>&quot;</span><br>ssh-add /Users/你/Desktop/gitkey/id_rsa  <span class="hljs-comment"># 替换实际路径</span><br></code></pre></td></tr></table></figure></p></li>
+<li><p><strong>复制公钥到 GitHub</strong><br />
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">pbcopy &lt; /Users/你/Desktop/gitkey/id_rsa.pub  <span class="hljs-comment"># 粘贴到 GitHub 设置</span><br></code></pre></td></tr></table></figure></p></li>
 </ol>
-<h4 id="二、创建-关联仓库"><a href="#二、创建-关联仓库" class="headerlink" title="二、创建 &amp; 关联仓库"></a><strong>二、创建 &amp; 关联仓库</strong></h4><ol>
-<li><p><strong>本地初始化仓库（默认 main 分支）</strong>  </p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">mkdir</span> 项目名 &amp;&amp; <span class="hljs-built_in">cd</span> 项目名<br>git init -b main<br></code></pre></td></tr></table></figure>
-</li>
-<li><p><strong>关联远程仓库</strong>  </p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">git remote add origin git@github.com:你的用户名/仓库名.git<br></code></pre></td></tr></table></figure>
-</li>
-<li><p><strong>首次推送（解决远程已有文件冲突）</strong>  </p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">git pull --rebase origin main  <span class="hljs-comment"># 拉取远程（如 README）</span><br>git push -u origin main       <span class="hljs-comment"># 推送本地 main</span><br></code></pre></td></tr></table></figure></li>
+<h4 id="二创建-关联仓库"><strong>二、创建 &amp; 关联仓库</strong></h4>
+<ol type="1">
+<li><p><strong>本地初始化仓库（默认 main 分支）</strong><br />
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">mkdir</span> 项目名 &amp;&amp; <span class="hljs-built_in">cd</span> 项目名<br>git init -b main<br></code></pre></td></tr></table></figure></p></li>
+<li><p><strong>关联远程仓库</strong><br />
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">git remote add origin git@github.com:你的用户名/仓库名.git<br></code></pre></td></tr></table></figure></p></li>
+<li><p><strong>首次推送（解决远程已有文件冲突）</strong><br />
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">git pull --rebase origin main  <span class="hljs-comment"># 拉取远程（如 README）</span><br>git push -u origin main       <span class="hljs-comment"># 推送本地 main</span><br></code></pre></td></tr></table></figure></p></li>
 </ol>
-<h4 id="三、分支开发（单人）"><a href="#三、分支开发（单人）" class="headerlink" title="三、分支开发（单人）"></a><strong>三、分支开发（单人）</strong></h4><ol>
-<li><p><strong>创建并切换分支</strong>  </p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">git switch -c 分支名  <span class="hljs-comment"># 等价：git checkout -b 分支名</span><br></code></pre></td></tr></table></figure>
-</li>
-<li><p><strong>提交代码</strong>  </p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">git add .           <span class="hljs-comment"># 添加所有改动</span><br>git commit -m <span class="hljs-string">&quot;描述提交&quot;</span><br></code></pre></td></tr></table></figure>
-</li>
-<li><p><strong>推送分支到远程</strong>  </p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">git push -u origin 分支名  <span class="hljs-comment"># 首次推送</span><br>git push            <span class="hljs-comment"># 后续推送</span><br></code></pre></td></tr></table></figure></li>
+<h4 id="三分支开发单人"><strong>三、分支开发（单人）</strong></h4>
+<ol type="1">
+<li><p><strong>创建并切换分支</strong><br />
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">git switch -c 分支名  <span class="hljs-comment"># 等价：git checkout -b 分支名</span><br></code></pre></td></tr></table></figure></p></li>
+<li><p><strong>提交代码</strong><br />
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">git add .           <span class="hljs-comment"># 添加所有改动</span><br>git commit -m <span class="hljs-string">&quot;描述提交&quot;</span><br></code></pre></td></tr></table></figure></p></li>
+<li><p><strong>推送分支到远程</strong><br />
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">git push -u origin 分支名  <span class="hljs-comment"># 首次推送</span><br>git push            <span class="hljs-comment"># 后续推送</span><br></code></pre></td></tr></table></figure></p></li>
 </ol>
-<h4 id="四、协作合并（负责人操作）"><a href="#四、协作合并（负责人操作）" class="headerlink" title="四、协作合并（负责人操作）"></a><strong>四、协作合并（负责人操作）</strong></h4><ol>
-<li><p><strong>同学推送分支并提 PR</strong><br>同学：<code>git push -u origin 他的分支名</code> → 在 GitHub 发起合并请求。</p>
-</li>
-<li><p><strong>你审核并合并</strong>  </p>
+<h4
+id="四协作合并负责人操作"><strong>四、协作合并（负责人操作）</strong></h4>
+<ol type="1">
+<li><p><strong>同学推送分支并提 PR</strong><br />
+同学：<code>git push -u origin 他的分支名</code> → 在 GitHub
+发起合并请求。</p></li>
+<li><p><strong>你审核并合并</strong></p>
 <ul>
-<li>解决冲突（本地）：  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs bash">git fetch origin 他的分支名  <span class="hljs-comment"># 拉取远程分支</span><br>git switch main              <span class="hljs-comment"># 切回主分支</span><br>git merge origin/他的分支名  <span class="hljs-comment"># 合并，手动改冲突文件</span><br>git add 冲突文件 &amp;&amp; git commit -m <span class="hljs-string">&quot;合并说明&quot;</span><br>git push origin main         <span class="hljs-comment"># 推送到远程</span><br></code></pre></td></tr></table></figure></li>
+<li>解决冲突（本地）：<br />
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs bash">git fetch origin 他的分支名  <span class="hljs-comment"># 拉取远程分支</span><br>git switch main              <span class="hljs-comment"># 切回主分支</span><br>git merge origin/他的分支名  <span class="hljs-comment"># 合并，手动改冲突文件</span><br>git add 冲突文件 &amp;&amp; git commit -m <span class="hljs-string">&quot;合并说明&quot;</span><br>git push origin main         <span class="hljs-comment"># 推送到远程</span><br></code></pre></td></tr></table></figure></li>
 <li>直接在 GitHub PR 界面点击 <strong>Merge</strong>（推荐）。</li>
-</ul>
-</li>
-<li><p><strong>删除已合并分支</strong>（可选）  </p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">git branch -d 他的分支名    <span class="hljs-comment"># 删除本地分支</span><br>git push origin --delete 他的分支名  <span class="hljs-comment"># 删除远程分支</span><br></code></pre></td></tr></table></figure></li>
+</ul></li>
+<li><p><strong>删除已合并分支</strong>（可选）<br />
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">git branch -d 他的分支名    <span class="hljs-comment"># 删除本地分支</span><br>git push origin --delete 他的分支名  <span class="hljs-comment"># 删除远程分支</span><br></code></pre></td></tr></table></figure></p></li>
 </ol>
-<h4 id="五、常见问题"><a href="#五、常见问题" class="headerlink" title="五、常见问题"></a><strong>五、常见问题</strong></h4><ol>
-<li><p><strong>推送被拒（远程有更新）</strong>  </p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">git pull --rebase origin main  <span class="hljs-comment"># 先拉取合并，再推送</span><br></code></pre></td></tr></table></figure>
-</li>
-<li><p><strong>合并冲突解决</strong><br>手动修改文件中 <code>&lt;&lt;&lt;&lt;&lt;&lt;&lt;</code> 标记的冲突部分 → <code>git add 冲突文件</code> → <code>git commit</code>。</p>
-</li>
+<h4 id="五常见问题"><strong>五、常见问题</strong></h4>
+<ol type="1">
+<li><p><strong>推送被拒（远程有更新）</strong><br />
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">git pull --rebase origin main  <span class="hljs-comment"># 先拉取合并，再推送</span><br></code></pre></td></tr></table></figure></p></li>
+<li><p><strong>合并冲突解决</strong><br />
+手动修改文件中 <code>&lt;&lt;&lt;&lt;&lt;&lt;&lt;</code> 标记的冲突部分
+→ <code>git add 冲突文件</code> → <code>git commit</code>。</p></li>
 </ol>
-<h3 id="📌-极简流程图"><a href="#📌-极简流程图" class="headerlink" title="📌 极简流程图"></a>📌 <strong>极简流程图</strong></h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs sql">本地开发：<br>新建分支 → 写代码 → <span class="hljs-keyword">add</span> → <span class="hljs-keyword">commit</span> → push（分支）<br><br>协作合并：<br>同学提 PR → 你审查<span class="hljs-operator">/</span>解决冲突 → 点击 <span class="hljs-keyword">Merge</span>（GitHub）→ 删除废分支<br></code></pre></td></tr></table></figure>
+<h3 id="极简流程图">📌 <strong>极简流程图</strong></h3>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs sql">本地开发：<br>新建分支 → 写代码 → <span class="hljs-keyword">add</span> → <span class="hljs-keyword">commit</span> → push（分支）<br><br>协作合并：<br>同学提 PR → 你审查<span class="hljs-operator">/</span>解决冲突 → 点击 <span class="hljs-keyword">Merge</span>（GitHub）→ 删除废分支<br></code></pre></td></tr></table></figure>
+<p><strong>记住：永远不要直接在 main 分支开发！</strong> 🔥<br />
+（全文完，按场景查指令即可）</p>
+<p>有时候push操作出现失败的话，可能需要重新加载密钥 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs bash">有时候，SSH 代理可能没有正确加载私钥，这就会导致身份验证失败。<br>解决办法：<br>启动 SSH 代理：<br>bash<br><span class="hljs-built_in">eval</span> <span class="hljs-string">&quot;<span class="hljs-subst">$(ssh-agent -s)</span>&quot;</span><br><br>把私钥添加到 SSH 代理：<br>bash<br>ssh-add ~/.ssh/id_rsa<br></code></pre></td></tr></table></figure></p>
 
-<p><strong>记住：永远不要直接在 main 分支开发！</strong> 🔥<br>（全文完，按场景查指令即可）</p>
-<p>有时候push操作出现失败的话，可能需要重新加载密钥</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs bash">有时候，SSH 代理可能没有正确加载私钥，这就会导致身份验证失败。<br>解决办法：<br>启动 SSH 代理：<br>bash<br><span class="hljs-built_in">eval</span> <span class="hljs-string">&quot;<span class="hljs-subst">$(ssh-agent -s)</span>&quot;</span><br><br>把私钥添加到 SSH 代理：<br>bash<br>ssh-add ~/.ssh/id_rsa<br></code></pre></td></tr></table></figure>
                 
               </div>
             

@@ -16,12 +16,12 @@
   <meta name="author" content="bradin">
   <meta name="keywords" content="">
   
-    <meta name="description" content="协方差矩阵方差：单个向量&#x2F;变量序列$$\mathrm{Var(a)&#x3D;\frac{1}{m}.\sum_{i&#x3D;1}^{m}(a_{i}-\mu)^{2}}$$对于质心系的坐标，可以直接写为$$\mathrm{Var(a)&#x3D;\frac{1}{m}.\sum_{i&#x3D;1}^{m}a_{i}^{2}}$$ 协方差(covariance)：两个向量协方差用来描">
+    <meta name="description" content="协方差矩阵 方差：单个向量&#x2F;变量序列 $$\mathrm{Var(a)&#x3D;\frac{1}{m}.\sum_{i&#x3D;1}^{m}~(a_{i}-\mu)^{2}}$$ 对于质心系的坐标，可以直接写为 $$\mathrm{Var(a)&#x3D;\frac{1}{m}.\sum_{i&#x3D;1}^{m}~a_{i}^{2}}$$ 协方差(covariance)：两个向量 协方差用来描述两个向量之间的相关性，在PCA中我">
 <meta property="og:type" content="article">
 <meta property="og:title" content="降维">
 <meta property="og:url" content="http://example.com/2023/07/11/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E9%99%8D%E7%BB%B4/index.html">
 <meta property="og:site_name" content="鸭蛋仙人的博客">
-<meta property="og:description" content="协方差矩阵方差：单个向量&#x2F;变量序列$$\mathrm{Var(a)&#x3D;\frac{1}{m}.\sum_{i&#x3D;1}^{m}(a_{i}-\mu)^{2}}$$对于质心系的坐标，可以直接写为$$\mathrm{Var(a)&#x3D;\frac{1}{m}.\sum_{i&#x3D;1}^{m}a_{i}^{2}}$$ 协方差(covariance)：两个向量协方差用来描">
+<meta property="og:description" content="协方差矩阵 方差：单个向量&#x2F;变量序列 $$\mathrm{Var(a)&#x3D;\frac{1}{m}.\sum_{i&#x3D;1}^{m}~(a_{i}-\mu)^{2}}$$ 对于质心系的坐标，可以直接写为 $$\mathrm{Var(a)&#x3D;\frac{1}{m}.\sum_{i&#x3D;1}^{m}~a_{i}^{2}}$$ 协方差(covariance)：两个向量 协方差用来描述两个向量之间的相关性，在PCA中我">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://img.picui.cn/free/2024/08/29/66cf4ebeacd16.png">
 <meta property="article:published_time" content="2023-07-10T16:00:00.000Z">
@@ -297,31 +297,90 @@
             
               <div class="markdown-body">
                 
-                <h1 id="协方差矩阵"><a href="#协方差矩阵" class="headerlink" title="协方差矩阵"></a>协方差矩阵</h1><h2 id="方差：单个向量-变量序列"><a href="#方差：单个向量-变量序列" class="headerlink" title="方差：单个向量&#x2F;变量序列"></a>方差：单个向量&#x2F;变量序列</h2><p>$$\mathrm{Var(a)&#x3D;\frac{1}{m}.\sum_{i&#x3D;1}^{m}<del>(a_{i}-\mu)^{2}}$$<br>对于质心系的坐标，可以直接写为<br>$$\mathrm{Var(a)&#x3D;\frac{1}{m}.\sum_{i&#x3D;1}^{m}</del>a_{i}^{2}}$$</p>
-<h2 id="协方差-covariance-：两个向量"><a href="#协方差-covariance-：两个向量" class="headerlink" title="协方差(covariance)：两个向量"></a>协方差(covariance)：两个向量</h2><p>协方差用来描述两个向量之间的相关性，在PCA中我们希望降维后的变量可以保存更多的原始信息，所以尽可能的减少变量之间的相关性，因为相关性越大，则就代表着两个变量不是完全独立的，也即必然有重复的信息。<br>$$\mathrm{Cov(a,b)&#x3D;\frac1{m-1}.\sum_{i&#x3D;1}^m~(a_i-\mu_a)(b_i-\mu_b)}$$<br>对于已经归中的数据，可以写为(较大维度情况下m与m-1差别不大)<br>$$\mathrm{Cov(a,b)&#x3D;\frac{1}{m}.\sum_{i&#x3D;1}^{m}a_{i}b_{i}}$$</p>
-<p>协方差可以衡量两个向量(变量)同时变化的程度，若协方差cov(a,b)&gt;0，则表示a若增大，b也增大；小于0时，a增大，b减小。<br>后话：当协方差为0的时候，也即表示两个变量之间不相关。在PCA降维时，就是选择几个基，使得原始数据变换到该组基上时，各变量之间的协方差为零，而变量的方差却很大。<br>而为了让协方差为0，选择第二个基的时候，与第一个基正交，第三个与第二个正交，这样两两正交的基，最后的相关性就是0。</p>
-<h2 id="协方差矩阵-：多个向量"><a href="#协方差矩阵-：多个向量" class="headerlink" title="协方差矩阵 ：多个向量"></a>协方差矩阵 ：多个向量</h2><p>上述只是单个向量的方差和两个向量之间的协方差，若有多个向量，则可以用矩阵来表示两两的相关性。如有向量a,b,c，用矩阵X表示这三个向量，则其两两之间的协方差可以用矩阵来表示。</p>
-<p>$$\mathrm{X&#x3D;\begin{pmatrix}a\b\c\end{pmatrix}&#x3D;\begin{pmatrix}a_1&amp;a_2&amp;a_3&amp;…\b_1&amp;b_2&amp;b_3&amp;…\c_1&amp;c_2&amp;c_3&amp;…\end{pmatrix}}\\\\mathrm{cov(X)&#x3D;\begin{pmatrix}cov(a,a)&amp;cov(a,b)&amp;cov(a,c)\cov(b,a)&amp;cov(b,b)&amp;cov(b,c)\cov(c,a)&amp;cov(c,b)&amp;cov(c,c)\end{pmatrix}}$$</p>
+                <h1 id="协方差矩阵">协方差矩阵</h1>
+<h2 id="方差单个向量变量序列">方差：单个向量/变量序列</h2>
+<p><span
+class="math display">$$\mathrm{Var(a)=\frac{1}{m}.\sum_{i=1}^{m}~(a_{i}-\mu)^{2}}$$</span>
+对于质心系的坐标，可以直接写为 <span
+class="math display">$$\mathrm{Var(a)=\frac{1}{m}.\sum_{i=1}^{m}~a_{i}^{2}}$$</span></p>
+<h2 id="协方差covariance两个向量">协方差(covariance)：两个向量</h2>
+<p>协方差用来描述两个向量之间的相关性，在PCA中我们希望降维后的变量可以保存更多的原始信息，所以尽可能的减少变量之间的相关性，因为相关性越大，则就代表着两个变量不是完全独立的，也即必然有重复的信息。
+<span
+class="math display">$$\mathrm{Cov(a,b)=\frac1{m-1}.\sum_{i=1}^m~(a_i-\mu_a)(b_i-\mu_b)}$$</span>
+对于已经归中的数据，可以写为(较大维度情况下m与m-1差别不大) <span
+class="math display">$$\mathrm{Cov(a,b)=\frac{1}{m}.\sum_{i=1}^{m}a_{i}b_{i}}$$</span></p>
+<p>协方差可以衡量两个向量(变量)同时变化的程度，若协方差cov(a,b)&gt;0，则表示a若增大，b也增大；小于0时，a增大，b减小。
+后话：当协方差为0的时候，也即表示两个变量之间不相关。在PCA降维时，就是选择几个基，使得原始数据变换到该组基上时，各变量之间的协方差为零，而变量的方差却很大。
+而为了让协方差为0，选择第二个基的时候，与第一个基正交，第三个与第二个正交，这样两两正交的基，最后的相关性就是0。</p>
+<h2 id="协方差矩阵-多个向量">协方差矩阵 ：多个向量</h2>
+<p>上述只是单个向量的方差和两个向量之间的协方差，若有多个向量，则可以用矩阵来表示两两的相关性。如有向量a,b,c，用矩阵X表示这三个向量，则其两两之间的协方差可以用矩阵来表示。</p>
+<p><span
+class="math display">$$\mathrm{X=\begin{pmatrix}a\\b\\c\end{pmatrix}=\begin{pmatrix}a_1&amp;a_2&amp;a_3&amp;...\\b_1&amp;b_2&amp;b_3&amp;...\\c_1&amp;c_2&amp;c_3&amp;...\end{pmatrix}}\\\\\\\mathrm{cov(X)=\begin{pmatrix}cov(a,a)&amp;cov(a,b)&amp;cov(a,c)\\cov(b,a)&amp;cov(b,b)&amp;cov(b,c)\\cov(c,a)&amp;cov(c,b)&amp;cov(c,c)\end{pmatrix}}$$</span></p>
 <p>去了均值后的协方差就是向量的内积求平均</p>
-<p><img src="https://img.picui.cn/free/2024/08/29/66cf4ebeacd16.png" srcset="/img/loading.gif" lazyload alt="1724862185379.png"></p>
-<h1 id="背景引入：维度灾难"><a href="#背景引入：维度灾难" class="headerlink" title="背景引入：维度灾难"></a>背景引入：维度灾难</h1><p>边长为R的球与其外接立方体在n维空间中的体积比为<br>$$\lim_{n\to0}\frac{CR^n}{2^nR^n}&#x3D;0$$<br>这意味着高维空间中数据往往分布在边缘，因此，对于高维数据的降维处理是很有必要的</p>
-<h1 id="主成分分析"><a href="#主成分分析" class="headerlink" title="主成分分析"></a>主成分分析</h1><p>必要的，先对协方差矩阵做一些变形</p>
-<p>$$\begin{aligned}<br>\text{S}&amp; &#x3D;\frac1N\sum_{i&#x3D;1}^N(x_i-\overline{x})(x_i-\overline{x})^T \<br>&amp;&#x3D;\frac1N(x_1-\overline{x},x_2-\overline{x},\cdots,x_N-\overline{x})(x_1-\overline{x},x_2-\overline{x},\cdots,x_N-\overline{x})^T \<br>&amp;&#x3D;\frac1N(X^T-\frac1NX^T\mathbb{I}<em>{N1}\mathbb{I}</em>{N1}^T)(X^T-\frac1NX^T\mathbb{I}<em>{N1}\mathbb{I}</em>{N1}^T)^T \<br>&amp;&#x3D;\frac1NX^T(E_N-\frac1N\mathbb{I}<em>{N1}\mathbb{I}</em>{1N})(E_N-\frac1N\mathbb{I}<em>{N1}\mathbb{I}</em>{1N})^TX \<br>&amp;&#x3D;\frac1NX^TH_NH_N^TX \<br>&amp;&#x3D;\frac1NX^TH_NH_NX&#x3D;\frac1NX^THX<br>\end{aligned}$$</p>
-<p>其中$H$称为中心矩阵，它的作用就是去中心化。容易验证$H$具有以下的良好性质</p>
-<p>$$H^T&#x3D;H $$<br>$$H^n&#x3D;H  $$</p>
+<figure>
+<img src="https://img.picui.cn/free/2024/08/29/66cf4ebeacd16.png" srcset="/img/loading.gif" lazyload
+alt="1724862185379.png" />
+<figcaption aria-hidden="true">1724862185379.png</figcaption>
+</figure>
+<h1 id="背景引入维度灾难">背景引入：维度灾难</h1>
+<p>边长为R的球与其外接立方体在n维空间中的体积比为 <span
+class="math display">$$\lim_{n\to0}\frac{CR^n}{2^nR^n}=0$$</span>
+这意味着高维空间中数据往往分布在边缘，因此，对于高维数据的降维处理是很有必要的</p>
+<h1 id="主成分分析">主成分分析</h1>
+<p>必要的，先对协方差矩阵做一些变形</p>
+<p><span class="math display">$$\begin{aligned}
+\text{S}&amp; =\frac1N\sum_{i=1}^N(x_i-\overline{x})(x_i-\overline{x})^T
+\\
+&amp;=\frac1N(x_1-\overline{x},x_2-\overline{x},\cdots,x_N-\overline{x})(x_1-\overline{x},x_2-\overline{x},\cdots,x_N-\overline{x})^T
+\\
+&amp;=\frac1N(X^T-\frac1NX^T\mathbb{I}_{N1}\mathbb{I}_{N1}^T)(X^T-\frac1NX^T\mathbb{I}_{N1}\mathbb{I}_{N1}^T)^T
+\\
+&amp;=\frac1NX^T(E_N-\frac1N\mathbb{I}_{N1}\mathbb{I}_{1N})(E_N-\frac1N\mathbb{I}_{N1}\mathbb{I}_{1N})^TX
+\\
+&amp;=\frac1NX^TH_NH_N^TX \\
+&amp;=\frac1NX^TH_NH_NX=\frac1NX^THX
+\end{aligned}$$</span></p>
+<p>其中<span
+class="math inline"><em>H</em></span>称为中心矩阵，它的作用就是去中心化。容易验证<span
+class="math inline"><em>H</em></span>具有以下的良好性质</p>
+<p><span
+class="math display"><em>H</em><sup><em>T</em></sup> = <em>H</em></span>
+<span
+class="math display"><em>H</em><sup><em>n</em></sup> = <em>H</em></span></p>
 <p>主成分分析中，我们的基本想法是将所有数据投影到一个子空间中，从而达到降维的目标，为了寻找这个子空间，我们基本想法是：</p>
-<ol>
+<ol type="1">
 <li>所有数据在子空间中更为分散</li>
 <li>损失的信息最小，即：在补空间的分量少</li>
 </ol>
-<p>原来的数据很有可能各个维度之间是相关的，于是我们希望找到一组$p$个新的线性无关的单位基$u_i$ ,降<br>维就是取其中最重要的的$q$个基。于是对于一个样本$x_i$ ,经过这个坐标变换后(方便说明先不减去平均值)：<br>$$\hat{x_i}&#x3D;\sum_{i&#x3D;1}^p(u_i^Tx_i)u_i&#x3D;\sum_{i&#x3D;1}^q(u_i^Tx_i)u_i+\sum_{i&#x3D;q+1}^p(u_i^Tx_i)u_i$$</p>
-<p>我们选取方差最大的方向为我们的保留方向，不妨如下设定$J$</p>
-<p>$$\begin{gathered}<br>\text{J} &#x3D;\frac1N\sum_{i&#x3D;1}^N\sum_{j&#x3D;1}^q((x_i-\overline{x})^Tu_j)^2 \<br>&#x3D;\sum_{j&#x3D;1}^qu_j^TSu_j , s.t. u_j^Tu_j&#x3D;1<br>\end{gathered}$$</p>
+<p>原来的数据很有可能各个维度之间是相关的，于是我们希望找到一组<span
+class="math inline"><em>p</em></span>个新的线性无关的单位基<span
+class="math inline"><em>u</em><sub><em>i</em></sub></span> ,降
+维就是取其中最重要的的<span
+class="math inline"><em>q</em></span>个基。于是对于一个样本<span
+class="math inline"><em>x</em><sub><em>i</em></sub></span>
+,经过这个坐标变换后(方便说明先不减去平均值)： <span
+class="math display">$$\hat{x_i}=\sum_{i=1}^p(u_i^Tx_i)u_i=\sum_{i=1}^q(u_i^Tx_i)u_i+\sum_{i=q+1}^p(u_i^Tx_i)u_i$$</span></p>
+<p>我们选取方差最大的方向为我们的保留方向，不妨如下设定<span
+class="math inline"><em>J</em></span></p>
+<p><span class="math display">$$\begin{gathered}
+\text{J} =\frac1N\sum_{i=1}^N\sum_{j=1}^q((x_i-\overline{x})^Tu_j)^2 \\
+=\sum_{j=1}^qu_j^TSu_j , s.t. u_j^Tu_j=1
+\end{gathered}$$</span></p>
 <p>由于每一个基都是线性无关的，我们可以分别求解每一个基，因此原问题变为一个优化问题</p>
-<p>$$argmax_{u_j}L(u_j,\lambda)&#x3D;argmax_{u_j}u_j^TSu_j+\lambda(1-u_j^Tu_j)\\\Su_j&#x3D;\lambda u_j$$</p>
+<p><span
+class="math display">$$argmax_{u_j}L(u_j,\lambda)=argmax_{u_j}u_j^TSu_j+\lambda(1-u_j^Tu_j)\\\\\\Su_j=\lambda
+u_j$$</span></p>
 <p>不难发现，我们需要的基就是协方差矩阵的本征矢(特征向量)，我们选取特征值最大的前q项即可。</p>
-<h1 id="等价方法：奇异值分解"><a href="#等价方法：奇异值分解" class="headerlink" title="等价方法：奇异值分解"></a>等价方法：奇异值分解</h1><p>对中心化后的数据集进行奇异值分解：<br>$$HX&#x3D;U\Sigma V^T,U^TU&#x3D;E_N,V^TV&#x3D;E_p,\Sigma:N\times p$$<br>于是：<br>$$S&#x3D;\frac1NX^THX&#x3D;\frac1NX^TH^THX&#x3D;\frac1NV\Sigma^T\Sigma V^T$$<br>因此，我们直接对中心化后的数据集进行 SVD,就可以得到特征值和特征向量$V$ ,在新坐标系中的坐标就是：</p>
-<p>$$HX\cdot V$$</p>
+<h1 id="等价方法奇异值分解">等价方法：奇异值分解</h1>
+<p>对中心化后的数据集进行奇异值分解： <span
+class="math display"><em>H</em><em>X</em> = <em>U</em><em>Σ</em><em>V</em><sup><em>T</em></sup>, <em>U</em><sup><em>T</em></sup><em>U</em> = <em>E</em><sub><em>N</em></sub>, <em>V</em><sup><em>T</em></sup><em>V</em> = <em>E</em><sub><em>p</em></sub>, <em>Σ</em> : <em>N</em> × <em>p</em></span>
+于是： <span
+class="math display">$$S=\frac1NX^THX=\frac1NX^TH^THX=\frac1NV\Sigma^T\Sigma
+V^T$$</span> 因此，我们直接对中心化后的数据集进行
+SVD,就可以得到特征值和特征向量<span
+class="math inline"><em>V</em></span> ,在新坐标系中的坐标就是：</p>
+<p><span
+class="math display"><em>H</em><em>X</em> ⋅ <em>V</em></span></p>
 
                 
               </div>
