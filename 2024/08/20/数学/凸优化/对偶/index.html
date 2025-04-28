@@ -1,0 +1,821 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="bradin">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="对偶问题对偶问题定义考虑一个一般的优化问题： $$\begin{aligned}&amp;\min_x\quad f_0(x)\&amp;s.t.\quad f_i(x_0)\leq0,i&#x3D;1,\ldots,m\&amp;h_j(x)&#x3D;0,j&#x3D;1,\ldots,p\&amp;x\in R^n\end{aligned}$$ 定义其拉格朗日函数为$$L(x,\lambda">
+<meta property="og:type" content="article">
+<meta property="og:title" content="对偶">
+<meta property="og:url" content="http://example.com/2024/08/20/%E6%95%B0%E5%AD%A6/%E5%87%B8%E4%BC%98%E5%8C%96/%E5%AF%B9%E5%81%B6/index.html">
+<meta property="og:site_name" content="鸭蛋仙人的博客">
+<meta property="og:description" content="对偶问题对偶问题定义考虑一个一般的优化问题： $$\begin{aligned}&amp;\min_x\quad f_0(x)\&amp;s.t.\quad f_i(x_0)\leq0,i&#x3D;1,\ldots,m\&amp;h_j(x)&#x3D;0,j&#x3D;1,\ldots,p\&amp;x\in R^n\end{aligned}$$ 定义其拉格朗日函数为$$L(x,\lambda">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://www.freeimg.cn/i/2024/09/02/66d5db2403c6c.png">
+<meta property="og:image" content="https://www.freeimg.cn/i/2024/09/02/66d5db390c853.png">
+<meta property="og:image" content="https://www.freeimg.cn/i/2024/09/07/66dc4ee4ae279.png">
+<meta property="article:published_time" content="2024-08-19T16:00:00.000Z">
+<meta property="article:modified_time" content="2025-04-28T10:59:36.071Z">
+<meta property="article:author" content="bradin">
+<meta property="article:tag" content="数学">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://www.freeimg.cn/i/2024/09/02/66d5db2403c6c.png">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>对偶 - 鸭蛋仙人的博客</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.6","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>鸭蛋仙人</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/example/" target="_self">
+                <i class="iconfont icon-slack-fill"></i>
+                <span>example</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="对偶"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2024-08-20 00:00" pubdate>
+          2024年8月20日 凌晨
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          2.3k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          20 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="busuanzi_container_page_pv" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="busuanzi_value_page_pv"></span> 次
+        </span>
+        
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">对偶</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="对偶问题"><a href="#对偶问题" class="headerlink" title="对偶问题"></a>对偶问题</h1><h3 id="对偶问题定义"><a href="#对偶问题定义" class="headerlink" title="对偶问题定义"></a>对偶问题定义</h3><p>考虑一个一般的优化问题：</p>
+<p>$$\begin{aligned}&amp;\min_x\quad f_0(x)\&amp;s.t.\quad f_i(x_0)\leq0,i&#x3D;1,\ldots,m\&amp;h_j(x)&#x3D;0,j&#x3D;1,\ldots,p\&amp;x\in R^n\end{aligned}$$</p>
+<p>定义其<strong>拉格朗日函数</strong>为<br>$$L(x,\lambda,v)&#x3D;f_0(x)+\sum_{i&#x3D;1}^m\lambda_if_i(x)+\sum_{j&#x3D;1}^pv_jh_j(x),\lambda\in R^m,v\in R^p$$</p>
+<p>拉格朗日<strong>对偶函数</strong>为<br>$$g(\lambda,v)&#x3D;\inf_{x\in D}L(x,\lambda,v)$$</p>
+<p>我们可以观察到对偶函数的两条优良性质：</p>
+<ul>
+<li><strong>对偶函数一定为凹函数，不论原来的优化问题里面的函数是什么东西</strong>，因为对偶函数是由关于$\lambda$,$v$的仿射函数逐点取最小得到的，由上一节的知识我们知道凸函数逐点取最大依然是凸的，凹函数逐点取最小依然是凹的，而仿射函数作为凹函数与凸函数的分界函数，对它逐点取最大即可得到凸函数，对它逐点取最小即可得到凹函数。既然对偶函数是凹的，那么对其求$max$就一定是个凸问题了。</li>
+<li>记$p^*$为原始问题的最优值，则$\forall\lambda\geq0,\forall v,$ 一定有$g(\lambda,v)\leq p^*$。这是容易理解的，因为$\forall\lambda\geq0$,必然有$\sum_{i&#x3D;1}^m\lambda_if_i(x)+\sum_{j&#x3D;1}^pv_jh_j(x) \leq 0$,自然得到$g(\lambda,v)\leq p^*$</li>
+</ul>
+<p>所以我们将对偶问题定义为<br>$$\begin{aligned}\max_{\lambda,v}&amp;&amp;g(\lambda,v)\s.t.&amp;&amp;\lambda\geq0\end{aligned}$$</p>
+<p>【对偶函数为原问题的最优值定义了一个下界，而求解$max \ g(λ,v)$就是求解$p^*$的一个最好的下界。如果条件再好一点的话，这个下界还会等于$p^*$本身，这样就相当于把非凸问题转化为凸问题求解了。】</p>
+<p>这里我们也可以理解为何要令$\lambda \geq 0$,因为只有这样才能满足$g(\lambda,v)\leq p^*$恒成立，才能使$max \ g(\lambda,v)$这一问题有意义，若是$\lambda &lt; 0$的话，$g(\lambda,v)$总可以取到正无穷，对偶问题也失去了意义。</p>
+<h3 id="对偶问题举例"><a href="#对偶问题举例" class="headerlink" title="对偶问题举例"></a>对偶问题举例</h3><p>写出对偶问题关键在于消去$x$,一般采用求导的方法即可，举个例子<br>$$<br>\begin{aligned}<br>&amp;\min x^Tx \<br>&amp;s.\textit{t. }Ax&#x3D;b \<br>&amp;x\in R^n,b\in R^p.A\in R^{p\times n} \<br>&amp;\Rightarrow L(x,\lambda)&#x3D;x^Tx+v^T(Ax-b) \<br>&amp;\Rightarrow g(v)&#x3D;\inf_x{x^Tx+v^T(Ax-b)} \<br>&amp;&#x3D;\inf_x{x^Tx+v^TAx-v^Tb} \<br>&amp;&#x3D;-\frac14v^TAA^Tv-b^Tv<br>\end{aligned} $$</p>
+<p> $min \ c^Tx$<br> $s. t.$ $Ax&#x3D; b$ $x\geq0$<br>$$L(x,\lambda,\eta)&#x3D;c^Tx-\lambda^Tx+\eta^T(Ax-b)$$<br>$$g(\lambda,\eta)&#x3D;\inf_{x\in\mathcal{D}}L(x,\lambda,\eta)$$<br>$$&#x3D;\inf_{x\in\mathcal{D}}c^Tx-\lambda^Tx+\eta^T(Ax-b)$$<br>$g(\lambda,\eta)$中是关于$x$的线性函数，如果系数不为0，则最小值为负无穷大，若系数为0，则<br>$g(\lambda,\eta)&#x3D;-\eta^Tb$这里对偶函数仍然是凹函数</p>
+<h3 id="对偶问题性质"><a href="#对偶问题性质" class="headerlink" title="对偶问题性质"></a>对偶问题性质</h3><p>记原问题(Prime Problem)为$P$,<br>原问题对应的最优值记为$p^*$<br>记对偶问题为$D$,对偶问题对应的最优值为$d^*$</p>
+<p>由上文我们已经知道$d^* \leq p^*$总是成立的，它被称为弱对偶性Weak Dual。当$d^*&#x3D;p^*$的时候，就叫做强对偶性(Strong Dual)。一个问题的对偶间隙(Dual Gap)指的就是$p^*-d^*$，是大于0的。</p>
+<h1 id="slater条件"><a href="#slater条件" class="headerlink" title="slater条件"></a>slater条件</h1><p>我们不禁要问，什么时候才能满足强对偶条件呢？下面给出一个常用的判断强对偶关系的充分不必要条件:slater条件。为了方便阐述，先介绍一个定义:$D$的相对内部：$RelintD&#x3D;{x\in D|B(x,r)\cap affD\subset D,\exists r&gt;0}$，这里的定义不必深究，其几何意义指的是一个把$D$的边界去掉的开集</p>
+<h3 id="1-slater条件"><a href="#1-slater条件" class="headerlink" title="1.slater条件"></a>1.slater条件</h3><p>若有凸问题（注意等式约束要是仿射的）<br>$$\begin{aligned}&amp;\min f_0(x)\&amp;s.t. f_i(x)\leq0,i&#x3D;1,\ldots,m\&amp;Ax&#x3D;b\end{aligned}$$<br>若$\exists x\in RelintD,s.t.f_i(x)&lt;0,i&#x3D;1,\ldots,m,Ax&#x3D;b$时，有$p^*&#x3D;d^*$<br>Slater条件就是说：如果你能从可行域$D$<br>的相对内部里能够找到一个点，使得这个点它严格可行的话(不等式严格成立)，那么强对偶性成立。</p>
+<h3 id="2-弱slater条件"><a href="#2-弱slater条件" class="headerlink" title="2.弱slater条件"></a>2.弱slater条件</h3><p>若不等式约束$f_i(x) \leq 0$为仿射约束时，只要可行域非空，一定有$p^*&#x3D;d^*$</p>
+<p><strong>推论：线性规划问题如果可行的话，必有强对偶性成立</strong></p>
+<h3 id="几何解释"><a href="#几何解释" class="headerlink" title="几何解释"></a>几何解释</h3><p>假设当前优化问题为$\min$ $f_0( x) , s. t.$ $f_1( x) \leq 0$<br>$$\text{令}G&#x3D;{(f_1(x),f_0(x))|x\in\mathcal{D}}$$<br>简单起见，这里令$f_1(x)&#x3D;u,f_0(x)&#x3D;t$</p>
+<p>则原问题最优值$p^\star&#x3D;\min t&#x3D;\min{t|(u,t)\in G|u\leq0}$</p>
+<p>对偶问题最优值$d^\star&#x3D;\max_\lambda\min_x{t+\lambda u}$</p>
+<p>这里$(u,t)$点集合$G$如下图所示，从几何关系可知，原问题最优值为$G$左侧最低点的纵坐<br>标。在这个空间中$t+\lambda u$为一条直线，$g(\lambda)$因为是对$x$取逐点最小得来的，所以<br>$t+\lambda u&#x3D;g(\lambda)$为与集合$G$下侧边缘相切的直线(直线从下方向上平移直到与$G$相切)。当$u&#x3D;0$时，$t&#x3D;g(\lambda)$是直线截距，也是对偶问题要最大化的目标。显然这个截距最大为$d^{\star}$ 时，仍然小于等于$p^\star$,所以弱对偶成立。</p>
+<p>$G$形状如下不满足强对偶关系<br><img src="https://www.freeimg.cn/i/2024/09/02/66d5db2403c6c.png" srcset="/img/loading.gif" lazyload alt="1725291297679.png"></p>
+<p>$G$形状如下满足强对偶关系</p>
+<p><img src="https://www.freeimg.cn/i/2024/09/02/66d5db390c853.png" srcset="/img/loading.gif" lazyload alt="1725291318808.png"></p>
+<h1 id="KKT条件"><a href="#KKT条件" class="headerlink" title="KKT条件"></a>KKT条件</h1><h3 id="极大极小不等式"><a href="#极大极小不等式" class="headerlink" title="极大极小不等式"></a>极大极小不等式</h3><p>我们都知道，优化问题的原问题可以记为<br>$$\begin{aligned}&amp;\min f_0(x)\&amp;s.t. f_i(x)\leq0\&amp;h_i(x)&#x3D;0\end{aligned}$$<br>在引入拉格朗日乘子后，原问题可以巧妙地写为另一种形式：$sup {  f_0(x)+ \sum\lambda_if_i(x) + \sum\eta_ih_i(x) }$，他事实上是原函数的一种拓展,因为<br>$$\sup_{\lambda\succeq0}{f_0(x)+\sum\lambda_if_i(x)  + \sum\eta_ih_i(x) }&#x3D;\left{\begin{array}{ll}f_0(x),&amp;f_i(x)\leq0\+\infty,&amp;otherwise\end{array}\right.$$<br>因此对原函数求min，可以转化为对上述函数求min，因此原问题的解可以等价的写为<br>$$p^*&#x3D;\inf_x\sup_{\lambda\succeq0}L(x,\lambda,\eta)$$<br>而我们又知道对偶问题的解可以写为<br>$$d^*&#x3D;\sup_{\lambda\succeq0}\inf_xL(x,\lambda,\eta)$$<br>因此自然的得到了不等式<br>$$\sup_{\lambda\succeq0,\eta}\inf_xL(x,\lambda,\eta)\leq\inf_x\sup_{\lambda\succeq0,\eta}L(x,\lambda,\eta)$$<br>这便是极大极小不等式，我们把对函数的第一个变量极小的结果记为$L(\tilde{x},\lambda)$,对第二个变量<br>方便起见，把极大的结果记为$L(x,\tilde{\lambda})$,上述不等式可写为<br>$$\sup_\lambda L(\tilde{x},\lambda)\leq\inf_xL(x,\tilde{\lambda})$$<br>如果一个点满足对函数第一个变量极大再对第二个变量极小的值等于先对第二个变量极大再<br>对第一个变量极小，那么这个点就称为这个函数的鞍点。也就是$\exists(\tilde{x},\tilde{\lambda}),s.t.{:}$<br>$$\sup_\lambda L(\tilde{x},\lambda)&#x3D;L(\tilde{x},\tilde{\lambda})&#x3D;\inf_xL(x,\tilde{\lambda})$$<br>从鞍点的定义就可以看出：如果一个优化问题的强对偶性成立，那么最优解就是拉格朗日函数的一个鞍点，反过，拉格朗日函数的鞍点就是使得强对偶性成立的点，所以是最优解，因此鞍点就等价于强对偶性成立的点等价于最优解。</p>
+<h3 id="kkt条件"><a href="#kkt条件" class="headerlink" title="kkt条件"></a>kkt条件</h3><p>在强对偶关系满足的情况下，有以下几条性质。</p>
+<ul>
+<li><p>首先必须满足原问题的约束<br>假设该问题满足强对偶关系$p^\star&#x3D;d^\star$,且所有函数可微。则$x^\star,\lambda^\star,\eta^\star$是原问题、对偶问<br>题的最优解，满足如下可行条件(primal&#x2F;dual feasibility):<br>$$f_i(x^\star)\leq0$$<br>$$h_i(x^\star)&#x3D;0$$<br>$$\lambda^{\star}\geq0$$</p>
+</li>
+<li><p>根据强对偶关系进行不等式分析。<br>$$\begin{aligned}<br>&amp;d^{\star}&#x3D;\sup_{\lambda\geq0,\eta}\inf_{x\in\mathcal{D}}L(x,\lambda,\eta) \<br>&amp;\leq L(x^\star,\lambda^\star,\eta^\star) \<br>&amp;&#x3D;f(x^\star)+\sum_i\lambda_i^\star f_i(x^\star) \<br>&amp;\leq f(x^\star)&#x3D;p^\star<br>\end{aligned}$$<br>因此$\sum_i\lambda_i^\star f_i(x^\star)&#x3D;0$，这一条件叫做互补松弛条件。求和的每一项都是非负数与非正数的乘积，乘积结果必然非正数，现在求和结果为0，说明求和的每一项都是0，即两项的乘积项中至少有一项为0    </p>
+</li>
+<li><p>在上面的推导中，<br>第三行的不等式取了等号，这表明$x^\star$是$L(x,\lambda^\star)$的极小值点，则这点处偏导数为0。因此得到<br>$$\frac{\partial L(x,\lambda^\star,\eta^\star)}{\partial x}|_{x&#x3D;x^\star}&#x3D;0$$<br>这个条件叫做稳定点(stationary)<br>上面所讲的三个条件就是KKT条件</p>
+</li>
+</ul>
+<p>我们此时梳理一下前面的推导，发现两件事实</p>
+<ul>
+<li>1.前面推导没有任何凸函数的假设，因此不论是否为凸问题，如果满足强对偶性，那么最优解一定满足 KKT 条件。</li>
+<li>2.但是反过来不一定成立，也即 KKT 条件的解不一定是最优解，因为如果$L(x,\lambda^\star,\nu^\star)$不是凸的，那么$\nabla_xL&#x3D;0$并不能保证$g(\lambda^\star,\nu^\star)&#x3D;\inf_xL(x,\lambda^\star,\nu^\star)\neq L(x^\star,\lambda^\star,\nu^\star)$,也即不能保证 $x^\star,\lambda^\star,\nu^\star$ 就是鞍点。</li>
+</ul>
+<p>因此我们可以画出下面的图。<br><img src="https://www.freeimg.cn/i/2024/09/07/66dc4ee4ae279.png" srcset="/img/loading.gif" lazyload alt="解集关系示意图"></p>
+<p>当原问题为凸问题、各个函数可微、强对偶关系满足时，KKT条件是最优解的充要条件。举几个例子</p>
+<p>例1：$\min$ $0.5x^TPx+q^Tx+r,P\in S_+^n$<br> $s. t.$ $Ax&#x3D; b$</p>
+<p> 可行条件$Ax^\star&#x3D;b$</p>
+<p>稳定点$\frac\partial{\partial x}{0.5x^TPx+q^Tx+r+(Ax-b)^T\eta^\star}|_{x&#x3D;x^\star}&#x3D;0$<br>$$Px^\star+q+A^T\eta^\star&#x3D;0$$<br> 将这两个等式写为线性方程组的形式<br>$$\begin{bmatrix}P&amp;A^T\A&amp;0\end{bmatrix}\begin{bmatrix}x^\star\\eta^\star\end{bmatrix}&#x3D;\begin{bmatrix}-q\b\end{bmatrix}$$<br> 解这个线性方程组即得到最优解</p>
+<h3 id="敏感性分析"><a href="#敏感性分析" class="headerlink" title="敏感性分析"></a>敏感性分析</h3><p>如果我们求出了最优解，但是突然想对最优解做一些改动，看看有什么变化时，或者我们求不出最优解，想求一个差不多的解，，所以想看看理论上离最优解比较近的点它的最优值有什么特点时，就要从优化问题出发，分析问题的敏感性&#x2F;扰动分析。</p>
+<p>原问题<br>$$\begin{aligned}&amp;\&amp;\min:f_0(x)\&amp;s.t.:f_i(x)\leq0,i&#x3D;1:m\&amp;h_i(x)&#x3D;0,i&#x3D;1:p\end{aligned}$$<br>干扰问题</p>
+<p>$\min f_0(x)$</p>
+<p>$s. t.$ $f_i\left ( x\right ) \leq u_i, i&#x3D; 1: m$<br>$h_i(x)&#x3D;w_i,i&#x3D;1:p$<br>考虑最优值可变化从$p^\star(0,0)$变为$p^\star(u,w)$<br>约束变化后，有以下性质：<br>性质1：若原问题为凸问题，则$p^\star(u,w)$为$(u,w)$的凸函数</p>
+<p>性质2：若原问题为凸问题，且满足Slater条件，$\lambda^\star,\eta^\star$为对偶问题最优解，则<br>$$p^\star(u,w)\geq p^\star(0,0)-(\lambda^\star)^Tu-(\eta^\star)^Tw$$<br>这个性质有以下用法</p>
+<ul>
+<li>1)若$\lambda_i^\star$很大，且加紧第$i$项约束，则$p^\star(u,w)$急剧增加</li>
+<li>2)若$\eta_i^*$为很大的正值，$w_i&lt;0$下降，或者相反若$\eta_i^\star$为很大的负值，$w_i&gt;0$上升，则<br>$p^{\star}(u,w)$急剧增加</li>
+<li>3)若$\lambda_i^\star$很小，且$u_i&gt;0$,则$p^\star(u,w)$几乎不变</li>
+<li>4)若$\eta_i^\star$为很小的正值，$w_i&gt;0$增加，或$\eta_i^\star$为很小的负值，$w_i&lt;0$下降，则$p^\star(u,w)$<br>几乎不变</li>
+</ul>
+<p>性质3：(局部敏感性)若原问题为凸问题，满足强对偶关系，且$p^\star(u,w)$在(0,0)处可<br>微<br>$$\lambda_i^\star&#x3D;-\frac{\partial p^\star(u,w)}{\partial u_i}\big|<em>{(0,0)}$$<br>$\eta</em>{i}^{\star}&#x3D;-\frac{\partial p^{\star}(u,w)}{\partial w_{i}}\left|_{(0,0)}\right.$</p>
+<p>$p^{\star}(u,w)&#x3D;p^{\star}(0,0)-(\lambda^{\star})^Tu-(\eta^{\star})^Tw$</p>
+<h1 id="罚函数法"><a href="#罚函数法" class="headerlink" title="罚函数法"></a>罚函数法</h1><p>在原约束条件不好处理的情况下，我们采用放松的约束方法添加罚函数项去近似该项约束。</p>
+<p>一种是把约束惩罚到目标函数上去，比如范数平方，log-barrier，这种我感觉更多的像是一种求近似解的手段。当约束不太好的时候，罚到目标函数上去，变成无约束优化问题，也许它的对偶问题就好求了。而且一般加到目标函数会带一个惩罚因子，一方面是为了保证最优值不变，另一方面也会影响新问题和原问题最优解之间的关系。另一种是单纯的额外加一个罚项，就像是针对自变量xxx增加的一种约束，使得变量的各个分量之间距离不会太大&#x2F;稀疏。</p>
+<h3 id="平方项罚函数"><a href="#平方项罚函数" class="headerlink" title="平方项罚函数"></a>平方项罚函数</h3><p>$\min f_0(x)$</p>
+<p>$s. t.$ $Ax- b&#x3D; 0$</p>
+<p>把约束惩罚到目标函数</p>
+<p>$\operatorname* { min} f_{0}( x) + \frac \alpha 2| Ax- b| _{2}^{2}$, $\alpha \geq 0$</p>
+<p>假设新问题的最优解为$\tilde{x}$,则$\nabla f_0(\tilde{x})+\alpha A^T(A\tilde{x}-b)&#x3D;0$<br>而这样的话$\tilde{x}$就也会是$\min$ $f_0( x) + \alpha ( A\tilde{x} - b) ^T( Ax- b)$的最优解。<br>现在计算下原问题的对偶函数$g(v)&#x3D;\inf_x{f_0(x)+v^TAx-v^Tb}$,知如果<br>$v&#x3D;\alpha(A\tilde{x}-b)$时，对偶函数$g(v)$就和$f_0(x)+\alpha(A\tilde{x}-b)^T(Ax-b)$等价了。又因为<br>对偶问题最优解$d^<em>\geq g(v)$,因此可以得到<br>$$f_0(x^</em>)&#x3D;p^*&#x3D;d^*\geq g(\alpha(A\tilde{x}-b))&#x3D;f_0(\tilde{x})+\alpha|A\tilde{x}-b|_2^2\geq f_0(\tilde{x})$$</p>
+<h3 id="log-barrier法"><a href="#log-barrier法" class="headerlink" title="log-barrier法"></a>log-barrier法</h3><p>$$<br>\begin{aligned}<br>&amp;\min f_0(x) \<br>&amp;s.t. Ax\geq b,x\in R^m,A\in R^{m\times n},b\in R^m \<br>&amp;\text{log-barrier法:} \<br>&amp;\min f_0(x)-\sum_{i&#x3D;1}^mu\log(a^Tx-b_i)<br>\end{aligned}<br>$$</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E6%95%B0%E5%AD%A6/" class="category-chain-item">数学</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/%E6%95%B0%E5%AD%A6/%E5%87%B8%E4%BC%98%E5%8C%96/" class="category-chain-item">凸优化</a>
+  
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E6%95%B0%E5%AD%A6/" class="print-no-link">#数学</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>对偶</div>
+      <div>http://example.com/2024/08/20/数学/凸优化/对偶/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>bradin</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2024年8月20日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2024/08/23/%E6%95%B0%E5%AD%A6/%E5%87%B8%E4%BC%98%E5%8C%96/%E5%87%B8%E5%87%BD%E6%95%B0/" title="凸函数">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">凸函数</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2024/08/12/%E5%AD%A6%E6%9C%AF%E5%B7%A5%E5%85%B7/matplotlib/" title="matplotlib画图">
+                        <span class="hidden-mobile">matplotlib画图</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+  
+  
+
+
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="busuanzi_container_site_pv" style="display: none">
+        总访问量 
+        <span id="busuanzi_value_site_pv"></span>
+         次
+      </span>
+    
+    
+      <span id="busuanzi_container_site_uv" style="display: none">
+        总访客数 
+        <span id="busuanzi_value_site_uv"></span>
+         人
+      </span>
+    
+    
+  
+</div>
+
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  
+      <script>
+        if (!window.MathJax) {
+          window.MathJax = {
+            tex    : {
+              inlineMath: { '[+]': [['$', '$']] }
+            },
+            loader : {
+              load: ['ui/lazy']
+            },
+            options: {
+              renderActions: {
+                insertedScript: [200, () => {
+                  document.querySelectorAll('mjx-container').forEach(node => {
+                    let target = node.parentNode;
+                    if (target.nodeName.toLowerCase() === 'li') {
+                      target.parentNode.classList.add('has-jax');
+                    }
+                  });
+                }, '', false]
+              }
+            }
+          };
+        } else {
+          MathJax.startup.document.state(0);
+          MathJax.texReset();
+          MathJax.typeset();
+          MathJax.typesetPromise();
+        }
+
+        Fluid.events.registerRefreshCallback(function() {
+          if ('MathJax' in window && MathJax.startup.document && typeof MathJax.startup.document.state === 'function') {
+            MathJax.startup.document.state(0);
+            MathJax.texReset();
+            MathJax.typeset();
+            MathJax.typesetPromise();
+          }
+        });
+      </script>
+    
+
+  <script  src="https://lib.baomitu.com/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

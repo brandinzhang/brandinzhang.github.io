@@ -1,0 +1,781 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="bradin">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="特征选择算法我们希望选择具有良好分类能力的特征，为此我们引入信息增益来衡量不纯度 设$X$是取有限个值的随机变量，则概率分布为$$P(X&#x3D;x_i)&#x3D;p_i,\quad i&#x3D;1,2,\cdots,n$$定义随机变量$X$的熵为$$H(X)&#x3D;-\sum_{i&#x3D;1}^np_i\log p_i$$log以2为底时，熵的单位是比特，以e为底时，熵的单位是纳特">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ng-决策树">
+<meta property="og:url" content="http://example.com/2024/03/10/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/ng%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/index.html">
+<meta property="og:site_name" content="鸭蛋仙人的博客">
+<meta property="og:description" content="特征选择算法我们希望选择具有良好分类能力的特征，为此我们引入信息增益来衡量不纯度 设$X$是取有限个值的随机变量，则概率分布为$$P(X&#x3D;x_i)&#x3D;p_i,\quad i&#x3D;1,2,\cdots,n$$定义随机变量$X$的熵为$$H(X)&#x3D;-\sum_{i&#x3D;1}^np_i\log p_i$$log以2为底时，熵的单位是比特，以e为底时，熵的单位是纳特">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://www.freeimg.cn/i/2024/07/12/66911e3d36a2e.png">
+<meta property="og:image" content="https://www.freeimg.cn/i/2024/07/12/6691384d47f54.png">
+<meta property="og:image" content="http://example.com/image-1.png">
+<meta property="og:image" content="http://example.com/image-2.png">
+<meta property="article:published_time" content="2024-03-09T16:00:00.000Z">
+<meta property="article:modified_time" content="2025-04-28T10:58:34.074Z">
+<meta property="article:author" content="bradin">
+<meta property="article:tag" content="机器学习">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://www.freeimg.cn/i/2024/07/12/66911e3d36a2e.png">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>ng-决策树 - 鸭蛋仙人的博客</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.6","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>鸭蛋仙人</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/example/" target="_self">
+                <i class="iconfont icon-slack-fill"></i>
+                <span>example</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="ng-决策树"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2024-03-10 00:00" pubdate>
+          2024年3月10日 凌晨
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          1.3k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          11 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="busuanzi_container_page_pv" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="busuanzi_value_page_pv"></span> 次
+        </span>
+        
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">ng-决策树</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h2 id="特征选择算法"><a href="#特征选择算法" class="headerlink" title="特征选择算法"></a>特征选择算法</h2><p>我们希望选择具有良好分类能力的特征，为此我们引入信息增益来衡量不纯度</p>
+<p>设$X$是取有限个值的随机变量，则概率分布为<br>$$P(X&#x3D;x_i)&#x3D;p_i,\quad i&#x3D;1,2,\cdots,n$$<br>定义随机变量$X$的熵为<br>$$H(X)&#x3D;-\sum_{i&#x3D;1}^np_i\log p_i$$<br>log以2为底时，熵的单位是比特，以e为底时，熵的单位是纳特。<br>若随机变量只取两个值(伯努利分布)，熵可以写为关于p的函数<br>$$H(p)&#x3D;-p\log p-(1-p)\log(1-p)$$<br><img src="https://www.freeimg.cn/i/2024/07/12/66911e3d36a2e.png" srcset="/img/loading.gif" lazyload alt="1720786491668.png"></p>
+<h3 id="Information-gain信息增益"><a href="#Information-gain信息增益" class="headerlink" title="Information gain信息增益"></a>Information gain信息增益</h3><p>一般的，定义 (信息增益) 特征$A$对训练数据集$D$的信息增益$g(D,A)$,定义为集<br>合$D$的经验熵$H(D)$与特征$A$给定条件下$D$的经验条件熵$H(D|A)$之差，即<br>$$g(D,A)&#x3D;H(D)-H(D|A)$$</p>
+<ul>
+<li>在决策树的二叉树场景下，上式可写为<br>$$&#x3D;\mathrm{H}(\mathrm{p}_1^{\mathrm{root}}):-\left(w^{\mathrm{left}}H\left(p_1^{\mathrm{left}}\right)+w^{\mathrm{right}}H\left(p_1^{\mathrm{right}}\right)\right)$$</li>
+</ul>
+<p>我们总是选择信息增益更大的决策A用于树的生成。</p>
+<h3 id="数学描述"><a href="#数学描述" class="headerlink" title="数学描述"></a>数学描述</h3><p>设训练数据集为$D$,$|D|$表示其样本容量，即样本个数。设有$K$个类$C_k,k&#x3D;$ $1,2,\cdots,K$,$|C_k|$为属于类$C_k$的样本个数，$\sum|C_k|&#x3D;|D|$。设特征$A$有$n$个不同的<br>$k&#x3D;1$<br>取值${a_1,a_2,\cdots,a_n}$,根据特征$A$的取值将$D$ 划 分 为 $n$个子集$D_1,D_2,\cdots,D_n,|D_i|$ 为$D_i$的样本个数，$\sum_i^n|D_i|&#x3D;|D|$。记子集$D_i$中属于类$C_k$的样本的集合为$D_{ik}$,即<br>$i&#x3D;1$<br>$D_{ik}&#x3D;D_i\cap C_k,\left|D_{ik}\right|$为$D_{ik}$ 的样本个数。于是信息增益的算法如下。</p>
+<p> (1)计算数据集$D$的经验熵$H(D)$，这代表原始数据集的混乱程度（直接按照将要预测特征求熵）<br>$$H(D)&#x3D;-\sum_{k&#x3D;1}^K\frac{|C_k|}{|D|}\log_2\frac{|C_k|}{|D|}$$<br>(2)计算特征$A$对数据集$D$的经验条件熵$H(D|A)$<br>$$H(D|A)&#x3D;\sum_{i&#x3D;1}^n\frac{|D_i|}{|D|}H(D_i)&#x3D;-\sum_{i&#x3D;1}^n\frac{|D_i|}{|D|}\sum_{k&#x3D;1}^K\frac{|D_{ik}|}{|D_i|}\log_2\frac{|D_{ik}|}{|D_i|}$$<br> (3)计算信息增益<br>$$g(D,A)&#x3D;H(D)-H(D|A)$$</p>
+<ul>
+<li>引入信息增益比<br>$$g_R(D,A)&#x3D;\frac{g(D,A)}{H_A(D)}$$<br>其中，$H_A(D)&#x3D;-\sum_{i&#x3D;1}^n\frac{|D_i|}{|D|}\log_2\frac{|D_i|}{|D|},n$是特征$A$取值的个数。<br>这是为因为在决策过程中，算法直接使用信息增益，会导致进行决策倾向于选择分类特征较多的节点，为此引入信息增益比来规避这一问题。</li>
+</ul>
+<h2 id="ID3算法-C4-5算法"><a href="#ID3算法-C4-5算法" class="headerlink" title="ID3算法-&gt;C4.5算法"></a>ID3算法-&gt;C4.5算法</h2><p>用于生成树</p>
+<h2 id="剪枝算法"><a href="#剪枝算法" class="headerlink" title="剪枝算法"></a>剪枝算法</h2><p>决策树的剪枝往往通过极小化决策树整体的损失函数(loss function)或代价函数(cost function)来实现。设树$T$的叶结点个数为$|T|$,$t$是树$T$的叶结点，该叶结点有$N_t$个样本点，其中$k$类的样本点有$N_tk$个，$k&#x3D;1,2,\cdots,K$,$H_t(T)$为叶结点$t$<br>上的经验熵，$\alpha\geqslant0$为参数，则决策树学习的损失函数可以定义为</p>
+<p>$$C_\alpha(T)&#x3D;\sum_{t&#x3D;1}^{|T|}N_tH_t(T)+\alpha|T|$$<br>其中经验熵为<br>$$H_t(T)&#x3D;-\sum_k\frac{N_{tk}}{N_t}\log\frac{N_{tk}}{N_t}$$<br>在损失函数中，将式(5.11)右端的第 1 项记作<br>$$C(T)&#x3D;\sum_{t&#x3D;1}^{|T|}N_tH_t(T)&#x3D;-\sum_{t&#x3D;1}^{|T|}\sum_{k&#x3D;1}^KN_{tk}\log\frac{N_{tk}}{N_t}$$</p>
+<h3 id="这时有"><a href="#这时有" class="headerlink" title="这时有"></a>这时有</h3><p>$$C_\alpha(T)&#x3D;C(T)+\alpha|T|$$</p>
+<p>$\alpha$的大小决定了我们对树的复杂程度的控制。我们为了防止过拟合，需要在C（T）和 T之间取舍。<br>剪枝算法的基本思路就是，从叶节点自下而上的剪枝，如果剪枝后的惩罚函数变小了，则返回剪枝之后的树继续进行剪枝。</p>
+<h2 id="CART算法"><a href="#CART算法" class="headerlink" title="CART算法"></a>CART算法</h2><h3 id="回归树算法"><a href="#回归树算法" class="headerlink" title="回归树算法"></a>回归树算法</h3><p>本质上实在构建一个及其细分的分段函数用于回归算法，每次分段遵循最小的残差平方和进行。<br>采用启发式的方法，选择第$j$个变量$x^{(j)}$ 和它取的值$s$,作为切分变量(splitting variable)和切分点(splitting point),并定义两个区域（事实上遍历j的思路有很多）：<br>$$R_1(j,s)&#x3D;{x|x^{(j)}\leqslant s}\quad\text{和}\quad R_2(j,s)&#x3D;{x|x^{(j)}&gt;s}$$<br>然后寻找最优切分变量$j$和最优切分点$s$。具体地，求解<br>$$\min_{j,s}\left[\min_{c_1}\sum_{x_i\in R_1(j,s)}(y_i-c_1)^2+\min_{c_2}\sum_{x_i\in R_2(j,s)}(y_i-c_2)^2\right]$$<br>算法如下：<br>(1)选择最优切分变量$j$与切分点$s$,求解<br>$$\min_{j,s}\left[\min_{c_1}\sum_{x_i\in R_1(j,s)}(y_i-c_1)^2+\min_{c_2}\sum_{x_i\in R_2(j,s)}(y_i-c_2)^2\right]$$<br>遍历变量$j$,对固定的切分变量$j$扫描切分点$s$,选择使上式达到最小值的对<br>(2)用选定的对$(j,s)$划分区域并决定相应的输出值：<br>$$R_1(j,s)&#x3D;{x|x^{(j)}\leqslant s},\quad R_2(j,s)&#x3D;{x|x^{(j)}&gt;s}$$<br>$$\hat{c}<em>m&#x3D;\frac1{N_m}\sum</em>{x_i\in R_m(j,s)}y_i,\quad x\in R_m,\quad m&#x3D;1,2$$<br>(3)继续对两个子区域调用步骤 (1),(2),直至满足停止条件。(4)将输入空间划分为$M$个区域$R_1,R_2,\cdots,R_M$,生成决策树：<br>$$f(x)&#x3D;\sum_{m&#x3D;1}^M\hat{c}_mI(x\in R_m)$$</p>
+<h3 id="分类树算法"><a href="#分类树算法" class="headerlink" title="分类树算法"></a>分类树算法</h3><p>使用基尼指数作为划分标准，其实和上文的熵趋势上一样。<br>基尼指数<br>$$\mathrm{Gini}(p)&#x3D;\sum_{k&#x3D;1}^Kp_k(1-p_k)&#x3D;1-\sum_{k&#x3D;1}^Kp_k^2$$<br>对于给定的样本，基尼指数为<br>$$\mathrm{Gini}(D)&#x3D;1-\sum_{k&#x3D;1}^K\left(\frac{|C_k|}{|D|}\right)^2$$</p>
+<p><img src="https://www.freeimg.cn/i/2024/07/12/6691384d47f54.png" srcset="/img/loading.gif" lazyload alt="1720793162035.png"></p>
+<h3 id="one-hot编码"><a href="#one-hot编码" class="headerlink" title="one-hot编码"></a>one-hot编码</h3><p>也可以用到神经网络，逻辑回归等领域，<br><img src="/image-1.png" srcset="/img/loading.gif" lazyload alt="alt text"><br><img src="/image-2.png" srcset="/img/loading.gif" lazyload alt="alt text"></p>
+<p>决策树可以处理连续值特征,方法是在每个节点上考虑不同的阈值进行划分,计算信息增益,选择能提供最大信息增益的阈值进行分割。这样可以递归地构建决策树的其余部分。此外,决策树算法还可以扩展到回归问题,预测数字输出。</p>
+<h2 id="实战：预测天气"><a href="#实战：预测天气" class="headerlink" title="实战：预测天气"></a>实战：预测天气</h2><p>代码分两个模块</p>
+<ul>
+<li>数据分析<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><code class="hljs py"><span class="hljs-comment">##  基础函数库</span><br><span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np<br><span class="hljs-keyword">import</span> pandas <span class="hljs-keyword">as</span> pd<br><span class="hljs-comment">## 绘图函数库</span><br><span class="hljs-keyword">import</span> matplotlib.pyplot <span class="hljs-keyword">as</span> plt<br><span class="hljs-keyword">import</span> seaborn <span class="hljs-keyword">as</span> sns<br>data = pd.read_csv(<span class="hljs-string">&#x27;../data/weather.csv&#x27;</span>)<br><span class="hljs-comment"># data.info()</span><br>data = data.fillna(-<span class="hljs-number">1</span>)<br><br><span class="hljs-comment">#k考察数据整体</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">overview</span>():<br>    <span class="hljs-keyword">global</span> data<br>    data.info()<br>    data.describe()<br><br>numerical_features = [x <span class="hljs-keyword">for</span> x <span class="hljs-keyword">in</span> data.columns <span class="hljs-keyword">if</span> data[x].dtype == np.float64]<br>category_features = [x <span class="hljs-keyword">for</span> x <span class="hljs-keyword">in</span> data.columns <span class="hljs-keyword">if</span> data[x].dtype != np.float64 <span class="hljs-keyword">and</span> x != <span class="hljs-string">&#x27;RainTomorrow&#x27;</span>]<br><span class="hljs-comment"># 画箱线图函数</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">boxlinegraph</span>():<br>    <span class="hljs-keyword">global</span> numerical_features<br>    <span class="hljs-keyword">global</span> category_features<br>    <span class="hljs-keyword">for</span> col <span class="hljs-keyword">in</span> data[numerical_features].columns:<br>        <span class="hljs-keyword">if</span> col != <span class="hljs-string">&#x27;RainTomorrow&#x27;</span>:<br>            sns.boxplot(x=<span class="hljs-string">&#x27;RainTomorrow&#x27;</span>, y=col, saturation=<span class="hljs-number">0.5</span>, palette=<span class="hljs-string">&#x27;pastel&#x27;</span>, data=data)<br>            plt.title(col)<br>            plt.show()<br><br><span class="hljs-comment">## 把所有的相同类别的特征编码为同一个值</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">get_mapfunction</span>(<span class="hljs-params">x</span>):<br>    mapp = <span class="hljs-built_in">dict</span>(<span class="hljs-built_in">zip</span>(x.unique().tolist(),<br>         <span class="hljs-built_in">range</span>(<span class="hljs-built_in">len</span>(x.unique().tolist()))))   <span class="hljs-comment"># 将这些独特的值与一个范围（从0开始，长度为独特值的数量）配对，创建一个元组列表。每个独特值对应一个唯一的整数。</span><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">mapfunction</span>(<span class="hljs-params">y</span>):<br>        <span class="hljs-keyword">if</span> y <span class="hljs-keyword">in</span> mapp:<br>            <span class="hljs-keyword">return</span> mapp[y]<br>        <span class="hljs-keyword">else</span>:<br>            <span class="hljs-keyword">return</span> -<span class="hljs-number">1</span><br>    <span class="hljs-keyword">return</span> mapfunction<br><span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> category_features:<br>    data[i] = data[i].apply(get_mapfunction(data[i]))<br><br><br>boxlinegraph()<br><br></code></pre></td></tr></table></figure></li>
+<li>决策树预测<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><code class="hljs py"><span class="hljs-keyword">import</span> pandas <span class="hljs-keyword">as</span> pd<br><span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np<br><span class="hljs-keyword">from</span> sklearn.model_selection <span class="hljs-keyword">import</span> train_test_split<br><span class="hljs-keyword">from</span> xgboost.sklearn <span class="hljs-keyword">import</span> XGBClassifier<br><span class="hljs-keyword">import</span> matplotlib.pyplot <span class="hljs-keyword">as</span> plt<br><span class="hljs-keyword">import</span> seaborn <span class="hljs-keyword">as</span> sns<br>data = pd.read_csv(<span class="hljs-string">&#x27;../data/weather.csv&#x27;</span>)<br><span class="hljs-comment"># data.info()</span><br>data = data.fillna(-<span class="hljs-number">1</span>)<br><br>numerical_features = [x <span class="hljs-keyword">for</span> x <span class="hljs-keyword">in</span> data.columns <span class="hljs-keyword">if</span> data[x].dtype == np.float64]<br>category_features = [x <span class="hljs-keyword">for</span> x <span class="hljs-keyword">in</span> data.columns <span class="hljs-keyword">if</span> data[x].dtype != np.float64 ]<br><span class="hljs-keyword">def</span> <span class="hljs-title function_">get_mapfunction</span>(<span class="hljs-params">x</span>):<br>    mapp = <span class="hljs-built_in">dict</span>(<span class="hljs-built_in">zip</span>(x.unique().tolist(),<br>         <span class="hljs-built_in">range</span>(<span class="hljs-built_in">len</span>(x.unique().tolist()))))   <span class="hljs-comment"># 将这些独特的值与一个范围（从0开始，长度为独特值的数量）配对，创建一个元组列表。每个独特值对应一个唯一的整数。</span><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">mapfunction</span>(<span class="hljs-params">y</span>):<br>        <span class="hljs-keyword">if</span> y <span class="hljs-keyword">in</span> mapp:<br>            <span class="hljs-keyword">return</span> mapp[y]<br>        <span class="hljs-keyword">else</span>:<br>            <span class="hljs-keyword">return</span> -<span class="hljs-number">1</span><br>    <span class="hljs-keyword">return</span> mapfunction<br><span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> category_features:<br>    data[i] = data[i].apply(get_mapfunction(data[i]))<br><br><span class="hljs-comment">## 选择其类别为0和1的样本 （不包括类别为2的样本）</span><br>data_target_part = data[<span class="hljs-string">&#x27;RainTomorrow&#x27;</span>]<br>data_features_part = data[[x <span class="hljs-keyword">for</span> x <span class="hljs-keyword">in</span> data.columns <span class="hljs-keyword">if</span> x != <span class="hljs-string">&#x27;RainTomorrow&#x27;</span>]]<br><span class="hljs-comment">## 测试集大小为20%， 80%/20%分</span><br>x_train, x_test, y_train, y_test = train_test_split(data_features_part, data_target_part, test_size = <span class="hljs-number">0.2</span>, random_state = <span class="hljs-number">2020</span>)<br><span class="hljs-comment">## 定义 XGBoost模型</span><br>clf = XGBClassifier()<br><span class="hljs-comment"># 在训练集上训练XGBoost模型</span><br>clf.fit(x_train, y_train)<br><span class="hljs-comment">## 在训练集和测试集上分布利用训练好的模型进行预测</span><br>train_predict = clf.predict(x_train)<br>test_predict = clf.predict(x_test)<br><span class="hljs-keyword">from</span> sklearn <span class="hljs-keyword">import</span> metrics<br><br><span class="hljs-comment">## 利用accuracy（准确度）【预测正确的样本数目占总预测样本数目的比例】评估模型效果</span><br><span class="hljs-built_in">print</span>(<span class="hljs-string">&#x27;The accuracy of the Logistic Regression is:&#x27;</span>,metrics.accuracy_score(y_train,train_predict))<br><span class="hljs-built_in">print</span>(<span class="hljs-string">&#x27;The accuracy of the Logistic Regression is:&#x27;</span>,metrics.accuracy_score(y_test,test_predict))<br><br><span class="hljs-comment">## 查看混淆矩阵 (预测值和真实值的各类情况统计矩阵)</span><br>confusion_matrix_result = metrics.confusion_matrix(test_predict,y_test)<br><span class="hljs-built_in">print</span>(<span class="hljs-string">&#x27;The confusion matrix result:\n&#x27;</span>,confusion_matrix_result)<br><br><span class="hljs-comment"># 利用热力图对于结果进行可视化</span><br>plt.figure(figsize=(<span class="hljs-number">8</span>, <span class="hljs-number">6</span>))<br>sns.heatmap(confusion_matrix_result, annot=<span class="hljs-literal">True</span>, cmap=<span class="hljs-string">&#x27;Blues&#x27;</span>)<br>plt.xlabel(<span class="hljs-string">&#x27;Predicted labels&#x27;</span>)<br>plt.ylabel(<span class="hljs-string">&#x27;True labels&#x27;</span>)<br>plt.show()<br><br><br></code></pre></td></tr></table></figure></li>
+</ul>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" class="category-chain-item">机器学习</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/ng%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" class="category-chain-item">ng机器学习</a>
+  
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" class="print-no-link">#机器学习</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>ng-决策树</div>
+      <div>http://example.com/2024/03/10/机器学习/ng机器学习/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>bradin</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2024年3月10日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2024/03/10/%E6%95%B0%E5%AD%A6%E5%BB%BA%E6%A8%A1/2013B%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/" title="2013B读论文笔记">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">2013B读论文笔记</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2024/02/02/EE/51%E5%8D%95%E7%89%87%E6%9C%BA%EF%BC%88%E4%BA%8C%EF%BC%89/" title="51单片机（二）">
+                        <span class="hidden-mobile">51单片机（二）</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+  
+  
+
+
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="busuanzi_container_site_pv" style="display: none">
+        总访问量 
+        <span id="busuanzi_value_site_pv"></span>
+         次
+      </span>
+    
+    
+      <span id="busuanzi_container_site_uv" style="display: none">
+        总访客数 
+        <span id="busuanzi_value_site_uv"></span>
+         人
+      </span>
+    
+    
+  
+</div>
+
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  
+      <script>
+        if (!window.MathJax) {
+          window.MathJax = {
+            tex    : {
+              inlineMath: { '[+]': [['$', '$']] }
+            },
+            loader : {
+              load: ['ui/lazy']
+            },
+            options: {
+              renderActions: {
+                insertedScript: [200, () => {
+                  document.querySelectorAll('mjx-container').forEach(node => {
+                    let target = node.parentNode;
+                    if (target.nodeName.toLowerCase() === 'li') {
+                      target.parentNode.classList.add('has-jax');
+                    }
+                  });
+                }, '', false]
+              }
+            }
+          };
+        } else {
+          MathJax.startup.document.state(0);
+          MathJax.texReset();
+          MathJax.typeset();
+          MathJax.typesetPromise();
+        }
+
+        Fluid.events.registerRefreshCallback(function() {
+          if ('MathJax' in window && MathJax.startup.document && typeof MathJax.startup.document.state === 'function') {
+            MathJax.startup.document.state(0);
+            MathJax.texReset();
+            MathJax.typeset();
+            MathJax.typesetPromise();
+          }
+        });
+      </script>
+    
+
+  <script  src="https://lib.baomitu.com/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

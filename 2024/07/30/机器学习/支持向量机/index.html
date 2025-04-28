@@ -1,0 +1,798 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="bradin">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="基本思想支持向量机的基本思想就是用一个超平面来划分一群点，达到二分类效果。寻找超平面过程中。我们使用最小化间隔的思想，使得svm具有鲁棒性。 硬间隔SVM欲分类点记为${(x_i,y_i)}_{i&#x3D;1}^N$共N个，预测结果$y_i$取值为0，1 我们的判别模型可以表示为$$f(w)&#x3D;sign(w^Tx+b) $$其中$w^Tx+b&#x3D;0$就是1划分所用的超平面，因此约">
+<meta property="og:type" content="article">
+<meta property="og:title" content="支持向量机">
+<meta property="og:url" content="http://example.com/2024/07/30/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E6%94%AF%E6%8C%81%E5%90%91%E9%87%8F%E6%9C%BA/index.html">
+<meta property="og:site_name" content="鸭蛋仙人的博客">
+<meta property="og:description" content="基本思想支持向量机的基本思想就是用一个超平面来划分一群点，达到二分类效果。寻找超平面过程中。我们使用最小化间隔的思想，使得svm具有鲁棒性。 硬间隔SVM欲分类点记为${(x_i,y_i)}_{i&#x3D;1}^N$共N个，预测结果$y_i$取值为0，1 我们的判别模型可以表示为$$f(w)&#x3D;sign(w^Tx+b) $$其中$w^Tx+b&#x3D;0$就是1划分所用的超平面，因此约">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://www.freeimg.cn/i/2024/08/08/66b4b7cbc40f9.jpg">
+<meta property="article:published_time" content="2024-07-29T16:00:00.000Z">
+<meta property="article:modified_time" content="2025-04-28T10:58:22.695Z">
+<meta property="article:author" content="bradin">
+<meta property="article:tag" content="机器学习">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://www.freeimg.cn/i/2024/08/08/66b4b7cbc40f9.jpg">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>支持向量机 - 鸭蛋仙人的博客</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.6","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>鸭蛋仙人</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/example/" target="_self">
+                <i class="iconfont icon-slack-fill"></i>
+                <span>example</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="支持向量机"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2024-07-30 00:00" pubdate>
+          2024年7月30日 凌晨
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          871 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          8 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="busuanzi_container_page_pv" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="busuanzi_value_page_pv"></span> 次
+        </span>
+        
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">支持向量机</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="基本思想"><a href="#基本思想" class="headerlink" title="基本思想"></a>基本思想</h1><p>支持向量机的基本思想就是用一个超平面来划分一群点，达到二分类效果。寻找超平面过程中。我们使用最小化间隔的思想，使得svm具有鲁棒性。</p>
+<h1 id="硬间隔SVM"><a href="#硬间隔SVM" class="headerlink" title="硬间隔SVM"></a>硬间隔SVM</h1><p>欲分类点记为${(x_i,y_i)}_{i&#x3D;1}^N$共N个，预测结果$y_i$取值为0，1 我们的判别模型可以表示为<br>$$f(w)&#x3D;sign(w^Tx+b) $$<br>其中$w^Tx+b&#x3D;0$就是1划分所用的超平面，因此约束条件可以表示为<br>$$y_i(w^Tx+b)&gt;0 $$</p>
+<p><img src="https://www.freeimg.cn/i/2024/08/08/66b4b7cbc40f9.jpg" srcset="/img/loading.gif" lazyload alt="最小距离"></p>
+<p>由上图可以看到，对称地，总能找到连两个点距离超平面最近，我们的目的就是最大化这个”最小距离”，优化任务记为<br>$$\begin{cases}\max_{w,b}\min\frac{1}{||w||}|w^{T}x_{i}+b|\\s.t.\quad y_{i}(w^{T}x_{i}+b)&gt;0\end{cases}$$<br>化简为<br>$$\begin{cases}\max_{w,b}\min\frac{1}{||w||}y_i(w^{T}x_{i}+b)\\s.t.\quad y_{i}(w^{T}x_{i}+b)&gt;0\end{cases}$$<br>超平面方程为$w^Tx+b&#x3D;0$,可以任意缩放倍数，因此不妨规定$min \ y_i(w^Tx+b)&#x3D;1$<br>原问题化为<br>$$\begin{cases}min, \frac{1}{2}w^Tw\\s.t.\quad y_{i}(w^{T}x_{i}+b)\geq1\end{cases}$$</p>
+<p>由于其约束都是仿射的，因此符合放松的slater条件，问题变为一个纯粹的N个约束的凸优化问题。</p>
+<h1 id="对偶问题"><a href="#对偶问题" class="headerlink" title="对偶问题"></a>对偶问题</h1><p>但是，如果样本数量或维度非常高，直接求解困难甚至不可解，于是需要对这个问题进一步处理。引入 Lagrange 函数：</p>
+<p>$$L(w,b,\lambda)&#x3D;\frac12w^Tw+\sum_{i&#x3D;1}^N\lambda_i(1-y_i(w^Tx_i+b))$$</p>
+<p>原问题为</p>
+<p>$$\begin{cases}min, \frac12 w^Tw\\s.t.\quad 1-y_{i}(w^{T}x_{i}+b)\leq0\end{cases}$$</p>
+<p>可以证明，原问题的等价问题为</p>
+<p>$$\begin{cases}min_{w,b}\max_{\lambda}L(w,b,\lambda_i)\mathrm{<del>}\\\mathrm{</del>}\lambda_i\geq0\end{cases}$$</p>
+<p>交换最小和最大值的符号得到对偶问题：</p>
+<p>$$\max_{\lambda_i}\min_{w,b}L(w,b,\lambda_i)\mathrm{<del>}s.t.\mathrm{</del>}\lambda_i\geq0$$</p>
+<p>由于不等式约束是仿射函数，对偶问题和原问题等价      </p>
+<blockquote>
+<p>引入:原问题和对偶问题满足强对偶关系的充要条件为其满足 KKT 条件：<br>$$\begin{aligned}<br> &amp;\frac{\partial L}{\partial w}&#x3D;0,\frac{\partial L}{\partial b}&#x3D;0 \<br> &amp;\large\lambda_k(1-y_k(w^Tx_k+b))&#x3D;0(slackness complementary) \<br> &amp;\lambda_{i}\geq0 \<br> &amp;1-y_i(w^Tx_i+b)\leq0<br> \end{aligned}$$</p>
+</blockquote>
+<p>利用KKT条件将上述优化问题变为只和$\lambda$有关的优化问题</p>
+<p>$$\frac\partial{\partial b}L&#x3D;0\Rightarrow\sum_{i&#x3D;1}^N\lambda_iy_i&#x3D;0$$</p>
+<p>$$\frac\partial{\partial w}L&#x3D;0\Rightarrow w&#x3D;\sum_{i&#x3D;1}^N\lambda_iy_ix_i$$</p>
+<p>带入原始拉格朗日函数得到</p>
+<p>$$L(w,b,\lambda_i)&#x3D;-\frac12\sum_{i&#x3D;1}^N\sum_{j&#x3D;1}^N\lambda_i\lambda_jy_iy_jx_i^Tx_j+\sum_{i&#x3D;1}^N\lambda_i$$</p>
+<p>问题转化为了对$\lambda$的优化问题</p>
+<p>$$\max_\lambda\boldsymbol{-}\frac12\sum_{i&#x3D;1}^N\sum_{j&#x3D;1}^N\lambda_i\lambda_jy_iy_jx_i^Tx_j+\sum_{i&#x3D;1}^N\lambda_i,\mathrm{<del>}s.t.\mathrm{</del>}\lambda_i\geq0$$</p>
+<p>使用优化手段求解得到$\lambda_i$，进而求解$w$, $b$ ,</p>
+<p>$$\hat{w}&#x3D;\sum_{i&#x3D;1}^N\lambda_iy_ix_i\\hat{b}&#x3D;y_k-w^Tx_k&#x3D;y_k-\sum_{i&#x3D;1}^N\lambda_iy_ix_i^Tx_k,\exists k,1-y_k(w^Tx_k+b)&#x3D;0$$</p>
+<p>容易看出上面的$x_k$就是距离超平面最近的点(向量)，我们把它称之为支持向量，这也是支持向量机名字的由来。而这里也可以看出，互补松弛条件就是说只有支持向量对应的$\lambda_i$为0.</p>
+<h1 id="软间隔SVM"><a href="#软间隔SVM" class="headerlink" title="软间隔SVM"></a>软间隔SVM</h1><p>Hard-margin 的 SVM 只对可分数据可解，如果不可分的情况，我们的基本想法是在损失函数中加入错误分类的可能性。为此我们考虑修正想要min的函数</p>
+<p>$$\begin{cases}min, \frac12 w^Tw+loss \\s.t.\quad 1-y_{i}(w^{T}x_{i}+b)\leq0\end{cases}$$</p>
+<p>loss应当允许错误分类同时使得错误分类最小，为了尽量保持loss可导，直观地想法是</p>
+<p>当$y_i(w^Tx_i+b)&gt;&#x3D;1$,此时为正确分类的情况，那么$loss&#x3D;0$<br>当$y_i(w^Tx_i+b)&lt;1$,此时为错误分类的情况，不妨直接取距离作为loss，也即取$loss&#x3D;1-y_i(w^Tx_i+b)$</p>
+<p>因此loss表示为</p>
+<p>$$loss&#x3D;\sum_{i&#x3D;1}^N\max{0,1-y_i(w^Tx_i+b)}$$</p>
+<p>求和符号中的式子又叫做 Hinge Function。</p>
+<p>优化问题进一步修正为</p>
+<p>$$\begin{cases}min,<br>\frac12w^Tw+C\sum_{i&#x3D;1}^N\max{0,1-y_i(w^Tx_i+b)} \\s.t.\quad 1-y_{i}(w^{T}x_{i}+b)\leq0\end{cases}$$</p>
+<p>这个式子中，常数$C$可以看作允许的错误水平，同时上式为了进一步消除<br>$\max$符号，对数据集中的每一个观测，我们可以认为其大部分满足约束，但是其<br>中部分违反约束，因此这部分约束变成$y_i(w^Tx+b)\geq1-\xi_i$ ,其中<br>$\xi_i&#x3D;1-y_i(w^Tx_i+b)$ ,进一步的修正为：</p>
+<p>$$\begin{cases}min_{w,b}\frac12w^Tw+C\sum_{i&#x3D;1}^N\xi_i \\ s.t.\quad y_i(w^Tx_i+b)\geq1-loss_i,loss_i\geq0\end{cases}$$</p>
+<p>对于正确分类的点，$loss_i&#x3D;0$,约束变为$y_i(w^Tx_i+b)\geq1-0$<br>对于错误分类的点，$loss_i&#x3D;1-y_i(w^Tx_i+b)$，约束恒成立，相当于没有约束。</p>
+<h1 id="一些凸分析杂谈与核方法"><a href="#一些凸分析杂谈与核方法" class="headerlink" title="一些凸分析杂谈与核方法"></a>一些凸分析杂谈与核方法</h1><p>latex有空再敲，太多了太多了</p>
+<p>主要就是在讲一些十分凸分析的内容，比如</p>
+<ul>
+<li>凸优化+slater条件是强对偶关系的充要条件</li>
+<li>slater条件有放松版本，就是对于仿射形式的约束条件的放松</li>
+<li>从几何上可以直观感受到强弱对偶关系之间对的联系</li>
+<li>从几何上可以简单的感受到KKT条件</li>
+</ul>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" class="category-chain-item">机器学习</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E7%99%BD%E6%9D%BF%E6%8E%A8%E5%AF%BC/" class="category-chain-item">白板推导</a>
+  
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" class="print-no-link">#机器学习</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>支持向量机</div>
+      <div>http://example.com/2024/07/30/机器学习/支持向量机/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>bradin</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2024年7月30日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2024/08/02/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E4%BC%98%E5%8C%96%E7%AE%97%E6%B3%95/" title="优化算法">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">优化算法</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2024/07/27/%E7%AE%97%E6%B3%95/%E7%AE%97%E6%B3%95%E7%AB%9E%E8%B5%9B%E9%9B%86%E8%AE%AD%E7%AC%94%E8%AE%B0%EF%BC%88%E4%B8%80%EF%BC%89/" title="算法竞赛集训笔记（一）stl">
+                        <span class="hidden-mobile">算法竞赛集训笔记（一）stl</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+  
+  
+
+
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="busuanzi_container_site_pv" style="display: none">
+        总访问量 
+        <span id="busuanzi_value_site_pv"></span>
+         次
+      </span>
+    
+    
+      <span id="busuanzi_container_site_uv" style="display: none">
+        总访客数 
+        <span id="busuanzi_value_site_uv"></span>
+         人
+      </span>
+    
+    
+  
+</div>
+
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  
+      <script>
+        if (!window.MathJax) {
+          window.MathJax = {
+            tex    : {
+              inlineMath: { '[+]': [['$', '$']] }
+            },
+            loader : {
+              load: ['ui/lazy']
+            },
+            options: {
+              renderActions: {
+                insertedScript: [200, () => {
+                  document.querySelectorAll('mjx-container').forEach(node => {
+                    let target = node.parentNode;
+                    if (target.nodeName.toLowerCase() === 'li') {
+                      target.parentNode.classList.add('has-jax');
+                    }
+                  });
+                }, '', false]
+              }
+            }
+          };
+        } else {
+          MathJax.startup.document.state(0);
+          MathJax.texReset();
+          MathJax.typeset();
+          MathJax.typesetPromise();
+        }
+
+        Fluid.events.registerRefreshCallback(function() {
+          if ('MathJax' in window && MathJax.startup.document && typeof MathJax.startup.document.state === 'function') {
+            MathJax.startup.document.state(0);
+            MathJax.texReset();
+            MathJax.typeset();
+            MathJax.typesetPromise();
+          }
+        });
+      </script>
+    
+
+  <script  src="https://lib.baomitu.com/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

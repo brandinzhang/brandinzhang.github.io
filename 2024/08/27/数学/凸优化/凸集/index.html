@@ -1,0 +1,827 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="bradin">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="仿射仿射集(Affine Sets)等价定义1: 若对集合$C$中的任意两点$x_1,x_2$,都有过$x_1,x_2$的直线也在$C$中，则称$C$为仿射集即：$$\forall x_1,x_2\in C,\forall\theta\in R\Rightarrow y&#x3D;\theta x_1+(1-\theta)x_2\in C.$$ 等价定义2：设 $x_1,\ldots,x_k\in">
+<meta property="og:type" content="article">
+<meta property="og:title" content="凸集">
+<meta property="og:url" content="http://example.com/2024/08/27/%E6%95%B0%E5%AD%A6/%E5%87%B8%E4%BC%98%E5%8C%96/%E5%87%B8%E9%9B%86/index.html">
+<meta property="og:site_name" content="鸭蛋仙人的博客">
+<meta property="og:description" content="仿射仿射集(Affine Sets)等价定义1: 若对集合$C$中的任意两点$x_1,x_2$,都有过$x_1,x_2$的直线也在$C$中，则称$C$为仿射集即：$$\forall x_1,x_2\in C,\forall\theta\in R\Rightarrow y&#x3D;\theta x_1+(1-\theta)x_2\in C.$$ 等价定义2：设 $x_1,\ldots,x_k\in">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://www.freeimg.cn/i/2024/08/28/66cf39f2b4c3b.png">
+<meta property="og:image" content="https://www.freeimg.cn/i/2024/08/28/66cf3c7206d3f.png">
+<meta property="og:image" content="https://www.freeimg.cn/i/2024/08/28/66cf3d7d48949.png">
+<meta property="og:image" content="https://www.freeimg.cn/i/2024/08/28/66cf3d7d47a57.png">
+<meta property="og:image" content="https://www.freeimg.cn/i/2024/08/28/66cf403822d39.png">
+<meta property="og:image" content="https://www.freeimg.cn/i/2024/08/28/66cf43c764829.png">
+<meta property="article:published_time" content="2024-08-26T16:00:00.000Z">
+<meta property="article:modified_time" content="2025-04-28T10:59:48.831Z">
+<meta property="article:author" content="bradin">
+<meta property="article:tag" content="数学">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://www.freeimg.cn/i/2024/08/28/66cf39f2b4c3b.png">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>凸集 - 鸭蛋仙人的博客</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.6","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>鸭蛋仙人</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/example/" target="_self">
+                <i class="iconfont icon-slack-fill"></i>
+                <span>example</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="凸集"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2024-08-27 00:00" pubdate>
+          2024年8月27日 凌晨
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          1.1k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          10 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="busuanzi_container_page_pv" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="busuanzi_value_page_pv"></span> 次
+        </span>
+        
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">凸集</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="仿射"><a href="#仿射" class="headerlink" title="仿射"></a>仿射</h1><h3 id="仿射集-Affine-Sets"><a href="#仿射集-Affine-Sets" class="headerlink" title="仿射集(Affine Sets)"></a>仿射集(Affine Sets)</h3><p>等价定义1: 若对集合$C$中的任意两点$x_1,x_2$,都有过$x_1,x_2$的直线也在$C$中，则称$C$为仿射集<br>即：<br>$$\forall x_1,x_2\in C,\forall\theta\in R\Rightarrow y&#x3D;\theta x_1+(1-\theta)x_2\in C.$$</p>
+<p>等价定义2：设 $x_1,\ldots,x_k\in C,\forall\theta_1,\ldots,\theta_k\in R$,且$\sum_{i&#x3D;1}^k\theta_i&#x3D;1$,有$\sum_{i&#x3D;1}^k\theta_kx_k\in C$,则称$C$ 为<br>仿射集.</p>
+<p>例如：直线是仿射集，全空间是仿射集，线段不是仿射集。线性方程组的解$C \ {x|Ax&#x3D;b}$是仿射集，且齐次线性方程组的解$V \ { x|Ax&#x3D;0 }$满足更好的性质，即<br>$$\forall x,y\in V,\alpha,\beta\in R\text{,有 }\alpha x+\beta y\in V\text{,而不必要求 }\alpha+\beta&#x3D;1$$<br>通常称$V$是$C$的仿射子空间</p>
+<h3 id="仿射组合"><a href="#仿射组合" class="headerlink" title="仿射组合"></a>仿射组合</h3><p>仿射组合：设$x_1, \ldots , x_k\in C$, $\theta <em>1, \ldots , \theta <em>k\in R, \theta <em>1+ \cdots + \theta <em>k&#x3D; 1$, $\theta <em>1x_1+ \cdots + \theta <em>kx_k$称为仿射组合<br>$\Rightarrow$若 C 为仿射集，则仿射组合也在 C 内，证明如下<br>$$\begin{aligned}&amp;\frac{\theta</em>{1}}{\theta</em>{1}+\theta</em>{2}}x</em>{1}+\frac{\theta</em>{2}}{\theta</em>{1}+\theta_{2}}x_{2}\in C\&amp;(\theta_{1}+\theta_{2})\left(\frac{\theta_{1}}{\theta_{1}+\theta_{2}}x_{1}+\frac{\theta_{2}}{\theta_{1}+\theta_{2}}x_{2}\right)+(1-\theta_{1}-\theta_{2})x_{3}\in C\&amp;\Leftrightarrow\theta_{1}x_{1}+\theta_{2}x_{2}+\theta_{3}x_{3}\in C,\quad\theta_{1}+\theta_{2}+\theta_{3}&#x3D;1\end{aligned}$$<br>按照此思路可以递归的证明到多个点进行仿射组合的情况</p>
+<h3 id="仿射包"><a href="#仿射包" class="headerlink" title="仿射包"></a>仿射包</h3><p>对于任意集合$C$,仿射包$aff \ C$是包含$C$的最小仿射集，<br>$$aff \ C&#x3D;{\theta_1x_1+\dots+\theta_kx_k|\forall x_1,\dots,x_k\in C,\theta_1+\dots+\theta_k&#x3D;1}$$</p>
+<p>不管集合$C$是什么, $aff \ C$都一定是仿射集, 且是所有包含$C$的仿射集中最小的仿射集.也就是说我们可以从任意集合中构造一个特殊的仿射集。<br>举个例子<br><img src="https://www.freeimg.cn/i/2024/08/28/66cf39f2b4c3b.png" srcset="/img/loading.gif" lazyload alt="仿射包"><br>${x_1,x_2 }$的仿射包是连接两点的直线，${x_1,x_2,x_3 }$的仿射包是$R^2$</p>
+<h1 id="凸"><a href="#凸" class="headerlink" title="凸"></a>凸</h1><h3 id="凸集"><a href="#凸集" class="headerlink" title="凸集"></a>凸集</h3><p>一个集合$C$为凸集，当且仅当任意连接$C$内两点的线段也在$C$内，即<br>$$\forall x_{1},x_{2}\in C, \forall\theta\in[0,1], \theta x_{1}+(1-\theta)x_{2}\in C$$<br>等价定义为$C$中任意多个元素的凸组合也在$C$内</p>
+<h3 id="凸组合"><a href="#凸组合" class="headerlink" title="凸组合"></a>凸组合</h3><p>$x_1, \ldots , x_k\in C$, $\theta _1, \ldots , \theta _k\in [ 0, 1]$, $\theta _1+ \cdots + \theta _k&#x3D; 1$, $\theta _1x_1+ \cdots + \theta _kx_k$<br>凸集包含其任意元素的凸组合      </p>
+<h3 id="凸包"><a href="#凸包" class="headerlink" title="凸包"></a>凸包</h3><p>对任意集合$C$,包含$C$的最小凸集称为C的凸包<br> $Conv( C) &#x3D; { \theta <em>{1}x</em>{1}+ \cdots + \theta <em>{k}x</em>{k}| x_{1}, \ldots , x_{k}\in C$, $\theta _{1}, \ldots , \theta _{k}\in [ 0, 1]$, $\theta _{1}+ \cdots + \theta _{k}&#x3D; 1}$<br>凸包的几何意义由下图清晰地展示。<br> <img src="https://www.freeimg.cn/i/2024/08/28/66cf3c7206d3f.png" srcset="/img/loading.gif" lazyload alt="集合与其凸包"></p>
+<h1 id="锥"><a href="#锥" class="headerlink" title="锥"></a>锥</h1><ul>
+<li><p>椎：$\forall x\in C$, $\theta \geq 0\Rightarrow \theta x\in C$</p>
+</li>
+<li><p>凸锥$\forall x_1, x_{2}\in C$, $\theta _{1}, \theta _{2}\geq 0\Rightarrow \theta <em>{1}x</em>{1}+ \theta <em>{2}x</em>{2}\in C$</p>
+</li>
+<li><p>凸锥组合：$\theta <em>{1}x</em>{1}+ \cdots + \theta <em>{k}x</em>{k}$, $\theta _{1}, \ldots , \theta _{k}\geq 0$</p>
+</li>
+<li><p>凸锥包：${\theta_{1}x_{1}+\cdots+\theta_{k}x_{k}|x_{1},\ldots,x_{k}\in C,\theta_{1},\ldots,\theta_{k}\geq0}$</p>
+</li>
+<li><p><img src="https://www.freeimg.cn/i/2024/08/28/66cf3d7d48949.png" srcset="/img/loading.gif" lazyload alt="凸锥的几何意义感受"><br><img src="https://www.freeimg.cn/i/2024/08/28/66cf3d7d47a57.png" srcset="/img/loading.gif" lazyload alt="凸锥包的几何意义感受"></p>
+</li>
+</ul>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>设 $x_1,\ldots,x_k\in C,\forall\theta_1,\ldots,\theta_k\in C$,在下表对应的情况下，</p>
+<p>$$\begin{array}{|c|c|c|}\hline\text{仿射集}&amp;\text{凸集}&amp;\text{凸锥}\\hline\theta_1+\cdots+\theta_k&#x3D;1&amp;\theta_1+\cdots+\theta_k&#x3D;1\\theta_1,\ldots,\theta_k\in R&amp;\theta_1,\ldots,\theta_k\in[0,1]&amp;\theta_1,\ldots,\theta_k\geq0\\hline\end{array}$$</p>
+<p>有$\sum_{i&#x3D;1}^k\theta_kx_k\in C$，则$C$为仿射集&#x2F;凸集&#x2F;凸锥。</p>
+<h1 id="凸集举例"><a href="#凸集举例" class="headerlink" title="凸集举例"></a>凸集举例</h1><ul>
+<li><p>$R^n$空间，$R^n$空间的子空间</p>
+</li>
+<li><p>任意直线(若过原点也为凸锥),任意线段，射线${x_0+\theta v|\theta\geq0,x\in R^n,\theta\in R,v\in R^n}$</p>
+</li>
+<li><p>超平面与半空间</p>
+</li>
+<li><p>球和椭球</p>
+</li>
+<li><p>多面体(Polyhedron)和单纯形(Simplex)</p>
+</li>
+<li><p>对称矩阵集合，对称半正定矩阵集合，对称正定矩阵集合</p>
+</li>
+</ul>
+<h3 id="超平面"><a href="#超平面" class="headerlink" title="超平面"></a>超平面</h3><ul>
+<li>超平面(hyperplane)${x\mid a^{T}x&#x3D;b}$为平面在高维空间中的扩展  ，它是凸集，是仿射集，若否过原点则是凸锥</li>
+<li>半空间(halfspace)${a^Tx\geq b\text{或}a^Tx\leq b}$为由超平面分开的全空间的一半，它是凸集，非仿射集，若过原点则是凸锥<br><img src="https://www.freeimg.cn/i/2024/08/28/66cf403822d39.png" srcset="/img/loading.gif" lazyload alt="1724858421543.png"></li>
+</ul>
+<h3 id="球"><a href="#球" class="headerlink" title="球"></a>球</h3><p>$B(x_{c},r)&#x3D;{x\mid|x-x_{c}|<em>{2}\leq r}&#x3D;{x\mid\sqrt{(x-x</em>{c})^{T}(x-x_{c})}\leq r}$是凸集<br>证：<br>$$\begin{aligned}&amp;\forall\theta\in[0,1]\text{,取 }f(x)&#x3D;|x-x_c|<em>2\&amp;|\theta x_1+(1-\theta)x_2-x_c|<em>2&#x3D;|\theta(x_1-x_c)+(1-\theta)(x_2-x_c)|<em>2\&amp;\leq \theta|x</em>{1}-x</em>{c}|</em>{2}+(1-\theta)|x_{2}-x_{c}|_{2}\end{aligned}$$</p>
+<h3 id="椭球"><a href="#椭球" class="headerlink" title="椭球"></a>椭球</h3><p>$$\varepsilon(x_{c},P)&#x3D;{x\mid(x-x_{c})^{T}P^{-1}(x-x_{c})\leq1}, x_{c}\in R^{n}, P\in S_{++}^{n}$$<br>其中P为对角矩阵，对角线上为矩阵的奇异值的平方，矩阵的奇异值对应了椭球的半轴长</p>
+<h3 id="多面体"><a href="#多面体" class="headerlink" title="多面体"></a>多面体</h3><p>多面体(polyhedron)是半空间与超平面的交集，为凸集。<br>$${x\mid a_{j}^{T}x\leq b_{j}, j&#x3D;1,\ldots,m, c_{j}^{T}x&#x3D;d_{j}, j&#x3D;1,\ldots,p}$$<br>当然多个条件也可以一起排列写成矩阵的形式，简单来说只有若干个线性不等式和等式的约束代表的凸集即是多面体，注意多面体不一定封闭。</p>
+<h3 id="单纯形"><a href="#单纯形" class="headerlink" title="单纯形"></a>单纯形</h3><p>在$\mathbb{R}^{n}$空间中选择$k+1$个仿射无关的点$v_0,v_1,\ldots,v_k ,$（也就是满足$v_1-v_0,v_2-v_0,\ldots,v_k-v_0$线性无关），我们称点$v_1,\ldots v_k$的凸包为单纯形<br>$$C&#x3D;conv{v_1,\ldots,v_k}&#x3D;{\theta^Tv|\theta\geq0,\sum_i\theta_i&#x3D;1}$$<br>例如，在$\mathbb{R}^{n}$<br>空间中，由两个点构造的凸包(线段)与三个点组成凸包(三角形)算是单纯形。但是四个点组成的凸包不是单纯形，因为在二维空间$\mathbb{R}^{n}$<br>中，四个点无法仿射独立。如下图</p>
+<p><img src="https://www.freeimg.cn/i/2024/08/28/66cf43c764829.png" srcset="/img/loading.gif" lazyload alt="例子"></p>
+<p>求证：单纯形是多面体的一种          </p>
+<p>定义</p>
+<p>$$ y&#x3D;[\theta_{1},\ldots,\theta_{k}], y\geq0, 1^{T}y\leq1(因为y中舍弃了\theta_0) $$</p>
+<p>$$B&#x3D;[v_{1}-v_{0},\ldots,v_{k}-v_{0}]\in R^{n\times k}$$</p>
+<p>则单纯形中的点$x&#x3D;\theta_{0}v_{0}+\cdots+\theta_{k}v_{k}$可以写为<br>$$x&#x3D;\theta_{0}v_{0}+\cdots+\theta_{k}v_{k}&#x3D;v_{0}+\theta_{1}(v_{1}-v_{0})+\cdots+\theta_{k}(v_{k}-v_{0})&#x3D;v_{0}+By \quad (1)$$<br>由于$B$是列满秩的，也即$rank(B)&#x3D;k$,也就是说我们总能通过初等行变换把$B$变为$B&#x3D;\left[\begin{array}{c}{ {I_{k} } }\{0}\end{array}\right]$<br>用数学的语言描述，我们总能找到可逆矩阵$A$，使得<br>$$A&#x3D;\left[\begin{array}{c}{A_{1} }\{}\{A_{2} }\end{array}\right]\in R^{n\times n}, \left[\begin{array}{c}{A_{1} }\{}\{A_{2} }\end{array}\right]B&#x3D;\left[\begin{array}{c}{I_{k} }\{0}\end{array}\right]$$<br>1式两边左乘$A$<br>$$\left.Ax&#x3D;Av_0+ABy\Rightarrow\left[\begin{array}{c}A_1\\A_2\end{array}\right.\right]x&#x3D;\left[\begin{array}{c}A_1\\A_2\end{array}\right]v_0+\left[\begin{array}{c}I_k\\0\end{array}\right]y$$<br>利用$y\geq 0$, $1^{T}y\leq 1$,有$A_1x\geq A_{1}v_{0}$, $1^{T}A_{1}x\leq 1^{T}Av_{0}+ 1$<br>则单纯形中的 x 可以表示为${x\mid A_1x\geq A_1v_0$, 1$^TA_1x\leq1^TAv_0+1,A_2x&#x3D;A_2v_0}$</p>
+<h3 id="一些矩阵"><a href="#一些矩阵" class="headerlink" title="一些矩阵"></a>一些矩阵</h3><ul>
+<li>对称矩阵集合：$S^{n}&#x3D;{x\in R^{n\times n}\mid X&#x3D;X^{T}}$</li>
+<li>半正定矩阵集合：$S_{+}^{n}&#x3D;{x\in R^{n\times n}\mid X&#x3D;X^{T}, X\succeq0}$</li>
+<li>正定矩阵集合:$S_{++}^{n}&#x3D;{x\in R^{n\times n}\mid X&#x3D;X^{T}, X\succ0}$</li>
+</ul>
+<h1 id="保凸运算举例"><a href="#保凸运算举例" class="headerlink" title="保凸运算举例"></a>保凸运算举例</h1><h3 id="任意多个凸集的交集"><a href="#任意多个凸集的交集" class="headerlink" title="任意多个凸集的交集"></a>任意多个凸集的交集</h3><p>若$S_0$为凸集，$\forall a\in A$,则$\bigcap_{a\in A}S_a$为凸集</p>
+<h3 id="仿射函数"><a href="#仿射函数" class="headerlink" title="仿射函数"></a>仿射函数</h3><p>当$f&#x3D; Ax+ b$, $A\in R^{m\times n}$, $b\in R^m$<br>若$S\in R^n$为凸，则$f(S)&#x3D;{f(x)\mid x\in S}$为凸，我们称$f:R^n\to R^m$ 是仿射的 (线性映射)</p>
+<h3 id="缩放和移位"><a href="#缩放和移位" class="headerlink" title="缩放和移位"></a>缩放和移位</h3><p>$$\alpha S&#x3D;{\alpha x\mid x\in S}\quad S+a&#x3D;{x+a\mid x\in S}$$</p>
+<h3 id="透视函数"><a href="#透视函数" class="headerlink" title="透视函数"></a>透视函数</h3><p>透视函数(perspective function):$P:R^{n+1}\to R^n,domP:R^n\times R_{++}$<br>$P( z, t) &#x3D; \frac zt$, $z\in R^n$, $t\in R_{+ + }$,凸集通过透视变换仍为凸集。</p>
+<p>形象的理解P：一个n+1维向量保留前n维，同时除以被扔掉的n+1维得到新的向量</p>
+<p>证明任意线段经过透视还是线段:</p>
+<p>$x &#x3D; (\tilde{x},x_{n+1}), y &#x3D; (\tilde{y},y_{n+1}), \tilde{x},\tilde{y} \in R^{n}, x_{n+1},y_{n+1} \in R_{++}, \theta \geq 0$<br>$$\begin{aligned}<br>\begin{aligned}P(\theta x+(1-\theta)y)\end{aligned}&amp; \begin{aligned}&#x3D;\frac{\theta\tilde{x}+(1-\theta)\tilde{y}}{\theta x_{n+1}+(1-\theta)y_{n+1}}\end{aligned} \<br>&amp;\begin{aligned}&amp;&#x3D;\frac{\theta x_{n+1}}{\theta x_{n+1}+(1-\theta)y_{n+1}}\frac{\tilde{x}}{x_{n+1}}+\frac{(1-\theta)y_{n+1}}{\theta x_{n+1}+(1-\theta)y_{n+1}}\frac{\tilde{y}}{y_{n+1}}\end{aligned} \<br>&amp;&#x3D;\mu P(x)+(1-\mu)P(y)<br>\end{aligned}$$</p>
+<h3 id="线性分数函数"><a href="#线性分数函数" class="headerlink" title="线性分数函数"></a>线性分数函数</h3><p>$A\in R^{m\times n},b\in R^{m},C\in R^{n},d\in R$，线性分数函数定义为<br>$$\begin{aligned}f(x)&#x3D;\frac{Ax+b}{cx+d}, domf&#x3D;{x\mid c^Tx+d&gt;0}\end{aligned}$$<br>这可以看成是对$x$进行两次集合运算得到的结果，先进行仿射变换<br>$$\delta(x)&#x3D;\left[\begin{array}{c}{A}\{c^{T}}\\end{array}\right]x+\left[\begin{array}{c}{b}\{d}\\end{array}\right]$$<br>再进行透视变换$P: R^{m+1}\to R^m$，因此两次保凸运算得到的结果依然是凸集</p>
+<h1 id="参考文献-blog"><a href="#参考文献-blog" class="headerlink" title="参考文献&#x2F;blog"></a>参考文献&#x2F;blog</h1><ul>
+<li><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV19M411T7S7?p=20&vd_source=84b977d2834d5eca6c0ca78bd619156f%EF%BC%8C%E4%B8%AD%E7%A7%91%E5%A4%A7/%E5%87%8C%E9%9D%92%E3%80%8A%E5%87%B8%E4%BC%98%E5%8C%96%E3%80%8B%EF%BC%8Cchapter1-9">https://www.bilibili.com/video/BV19M411T7S7?p=20&amp;vd_source=84b977d2834d5eca6c0ca78bd619156f，中科大/凌青《凸优化》，chapter1-9</a></li>
+<li>知乎专栏，<a target="_blank" rel="noopener" href="https://www.zhihu.com/column/c_1492543238217478144">https://www.zhihu.com/column/c_1492543238217478144</a></li>
+<li>知乎专栏，<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/c_1280779583399882752">https://zhuanlan.zhihu.com/c_1280779583399882752</a></li>
+<li>《ConvexOptimizationnotes》，<a target="_blank" rel="noopener" href="https://github.com/ZxyGed/ConvexOptimization%EF%BC%8CConvex_Sets">https://github.com/ZxyGed/ConvexOptimization，Convex_Sets</a> pdf笔记</li>
+</ul>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E6%95%B0%E5%AD%A6/" class="category-chain-item">数学</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/%E6%95%B0%E5%AD%A6/%E5%87%B8%E4%BC%98%E5%8C%96/" class="category-chain-item">凸优化</a>
+  
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E6%95%B0%E5%AD%A6/" class="print-no-link">#数学</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>凸集</div>
+      <div>http://example.com/2024/08/27/数学/凸优化/凸集/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>bradin</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2024年8月27日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2024/09/03/%E6%95%B0%E5%AD%A6/%E5%87%B8%E4%BC%98%E5%8C%96/%E5%87%B8%E9%97%AE%E9%A2%98/" title="凸问题">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">凸问题</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2024/08/23/%E6%95%B0%E5%AD%A6/%E5%87%B8%E4%BC%98%E5%8C%96/%E5%87%B8%E5%87%BD%E6%95%B0/" title="凸函数">
+                        <span class="hidden-mobile">凸函数</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+  
+  
+
+
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="busuanzi_container_site_pv" style="display: none">
+        总访问量 
+        <span id="busuanzi_value_site_pv"></span>
+         次
+      </span>
+    
+    
+      <span id="busuanzi_container_site_uv" style="display: none">
+        总访客数 
+        <span id="busuanzi_value_site_uv"></span>
+         人
+      </span>
+    
+    
+  
+</div>
+
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  
+      <script>
+        if (!window.MathJax) {
+          window.MathJax = {
+            tex    : {
+              inlineMath: { '[+]': [['$', '$']] }
+            },
+            loader : {
+              load: ['ui/lazy']
+            },
+            options: {
+              renderActions: {
+                insertedScript: [200, () => {
+                  document.querySelectorAll('mjx-container').forEach(node => {
+                    let target = node.parentNode;
+                    if (target.nodeName.toLowerCase() === 'li') {
+                      target.parentNode.classList.add('has-jax');
+                    }
+                  });
+                }, '', false]
+              }
+            }
+          };
+        } else {
+          MathJax.startup.document.state(0);
+          MathJax.texReset();
+          MathJax.typeset();
+          MathJax.typesetPromise();
+        }
+
+        Fluid.events.registerRefreshCallback(function() {
+          if ('MathJax' in window && MathJax.startup.document && typeof MathJax.startup.document.state === 'function') {
+            MathJax.startup.document.state(0);
+            MathJax.texReset();
+            MathJax.typeset();
+            MathJax.typesetPromise();
+          }
+        });
+      </script>
+    
+
+  <script  src="https://lib.baomitu.com/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
