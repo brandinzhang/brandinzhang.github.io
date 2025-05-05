@@ -1,0 +1,1163 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="bradin">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="本文持续更新作者在多标签学习领域总结的经典方法（baseline） MLKNN ML-KNN 是张敏灵，周志华的大作，是一种基于传统 KNN 的多标签分类扩展算法。 它结合了 KNN 和 贝叶斯推断（Bayesian inference），用于多标签问题，即一个样本可以同时属于多个类别。 基本步骤：  先找出每个测试样本的 K 个最近邻。 对每个标签，通过 最大后验概率（MAP）推断，判断该标签是">
+<meta property="og:type" content="article">
+<meta property="og:title" content="源头活水：multilabel-learning（持续更新）">
+<meta property="og:url" content="http://example.com/2025/05/05/%E6%96%87%E7%8C%AE/%E5%A4%9A%E6%A0%87%E7%AD%BE%E5%AD%A6%E4%B9%A0/index.html">
+<meta property="og:site_name" content="鸭蛋仙人的博客">
+<meta property="og:description" content="本文持续更新作者在多标签学习领域总结的经典方法（baseline） MLKNN ML-KNN 是张敏灵，周志华的大作，是一种基于传统 KNN 的多标签分类扩展算法。 它结合了 KNN 和 贝叶斯推断（Bayesian inference），用于多标签问题，即一个样本可以同时属于多个类别。 基本步骤：  先找出每个测试样本的 K 个最近邻。 对每个标签，通过 最大后验概率（MAP）推断，判断该标签是">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2025-05-05T08:24:30.569Z">
+<meta property="article:modified_time" content="2025-05-05T14:12:53.239Z">
+<meta property="article:author" content="bradin">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>源头活水：multilabel-learning（持续更新） - 鸭蛋仙人的博客</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.6","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>鸭蛋仙人</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/example/" target="_self">
+                <i class="iconfont icon-slack-fill"></i>
+                <span>example</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="源头活水：multilabel-learning（持续更新）"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2025-05-05 16:24" pubdate>
+          2025年5月5日 下午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          3k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          25 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="busuanzi_container_page_pv" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="busuanzi_value_page_pv"></span> 次
+        </span>
+        
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">源头活水：multilabel-learning（持续更新）</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <p>本文持续更新作者在多标签学习领域总结的经典方法（baseline）</p>
+<h1 id="mlknn">MLKNN</h1>
+<p><strong>ML-KNN</strong> 是张敏灵，周志华的大作，是一种基于传统
+<strong>KNN</strong> 的<strong>多标签分类</strong>扩展算法。 它结合了
+KNN 和 <strong>贝叶斯推断（Bayesian
+inference）</strong>，用于多标签问题，即一个样本可以同时属于多个类别。</p>
+<p>基本步骤：</p>
+<ul>
+<li>先找出每个测试样本的 <strong>K 个最近邻</strong>。</li>
+<li>对每个标签，通过
+<strong>最大后验概率（MAP）推断</strong>，判断该标签是否应该赋予这个样本。</li>
+</ul>
+<p>为了推导清晰，先设符号：</p>
+<ul>
+<li><span
+class="math inline">ℒ = {<em>l</em><sub>1</sub>, <em>l</em><sub>2</sub>, ..., <em>l</em><sub><em>q</em></sub>}</span>：总共有
+<span class="math inline"><em>q</em></span> 个标签。</li>
+<li><span class="math inline"><em>x</em></span>：测试样本。</li>
+<li><span class="math inline">𝒩(<em>x</em>)</span>：<span
+class="math inline"><em>x</em></span> 的 K 个最近邻。</li>
+<li><span
+class="math inline"><em>c</em><sub><em>j</em></sub> ∈ {0, 1}</span>：样本是否属于第
+<span class="math inline"><em>j</em></span>
+个标签。1表示有，0表示没有。</li>
+<li><span
+class="math inline"><em>n</em><sub><em>j</em></sub></span>：在邻居中，有多少个邻居拥有标签
+<span class="math inline"><em>l</em><sub><em>j</em></sub></span>。</li>
+</ul>
+<p>对于每个标签 <span
+class="math inline"><em>l</em><sub><em>j</em></sub></span>，我们希望计算：</p>
+<p><span
+class="math display"><em>P</em>(<em>c</em><sub><em>j</em></sub> = 1 ∣ <em>n</em><sub><em>j</em></sub>)  和  <em>P</em>(<em>c</em><sub><em>j</em></sub> = 0 ∣ <em>n</em><sub><em>j</em></sub>)</span></p>
+<p>即：</p>
+<ul>
+<li>给定 <span
+class="math inline"><em>n</em><sub><em>j</em></sub></span>
+个邻居拥有标签 <span
+class="math inline"><em>l</em><sub><em>j</em></sub></span>，样本自己拥有/不拥有标签
+<span class="math inline"><em>l</em><sub><em>j</em></sub></span>
+的概率。</li>
+</ul>
+<p>最后，<strong>比较两者大小</strong>：</p>
+<ul>
+<li>如果 <span
+class="math inline"><em>P</em>(<em>c</em><sub><em>j</em></sub> = 1 ∣ <em>n</em><sub><em>j</em></sub>) &gt; <em>P</em>(<em>c</em><sub><em>j</em></sub> = 0 ∣ <em>n</em><sub><em>j</em></sub>)</span>，就预测有标签。</li>
+<li>否则预测没有标签。</li>
+</ul>
+<p>根据贝叶斯公式：</p>
+<p><span class="math display">$$
+P(c_j \mid n_j) = \frac{P(n_j \mid c_j) \, P(c_j)}{P(n_j)}
+$$</span></p>
+<p>注意：</p>
+<ul>
+<li><p><span
+class="math inline"><em>P</em>(<em>n</em><sub><em>j</em></sub>)</span>
+在 <span class="math inline"><em>c</em><sub><em>j</em></sub> = 1</span>
+和 <span class="math inline"><em>c</em><sub><em>j</em></sub> = 0</span>
+的情况下是相同的，因此只比较分子就可以！</p></li>
+<li><p>所以，只需要计算：</p>
+<ul>
+<li><span
+class="math inline"><em>P</em>(<em>c</em><sub><em>j</em></sub> = 1)</span>，先验概率</li>
+<li><span
+class="math inline"><em>P</em>(<em>n</em><sub><em>j</em></sub> ∣ <em>c</em><sub><em>j</em></sub> = 1)</span>，似然概率</li>
+<li>同理 <span
+class="math inline"><em>c</em><sub><em>j</em></sub> = 0</span>
+时也计算一遍。</li>
+</ul></li>
+</ul>
+<p>从训练集中直接统计得到：</p>
+<p><span class="math display">$$
+P(c_j=1) = \frac{\text{样本中有标签 } l_j \text{ 的样本数} +
+s}{\text{总样本数} + 2s}
+$$</span></p>
+<p><span class="math display">$$
+P(c_j=0) = \frac{\text{样本中无标签 } l_j \text{ 的样本数} +
+s}{\text{总样本数} + 2s}
+$$</span></p>
+<p>其中 <span class="math inline"><em>s</em></span>
+是<strong>平滑参数</strong>（通常 <span
+class="math inline"><em>s</em> = 1</span>，防止除零问题）。</p>
+<p>同样通过统计得到：</p>
+<ul>
+<li><span
+class="math inline"><em>P</em>(<em>n</em><sub><em>j</em></sub> ∣ <em>c</em><sub><em>j</em></sub> = 1)</span>：在拥有标签
+<span class="math inline"><em>l</em><sub><em>j</em></sub></span>
+的样本中，K个邻居中有 <span
+class="math inline"><em>n</em><sub><em>j</em></sub></span>
+个拥有标签的概率。</li>
+<li><span
+class="math inline"><em>P</em>(<em>n</em><sub><em>j</em></sub> ∣ <em>c</em><sub><em>j</em></sub> = 0)</span>：在没有标签
+<span class="math inline"><em>l</em><sub><em>j</em></sub></span>
+的样本中，K个邻居中有 <span
+class="math inline"><em>n</em><sub><em>j</em></sub></span>
+个拥有标签的概率。</li>
+</ul>
+<p>具体估计公式：</p>
+<p><span class="math display">$$
+P(n_j \mid c_j=1) = \frac{\text{在有标签的样本中，邻居数为 } n_j \text{
+的样本数} + s}{\text{有标签的样本总数} + (K+1)s}
+$$</span></p>
+<p><span class="math display">$$
+P(n_j \mid c_j=0) = \frac{\text{在无标签的样本中，邻居数为 } n_j \text{
+的样本数} + s}{\text{无标签的样本总数} + (K+1)s}
+$$</span></p>
+<p>注意：<span class="math inline"><em>K</em> + 1</span> 是因为 <span
+class="math inline"><em>n</em><sub><em>j</em></sub></span> 可能取值
+<span class="math inline">0, 1, ..., <em>K</em></span>，一共有 <span
+class="math inline"><em>K</em> + 1</span> 个取值。</p>
+<p>对每个测试样本 <span class="math inline"><em>x</em></span>，每个标签
+<span class="math inline"><em>l</em><sub><em>j</em></sub></span>：</p>
+<ol type="1">
+<li><p>找出 <span class="math inline"><em>K</em></span> 个最近邻，统计
+<span
+class="math inline"><em>n</em><sub><em>j</em></sub></span>。</p></li>
+<li><p>计算：</p>
+<ul>
+<li><span
+class="math inline"><em>P</em>(<em>c</em><sub><em>j</em></sub> = 1)</span>，<span
+class="math inline"><em>P</em>(<em>c</em><sub><em>j</em></sub> = 0)</span></li>
+<li><span
+class="math inline"><em>P</em>(<em>n</em><sub><em>j</em></sub> ∣ <em>c</em><sub><em>j</em></sub> = 1)</span>，<span
+class="math inline"><em>P</em>(<em>n</em><sub><em>j</em></sub> ∣ <em>c</em><sub><em>j</em></sub> = 0)</span></li>
+</ul></li>
+<li><p>计算后验：</p>
+<ul>
+<li><span
+class="math inline"><em>P</em>(<em>c</em><sub><em>j</em></sub> = 1 ∣ <em>n</em><sub><em>j</em></sub>) ∝ <em>P</em>(<em>n</em><sub><em>j</em></sub> ∣ <em>c</em><sub><em>j</em></sub> = 1) × <em>P</em>(<em>c</em><sub><em>j</em></sub> = 1)</span></li>
+<li><span
+class="math inline"><em>P</em>(<em>c</em><sub><em>j</em></sub> = 0 ∣ <em>n</em><sub><em>j</em></sub>) ∝ <em>P</em>(<em>n</em><sub><em>j</em></sub> ∣ <em>c</em><sub><em>j</em></sub> = 0) × <em>P</em>(<em>c</em><sub><em>j</em></sub> = 0)</span></li>
+</ul></li>
+<li><p>比较大小，选择最大概率的标签预测。</p></li>
+</ol>
+<p>其实最终判断只用比较：</p>
+<p><span
+class="math display"><em>P</em>(<em>n</em><sub><em>j</em></sub> ∣ <em>c</em><sub><em>j</em></sub> = 1) × <em>P</em>(<em>c</em><sub><em>j</em></sub> = 1)  vs  <em>P</em>(<em>n</em><sub><em>j</em></sub> ∣ <em>c</em><sub><em>j</em></sub> = 0) × <em>P</em>(<em>c</em><sub><em>j</em></sub> = 0)</span></p>
+<p>事实上，MLKNN是利用局部邻居信息，对先验概率（标签占比）进行后验修正。这一方法事实上是单纯的单标签方法，因为这一点，MLKNN也一直收到批评。但是MLKNN是一种懒学习方法，对计算资源要求较低，而且效果相当的不错。</p>
+<h1 id="rakel">RAKEL</h1>
+<p>RAKEL是一种集成学习算法，其实是LP方法的进一步发展。LP方法就是把多标签转化为多分类问题，具体的是：把每一种标签组合看成一类，共<span
+class="math inline">2<sup><em>标</em><em>签</em><em>个</em><em>数</em> − 1</sup><em>类</em></span>。RAKEL为了缓解指数爆炸，通过构建多个子模型并综合结果来提升性能。其关键是通过随机选择标签子集（k-labELset）来捕捉标签间的局部相关性，避免全局计算的复杂性。</p>
+<p>算法步骤 1. 生成随机标签子集： •
+随机选择大小为<code>k</code>的标签子集（如k=3），生成<code>m</code>个子集，确保每个原始标签被覆盖多次。</p>
+<p>•
+例如：共有5个标签（A,B,C,D,E），生成子集{A,B,C}、{B,D,E}、{A,C,E}等。</p>
+<ol start="2" type="1">
+<li><p>训练子模型： •
+对每个k-labELset，使用标签幂集方法将其转换为多类分类问题。</p>
+<p>•
+例如：子集{A,B,C}对应8种可能的组合（2^3），训练一个基分类器（如SVM）识别这些组合。实际上解决一个多分类问题</p></li>
+<li><p>集成预测： • 对测试样本，每个基分类器预测其子集内的标签组合。</p>
+<p>•
+通过投票机制汇总结果：统计每个标签的预测频次，超过阈值则判定为关联。</p></li>
+</ol>
+<p>参数选择 • k值：通常取3-5，过小可能忽略依赖，过大增加计算量。</p>
+<p>•
+子集数量m：需足够覆盖所有标签，经验公式为<code>m ≈ 2L</code>（L为总标签数）。</p>
+<p>RAKEL vs. 其他方法对比</p>
+<table>
+
+<thead>
+<tr>
+<th>方法</th>
+<th>处理标签相关性</th>
+<th>计算复杂度</th>
+<th>适用场景</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>二元关联 (BR)</td>
+<td>忽略</td>
+<td>低</td>
+<td>标签独立性强</td>
+</tr>
+<tr>
+<td>分类器链 (CC)</td>
+<td>顺序依赖</td>
+<td>中</td>
+<td>标签有明确顺序依赖</td>
+</tr>
+<tr>
+<td>标签幂集 (LP)</td>
+<td>全局组合</td>
+<td>高</td>
+<td>标签数较少（&lt;20）</td>
+</tr>
+<tr>
+<td>RAKEL</td>
+<td>局部组合</td>
+<td>中-高</td>
+<td>中等规模标签（20-100）</td>
+</tr>
+</tbody>
+</table>
+<h1 id="分类器链cc--ecc集成分类器链">分类器链（CC）-&gt;
+ECC(集成分类器链)</h1>
+<p>分类器链（Classifier Chains, CC）</p>
+<p><strong>算法流程</strong> 1. 定义标签顺序：<br />
+• 按自然顺序（如标签出现频率）或随机生成顺序（如 <span
+class="math inline"><em>y</em><sub>2</sub> → <em>y</em><sub>5</sub> → <em>y</em><sub>1</sub> → ...</span>）。</p>
+<ol start="2" type="1">
+<li><p>训练阶段：<br />
+• 对每个标签 <span
+class="math inline"><em>y</em><sub><em>i</em></sub></span>：</p>
+<p>◦ 输入：原始特征 <span class="math inline"><em>X</em></span> +
+前面标签的真实值 <span
+class="math inline"><em>y</em><sub>1</sub>, <em>y</em><sub>2</sub>, ..., <em>y</em><sub><em>i</em> − 1</sub></span>（训练时使用真实标签）。</p>
+<p>◦ 输出：训练一个二分类器（如逻辑回归、SVM）预测 <span
+class="math inline"><em>y</em><sub><em>i</em></sub></span>。</p></li>
+<li><p>预测阶段：<br />
+• 迭代预测：</p>
+<ol type="1">
+<li>预测 <span
+class="math inline"><em>y</em><sub>1</sub></span>：输入仅原始特征 <span
+class="math inline"><em>X</em></span>。<br />
+</li>
+<li>预测 <span class="math inline"><em>y</em><sub>2</sub></span>：输入
+<span
+class="math inline"><em>X</em> + <em>ŷ</em><sub>1</sub></span>（<span
+class="math inline"><em>ŷ</em><sub>1</sub></span> 是 <span
+class="math inline"><em>y</em><sub>1</sub></span> 的预测值）。<br />
+</li>
+<li>依此类推，直到预测完所有标签。<br />
+•
+注意：预测时使用前序标签的预测值（而非真实值），因此误差会沿链传播。</li>
+</ol></li>
+</ol>
+<p><strong>示例说明</strong> 任务：音乐分类，标签为 {摇滚, 激烈,
+人声}。<br />
+• 标签顺序：摇滚 → 激烈 → 人声。</p>
+<p>• 预测过程：</p>
+<ol type="1">
+<li>预测“摇滚”：输入歌曲特征 → 输出 1（是摇滚）。<br />
+</li>
+<li>预测“激烈”：输入歌曲特征 + 摇滚=1 → 输出 1（激烈）。<br />
+</li>
+<li>预测“人声”：输入歌曲特征 + 摇滚=1 + 激烈=1 → 输出
+0（无人声）。<br />
+• 结果：标签为 {摇滚, 激烈}。</li>
+</ol>
+<p><strong>优点</strong> 1.
+捕捉标签依赖：显式利用前序标签信息，提升相关性强的标签预测精度。<br />
+2. 灵活性：兼容任意二分类算法作为基分类器。<br />
+3. 计算可控：复杂度为 <span
+class="math inline"><em>O</em>(<em>L</em>)</span>，适用于中等规模标签（<span
+class="math inline"><em>L</em> &lt; 100</span>）。</p>
+<p><strong>缺点</strong> 1.
+误差传播：前序标签预测错误会导致后续标签误差累积。<br />
+• <em>例如</em>：若“摇滚”误判为 0，后续“激烈”可能被错误预测为 0。</p>
+<ol start="2" type="1">
+<li>顺序敏感性：标签顺序影响模型性能，但最优顺序难以确定。<br />
+</li>
+<li>并行性差：链式结构需顺序预测，难以加速。</li>
+<li>若标签间独立性较强（如商品属性“颜色”“尺寸”），引入标签作为特征可能引入噪声!</li>
+</ol>
+<p>一种成功的改进方法是引入集成学习，创建ECC，通过多条分类器连链投票减少单条分类器链的误差。</p>
+<h1 id="bpmll">BPMLL</h1>
+<p>BPMLL（Backpropagation for Multi-Label Learning）详解</p>
+<p>BPMLL
+是一种基于神经网络的多标签分类算法，通过优化标签排序损失函数直接建模多标签间的复杂依赖关系</p>
+<p><strong>算法原理</strong></p>
+<p>输出层：每个标签对应一个神经元，输出值表示该标签的相关性得分（未归一化）。</p>
+<p><strong>2. 损失函数</strong> BPMLL 使用成对排序损失函数（Pairwise
+Ranking
+Loss），目标是让相关标签的得分高于无关标签的得分。具体公式如下：</p>
+<p><span class="math display">$$
+\text{Loss} = \sum_{i=1}^N \sum_{(y^+, y^-) \in Y_i^+ \times Y_i^-}
+\exp\big(-(f(x_i, y^+) - f(x_i, y^-))\big)
+$$</span> • <span class="math inline"><em>N</em></span>：样本数。</p>
+<p>• <span
+class="math inline"><em>Y</em><sub><em>i</em></sub><sup>+</sup></span>：样本
+<span class="math inline"><em>i</em></span> 的相关标签集合。</p>
+<p>• <span
+class="math inline"><em>Y</em><sub><em>i</em></sub><sup>−</sup></span>：样本
+<span class="math inline"><em>i</em></span> 的无关标签集合。</p>
+<p>• <span
+class="math inline"><em>f</em>(<em>x</em><sub><em>i</em></sub>, <em>y</em>)</span>：网络对样本
+<span class="math inline"><em>x</em><sub><em>i</em></sub></span> 在标签
+<span class="math inline"><em>y</em></span> 上的得分。</p>
+<p>优化目标：最小化相关标签与无关标签的得分差异，使得对每个样本，所有相关标签的得分均高于无关标签。</p>
+<p><strong>3. 训练流程</strong> 1. 前向传播：计算所有标签的得分。<br />
+2. 损失计算：根据成对排序损失，计算所有相关-无关标签对的损失。<br />
+3. 反向传播：通过梯度下降更新网络权重。<br />
+4. 预测：对测试样本，按标签得分从高到低排序，取前 <span
+class="math inline"><em>k</em></span> 个或超过阈值的标签。</p>
+<p><strong>优点</strong> 1. 捕捉标签依赖：<br />
+通过全局优化直接建模标签间复杂的依赖关系（如排斥、共现），无需手动设计链式或组合策略。<br />
+2. 排序信息利用：<br />
+输出标签的排序结果，适用于需要优先级判断的场景（如推荐系统）。<br />
+3. 灵活性高：<br />
+兼容任意神经网络结构（如 CNN、RNN），适合处理图像、文本等复杂数据。</p>
+<p><strong>缺点</strong> 1. 计算复杂度高：<br />
+成对损失需要对所有相关-无关标签对计算损失，当标签数 <span
+class="math inline"><em>L</em></span> 较大时，复杂度为 <span
+class="math inline"><em>O</em>(<em>L</em><sup>2</sup>)</span>，训练效率低。<br />
+<em>例如：若 <span
+class="math inline"><em>L</em> = 1000</span>，每样本需处理约 <span
+class="math inline">500 × 500 = 250, 000</span>
+对，计算量巨大。</em><br />
+2. 阈值敏感：<br />
+预测时需设定阈值或选择前 <span class="math inline"><em>k</em></span>
+个标签，阈值选择影响最终性能。</p>
+<p><strong>代码</strong> <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> torch<br><span class="hljs-keyword">import</span> torch.nn <span class="hljs-keyword">as</span> nn<br><span class="hljs-keyword">import</span> torch.optim <span class="hljs-keyword">as</span> optim<br><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">BPMLL</span>(nn.Module):<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__init__</span>(<span class="hljs-params">self, input_dim, hidden_dim, output_dim</span>):<br>        <span class="hljs-built_in">super</span>(BPMLL, <span class="hljs-variable language_">self</span>).__init__()<br>        <span class="hljs-variable language_">self</span>.fc1 = nn.Linear(input_dim, hidden_dim)<br>        <span class="hljs-variable language_">self</span>.fc2 = nn.Linear(hidden_dim, output_dim)<br>        <span class="hljs-variable language_">self</span>.relu = nn.ReLU()<br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">forward</span>(<span class="hljs-params">self, x</span>):<br>        x = <span class="hljs-variable language_">self</span>.relu(<span class="hljs-variable language_">self</span>.fc1(x))<br>        x = <span class="hljs-variable language_">self</span>.fc2(x)<br>        <span class="hljs-keyword">return</span> x  <br><br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">bp_mll_loss</span>(<span class="hljs-params">outputs, targets</span>):<br>    loss = <span class="hljs-number">0.0</span><br>    <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(outputs.size(<span class="hljs-number">0</span>)):<br>        pos = targets[i] == <span class="hljs-number">1</span><br>        neg = targets[i] == <span class="hljs-number">0</span><br>        <span class="hljs-keyword">for</span> y_plus <span class="hljs-keyword">in</span> outputs[i][pos].tolist():<br>            <span class="hljs-keyword">for</span> y_minus <span class="hljs-keyword">in</span> outputs[i][neg].tolist():<br>                loss += torch.exp(-(y_plus - y_minus))<br>    <span class="hljs-keyword">return</span> loss / outputs.size(<span class="hljs-number">0</span>)<br><br><br>model = BPMLL(input_dim=<span class="hljs-number">100</span>, hidden_dim=<span class="hljs-number">64</span>, output_dim=<span class="hljs-number">10</span>)<br>optimizer = optim.Adam(model.parameters(), lr=<span class="hljs-number">0.001</span>)<br><br><span class="hljs-keyword">for</span> epoch <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">100</span>):<br>    <span class="hljs-keyword">for</span> X_batch, y_batch <span class="hljs-keyword">in</span> dataloader:<br>        scores = model(X_batch)<br>        loss = bp_mll_loss(scores, y_batch)<br>        optimizer.zero_grad()<br>        loss.backward()<br>        optimizer.step()<br></code></pre></td></tr></table></figure></p>
+<figure>
+<img
+src="https://image-bed-1331150746.cos.ap-beijing.myqcloud.com/20250505192405.png" srcset="/img/loading.gif" lazyload
+alt="20250505192405" />
+<figcaption aria-hidden="true">20250505192405</figcaption>
+</figure>
+<h1 id="svm发展得来的方法">SVM发展得来的方法</h1>
+<h2 id="rank-svm">1.1Rank-SVM</h2>
+<p>我们想要将svm方法引入多标签问题，rank-svm是一个成功的例子。
+针对多标签学习问题（实例可同时关联多个标签），Rank-SVM通过引入排序机制扩展传统SVM。其核心思想为：对每个标签学习独立的分类器，并通过约束强制正标签得分高于负标签。</p>
+<p>设数据集包含Q个标签，优化问题表述为： <span class="math display">$$
+\begin{aligned}
+\min_{\boldsymbol{w}_k,\xi_{ikl}} &amp;\quad \frac{1}{2}\sum_{k=1}^Q
+\|\boldsymbol{w}_k\|^2 + C\sum_{i=1}^m
+\frac{1}{|Y_i||\bar{Y}_i|}\sum_{(k,l)\in Y_i\times\bar{Y}_i} \xi_{ikl}
+\\
+\text{s.t.} &amp;\quad \langle \boldsymbol{w}_k, \boldsymbol{x}_i
+\rangle - \langle \boldsymbol{w}_l, \boldsymbol{x}_i \rangle \geq 1 -
+\xi_{ikl} \\
+&amp;\quad \xi_{ikl} \geq 0,\quad \forall i\in\{1,...,m\},\ (k,l)\in
+Y_i\times\bar{Y}_i
+\end{aligned}
+$$</span></p>
+<ol type="1">
+<li><strong>排序约束</strong>：对每个样本<span
+class="math inline"><strong>x</strong><sub><em>i</em></sub></span>，其相关标签<span
+class="math inline"><em>k</em> ∈ <em>Y</em><sub><em>i</em></sub></span>的得分需高于无关标签<span
+class="math inline"><em>l</em> ∈ <em>Ȳ</em><sub><em>i</em></sub></span>至少1个边际单位</li>
+<li><strong>正则化项</strong>：<span
+class="math inline">$\frac{1}{2}\sum\|\boldsymbol{w}_k\|^2$</span>控制模型复杂度，防止过拟合</li>
+<li><strong>排序损失</strong>：<span
+class="math inline">∑<em>ξ</em><sub><em>i</em><em>k</em><em>l</em></sub></span>量化违反排序约束的惩罚，系数<span
+class="math inline">$\frac{1}{|Y_i||\bar{Y}_i|}$</span>实现样本间归一化</li>
+</ol>
+<h4 id="时间复杂度分析">时间复杂度分析</h4>
+<p>相较于单标签SVM，Rank-SVM复杂度显著增加：每个样本产生<span
+class="math inline">|<em>Y</em><sub><em>i</em></sub>|×|<em>Ȳ</em><sub><em>i</em></sub>|</span>个约束，总约束数达：
+<span class="math display">$$
+N_{\text{constr}} = \sum_{i=1}^m |Y_i|(Q-|Y_i|) \approx O(mQ^2)   
+$$</span> 当标签数Q较大时，约束规模呈平方增长问题求解的时间复杂度为：
+<span
+class="math display"><em>O</em>(<em>N</em><sub>constr</sub><sup>3</sup>) = <em>O</em>(<em>m</em><sup>3</sup><em>Q</em><sup>6</sup>)</span></p>
+<h2 id="knn加权单svm分类器">1.2 KNN加权单SVM分类器</h2>
+<h2 id="多标签tsvm加权">多标签TSVM加权</h2>
+<p>介绍两种结构用于建模label信息。</p>
+<h3 id="local-geometric-information">local geometric information</h3>
+<p>对于标签r定义两种边。i，j是对应于label:r的实例，而l是不对应label:r的实例。
+<img
+src="https://image-bed-1331150746.cos.ap-beijing.myqcloud.com/20250311212133.png" srcset="/img/loading.gif" lazyload
+alt="20250311212133" /></p>
+<p>第一种边对应r的类内关系，第二种边对应r内与非r样本的类间关系。</p>
+<p>作者还定义了 <span
+class="math display">$$f_{rl}=\begin{cases}1&amp;\mathrm{if~}\exists
+i,w_{dr,il}\neq0\\0&amp;\mathrm{otherwise}&amp;\end{cases}$$</span>
+用于衡量类r与任意的非r样本l之间的关系，若l在kNN的意义上距离r类足够近则该边为1.</p>
+<h3 id="structural-information-in-samples">structural information in
+samples</h3>
+<p>对于任意一个类r，将其ward聚类为若干个簇<span
+class="math inline"><em>C</em><sub><em>i</em></sub></span>,定义 <span
+class="math display">$$\begin{aligned}&amp;u_{C_{i}}=\frac{1}{|C_i|}\sum_{x_j\in
+C_i}x_j\\&amp;\Sigma_{C_{i}}=\frac{1}{|C_i|}\sum_{x_j\in
+C_i}\left(x_j-u_{C_i}\right)\left(x_j-u_{C_i}\right)^T\end{aligned}$$</span>
+并以矩阵 <span
+class="math display"><em>Σ</em><sub><em>r</em></sub> = <em>Σ</em><sub><em>C</em><sub>1</sub></sub> + … + <em>Σ</em><sub><em>C</em><sub><em>Λ</em><sub><em>r</em></sub></sub></sub></span>
+定义结构信息。</p>
+<p>作者最终模型是这样的 <img
+src="https://image-bed-1331150746.cos.ap-beijing.myqcloud.com/20250311214241.png" srcset="/img/loading.gif" lazyload
+alt="20250311214241" /></p>
+<p>加权在以下 个方面</p>
+<ul>
+<li><p><span
+class="math inline"><em>d</em><sub><em>i</em><em>r</em></sub> = ∑<sub><em>j</em> ∈ <em>I</em><sub><em>r</em></sub></sub><em>w</em><sub><em>s</em><em>r</em>, <em>i</em><em>j</em></sub></span>加权距离贴近，与上篇类似，用有多少个KNN近邻点衡量样本<span
+class="math inline"><em>x</em><sub><em>i</em></sub></span>之于<span
+class="math inline"><em>l</em><em>a</em><em>b</em><em>e</em><em>l</em> : <em>r</em></span>的重要性，邻居越多则越该被正确分类。</p></li>
+<li><p>项 <span
+class="math inline">$\frac{1}{2}c_{2r}\sum_{j\in\bar{I}_r}w_r^T\Sigma_rw_r$</span>
+的目的是通过结构化正则化约束分类超平面，使其与类别 <span
+class="math inline"><em>r</em></span>
+的数据分布特性对齐。具体解释如下（deepseek）：</p></li>
+</ul>
+<blockquote>
+<h3 id="协方差矩阵-sigma_r-的物理意义"><strong>1. 协方差矩阵 <span
+class="math inline"><em>Σ</em><sub><em>r</em></sub></span>
+的物理意义</strong></h3>
+<ul>
+<li><strong>结构信息表示</strong>：<span
+class="math inline"><em>Σ</em><sub><em>r</em></sub> = <em>Σ</em><sub><em>C</em><sub>1</sub></sub> + … + <em>Σ</em><sub><em>C</em><sub><em>Λ</em><sub><em>r</em></sub></sub></sub></span>
+是类别 <span class="math inline"><em>r</em></span>
+中所有子簇协方差矩阵的和，反映了该类别数据的整体分布特性。若数据在某一方向上的方差较大（即
+<span class="math inline"><em>Σ</em><sub><em>r</em></sub></span>
+对应特征值较大），则表明该方向数据分布较分散。</li>
+<li><strong>局部结构捕捉</strong>：通过 Ward 聚类将类别 <span
+class="math inline"><em>r</em></span> 划分为多个子簇，<span
+class="math inline"><em>Σ</em><sub><em>r</em></sub></span>
+能够刻画类内数据的局部几何结构（如多模态分布或异质子群）。 ###
+<strong>2. 优化项的作用</strong></li>
+<li><strong>结构化正则化</strong>：该项本质是数据依赖的正则化项，与传统的
+<span class="math inline"><em>L</em><sub>2</sub></span> 正则化（如 <span
+class="math inline">∥<em>w</em><sub><em>r</em></sub>∥<sup>2</sup></span>）不同，它通过
+<span class="math inline"><em>Σ</em><sub><em>r</em></sub></span>
+对不同方向施加自适应的惩罚。<br />
+</li>
+<li>若某方向数据方差大（<span
+class="math inline"><em>Σ</em><sub><em>r</em></sub></span>
+特征值大），则在该方向上 <span
+class="math inline"><em>w</em><sub><em>r</em></sub></span>
+的权重会被更严格约束，避免过拟合噪声或异常点。</li>
+<li>若某方向方差小（特征值小），则允许 <span
+class="math inline"><em>w</em><sub><em>r</em></sub></span>
+在该方向有更大权重，从而更贴合数据的紧密分布。</li>
+<li><strong>理论依据</strong>：<br />
+这一设计符合<strong>结构风险最小化</strong>原则，即通过引入先验知识（数据分布的结构信息）来约束模型复杂度，提升泛化能力。类似思想在流形学习（如
+LDA 的类内散度矩阵）和鲁棒优化中均有体现。 ### <strong>3.
+多标签分类中的意义</strong>
+在多标签场景下，不同标签可能对应不同的数据分布模式：</li>
+<li><strong>独立性假设</strong>：每个标签的超平面独立优化，<span
+class="math inline"><em>Σ</em><sub><em>r</em></sub></span>
+仅关注当前标签的数据结构，避免其他标签的干扰。</li>
+<li><strong>鲁棒性增强</strong>：通过显式建模类内结构，超平面能更好适应复杂分布（如多簇、非高斯分布），从&gt;而提升对噪声和异常值的鲁棒性。</li>
+</ul>
+</blockquote>
+<ul>
+<li>由于<span
+class="math inline"><em>f</em><sub><em>r</em><em>j</em></sub></span>用于衡量衡量类r与任意的非r样本l之间的关系,用于增强局部可分性</li>
+</ul>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E6%96%87%E7%8C%AE/" class="category-chain-item">文献</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/%E6%96%87%E7%8C%AE/ml%E7%90%86%E8%AE%BA/" class="category-chain-item">ml理论</a>
+  
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>源头活水：multilabel-learning（持续更新）</div>
+      <div>http://example.com/2025/05/05/文献/多标签学习/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>bradin</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2025年5月5日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2025/05/05/%E6%96%87%E7%8C%AE/QPP%E5%BF%AB%E9%80%9F%E6%B1%82%E8%A7%A3%E5%99%A8/" title="重剑无锋：超大规模QP快速优化器以及其他solver">
+                        <span class="hidden-mobile">重剑无锋：超大规模QP快速优化器以及其他solver</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+  
+  
+
+
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="busuanzi_container_site_pv" style="display: none">
+        总访问量 
+        <span id="busuanzi_value_site_pv"></span>
+         次
+      </span>
+    
+    
+      <span id="busuanzi_container_site_uv" style="display: none">
+        总访客数 
+        <span id="busuanzi_value_site_uv"></span>
+         人
+      </span>
+    
+    
+  
+</div>
+
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  
+      <script>
+        if (!window.MathJax) {
+          window.MathJax = {
+            tex    : {
+              inlineMath: { '[+]': [['$', '$']] }
+            },
+            loader : {
+              load: ['ui/lazy']
+            },
+            options: {
+              renderActions: {
+                insertedScript: [200, () => {
+                  document.querySelectorAll('mjx-container').forEach(node => {
+                    let target = node.parentNode;
+                    if (target.nodeName.toLowerCase() === 'li') {
+                      target.parentNode.classList.add('has-jax');
+                    }
+                  });
+                }, '', false]
+              }
+            }
+          };
+        } else {
+          MathJax.startup.document.state(0);
+          MathJax.texReset();
+          MathJax.typeset();
+          MathJax.typesetPromise();
+        }
+
+        Fluid.events.registerRefreshCallback(function() {
+          if ('MathJax' in window && MathJax.startup.document && typeof MathJax.startup.document.state === 'function') {
+            MathJax.startup.document.state(0);
+            MathJax.texReset();
+            MathJax.typeset();
+            MathJax.typesetPromise();
+          }
+        });
+      </script>
+    
+
+  <script  src="https://lib.baomitu.com/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

@@ -23,19 +23,11 @@
 <meta property="og:site_name" content="鸭蛋仙人的博客">
 <meta property="og:description" content="这一系列源自西瓜书，目的是对机器学习全局有大概的把握，重点不在于数学推导的细节，而在于了解各个经典模型的核心思想与insight，形成一张自己的地图，企望日后按图索骥。 引言 机器学习是什么？从数据中学习，基于数据产生模型去预测未知数据 基本术语&#x2F;假设 独立同分布：我们认为样本空间全体样本服从一个未知分布，我们获得的每一个样本都满足独立同分布，细细一想这一结果未必总是成立，样本之间高度共线性的情况">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://www.helloimg.com/i/2024/11/05/672a3580d8581.png">
-<meta property="og:image" content="https://www.helloimg.com/i/2024/11/05/672a374d524a3.png">
-<meta property="og:image" content="https://www.helloimg.com/i/2024/11/05/672a3f51379fe.png">
-<meta property="og:image" content="https://www.freeimg.cn/i/2024/11/06/672b878797fb2.webp">
-<meta property="og:image" content="https://www.freeimg.cn/i/2024/11/06/672b8bcb6690b.webp">
-<meta property="og:image" content="https://www.freeimg.cn/i/2024/11/08/672dd0954afe1.webp">
-<meta property="og:image" content="https://www.freeimg.cn/i/2024/08/05/66b0ac3260027.png">
 <meta property="article:published_time" content="2024-10-30T09:17:55.000Z">
-<meta property="article:modified_time" content="2025-04-28T11:04:36.166Z">
+<meta property="article:modified_time" content="2025-04-28T12:25:18.191Z">
 <meta property="article:author" content="bradin">
 <meta property="article:tag" content="机器学习">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://www.helloimg.com/i/2024/11/05/672a3580d8581.png">
   
   
     <meta name="referrer" content="no-referrer-when-downgrade">
@@ -384,8 +376,6 @@ class="math display">$$\lim_{m\mapsto\infty}\left(1-\frac1m\right)^m\mapsto\frac
 measure）</p>
 <p>回归问题常用均方误差做，下面着重讲一下分类问题的效果评估</p>
 <h2 id="查准率查全率f1">2.3.2 查准率/查全率/F1</h2>
-<p><img
-src="https://www.freeimg.cn/i/2024/11/06/672a4378dabf8.webp" srcset="/img/loading.gif" lazyload /></p>
 <p>分类问题目的是什么？从一堆瓜中找出来所有的好瓜，你用自己的模型找出来了一堆瓜，不过其中有好有坏<br />
 你找出来的瓜有多少是好瓜？由此定义了<strong>查准率
 P（precision）</strong><br />
@@ -395,9 +385,8 @@ P（precision）</strong><br />
 查准率和查全率是一对矛盾的度量.
 一般来说，查准率高时，查全率往往偏低；而查全率高时，查准率往往偏低.例如，若希望将好瓜尽可能多地选出来，
 则可通过增加选瓜的数量来实现，如果将所有西瓜都选上，那么所有的好瓜也必然都被选上了，但这样查准率就会较低；若希望选出的瓜中好瓜比例尽可能高，则可只挑选最有把握的瓜，但这样就难免会漏掉不少好瓜，使得查全率较低.通常只有在一些简单任务中，才可能使查全率和查准率都很高.</p>
-<p>我们可以画个图（其实就是收益曲线） <img
-src="https://www.freeimg.cn/i/2024/11/06/672a438ab2168.webp" srcset="/img/loading.gif" lazyload />
-怎么判断模型好坏？图中BC好判断，AB如何判断？<br />
+<p>我们可以画个图（其实就是收益曲线）</p>
+<p>怎么判断模型好坏？图中BC好判断，AB如何判断？<br />
 引入一个综合考虑查准率、查全率的性能度量：平衡点(Break-Event
 Point,简称BEP)，是查准率=查全率时的取值。这个值越大性能越好。</p>
 <p>但BEP还是过于简化了些，更常用的是F1度量，一个基于查准率与查全率的调和平均</p>
@@ -415,17 +404,10 @@ R}{(\beta^{2}\times P)+R}$$</span> 其中β&gt;
 -
 横轴是坏瓜的查全率（假正例率），即坏瓜里面有多大比例被不小心挑出来了。</p>
 <p>画个图是这样的</p>
-<figure>
-<img src="https://www.helloimg.com/i/2024/11/05/672a3580d8581.png" srcset="/img/loading.gif" lazyload
-alt="1730819590980.png" />
-<figcaption aria-hidden="true">1730819590980.png</figcaption>
-</figure>
 <p>最理想的情况肯定是坐标(0,1),好瓜全都挑出来了，坏瓜没有粗心选出来一个。同理最差情况是坐标(1,0).对角线实际上就是随机抽样。ROC围成的面积成为AUC，一般认为AUC越大模型效果越好</p>
 <h2 id="代价敏感错误率与代价曲线">2.3.4 代价敏感错误率与代价曲线</h2>
-<p>分类问题中的错误可以分为两种，不小心选了坏瓜，漏选了好瓜，有时候这两种错误我们更重视某一种，因此自然地为二者引入不同的cost权重
-<img src="https://www.helloimg.com/i/2024/11/05/672a374d524a3.png" srcset="/img/loading.gif" lazyload
-alt="1730820050659.png" /><br />
-如此一来，上面的ROC曲线就不管用了，考虑引入权重作图。<br />
+<p>分类问题中的错误可以分为两种，不小心选了坏瓜，漏选了好瓜，有时候这两种错误我们更重视某一种，因此自然地为二者引入不同的cost权重</p>
+<p>如此一来，上面的ROC曲线就不管用了，考虑引入权重作图。<br />
 这一块不太好理解，我写一下个人的阐述<br />
 横轴为正例概率代价，其实是假设我们的模型就是随机取样，对总代价的归一化度量
 <span class="math display">$$P(+)cost=\frac{p\times cost_{01}}{p\times
@@ -470,11 +452,6 @@ class="math display"><em>E</em>(<em>f</em>; <em>D</em>) = <em>b</em><em>i<
 <li><p><strong>例子</strong>：在房价预测中，噪声可能来自于房屋价格的随机波动、数据收集过程中的误差、或者某些无法量化的特征（如房屋的“风水”好坏）。这些因素都会导致房价的不确定性，使得即使是最优的模型也无法完全准确地预测房价。</p></li>
 <li><p><strong>影响</strong>：噪声限制了模型性能的上限。无论模型多么复杂或精细，它都无法超越噪声所设定的泛化误差下界。</p></li>
 </ul>
-<figure>
-<img src="https://www.helloimg.com/i/2024/11/05/672a3f51379fe.png" srcset="/img/loading.gif" lazyload
-alt="1730822103884.png" />
-<figcaption aria-hidden="true">1730822103884.png</figcaption>
-</figure>
 <h1 id="基本形式">3.1基本形式</h1>
 <p><span
 class="math display"><em>f</em>(<strong>x</strong>) = <strong>w</strong><sup>T</sup><strong>x</strong> + <em>b</em></span></p>
@@ -506,8 +483,7 @@ class="math display">$$\ell(\boldsymbol{\beta})=\sum_{i=1}^m\left(-y_i\boldsymbo
 <p>LDA 的思想非常朴素：给定训练样例集，设法将样例投影到一条直线上，
 使得同类样例的投影点尽可能接近、异类样例的投影点尽可能远离；在对新样本进行分类时，将其投影到同样的这条直线上，再根据投影点的位置来确定新样本的类别.图
 3.3 给出了一个二维示意图.</p>
-<p><img src="https://www.freeimg.cn/i/2024/11/06/672b878797fb2.webp" srcset="/img/loading.gif" lazyload
-alt="1730905988970.png" /> 具体的推导可以参见暑期的统计机器学习笔记</p>
+<p>具体的推导可以参见暑期的统计机器学习笔记</p>
 <h1 id="多分类学习">3.5多分类学习</h1>
 <ul>
 <li>一对一（OvO）：将N个类别两两配对，产生<span
@@ -515,11 +491,6 @@ class="math inline"><em>N</em> * (<em>N</em> − 1)/2</span>个二分类
 <li>一对其余（OvR）：将一个类别作为正例，将其他类别作为反例来训练N个分类器，最终结果由置信度最大的一个分类器决定</li>
 <li>多对多（MvM）：常用纠错输出码方法（ECOC），训练时编码，对N个类别进行M次划分，训练M个二分类器。测试时解码，使用M个分类器对其预测，将生成的编码与每个类别的编码比较，距离最小的即为预测结果</li>
 </ul>
-<figure>
-<img src="https://www.freeimg.cn/i/2024/11/06/672b8bcb6690b.webp" srcset="/img/loading.gif" lazyload
-alt="1730907077041.png" />
-<figcaption aria-hidden="true">1730907077041.png</figcaption>
-</figure>
 <h1 id="类别不平衡问题">3.6类别不平衡问题</h1>
 <p>常用三种解决方法</p>
 <ul>
@@ -578,15 +549,9 @@ class="math inline"><em>w</em><sub><em>i</em></sub>, <em>t</em></span>都可�
 <h1 id="神经元模型">5.1神经元模型</h1>
 <p><span
 class="math display">$$y=f\left(\sum_{i=1}^nw_ix_i-\theta\right)$$</span>
-激活函数常用 <img
-src="https://www.freeimg.cn/i/2024/11/08/672dcdef9b6c9.webp" srcset="/img/loading.gif" lazyload
-alt="1731055085849.png" /> 以及RELU</p>
+激活函数常用</p>
+<p>以及RELU</p>
 <h1 id="感知机">5.2感知机</h1>
-<figure>
-<img src="https://www.freeimg.cn/i/2024/11/08/672dd0954afe1.webp" srcset="/img/loading.gif" lazyload
-alt="1731055763592.png" />
-<figcaption aria-hidden="true">1731055763592.png</figcaption>
-</figure>
 <p>举个例子</p>
 <p>我们要解决的问题是：二分类<span
 class="math inline"><em>N</em></span>个样本点<span
@@ -612,11 +577,6 @@ class="math inline"><em>w</em><sup><em>T</em></sup><em>x</em><sub><em>i</em></su
 class="math inline"><em>y</em><sub><em>i</em></sub> = −1</span>,因此对于正确分类的点<span
 class="math inline">(<em>x</em><sub><em>i</em></sub>, <em>y</em><sub><em>i</em></sub>)</span>，总有<span
 class="math inline"><em>y</em><sub><em>i</em></sub><em>w</em><sup><em>T</em></sup><em>x</em><sub><em>i</em></sub> &gt; 0</span></p>
-<figure>
-<img src="https://www.freeimg.cn/i/2024/08/05/66b0ac3260027.png" srcset="/img/loading.gif" lazyload
-alt="1722854448587.png" />
-<figcaption aria-hidden="true">1722854448587.png</figcaption>
-</figure>
 <p>综上所述，我们引入形如下式的loss函数 <span
 class="math display"><em>L</em>(<em>w</em>) = ∑<sub><em>x</em><sub><em>i</em></sub> ∈ 𝒟<sub><em>w</em><em>r</em><em>o</em><em>n</em><em>g</em></sub></sub> − <em>y</em><sub><em>i</em></sub><em>w</em><sup><em>T</em></sup><em>x</em><sub><em>i</em></sub></span></p>
 <p>应用梯度下降法可得</p>
@@ -657,9 +617,8 @@ class="math display">$$E=\lambda\frac1m\sum_{k=1}^mE_k+(1-\lambda)\sum_iw_i^2$$<
 class="math display">$$\left.\left\{\begin{array}{ll}\boldsymbol{w}^\mathrm{T}\boldsymbol{x}_i+b\geqslant+1,&amp;y_i=+1
 ;\\\boldsymbol{w}^\mathrm{T}\boldsymbol{x}_i+b\leqslant-1,&amp;y_i=-1
 .\end{array}\right.\right.$$</span>
-离超平面最近的几个样本点被称为支持向量 <img
-src="https://www.freeimg.cn/i/2024/11/09/672f2b47ebbb4.webp" srcset="/img/loading.gif" lazyload
-alt="1731144518117.png" /> 并定义间隔为： <span
+离超平面最近的几个样本点被称为支持向量</p>
+<p>并定义间隔为： <span
 class="math display">$$\gamma=\frac2{||\boldsymbol{w}||}$$</span>
 目标是找到最大间隔的超平面 <span
 class="math display">$$\begin{aligned}&amp;\max_{\boldsymbol{w},b}
@@ -725,9 +684,7 @@ class="math display"><em>f</em>(<em>x</em>) = <em>w</em><sup>T</sup><em>ϕ</
 \sum_{i=1}^{m}\sum_{j=1}^{m}\alpha_{i}\alpha_{j}y_{i}y_{j}\phi(\boldsymbol{x}_{i})^{\mathrm{T}}\phi(\boldsymbol{x}_{j})$$</span></p>
 <p>为了避免高维内积的困难，引入核函数 <span
 class="math display"><em>κ</em>(<strong>x</strong><sub><em>i</em></sub>, <strong>x</strong><sub><em>j</em></sub>) = ⟨<em>ϕ</em>(<strong>x</strong><sub><em>i</em></sub>), <em>ϕ</em>(<strong>x</strong><sub><em>j</em></sub>)⟩ = <em>ϕ</em>(<strong>x</strong><sub><em>i</em></sub>)<sup>T</sup><em>ϕ</em>(<strong>x</strong><sub><em>j</em></sub>)</span>
-给出一些常用核函数 <img
-src="https://www.freeimg.cn/i/2024/11/09/672f34a0c36ca.webp" srcset="/img/loading.gif" lazyload
-alt="1731146911184.png" /></p>
+给出一些常用核函数</p>
 <h1 id="软间隔与正则化">6.4 软间隔与正则化</h1>
 <p>允许svm在一些样本上出错，引入软间隔概念<br />
 比如，采用hinge损失，将目标函数改为 <span

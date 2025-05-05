@@ -1,0 +1,1227 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="bradin">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="求解大规模QPP问题，几乎是是每一种基于核方法的机器学习算法最终要面对的问题，求解器的发展也有及其长的历史，本文记录笔者学习过程中遇到的几种代表性，重要的方法。 接着，本文将继续推导其他不限于QPP的经典solver的实现细节。包括内点法等经典方法，以及现代神经网络训练使用到的adam，Nadam等主流优化器。书山有路勤为径，学海无涯苦作舟，机器学习理论与方法正在不断快速迭代，知识也应当是不断更新">
+<meta property="og:type" content="article">
+<meta property="og:title" content="重剑无锋：超大规模QP快速优化器以及其他solver">
+<meta property="og:url" content="http://example.com/2025/05/05/%E6%96%87%E7%8C%AE/QPP%E5%BF%AB%E9%80%9F%E6%B1%82%E8%A7%A3%E5%99%A8/index.html">
+<meta property="og:site_name" content="鸭蛋仙人的博客">
+<meta property="og:description" content="求解大规模QPP问题，几乎是是每一种基于核方法的机器学习算法最终要面对的问题，求解器的发展也有及其长的历史，本文记录笔者学习过程中遇到的几种代表性，重要的方法。 接着，本文将继续推导其他不限于QPP的经典solver的实现细节。包括内点法等经典方法，以及现代神经网络训练使用到的adam，Nadam等主流优化器。书山有路勤为径，学海无涯苦作舟，机器学习理论与方法正在不断快速迭代，知识也应当是不断更新">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2025-05-05T07:49:34.698Z">
+<meta property="article:modified_time" content="2025-05-05T14:38:50.612Z">
+<meta property="article:author" content="bradin">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>重剑无锋：超大规模QP快速优化器以及其他solver - 鸭蛋仙人的博客</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.6","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>鸭蛋仙人</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/example/" target="_self">
+                <i class="iconfont icon-slack-fill"></i>
+                <span>example</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="重剑无锋：超大规模QP快速优化器以及其他solver"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2025-05-05 15:49" pubdate>
+          2025年5月5日 下午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          2.1k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          18 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="busuanzi_container_page_pv" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="busuanzi_value_page_pv"></span> 次
+        </span>
+        
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">重剑无锋：超大规模QP快速优化器以及其他solver</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <p>求解大规模QPP问题，几乎是是每一种基于核方法的机器学习算法最终要面对的问题，求解器的发展也有及其长的历史，本文记录笔者学习过程中遇到的几种代表性，重要的方法。</p>
+<p>接着，本文将继续推导其他不限于QPP的经典solver的实现细节。包括内点法等经典方法，以及现代神经网络训练使用到的adam，Nadam等主流优化器。<strong>书山有路勤为径，学海无涯苦作舟</strong>，机器学习理论与方法正在不断快速迭代，知识也应当是不断更新的，笔者也会持续更新此文。</p>
+<p>此外，优化算法是个无底洞，对数学要求很高，除非专门做优化算法本身的学者，不建议过多时间投入到此处。建议在学习完一些经典的solver后，直接使用现成的库即可。比如scikit-learn，libsvm，torch，cvxopt，osqp等。</p>
+<h1 id="smo">SMO</h1>
+<p>1996年，John Platt 发布一个称为 SMO（Sequential Minimal
+Optimization，序列最小优化）的强大算法。（SVM）中，我们最终要解决的优化问题是一个<strong>二次规划问题（QP）</strong>：</p>
+<p><span class="math display">$$
+\max_{\boldsymbol\alpha} \quad W(\boldsymbol\alpha) = \sum_{i=1}^n
+\alpha_i - \frac{1}{2} \sum_{i,j} \alpha_i \alpha_j y_i y_j
+K(\mathbf{x}_i, \mathbf{x}_j)
+$$</span></p>
+<p><span class="math display">$$
+\text{s.t. } \sum_{i=1}^n \alpha_i y_i = 0,\quad 0 \le \alpha_i \le C
+$$</span></p>
+<p>这是一个约束优化问题，变量是 <span
+class="math inline"><em>α</em><sub>1</sub>, …, <em>α</em><sub><em>n</em></sub></span>，它们的个数和样本数量一样。求解上述问题需要专用的二次规划器（如内点法、拉格朗日对偶算法）。当样本数
+<span class="math inline"><em>n</em></span>
+较大（比如上万），存储和运算开销会非常高。所以我们需要一种<strong>更高效、结构化的优化方法</strong>。</p>
+<p>SMO 的核心理念是：</p>
+<blockquote>
+<p>“每次只优化两个变量（两个 <span
+class="math inline"><em>α</em></span>），将高维约束问题分解成一系列<strong>二元子问题</strong>，这些子问题可以<strong>解析求解</strong>。”</p>
+</blockquote>
+<p>为什么是两个？因为我们有一个等式约束：</p>
+<p><span class="math display">$$
+\sum_{i=1}^n \alpha_i y_i = 0
+$$</span></p>
+<p>优化两个变量时，可以直接通过代数法消去其中一个，从而将约束转化为一维问题。</p>
+<h2
+id="第一步固定其他变量优化两个变量">第一步：固定其他变量，优化两个变量</h2>
+<p>目标函数（对偶）：</p>
+<p><span class="math display">$$
+W(\alpha) = \sum_{i=1}^n \alpha_i - \frac{1}{2} \sum_{i,j=1}^n \alpha_i
+\alpha_j y_i y_j K(x_i, x_j)
+$$</span></p>
+<p>固定除 <span
+class="math inline"><em>α</em><sub><em>i</em></sub>, <em>α</em><sub><em>j</em></sub></span>
+以外的变量后，这变成了一个关于 <span
+class="math inline"><em>α</em><sub><em>i</em></sub>, <em>α</em><sub><em>j</em></sub></span>
+的二元二次函数。</p>
+<p>由于 <span
+class="math display"><em>α</em><sub><em>i</em></sub><em>y</em><sub><em>i</em></sub> + <em>α</em><sub><em>j</em></sub><em>y</em><sub><em>j</em></sub> = −∑<sub><em>k</em> ≠ <em>i</em>, <em>j</em></sub><em>α</em><sub><em>k</em></sub><em>y</em><sub><em>k</em></sub> = 常数</span>
+故<span
+class="math inline"><em>α</em><sub><em>i</em></sub>, <em>α</em><sub><em>j</em></sub></span>更新前后，应当满足
+<span
+class="math display"><em>α</em><sub><em>i</em></sub><sup><em>o</em><em>l</em><em>d</em></sup><em>y</em><sub><em>i</em></sub> + <em>α</em><sub><em>j</em></sub><sup><em>o</em><em>l</em><em>d</em></sup><em>y</em><sub><em>j</em></sub> = <em>α</em><sub><em>i</em></sub><em>y</em><sub><em>i</em></sub> + <em>α</em><sub><em>j</em></sub><em>y</em><sub><em>j</em></sub></span>
+令<span
+class="math inline"><em>s</em> = <em>y</em><sub><em>i</em></sub><em>y</em><sub><em>j</em></sub></span>，可以将
+<span class="math inline"><em>α</em><sub><em>i</em></sub></span>
+表示为：</p>
+<p><span
+class="math display"><em>α</em><sub><em>i</em></sub> = <em>α</em><sub><em>i</em></sub><sup>old</sup> + <em>s</em>(<em>α</em><sub><em>j</em></sub><sup>old</sup> − <em>α</em><sub><em>j</em></sub>)</span></p>
+<h2 id="第二步构造二次目标函数">第二步：构造二次目标函数</h2>
+<p>此时的目标函数事实上变成了关于<span
+class="math inline"><em>α</em><sub><em>i</em></sub></span>,<span
+class="math inline"><em>α</em><sub><em>j</em></sub></span>的二元二次函数。
+<span class="math display">$$
+W(\alpha) = \text{常数} + \alpha_i + \alpha_j - \frac{1}{2} \left[
+\alpha_i^2 K_{ii} + \alpha_j^2 K_{jj} + 2 \alpha_i \alpha_j y_i y_j
+K_{ij}
+\right] - \text{其他项}
+$$</span></p>
+<p>代入：</p>
+<p><span
+class="math display"><em>α</em><sub><em>i</em></sub> = <em>α</em><sub><em>i</em></sub><sup>old</sup> + <em>s</em>(<em>α</em><sub><em>j</em></sub><sup>old</sup> − <em>α</em><sub><em>j</em></sub>)</span></p>
+<p>将上述整理，写为标准一维二次函数：</p>
+<p><span class="math display">$$
+W(a_j) = -\frac{1}{2} \eta a_j^2 + A a_j + \text{常数}
+$$</span></p>
+<p>其中：</p>
+<ul>
+<li><span
+class="math inline"><em>η</em> = <em>K</em><sub><em>i</em><em>i</em></sub> + <em>K</em><sub><em>j</em><em>j</em></sub> − 2<em>K</em><sub><em>i</em><em>j</em></sub></span></li>
+<li><span
+class="math inline"><em>A</em> = <em>y</em><sub><em>j</em></sub>(<em>E</em><sub><em>i</em></sub> − <em>E</em><sub><em>j</em></sub>)</span></li>
+<li>*<span
+class="math inline"><em>E</em><sub><em>i</em></sub> = <em>f</em>(<em>x</em><sub><em>i</em></sub>) − <em>y</em><sub><em>i</em></sub></span>，<span
+class="math inline"><em>E</em><sub><em>j</em></sub> = <em>f</em>(<em>x</em><sub><em>j</em></sub>) − <em>y</em><sub><em>j</em></sub></span>：预测误差</li>
+</ul>
+<p><span class="math display">$$
+\frac{dW}{d\alpha_j} = y_j (E_i - E_j) - \eta \cdot (\alpha_j -
+\alpha_j^{\text{old}})
+\Rightarrow
+$$</span></p>
+<p>令导数为 0，得到解析更新公式：</p>
+<p><span class="math display">$$
+\alpha_j^{\text{new, unclip}} = \alpha_j^{\text{old}} + \frac{y_j (E_i -
+E_j)}{\eta}
+\tag{2}
+$$</span></p>
+<h2 id="第三步边界裁剪clip">第三步：边界裁剪（clip）</h2>
+<figure>
+<img
+src="https://image-bed-1331150746.cos.ap-beijing.myqcloud.com/20250505163359.png" srcset="/img/loading.gif" lazyload
+alt="20250505163359" />
+<figcaption aria-hidden="true">20250505163359</figcaption>
+</figure>
+<p>为满足盒约束，根据 <span
+class="math inline"><em>y</em><sub><em>i</em></sub>, <em>y</em><sub><em>j</em></sub></span>
+的关系，推导出合法区间 <span
+class="math inline">[<em>L</em>, <em>H</em>]</span>。：</p>
+<ul>
+<li><p>若 <span
+class="math inline"><em>y</em><sub><em>i</em></sub> ≠ <em>y</em><sub><em>j</em></sub></span>：</p>
+<p><span
+class="math display"><em>L</em> = max (0, <em>α</em><sub><em>j</em></sub><sup>old</sup> − <em>α</em><sub><em>i</em></sub><sup>old</sup>),  <em>H</em> = min (<em>C</em>, <em>C</em> + <em>α</em><sub><em>j</em></sub><sup>old</sup> − <em>α</em><sub><em>i</em></sub><sup>old</sup>)</span></p></li>
+<li><p>若 <span
+class="math inline"><em>y</em><sub><em>i</em></sub> = <em>y</em><sub><em>j</em></sub></span>：</p>
+<p><span
+class="math display"><em>L</em> = max (0, <em>α</em><sub><em>i</em></sub><sup>old</sup> + <em>α</em><sub><em>j</em></sub><sup>old</sup> − <em>C</em>),  <em>H</em> = min (<em>C</em>, <em>α</em><sub><em>i</em></sub><sup>old</sup> + <em>α</em><sub><em>j</em></sub><sup>old</sup>)</span></p></li>
+</ul>
+<p>然后进行裁剪：</p>
+<p><span
+class="math display"><em>α</em><sub><em>j</em></sub><sup>new</sup> = clip(<em>α</em><sub><em>j</em></sub><sup>new,
+unclipped</sup>, <em>L</em>, <em>H</em>)</span></p>
+<h2 id="第四步更新另一个变量-alpha_i">第四步：更新另一个变量 <span
+class="math inline"><em>α</em><sub><em>i</em></sub></span></h2>
+<p>用约束表达式反求另一个变量：</p>
+<p><span
+class="math display"><em>α</em><sub><em>i</em></sub><sup>new</sup> = <em>α</em><sub><em>i</em></sub><sup>old</sup> + <em>s</em>(<em>α</em><sub><em>j</em></sub><sup>old</sup> − <em>α</em><sub><em>j</em></sub><sup>new</sup>)</span></p>
+<h2 id="第五步更新阈值-b">第五步：更新阈值 <span
+class="math inline"><em>b</em></span></h2>
+<p>b的更新是一种启发式方法，不做过多赘述，有两种情况下可选的更新策略：</p>
+<p><span
+class="math display"><em>b</em><sub>1</sub> = <em>b</em><sup>old</sup> − <em>E</em><sub><em>i</em></sub> − <em>y</em><sub><em>i</em></sub>(<em>α</em><sub><em>i</em></sub><sup>new</sup> − <em>α</em><sub><em>i</em></sub><sup>old</sup>)<em>K</em><sub><em>i</em><em>i</em></sub> − <em>y</em><sub><em>j</em></sub>(<em>α</em><sub><em>j</em></sub><sup>new</sup> − <em>α</em><sub><em>j</em></sub><sup>old</sup>)<em>K</em><sub><em>i</em><em>j</em></sub></span></p>
+<p><span
+class="math display"><em>b</em><sub>2</sub> = <em>b</em><sup>old</sup> − <em>E</em><sub><em>j</em></sub> − <em>y</em><sub><em>i</em></sub>(<em>α</em><sub><em>i</em></sub><sup>new</sup> − <em>α</em><sub><em>i</em></sub><sup>old</sup>)<em>K</em><sub><em>i</em><em>j</em></sub> − <em>y</em><sub><em>j</em></sub>(<em>α</em><sub><em>j</em></sub><sup>new</sup> − <em>α</em><sub><em>j</em></sub><sup>old</sup>)<em>K</em><sub><em>j</em><em>j</em></sub></span></p>
+<p>最终的更新方式：</p>
+<ul>
+<li>如果 <span
+class="math inline">0 &lt; <em>α</em><sub><em>i</em></sub> &lt; <em>C</em></span>：设
+<span
+class="math inline"><em>b</em> = <em>b</em><sub>1</sub></span></li>
+<li>否则如果 <span
+class="math inline">0 &lt; <em>α</em><sub><em>j</em></sub> &lt; <em>C</em></span>：设
+<span
+class="math inline"><em>b</em> = <em>b</em><sub>2</sub></span></li>
+<li>否则取均值 <span
+class="math inline"><em>b</em> = (<em>b</em><sub>1</sub> + <em>b</em><sub>2</sub>)/2</span></li>
+</ul>
+<h1 id="sor逐次超松弛">SOR（逐次超松弛）</h1>
+<p>因为解大规模QPP等同于解大规模线性方程组，因此解方程组的方法也可以用于解QPP。</p>
+<p>我们从最基本的开始讲解，循序渐进地理解从雅可比（Jacobi）迭代法发展到
+SOR（Successive Over-Relaxation，逐次超松弛法）的来龙去脉。</p>
+<h2 id="一目标求解线性方程组">一、目标：求解线性方程组</h2>
+<p>我们的问题是： 给定一个线性方程组：</p>
+<p><span
+class="math display"><em>A</em><strong>x</strong> = <strong>b</strong></span></p>
+<p>其中：</p>
+<ul>
+<li><span
+class="math inline"><em>A</em> ∈ ℝ<sup><em>n</em> × <em>n</em></sup></span>：系数矩阵</li>
+<li><span
+class="math inline"><strong>x</strong> ∈ ℝ<sup><em>n</em></sup></span>：待求解向量</li>
+<li><span
+class="math inline"><strong>b</strong> ∈ ℝ<sup><em>n</em></sup></span>：常数向量</li>
+</ul>
+<p>当 <span class="math inline"><em>A</em></span>
+较大或稀疏时，直接解法（如高斯消元、LU
+分解）代价太高，所以我们使用<strong>迭代法</strong>。</p>
+<h2 id="二雅可比迭代法jacobi-method">二、雅可比迭代法（Jacobi
+Method）</h2>
+<p>在数值线性代数中，我们希望解线性方程组：</p>
+<p><span
+class="math display"><em>A</em><strong>x</strong> = <strong>b</strong></span></p>
+<p>当矩阵 <span class="math inline"><em>A</em></span>
+维度较大或稀疏时，直接求逆代价过高，因此考虑<strong>构造一个迭代过程</strong>，令解
+<span class="math inline"><strong>x</strong></span> 逐步逼近。</p>
+<p>这里我们将矩阵 <span class="math inline"><em>A</em></span>
+分解为三部分：</p>
+<p><span
+class="math display"><em>A</em> = <em>D</em> + <em>L</em> + <em>U</em></span></p>
+<ul>
+<li><span
+class="math inline"><em>D</em></span>：对角线上的元素（对角矩阵）</li>
+<li><span
+class="math inline"><em>L</em></span>：下三角部分（不含对角）</li>
+<li><span
+class="math inline"><em>U</em></span>：上三角部分（不含对角）</li>
+</ul>
+<p>将 <span
+class="math inline"><em>A</em><strong>x</strong> = <strong>b</strong></span>
+改写为：</p>
+<p><span
+class="math display"><em>D</em><strong>x</strong> = <strong>b</strong> − (<em>L</em> + <em>U</em>)<strong>x</strong></span></p>
+<p>两边左乘 <span
+class="math inline"><em>D</em><sup>−1</sup></span>，得到不动点形式：</p>
+<p><span
+class="math display"><strong>x</strong> = <em>D</em><sup>−1</sup>(<strong>b</strong> − (<em>L</em> + <em>U</em>)<strong>x</strong>)</span></p>
+<p>自然导出 Jacobi 迭代公式：</p>
+<p><span class="math display">$$
+\boxed{
+\mathbf{x}^{(k+1)} = D^{-1} \left( \mathbf{b} - (L + U)\mathbf{x}^{(k)}
+\right)
+}
+$$</span></p>
+<p>同理可以使用分量形式表达</p>
+<p>对于方程组第 <span class="math inline"><em>i</em></span> 行：</p>
+<p><span
+class="math display"><em>a</em><sub><em>i</em>1</sub><em>x</em><sub>1</sub> + ⋯ + <em>a</em><sub><em>i</em><em>i</em></sub><em>x</em><sub><em>i</em></sub> + ⋯ + <em>a</em><sub><em>i</em><em>n</em></sub><em>x</em><sub><em>n</em></sub> = <em>b</em><sub><em>i</em></sub></span></p>
+<p>解出 <span class="math inline"><em>x</em>_<em>i</em></span>：</p>
+<p><span class="math display">$$
+x_i = \frac{1}{a_{ii}} \left( b_i - \sum_{j \ne i} a_{ij}x_j \right)
+$$</span></p>
+<p>引入迭代思想，即将未知分量 <span
+class="math inline"><em>x</em>_<em>j</em></span>
+全部替换为上一步的近似值 <span
+class="math inline"><em>x</em>_<em>j</em><sup>(<em>k</em>)</sup></span>，得到：</p>
+<p><span class="math display">$$
+x_i^{(k+1)} = \frac{1}{a_{ii}} \left( b_i - \sum_{j \ne i}
+a_{ij}x_j^{(k)} \right)
+$$</span></p>
+<p>Jacobi 的主要问题是<strong>收敛慢</strong>。在一次迭代中，更新 <span
+class="math inline"><em>x</em><sub><em>i</em></sub><sup>(<em>k</em> + 1)</sup></span>
+时，不利用已经更新的 <span
+class="math inline"><em>x</em><sub>1</sub><sup>(<em>k</em> + 1)</sup>, …, <em>x</em><sub><em>i</em> − 1</sub><sup>(<em>k</em> + 1)</sup></span>，导致信息利用不充分。</p>
+<p>其收敛性取决于迭代矩阵 <span
+class="math inline"><em>M</em> = <em>D</em><sup>−1</sup>(<em>L</em> + <em>U</em>)</span>
+的谱半径 <span class="math inline"><em>ρ</em>(<em>M</em>)</span>：</p>
+<ul>
+<li>若 <span
+class="math inline"><em>ρ</em>(<em>M</em>) &lt; 1</span>，则收敛</li>
+<li>若 <span
+class="math inline"><em>ρ</em>(<em>M</em>) &gt; 1</span>，则发散</li>
+</ul>
+<p>例如：</p>
+<p><span class="math display">$$
+A = \begin{bmatrix} 1 &amp; 2 \\ 3 &amp; 4 \end{bmatrix}
+$$</span></p>
+<p>Jacobi 的迭代矩阵谱半径约为 <span
+class="math inline">1.08 &gt; 1</span>，因此不收敛。</p>
+<h3 id="小结">✅ 小结</h3>
+<p>Jacobi
+方法从线性方程组中构造出一个显式的不动点形式，每一步使用上次的全部值进行更新，适合并行计算。但由于更新中未充分利用最新值，收敛性较差，通常作为后续
+Gauss-Seidel 或 SOR 方法的引子。</p>
+<h2
+id="高斯-赛德尔gauss-seidel迭代法">高斯-赛德尔（Gauss-Seidel）迭代法</h2>
+<p>Jacobi 有个问题：每次迭代都等到所有 <span
+class="math inline"><em>x</em><sub><em>j</em></sub><sup>(<em>k</em>)</sup></span>
+用完才算完，不充分利用已更新的结果。</p>
+<p>Gauss-Seidel 改进：<strong>一边算一边更新</strong>。</p>
+<p>更新公式：</p>
+<p><span class="math display">$$
+x_i^{(k+1)} = \frac{1}{a_{ii}} \left( b_i - \sum_{j=1}^{i-1} a_{ij}
+x_j^{(k+1)} - \sum_{j=i+1}^{n} a_{ij} x_j^{(k)} \right)
+$$</span></p>
+<p>也就是：前面的 <span
+class="math inline"><em>x</em><sub><em>j</em></sub></span>
+用新值，后面的用旧值。</p>
+<p><strong>优点</strong>：通常比 Jacobi 收敛快
+<strong>缺点</strong>：仍可能收敛慢，特别是矩阵条件数不好时</p>
+<h2 id="逐次超松弛法sor">逐次超松弛法（SOR）</h2>
+<p>Gauss-Seidel 其实是 Jacobi 的“小步走”，SOR
+就是加速这个过程的“<strong>大步走</strong>”。</p>
+<p>在 Gauss-Seidel 的基础上，SOR 加入一个<strong>松弛因子</strong> <span
+class="math inline"><em>ω</em> ∈ (0, 2)</span>，做“加权平均”：</p>
+<p><span class="math display">$$
+x_i^{(k+1)} = (1 - \omega) x_i^{(k)} + \frac{\omega}{a_{ii}} \left( b_i
+- \sum_{j=1}^{i-1} a_{ij} x_j^{(k+1)} - \sum_{j=i+1}^{n} a_{ij}
+x_j^{(k)} \right)
+$$</span></p>
+<ul>
+<li>若 <span class="math inline"><em>ω</em> = 1</span>，就退化为
+Gauss-Seidel；</li>
+<li>若 <span
+class="math inline"><em>ω</em> ∈ (1, 2)</span>，为<strong>超松弛（加速）</strong>；</li>
+<li>若 <span
+class="math inline"><em>ω</em> ∈ (0, 1)</span>，为<strong>欠松弛（更稳定）</strong>。</li>
+</ul>
+<p>通过松弛因子<span
+class="math inline"><em>ω</em></span>引入惯性项，动态调整步长：</p>
+<p><span
+class="math display"><em>x</em><sub><em>i</em></sub><sup>(<em>k</em> + 1)</sup> = (1 − <em>ω</em>)<em>x</em><sub><em>i</em></sub><sup>(<em>k</em>)</sup> + <em>ω</em>(<em>G</em><em>a</em><em>u</em><em>s</em><em>s</em> − <em>S</em><em>e</em><em>i</em><em>d</em><em>e</em><em>l</em><em>更</em><em>新</em><em>量</em>)</span></p>
+<p><span
+class="math inline"><em>ω</em> &gt; 1</span>:放大修正步长(超松弛),加速逼近解。<span
+class="math inline"><em>ω</em> &lt; 1</span>:缩减不稳定更新(低松弛),抑制震荡。</p>
+<h1 id="dcdm对偶坐标下降方法">DCDM对偶坐标下降方法</h1>
+<p>源自ICML一篇论文(https://www.csie.ntu.edu.tw/~cjlin/papers/cddual.pdf)[https://www.csie.ntu.edu.tw/~cjlin/papers/cddual.pdf]</p>
+<p>对偶坐标下降方法（DCDM）的数学推导全流程</p>
+<p>原始SVM问题： <span class="math display">$$
+\min_w \frac{1}{2} w^T w + C \sum_{i=1}^l \xi(w; x_i, y_i)
+$$</span> 其中损失函数<span
+class="math inline"><em>ξ</em></span>为L1或L2损失： - L1-SVM：<span
+class="math inline"><em>ξ</em>(<em>w</em>; <em>x</em><sub><em>i</em></sub>, <em>y</em><sub><em>i</em></sub>) = max (1 − <em>y</em><sub><em>i</em></sub><em>w</em><sup><em>T</em></sup><em>x</em><sub><em>i</em></sub>, 0)</span></p>
+<ul>
+<li>L2-SVM：<span
+class="math inline"><em>ξ</em>(<em>w</em>; <em>x</em><sub><em>i</em></sub>, <em>y</em><sub><em>i</em></sub>) = max (1 − <em>y</em><sub><em>i</em></sub><em>w</em><sup><em>T</em></sup><em>x</em><sub><em>i</em></sub>, 0)<sup>2</sup></span></li>
+</ul>
+<p>对偶问题推导：引入拉格朗日乘子<span
+class="math inline"><em>α</em><sub><em>i</em></sub></span>，构造对偶函数。通过KKT条件，原始问题的对偶形式为</p>
+<p><span class="math display">$$
+\min_\alpha \frac{1}{2} \alpha^T \bar{Q} \alpha - e^T \alpha \quad
+\text{s.t.} \quad 0 \leq \alpha_i \leq U
+$$</span> 其中： - <span
+class="math inline"><em>Q̄</em> = <em>Q</em> + <em>D</em></span>，<span
+class="math inline"><em>Q</em><sub><em>i</em><em>j</em></sub> = <em>y</em><sub><em>i</em></sub><em>y</em><sub><em>j</em></sub><em>x</em><sub><em>i</em></sub><sup><em>T</em></sup><em>x</em><sub><em>j</em></sub></span></p>
+<ul>
+<li><p>L1-SVM：<span
+class="math inline"><em>D</em><sub><em>i</em><em>i</em></sub> = 0</span>，<span
+class="math inline"><em>U</em> = <em>C</em></span></p></li>
+<li><p>L2-SVM：<span
+class="math inline"><em>D</em><sub><em>i</em><em>i</em></sub> = 1/(2<em>C</em>)</span>，<span
+class="math inline"><em>U</em> = ∞</span></p></li>
+</ul>
+<p>为了方便叙述，先定义这样一组向量 <span
+class="math display"><strong>α</strong><sup><em>k</em>, <em>i</em></sup> = [<em>α</em><sub>1</sub><sup><em>k</em> + 1</sup>, …, <em>α</em><sub><em>i</em> − 1</sub><sup><em>k</em> + 1</sup>, <em>α</em><sub><em>i</em></sub><sup><em>k</em></sup>, …, <em>α</em><sub><em>l</em></sub><sup><em>k</em></sup>]<sup><em>T</em></sup></span>
+此时的<span
+class="math inline"><em>α</em></span>表示正在进行第K+1轮迭代，按顺序已经迭代完了前i-1个分量，正准备迭代其中第i个分量。</p>
+<p>DCDM的子问题定义： 固定除<span
+class="math inline"><em>α</em><sub><em>i</em></sub></span>外的所有变量，优化单变量<span
+class="math inline"><em>α</em><sub><em>i</em></sub></span>： <span
+class="math display">min<sub><em>d</em></sub><em>f</em>(<em>α</em> + <em>d</em><em>e</em><sub><em>i</em></sub>)  s.t.  0 ≤ <em>α</em><sub><em>i</em></sub> + <em>d</em> ≤ <em>U</em></span>
+其中<span class="math inline">$f(\alpha) = \frac{1}{2} \alpha^T \bar{Q}
+\alpha - e^T \alpha$</span>。</p>
+<p>目标函数泰勒展开后(二阶近似)是一个关于<span
+class="math inline"><em>d</em></span>的二次函数： <span
+class="math display">$$
+f(\alpha + d e_i) = \frac{1}{2} \bar{Q}_{ii} d^2 + \nabla_i f(\alpha) d
++ \text{常数项}
+$$</span> 其中梯度分量：<span
+class="math inline">∇<sub><em>i</em></sub><em>f</em>(<em>α</em>) = (<em>Q̄</em><em>α</em>)<sub><em>i</em></sub> − 1 = <em>y</em><sub><em>i</em></sub><em>w</em><sup><em>T</em></sup><em>x</em><sub><em>i</em></sub> − 1 + <em>D</em><sub><em>i</em><em>i</em></sub><em>α</em><sub><em>i</em></sub></span>，<span
+class="math inline"><em>w</em> = ∑<sub><em>j</em></sub><em>y</em><sub><em>j</em></sub><em>α</em><sub><em>j</em></sub><em>x</em><sub><em>j</em></sub></span>。</p>
+<p>闭式解推导： 1. 二次函数极小值：最优<span
+class="math inline"><em>d</em></span>为无约束解： <span
+class="math display">$$
+d^* = -\frac{\nabla_i f(\alpha)}{\bar{Q}_{ii}}
+$$</span> 2. 投影到可行域：</p>
+<p><span
+class="math display">$$\alpha_i^{k,i+1}=\min\left(\max\left(\alpha_i^{k,i}-\frac{\nabla_if(\boldsymbol{\alpha}^{k,i})}{\bar{Q}_{ii}},0\right),U\right)$$</span></p>
+<p>(即使用clip函数限制在（0，U）区间上)</p>
+<p>此时问题变成了如何高效求解<span
+class="math inline">∇<sub><em>i</em></sub><em>f</em>(<em>α</em>)</span>，自然地想法是直接求解<span
+class="math inline">$\nabla_if(\boldsymbol{\alpha})=(\bar{Q}\boldsymbol{\alpha})_i-1=\sum_{j=1}^l\bar{Q}_{ij}\alpha_j-1$</span>,其中<span
+class="math inline"><em>Q̄</em><sub><em>i</em><em>j</em></sub> = <em>x</em><sub><em>i</em></sub><sup>⊤</sup><em>x</em><sub><em>j</em></sub></span>,时间复杂度是<span
+class="math inline"><em>O</em>(<em>l</em><em>n̄</em>)</span>,<span
+class="math inline"><em>n̄</em></span>是平均非零特征数，这样的计算开销是巨大的。（可能会疑惑为何不预先计算出整个矩阵Q？事实上是因为存储成本太高！若样本数<span
+class="math inline"><em>l</em> = 10<sup>5</sup></span>, 那么Q存储<span
+class="math inline">10<sup>10</sup></span>个浮点数，粗略记每个单精度浮点数4字节，此时内存开销已经来到将近40GB，完全不可行）</p>
+<p>因此我们计算分量式子 <span
+class="math display">∇<sub><em>i</em></sub><em>f</em>(<strong>α</strong>) = <em>y</em><sub><em>i</em></sub><strong>w</strong><sup><em>T</em></sup><strong>x</strong><sub><em>i</em></sub> − 1 + <em>D</em><sub><em>i</em><em>i</em></sub><em>α</em><sub><em>i</em></sub></span>
+当然，如果按照定义式子<span
+class="math inline">$\boldsymbol{w}=\sum_{j=1}^ly_j\alpha_j\boldsymbol{x}_j$</span>求解<span
+class="math inline"><em>w</em></span>,复杂度就回到了<span
+class="math inline"><em>O</em>(<em>l</em><em>n̄</em>)</span>,为此作者也对<span
+class="math inline"><em>w</em></span>在每一轮进行迭代 <span
+class="math display"><strong>w</strong> ← <strong>w</strong> + (<em>α</em><sub><em>i</em></sub> − <em>ᾱ</em><sub><em>i</em></sub>)<em>y</em><sub><em>i</em></sub><strong>x</strong><sub><em>i</em></sub></span></p>
+<figure>
+<img
+src="https://image-bed-1331150746.cos.ap-beijing.myqcloud.com/20250505215415.png" srcset="/img/loading.gif" lazyload
+alt="20250505215415" />
+<figcaption aria-hidden="true">20250505215415</figcaption>
+</figure>
+<p>根据当前 <span
+class="math inline"><em>α</em><sub><em>i</em></sub></span>
+的位置，PG的计算分为以下三种情况：</p>
+<table>
+
+<thead>
+<tr>
+<th><span class="math inline"><em>α</em><sub><em>i</em></sub></span>
+的位置</th>
+<th>PG的计算公式</th>
+<th>物理意义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><span
+class="math inline">0 &lt; <em>α</em><sub><em>i</em></sub> &lt; <em>U</em></span>（内部）</td>
+<td><span
+class="math inline"><em>P</em><em>G</em> = <em>G</em></span></td>
+<td>变量未触及边界，直接使用原始梯度 <span
+class="math inline"><em>G</em></span> 的方向更新。</td>
+</tr>
+<tr>
+<td><span
+class="math inline"><em>α</em><sub><em>i</em></sub> = 0</span>（下边界）</td>
+<td><span
+class="math inline"><em>P</em><em>G</em> = min (<em>G</em>, 0)</span></td>
+<td>仅允许梯度方向为负（<span
+class="math inline"><em>G</em> &lt; 0</span>）时更新，避免 <span
+class="math inline"><em>α</em><sub><em>i</em></sub> &lt; 0</span>。</td>
+</tr>
+<tr>
+<td><span
+class="math inline"><em>α</em><sub><em>i</em></sub> = <em>U</em></span>（上边界）</td>
+<td><span
+class="math inline"><em>P</em><em>G</em> = max (<em>G</em>, 0)</span></td>
+<td>仅允许梯度方向为正（<span
+class="math inline"><em>G</em> &gt; 0</span>）时更新，避免 <span
+class="math inline"><em>α</em><sub><em>i</em></sub> &gt; <em>U</em></span>。</td>
+</tr>
+</tbody>
+</table>
+<h1 id="osqphttpsosqp.org">OSQP（https://osqp.org/）</h1>
+<p>原始论文地址(https://web.stanford.edu/~boyd/papers/pdf/osqp.pdf)</p>
+<p>介绍OSQP之前，需要先介绍ADMM（Alternating Direction Method of
+Multipliers）方法。ADMM是一个非常经典的优化算法，OSQP就是基于ADMM的一个变种。</p>
+<h2 id="admm">ADMM</h2>
+<p>Boyd等人的推导：（https://stanford.edu/~boyd/papers/pdf/admm_talk.pdf）</p>
+<p>ADMM 将优化问题分解为两个交替更新的子问题： <span
+class="math display">$$
+\begin{aligned}
+\min_{x,z} \quad &amp; f(x) + g(z) \\
+\text{s.t.} \quad &amp; A x + B z = c
+\end{aligned}
+$$</span> 写出增广拉格朗日函数 <span
+class="math display">$$\begin{aligned}L_\rho(\mathbf{x},\mathbf{z},\boldsymbol{\lambda})&amp;=Q_\rho(\mathbf{x},\mathbf{z})+\boldsymbol{\lambda}^\top(\mathbf{A}\mathbf{x}+\mathbf{B}\mathbf{z}-\mathbf{c})\\&amp;=f(\mathbf{x})+g(\mathbf{z})+\frac{\rho}{2}\|\mathbf{A}\mathbf{x}+\mathbf{B}\mathbf{z}-\mathbf{c}\|_2^2+\boldsymbol{\lambda}^\top(\mathbf{A}\mathbf{x}+\mathbf{B}\mathbf{z}-\mathbf{c})\end{aligned}$$</span>
+迭代公式： <span class="math display">$$
+\begin{aligned}
+x^{k+1} &amp;= \arg\min_x \left( f(x) + \frac{\rho}{2} \| A x + B z^k -
+c + \lambda^k \|^2 \right) \\
+z^{k+1} &amp;= \arg\min_z \left( g(z) + \frac{\rho}{2} \| A x^{k+1} + B
+z - c + \lambda^k \|^2 \right) \\
+\lambda^{k+1} &amp;= \lambda^k + \rho (A x^{k+1} + B z^{k+1} - c)
+\end{aligned}
+$$</span></p>
+<h2 id="osqp演变">OSQP演变</h2>
+<p>从ADMM到OSQP的数学推导</p>
+<p>考虑凸二次规划问题： <span class="math display">$$
+\begin{aligned}
+\min_{x} \quad &amp; \frac{1}{2}x^T P x + q^T x \\
+\text{s.t.} \quad &amp; l \leq A x \leq u
+\end{aligned}
+$$</span> 其中 <span class="math inline"><em>P</em> ≽ 0</span>，<span
+class="math inline"><em>A</em> ∈ ℝ<sup><em>m</em> × <em>n</em></sup></span>。引入辅助变量
+<span class="math inline"><em>z</em></span>，将原问题改写为： <span
+class="math display">$$
+\begin{aligned}
+\min_{x,z} \quad &amp; \frac{1}{2}x^T P x + q^T x + I_{[l, u]}(z) \\
+\text{s.t.} \quad &amp; A x = z
+\end{aligned}
+$$</span> 其中 <span
+class="math inline"><em>I</em><sub>[<em>l</em>, <em>u</em>]</sub>(<em>z</em>)</span>
+是指示函数： <span class="math display">$$
+I_{[l, u]}(z) =
+\begin{cases}
+0 &amp; \text{if } l \leq z \leq u \\
++\infty &amp; \text{otherwise}
+\end{cases}
+$$</span></p>
+<p>构造增广拉格朗日函数： <span class="math display">$$
+\mathcal{L}_\rho(x, z, y) = \frac{1}{2}x^T P x + q^T x + I_{[l, u]}(z) +
+y^T (A x - z) + \frac{\rho}{2} \|A x - z\|^2
+$$</span> 其中 <span
+class="math inline"><em>y</em> ∈ ℝ<sup><em>m</em></sup></span>
+为对偶变量，<span class="math inline"><em>ρ</em> &gt; 0</span>
+为惩罚参数。<strong>采用ADMM迭代步骤</strong>交替更新 <span
+class="math inline"><em>x</em></span>、<span
+class="math inline"><em>z</em></span>、<span
+class="math inline"><em>y</em></span>：</p>
+<p><strong>(1) <span
+class="math inline"><em>x</em></span>-子问题</strong> 固定 <span
+class="math inline"><em>z</em><sup><em>k</em></sup>, <em>y</em><sup><em>k</em></sup></span>，求解：
+<span class="math display">$$
+x^{k+1} = \arg\min_x \left( \frac{1}{2}x^T P x + q^T x + y^{kT} (A x -
+z^k) + \frac{\rho}{2} \|A x - z^k\|^2 \right)
+$$</span> 展开并整理目标函数： <span class="math display">$$
+x^{k+1} = \arg\min_x \frac{1}{2}x^T (P + \rho A^T A) x + \left( q + A^T
+( \rho z^k - y^k ) \right)^T x
+$$</span> 其解析解为： <span
+class="math display"><em>x</em><sup><em>k</em> + 1</sup> = −(<em>P</em> + <em>ρ</em><em>A</em><sup><em>T</em></sup><em>A</em>)<sup>−1</sup>(<em>q</em> + <em>A</em><sup><em>T</em></sup>(<em>ρ</em><em>z</em><sup><em>k</em></sup> − <em>y</em><sup><em>k</em></sup>))</span></p>
+<p><strong>(2) <span
+class="math inline"><em>z</em></span>-子问题</strong> 固定 <span
+class="math inline"><em>x</em><sup><em>k</em> + 1</sup>, <em>y</em><sup><em>k</em></sup></span>，求解：
+<span class="math display">$$
+z^{k+1} = \arg\min_z \left( I_{[l, u]}(z) + \frac{\rho}{2} \| z - (A
+x^{k+1} + \frac{y^k}{\rho}) \|^2 \right)
+$$</span> 等价于投影到区间 ([l, u])： <span class="math display">$$
+z^{k+1} = \Pi_{[l, u]} \left( A x^{k+1} + \frac{y^k}{\rho} \right)
+$$</span></p>
+<p><strong>(3) 对偶变量更新</strong> <span
+class="math display"><em>y</em><sup><em>k</em> + 1</sup> = <em>y</em><sup><em>k</em></sup> + <em>ρ</em>(<em>A</em><em>x</em><sup><em>k</em> + 1</sup> − <em>z</em><sup><em>k</em> + 1</sup>)</span></p>
+<p><strong>完整算法流程</strong> - 输入：初始 <span
+class="math inline"><em>x</em><sup>0</sup>, <em>z</em><sup>0</sup>, <em>y</em><sup>0</sup></span>，参数
+<span class="math inline"><em>ρ</em> &gt; 0</span>，容差 <span
+class="math inline"><em>ϵ</em></span>。<br />
+迭代直到收敛： - 1. 更新 <span
+class="math inline"><em>x</em><sup><em>k</em> + 1</sup> = −(<em>P</em> + <em>ρ</em><em>A</em><sup><em>T</em></sup><em>A</em>)<sup>−1</sup>(<em>q</em> + <em>A</em><sup><em>T</em></sup>(<em>ρ</em><em>z</em><sup><em>k</em></sup> − <em>y</em><sup><em>k</em></sup>))</span>
+- 2. 更新 <span class="math inline">$z^{k+1} = \Pi_{[l, u]} \left( A
+x^{k+1} + \frac{y^k}{\rho} \right)$</span> - 3. 更新 <span
+class="math inline"><em>y</em><sup><em>k</em> + 1</sup> = <em>y</em><sup><em>k</em></sup> + <em>ρ</em>(<em>A</em><em>x</em><sup><em>k</em> + 1</sup> − <em>z</em><sup><em>k</em> + 1</sup>)</span>
+- 4. 检查终止条件 <span
+class="math inline">∥<em>r</em><sup><em>k</em></sup>∥ ≤ <em>ϵ</em></span>,
+<span
+class="math inline">∥<em>s</em><sup><em>k</em></sup>∥ ≤ <em>ϵ</em></span></p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E6%96%87%E7%8C%AE/" class="category-chain-item">文献</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/%E6%96%87%E7%8C%AE/ml%E7%90%86%E8%AE%BA/" class="category-chain-item">ml理论</a>
+  
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>重剑无锋：超大规模QP快速优化器以及其他solver</div>
+      <div>http://example.com/2025/05/05/文献/QPP快速求解器/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>bradin</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2025年5月5日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2025/05/05/%E6%96%87%E7%8C%AE/%E5%A4%9A%E6%A0%87%E7%AD%BE%E5%AD%A6%E4%B9%A0/" title="源头活水：multilabel-learning（持续更新）">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">源头活水：multilabel-learning（持续更新）</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2025/03/22/cs/git%E7%AC%94%E8%AE%B0/" title="git协作开发指南">
+                        <span class="hidden-mobile">git协作开发指南</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+  
+  
+
+
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="busuanzi_container_site_pv" style="display: none">
+        总访问量 
+        <span id="busuanzi_value_site_pv"></span>
+         次
+      </span>
+    
+    
+      <span id="busuanzi_container_site_uv" style="display: none">
+        总访客数 
+        <span id="busuanzi_value_site_uv"></span>
+         人
+      </span>
+    
+    
+  
+</div>
+
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  
+      <script>
+        if (!window.MathJax) {
+          window.MathJax = {
+            tex    : {
+              inlineMath: { '[+]': [['$', '$']] }
+            },
+            loader : {
+              load: ['ui/lazy']
+            },
+            options: {
+              renderActions: {
+                insertedScript: [200, () => {
+                  document.querySelectorAll('mjx-container').forEach(node => {
+                    let target = node.parentNode;
+                    if (target.nodeName.toLowerCase() === 'li') {
+                      target.parentNode.classList.add('has-jax');
+                    }
+                  });
+                }, '', false]
+              }
+            }
+          };
+        } else {
+          MathJax.startup.document.state(0);
+          MathJax.texReset();
+          MathJax.typeset();
+          MathJax.typesetPromise();
+        }
+
+        Fluid.events.registerRefreshCallback(function() {
+          if ('MathJax' in window && MathJax.startup.document && typeof MathJax.startup.document.state === 'function') {
+            MathJax.startup.document.state(0);
+            MathJax.texReset();
+            MathJax.typeset();
+            MathJax.typesetPromise();
+          }
+        });
+      </script>
+    
+
+  <script  src="https://lib.baomitu.com/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

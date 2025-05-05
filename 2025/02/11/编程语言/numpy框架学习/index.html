@@ -25,7 +25,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://www.freeimg.cn/i/2025/02/07/67a5c241995fd.webp">
 <meta property="article:published_time" content="2025-02-10T16:00:00.000Z">
-<meta property="article:modified_time" content="2025-04-28T10:57:16.039Z">
+<meta property="article:modified_time" content="2025-05-05T07:45:43.537Z">
 <meta property="article:author" content="bradin">
 <meta property="article:tag" content="编程语言">
 <meta name="twitter:card" content="summary_large_image">
@@ -236,7 +236,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          4.6k 字
+          5k 字
         
       </span>
     
@@ -247,7 +247,7 @@
         
         
         
-          39 分钟
+          42 分钟
         
       </span>
     
@@ -800,10 +800,70 @@ condition 相同，数组中的元素根据条件从 x 或 y 中选取。 <figur
 </tr>
 </tbody>
 </table>
-<h3 id="关于维度的说明">关于维度的说明</h3>
-<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs py"><span class="hljs-comment"># 目标向量 y，形状为 (4, 1)</span><br>y = np.array([[<span class="hljs-number">3</span>], <br>              [<span class="hljs-number">7</span>], <br>              [<span class="hljs-number">11</span>], <br>              [<span class="hljs-number">15</span>]])<br><br><span class="hljs-comment"># 目标向量 y，形状为 (4,)</span><br>y = np.array([<span class="hljs-number">3</span>, <span class="hljs-number">7</span>, <span class="hljs-number">11</span>, <span class="hljs-number">15</span>])<br><br><br> 目标向量 y，形状为 (<span class="hljs-number">1</span>, <span class="hljs-number">4</span>)<br>y = np.array([[<span class="hljs-number">3</span>, <span class="hljs-number">7</span>, <span class="hljs-number">11</span>, <span class="hljs-number">15</span>]])<br><br></code></pre></td></tr></table></figure>
+<h3
+id="numpy关于维度的说明高频用法辨析">numpy关于维度的说明，高频用法辨析</h3>
+<p>写在前面： <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs py"><span class="hljs-comment"># 目标向量 y，形状为 (4, 1)</span><br>y = np.array([[<span class="hljs-number">3</span>], <br>              [<span class="hljs-number">7</span>], <br>              [<span class="hljs-number">11</span>], <br>              [<span class="hljs-number">15</span>]])<br><br><span class="hljs-comment"># 目标向量 y，形状为 (4,)</span><br>y = np.array([<span class="hljs-number">3</span>, <span class="hljs-number">7</span>, <span class="hljs-number">11</span>, <span class="hljs-number">15</span>])<br><br><br> 目标向量 y，形状为 (<span class="hljs-number">1</span>, <span class="hljs-number">4</span>)<br>y = np.array([[<span class="hljs-number">3</span>, <span class="hljs-number">7</span>, <span class="hljs-number">11</span>, <span class="hljs-number">15</span>]])<br><br></code></pre></td></tr></table></figure></p>
 <p>一般而言使用中间的一维向量参与到矩阵运算中即可，不用特意定义好行向量或者列向量，因为广播机制会自动把一维向量赋予行向量或列向量的形式。最后的运算结果如果是向量则为（n，）如果是数值就是数值</p>
 <p>如果使用1.3的定义方式也可，但是如果最后的计算结果为数值m的话，事实上会得到<code>[[m]]</code>的形式，需要手动取arr[0,0]获取数值参与其他只接受数值的运算！</p>
+<p>具体几个场景进行维度辨析</p>
+<h4 id="矩阵乘法">矩阵乘法</h4>
+<ul>
+<li>(m,n)*(n,)=(m,)</li>
+<li>(m,n)*(n,1)=(m,1)</li>
+<li>(m,)*(m,n)=(n,)</li>
+</ul>
+<p>简而言之，种瓜得瓜，种豆得豆，一维数组乘矩阵得一维数组，二维数组乘法的二维数组。同时，一维数组在与矩阵相乘的时候，会自动转化为合适的列向量或行向量进行形状匹配，前提是存在能匹配上的方式。</p>
+<h4 id="合并方式">合并方式</h4>
+<ul>
+<li>使用<code>append</code></li>
+</ul>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs py"><span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np<br><br><span class="hljs-comment"># 创建一个一维 numpy 数组</span><br>arr1 = np.array([<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>])<br>arr2 = np.array([<span class="hljs-number">4</span>,<span class="hljs-number">5</span>,<span class="hljs-number">6</span>])<br><span class="hljs-comment"># 创建一个空列表</span><br>my_list = []<br><br><span class="hljs-comment"># 将一维 numpy 数组追加到列表中</span><br>my_list.append(arr1)<br>my_list.append(arr2)<br><br><span class="hljs-built_in">print</span>(np.array(my_list))<br><span class="hljs-string">&quot;&quot;&quot;&quot;</span><br><span class="hljs-string">[[1 2 3]</span><br><span class="hljs-string"> [4 5 6]]</span><br><span class="hljs-string">&quot;&quot;&quot;</span><span class="hljs-string">&quot;</span><br></code></pre></td></tr></table></figure>
+<ul>
+<li>使用<code>vstack</code>,默认向下堆叠</li>
+</ul>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs py"><span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np<br>A = np.array([[<span class="hljs-number">1</span>, <span class="hljs-number">2</span>], [<span class="hljs-number">3</span>, <span class="hljs-number">4</span>], [<span class="hljs-number">5</span>, <span class="hljs-number">6</span>]])  <span class="hljs-comment"># 3x2</span><br>B = np.array([[<span class="hljs-number">1</span>, <span class="hljs-number">2</span>], [<span class="hljs-number">3</span>, <span class="hljs-number">4</span>], [<span class="hljs-number">5</span>, <span class="hljs-number">6</span>]])  <span class="hljs-comment"># 3x2</span><br><span class="hljs-built_in">print</span>(np.vstack((A, B)))<br><span class="hljs-string">&quot;&quot;&quot;&quot;</span><br><span class="hljs-string">[[1 2]</span><br><span class="hljs-string"> [3 4]</span><br><span class="hljs-string"> [5 6]</span><br><span class="hljs-string"> [1 2]</span><br><span class="hljs-string"> [3 4]</span><br><span class="hljs-string"> [5 6]]</span><br><span class="hljs-string">&quot;&quot;&quot;</span><span class="hljs-string">&quot;</span><br></code></pre></td></tr></table></figure>
+<h3 id="mask切片">mask切片</h3>
+<ul>
+<li>获取布尔数组进行判断</li>
+</ul>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs py"><span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np<br><br>distance1 = np.array([[<span class="hljs-number">0.1</span>], [<span class="hljs-number">0.2</span>], [<span class="hljs-number">0.3</span>]])<br>distance2 = np.array([[<span class="hljs-number">0.4</span>], [<span class="hljs-number">0.5</span>], [<span class="hljs-number">0.6</span>]])<br><br><span class="hljs-built_in">print</span>(distance1.shape)<br><span class="hljs-built_in">print</span>(distance2.shape)<br>predictions = (distance1 &lt; distance2).astype(<span class="hljs-built_in">int</span>)<br><span class="hljs-comment"># 此处是对二维数组进行广播比较，得到的布尔数组也是二维的，相反，若使用一维数组进行广播比较，得到的布尔数组也是一维的。</span><br></code></pre></td></tr></table></figure>
+<ul>
+<li>获取切片进行索引，切片维度必须是一维的，布尔数组会被看作是一维的筛选器，用于选择数组中对应位置为
+True 的行。（更复杂的，可以是使用整数索引或者混合索引，但是少用）</li>
+</ul>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs py"><span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np<br><br><br>A = np.array([[<span class="hljs-number">1</span>, <span class="hljs-number">2</span>], [<span class="hljs-number">3</span>, <span class="hljs-number">4</span>]])<br><br>beta = np.array([[<span class="hljs-number">0.000</span>], [<span class="hljs-number">0.002</span>]])<br><br>mask = beta &gt; <span class="hljs-number">1e-5</span><br>mask = mask.flatten()<br><span class="hljs-built_in">print</span>(A[mask])<br><span class="hljs-comment"># [[3 4]]</span><br></code></pre></td></tr></table></figure>
+<p>不过只要不使用切片，我们的索引操作都是对copy而言的，而非对视图而言的。</p>
+<table>
+<thead>
+<tr>
+<th>索引方式</th>
+<th>是否返回视图？</th>
+<th>修改是否影响原数组？</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>切片（slice）</td>
+<td>✅ 是视图</td>
+<td>✅ 会影响</td>
+</tr>
+<tr>
+<td>整数数组索引</td>
+<td>❌ 是拷贝</td>
+<td>❌ 不会影响</td>
+</tr>
+<tr>
+<td>布尔数组索引</td>
+<td>❌ 是拷贝</td>
+<td>❌ 不会影响</td>
+</tr>
+<tr>
+<td>单个整数索引</td>
+<td>返回标量</td>
+<td>✖️ 无法修改</td>
+</tr>
+</tbody>
+</table>
 
                 
               </div>
