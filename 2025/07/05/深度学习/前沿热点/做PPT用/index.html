@@ -1,0 +1,992 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="bradin">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="创新点1：Conflict-Aware Multi-Task Optimization for Object Tracking 该领域前沿进展，blog推荐 $$\mathbb{E}_{x,y\sim\mathcal{D}_T}[\ell(h_T(x),y)]\leq\hat{\mathcal{L}}_T+\mathcal{R}_T(H_T)+\mathcal{O}\left(\sqrt{\fra">
+<meta property="og:type" content="article">
+<meta property="og:title" content="深入思考FairMOT及其变体">
+<meta property="og:url" content="http://example.com/2025/07/05/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E5%89%8D%E6%B2%BF%E7%83%AD%E7%82%B9/%E5%81%9APPT%E7%94%A8/index.html">
+<meta property="og:site_name" content="鸭蛋仙人的博客">
+<meta property="og:description" content="创新点1：Conflict-Aware Multi-Task Optimization for Object Tracking 该领域前沿进展，blog推荐 $$\mathbb{E}_{x,y\sim\mathcal{D}_T}[\ell(h_T(x),y)]\leq\hat{\mathcal{L}}_T+\mathcal{R}_T(H_T)+\mathcal{O}\left(\sqrt{\fra">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2025-07-04T16:00:00.000Z">
+<meta property="article:modified_time" content="2025-07-07T09:32:41.073Z">
+<meta property="article:author" content="bradin">
+<meta property="article:tag" content="机器学习">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>深入思考FairMOT及其变体 - 鸭蛋仙人的博客</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.6","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.5.1/katex.min.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>鸭蛋仙人</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/example/" target="_self">
+                <i class="iconfont icon-slack-fill"></i>
+                <span>example</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="深入思考FairMOT及其变体"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2025-07-05 00:00" pubdate>
+          2025年7月5日 凌晨
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          1k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          9 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="busuanzi_container_page_pv" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="busuanzi_value_page_pv"></span> 次
+        </span>
+        
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">深入思考FairMOT及其变体</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1
+id="创新点1conflict-aware-multi-task-optimization-for-object-tracking">创新点1：Conflict-Aware
+Multi-Task Optimization for Object Tracking</h1>
+<p><a
+target="_blank" rel="noopener" href="https://www.ruder.io/multi-task/#:~:text=Hard%20parameter%20sharing%20greatly%20reduces,chance%20of%20overfitting%20on%20our">该领域前沿进展，blog推荐</a></p>
+<p><span
+class="math display">$$\mathbb{E}_{x,y\sim\mathcal{D}_T}[\ell(h_T(x),y)]\leq\hat{\mathcal{L}}_T+\mathcal{R}_T(H_T)+\mathcal{O}\left(\sqrt{\frac{\log(1/\delta)}{n_T}}\right)$$</span></p>
+<p><span class="math inline">$\hat{\mathcal{L}}_T$</span>
+是经验损失；</p>
+<p><span
+class="math inline">ℛ<sub><em>T</em></sub>(<em>H</em><sub><em>T</em></sub>)</span>
+是假设空间 <span
+class="math inline"><em>H</em><sub><em>T</em></sub></span> 的 Rademacher
+复杂度。</p>
+<p>设 <span class="math inline"><em>m</em></span> 个任务，平均每个任务有
+<span class="math inline"><em>n</em></span> 个样本，<span
+class="math inline"><em>H</em></span> 是共享表示的函数类：</p>
+<p><span
+class="math display">$$\mathbb{E}_T\left[\mathbb{E}_{x,y\sim\mathcal{D}_T}[\ell(h_T(x),y)]\right]\leq\frac{1}{m}\sum_{i=1}^m\hat{\mathcal{L}}_{T_i}+\mathcal{O}\left(\frac{C(H)}{\sqrt{mn}}\right)$$</span></p>
+<p>相比单任务的 <span
+class="math inline">$\mathcal{O}(1/\sqrt{n})$</span>，MTL 将样本数放大为
+<span class="math inline"><em>m</em><em>n</em></span>。</p>
+<p>从多任务学习框架，我们可以得知，多任务学习（MTL）通过共享表示来提高学习效率，然而这一假设的前提是，任务关联性越大越好。即式子中<span
+class="math inline"><em>C</em>(<em>H</em>)</span>不可以太大！如果两个任务的共性过低，共享表示会导致性能显著下降。（例如你给一个人布置俩任务，又让他当模特保持身材，又让他比赛相扑增加体重，可想而知这个人的学习必然是不顺利的）,在数学上我们可以得出如下的推论</p>
+<p><span class="math display">$$C(H) \downarrow \rightarrow
+\cos\theta=\frac{\langle\nabla_{\theta_s}\mathcal{L}_{\det},\nabla_{\theta_s}\mathcal{L}_{\mathrm{reid}}\rangle}{\|\nabla_{\theta_s}\mathcal{L}_{\det}\|\cdot\|\nabla_{\theta_s}\mathcal{L}_{\mathrm{reid}}\|}\approx1$$</span></p>
+<p>出于这一理论，我们可以设计一个梯度门控模块</p>
+<p><span class="math inline"><em>f</em><sub>det</sub></span> 为
+anchor-free heatmap 分支；</p>
+<p><span class="math inline"><em>f</em><sub>reid</sub></span> 为 linear
+embedding + triplet loss；</p>
+<p>两个任务共享 <span
+class="math inline"><em>θ</em><sub><em>s</em></sub></span>，目标是构造一个在联合分布
+<span class="math inline">𝒟<sub>joint</sub></span> 上最优的 <span
+class="math inline"><em>ϕ</em>(<em>x</em>; <em>θ</em><sub><em>s</em></sub>)</span>与最优的优化策略。</p>
+<p>通过动态调节特征通路，理论上可以保证任务损失方向一致性，即</p>
+<p><span
+class="math display">𝔼<sub><em>x</em></sub>[cos (∇<sub><em>θ</em><sub><em>s</em></sub></sub>ℒ<sub>det</sub>, ∇<sub><em>θ</em><sub><em>s</em></sub></sub>ℒ<sub>reid</sub>)] &gt; 0</span></p>
+<p>其中，冲突计算模块实时计算夹角（极低时间复杂度，可以忽略不计） <span
+class="math display">$$\theta(x)=\arccos\left(\frac{\langle\nabla_{\theta_s}\mathcal{L}_{\det}(x),\nabla_{\theta_s}\mathcal{L}_{\mathrm{reid}}(x)\rangle}{\|\cdot\|\|\cdot\|}\right)$$</span></p>
+<p>自适应特征解耦模块（Adaptive Feature Routing）引入门控设置：</p>
+<p><span
+class="math display"><em>ϕ</em><sub>det</sub>(<em>x</em>) = <em>G</em>(<em>θ</em>(<em>x</em>)) ⋅ <em>ϕ</em>(<em>x</em>),  <em>ϕ</em><sub>reid</sub>(<em>x</em>) = (1 − <em>G</em>(<em>θ</em>(<em>x</em>))) ⋅ <em>ϕ</em>(<em>x</em>)</span></p>
+<p>其中 <span class="math inline"><em>G</em>(<em>θ</em>)</span>
+是一个门控函数，例如： <span
+class="math display">$$G(\theta)=\frac{1}{1+\exp(-\alpha(\theta-\beta))}$$</span>
+或者 <span
+class="math display"><em>G</em>(<em>θ</em>) = <em>σ</em>(<em>a</em> ⋅ (<em>θ</em> − <em>π</em>/4))</span>
+当梯度方向相近（<span class="math inline"><em>θ</em></span> 小）→
+更多共享；</p>
+<p>冲突时（<span class="math inline"><em>θ</em></span> 大）→
+更多解耦。</p>
+<p>也就是损失函数保持不变，但共享特征使用带门控的 <span
+class="math inline"><em>ϕ</em><sub>det</sub>, <em>ϕ</em><sub>reid</sub></span>
+进行学习。</p>
+<figure>
+<img
+src="https://image-bed-1331150746.cos.ap-beijing.myqcloud.com/20250707104115.png" srcset="/img/loading.gif" lazyload
+alt="20250707104115" />
+<figcaption aria-hidden="true">20250707104115</figcaption>
+</figure>
+<h1 id="用到的所有算法总结">用到的所有算法总结</h1>
+<h2
+id="核心算法1匈牙利算法用于reid的匹配">核心算法1：匈牙利算法用于reID的匹配</h2>
+<p>匈牙利算法用于解决二分图最大匹配问题，在这里用于目标检测中的匹配任务。</p>
+<figure>
+<img
+src="https://image-bed-1331150746.cos.ap-beijing.myqcloud.com/20250707105822.png" srcset="/img/loading.gif" lazyload
+alt="20250707105822" />
+<figcaption aria-hidden="true">20250707105822</figcaption>
+</figure>
+<figure>
+<img
+src="https://image-bed-1331150746.cos.ap-beijing.myqcloud.com/20250707173148.png" srcset="/img/loading.gif" lazyload
+alt="20250707173148" />
+<figcaption aria-hidden="true">20250707173148</figcaption>
+</figure>
+<figure>
+<img
+src="https://image-bed-1331150746.cos.ap-beijing.myqcloud.com/20250707173158.png" srcset="/img/loading.gif" lazyload
+alt="20250707173158" />
+<figcaption aria-hidden="true">20250707173158</figcaption>
+</figure>
+<h2 id="核心算法2共享的backbone">核心算法2：共享的backbone</h2>
+<figure>
+<img
+src="https://image-bed-1331150746.cos.ap-beijing.myqcloud.com/20250707173208.png" srcset="/img/loading.gif" lazyload
+alt="20250707173208" />
+<figcaption aria-hidden="true">20250707173208</figcaption>
+</figure>
+<ul>
+<li>输入，经过卷积或其他操作后蕴含高级语义的图像特征图，</li>
+<li>输出，一个Embedding，蕴含着两大任务：detection和reID所需要的信息。</li>
+</ul>
+<h2
+id="核心算法345统计所有卷积块的作用">核心算法3,4,5：统计所有卷积块的作用</h2>
+<ul>
+<li><p>算法输入：图像特征图，或者说前面提取出来的Embedding</p></li>
+<li><p>算法输出：对于每个检测目标，我们希望网络预测出三个量：</p></li>
+</ul>
+<table style="width:100%;">
+
+<thead>
+<tr>
+<th>名称</th>
+<th>含义</th>
+<th>数学符号</th>
+<th>监督目标来源</th>
+<th>维度</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Heatmap</td>
+<td>目标中心点概率分布图（高斯图）</td>
+<td><span
+class="math inline"><em>Ŷ</em><sub>heat</sub> ∈ [0, 1]<sup><em>H</em> × <em>W</em> × <em>C</em></sup></span></td>
+<td>目标中心点位置</td>
+<td>每类1通道，共<span class="math inline"><em>C</em></span>类</td>
+</tr>
+<tr>
+<td>Box Size</td>
+<td>对应中心点的物体宽高</td>
+<td><span
+class="math inline"><em>Ŷ</em><sub>size</sub> ∈ ℝ<sup><em>H</em> × <em>W</em> × 2</sup></span></td>
+<td>GT框尺寸 <span
+class="math inline">(<em>w</em>, <em>h</em>)</span></td>
+<td>2通道</td>
+</tr>
+<tr>
+<td>Offset</td>
+<td>浮点中心点误差补偿</td>
+<td><span
+class="math inline"><em>Ŷ</em><sub>off</sub> ∈ ℝ<sup><em>H</em> × <em>W</em> × 2</sup></span></td>
+<td>像素坐标非整点偏移</td>
+<td>2通道</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>这里的 <span class="math inline"><em>H</em>, <em>W</em></span>
+是输出特征图尺寸（输入图像下采样后的尺寸）</p>
+</blockquote>
+<h3 id="heatmap预测目标中心点">1. Heatmap：预测目标中心点</h3>
+<p>目标是生成一个类似于热力图的分布，对于每个目标中心点，在其对应位置生成一个高斯峰：</p>
+<p>GT 中一个目标中心是 <span
+class="math inline">(<em>x</em><sub><em>i</em></sub>, <em>y</em><sub><em>i</em></sub>)</span></p>
+<p>将它映射到特征图坐标系：<span
+class="math inline">(<em>x̂</em><sub><em>i</em></sub>, <em>ŷ</em><sub><em>i</em></sub>) = (⌊<em>x</em><sub><em>i</em></sub>/<em>s</em>⌋, ⌊<em>y</em><sub><em>i</em></sub>/<em>s</em>⌋)</span>，<span
+class="math inline"><em>s</em></span> 是下采样倍数</p>
+<p>在 <span
+class="math inline">(<em>x̂</em><sub><em>i</em></sub>, <em>ŷ</em><sub><em>i</em></sub>)</span>
+周围画一个 半径为 <span class="math inline"><em>r</em></span>
+的高斯核</p>
+<p>构造 heatmap <span
+class="math inline"><em>Ŷ</em> ∈ [0, 1]<sup><em>H</em> × <em>W</em></sup></span>：中心为
+1，周围值小于 1</p>
+<p>使用focalloss计算损失</p>
+<p><span
+class="math display">$$\mathcal{L}_{\mathrm{focal}}=\begin{cases}(1-\hat{p}_{xy})^\alpha\log(\hat{p}_{xy})&amp;\mathrm{if}\hat{Y}_{xy}=1\\(1-\hat{Y}_{xy})^\beta(\hat{p}_{xy})^\alpha\log(1-\hat{p}_{xy})&amp;\mathrm{otherwise}\end{cases}$$</span></p>
+<p>其中</p>
+<ul>
+<li><p><span
+class="math inline"><em>p̂</em><sub><em>x</em><em>y</em></sub></span>
+是网络预测的 heatmap 值</p></li>
+<li><p><span class="math inline">(<em>x</em>, <em>y</em>)</span>
+是中心点（或邻域点）</p></li>
+<li><p><span class="math inline"><em>α</em>, <em>β</em></span>
+控制正负样本权重</p></li>
+</ul>
+<h3 id="box-size目标框的-w-h">2. Box Size：目标框的 <span
+class="math inline"><em>w</em>, <em>h</em></span></h3>
+<ul>
+<li><p>在每个中心点位置 <span
+class="math inline">(<em>i</em>, <em>j</em>)</span> 回归其 GT box
+的宽高：</p>
+<p><span
+class="math display"><em>Ŷ</em><sub>size</sub>[<em>i</em>, <em>j</em>] = (<em>w</em>, <em>h</em>)</span></p></li>
+<li><p>只在目标中心点上进行监督，损失函数使用 <span
+class="math inline"><em>ℓ</em><sub>1</sub></span> 或 smooth-<span
+class="math inline"><em>ℓ</em><sub>1</sub></span>：</p>
+<p><span class="math display">$$
+\mathcal{L}_{\text{size}} = \frac{1}{N} \sum_{(i,j) \in \text{centers}}
+\left\| \hat{Y}_{\text{size}}[i,j] - (w, h) \right\|_1
+$$</span></p></li>
+</ul>
+<h3 id="offset浮点中心点补偿">Offset：浮点中心点补偿</h3>
+<ul>
+<li><p>下采样后特征图中只能以整点预测中心点，但实际的中心点坐标是浮点型，所以我们要预测精确位置的偏移量，中心点偏移（offset）是为了补偿下采样导致的小数精度损失。</p>
+<p><span class="math display">$$
+\hat{Y}_{\text{off}}[i,j] = \left( \frac{x}{s} - \lfloor \frac{x}{s}
+\rfloor, \frac{y}{s} - \lfloor \frac{y}{s} \rfloor \right)
+$$</span></p></li>
+<li><p>损失函数也是 <span
+class="math inline"><em>ℓ</em><sub>1</sub></span> 回归：</p>
+<p><span class="math display">$$
+\mathcal{L}_{\text{off}} = \frac{1}{N} \sum_{(i,j) \in \text{centers}}
+\left\| \hat{Y}_{\text{off}}[i,j] - \Delta \right\|_1
+$$</span></p></li>
+</ul>
+<h3 id="网络结构直接输出这三个量">网络结构直接输出这三个量</h3>
+<ul>
+<li><p>网络 backbone（如 DLA-34）提取 feature map；</p></li>
+<li><p>然后通过三个 <strong>卷积 head</strong>（可以是1-2层的
+conv）分别输出：</p>
+<table>
+<thead>
+<tr>
+<th>Head</th>
+<th>输出通道数</th>
+<th>用于监督</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Heatmap Head</td>
+<td><span class="math inline"><em>C</em></span></td>
+<td>Focal loss</td>
+</tr>
+<tr>
+<td>Size Head</td>
+<td>2</td>
+<td>box loss</td>
+</tr>
+<tr>
+<td>Offset Head</td>
+<td>2</td>
+<td>offset loss</td>
+</tr>
+</tbody>
+</table></li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> torch<br><span class="hljs-keyword">import</span> torch.nn <span class="hljs-keyword">as</span> nn<br><span class="hljs-keyword">class</span> <span class="hljs-title class_">Head</span>(nn.Module):<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__init__</span>(<span class="hljs-params">self, in_channels, out_channels</span>):<br>        <span class="hljs-built_in">super</span>().__init__()<br>        <span class="hljs-variable language_">self</span>.head = nn.Sequential(<br>            nn.Conv2d(in_channels, <span class="hljs-number">64</span>, <span class="hljs-number">3</span>, padding=<span class="hljs-number">1</span>),<br>            nn.ReLU(),<br>            nn.Conv2d(<span class="hljs-number">64</span>, out_channels, <span class="hljs-number">1</span>)<br>        )<br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">forward</span>(<span class="hljs-params">self, x</span>):<br>        <span class="hljs-keyword">return</span> <span class="hljs-variable language_">self</span>.head(x)<br><br><span class="hljs-comment"># 构造3个head</span><br><span class="hljs-variable language_">self</span>.heatmap_head = Head(<span class="hljs-number">256</span>, num_classes)<br><span class="hljs-variable language_">self</span>.size_head = Head(<span class="hljs-number">256</span>, <span class="hljs-number">2</span>)<br><span class="hljs-variable language_">self</span>.offset_head = Head(<span class="hljs-number">256</span>, <span class="hljs-number">2</span>)<br></code></pre></td></tr></table></figure>
+<h3 id="算法输入是什么">算法输入是什么？</h3>
+<p>最终，网络需要对 <strong>每个位置</strong> 回归：</p>
+<ul>
+<li>该位置是否为物体中心点（Heatmap）</li>
+<li>如果是中心点，对应的框大小（Box Size）</li>
+<li>和实际中心点浮点坐标的偏差（Offset）</li>
+</ul>
+<figure class="highlight mathematica"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs mathematica"><span class="hljs-built_in">Input</span> <span class="hljs-built_in">Image</span><br>   ↓<br>  <span class="hljs-variable">Backbone</span> <span class="hljs-punctuation">(</span><span class="hljs-variable">DLA</span><span class="hljs-operator">-</span><span class="hljs-number">34</span><span class="hljs-punctuation">)</span><br>   ↓<br> <span class="hljs-variable">Feature</span> <span class="hljs-built_in">Map</span><br>   ↓<br> ┌────────────┬─────────────┬────────────┐<br> │ <span class="hljs-variable">Heatmap</span>    │ <span class="hljs-variable">Size</span> <span class="hljs-built_in">Head</span>   │ <span class="hljs-built_in">Offset</span> <span class="hljs-built_in">Head</span>│<br> │            │             │            │<br> ↓            ↓             ↓<br><span class="hljs-built_in">C</span>×<span class="hljs-variable">H</span>×<span class="hljs-variable">W</span>     <span class="hljs-number">2</span>×<span class="hljs-variable">H</span>×<span class="hljs-variable">W</span>         <span class="hljs-number">2</span>×<span class="hljs-variable">H</span>×<span class="hljs-variable">W</span><br> ↓            ↓             ↓<br> 预测中心概率、预测宽高、预测偏移量<br></code></pre></td></tr></table></figure>
+<h1 id="参考文献">参考文献</h1>
+<p>[1] Kuhn H W. The Hungarian method for the assignment problem[J].
+Naval research logistics quarterly, 1955, 2(1‐2): 83-97.</p>
+<p>[2] Cormen T H, Leiserson C E, Rivest R L, et al. Introduction to
+algorithms[M]. MIT press, 2022.</p>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs py"><br>feat = backbone(x)                         <br>feat.requires_grad_(<span class="hljs-literal">True</span>)                 <br>det_out = det_head(feat)<br>reid_out = reid_head(feat)<br>loss_det.backward(retain_graph=<span class="hljs-literal">True</span>)<br>grad_det = feat.grad.detach().clone().flatten()<br>model.zero_grad()<br><br>loss_reid.backward(retain_graph=<span class="hljs-literal">True</span>)<br>grad_reid = feat.grad.detach().clone().flatten()<br>model.zero_grad()<br><br><span class="hljs-comment"># 应用梯度门控模块</span><br>gated_feat, gate_val = gcg(grad_det, grad_reid, feat)<br>det_out = det_head(gated_feat)<br>reid_out = reid_head(gated_feat)<br>loss = compute_det_loss(det_out, target_det) + compute_reid_loss(reid_out, target_reid)<br>loss.backward()<br>optimizer.step()<br><br></code></pre></td></tr></table></figure>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" class="category-chain-item">机器学习</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E7%BB%9F%E8%AE%A1%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" class="category-chain-item">统计机器学习</a>
+  
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" class="print-no-link">#机器学习</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>深入思考FairMOT及其变体</div>
+      <div>http://example.com/2025/07/05/深度学习/前沿热点/做PPT用/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>bradin</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2025年7月5日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2025/07/02/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E7%AC%AC%E4%B8%80%E6%AC%A1%EF%BC%9A%E7%86%B5/" title="从最大熵模型到loss的设计">
+                        <span class="hidden-mobile">从最大熵模型到loss的设计</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+  
+  
+
+
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="busuanzi_container_site_pv" style="display: none">
+        总访问量 
+        <span id="busuanzi_value_site_pv"></span>
+         次
+      </span>
+    
+    
+      <span id="busuanzi_container_site_uv" style="display: none">
+        总访客数 
+        <span id="busuanzi_value_site_uv"></span>
+         人
+      </span>
+    
+    
+  
+</div>
+
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  
+      <script>
+        if (!window.MathJax) {
+          window.MathJax = {
+            tex    : {
+              inlineMath: { '[+]': [['$', '$']] }
+            },
+            loader : {
+              load: ['ui/lazy']
+            },
+            options: {
+              renderActions: {
+                insertedScript: [200, () => {
+                  document.querySelectorAll('mjx-container').forEach(node => {
+                    let target = node.parentNode;
+                    if (target.nodeName.toLowerCase() === 'li') {
+                      target.parentNode.classList.add('has-jax');
+                    }
+                  });
+                }, '', false]
+              }
+            }
+          };
+        } else {
+          MathJax.startup.document.state(0);
+          MathJax.texReset();
+          MathJax.typeset();
+          MathJax.typesetPromise();
+        }
+
+        Fluid.events.registerRefreshCallback(function() {
+          if ('MathJax' in window && MathJax.startup.document && typeof MathJax.startup.document.state === 'function') {
+            MathJax.startup.document.state(0);
+            MathJax.texReset();
+            MathJax.typeset();
+            MathJax.typesetPromise();
+          }
+        });
+      </script>
+    
+
+  <script  src="https://lib.baomitu.com/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

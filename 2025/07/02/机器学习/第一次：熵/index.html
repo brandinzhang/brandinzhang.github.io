@@ -1,0 +1,957 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="bradin">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="熵 由来 自然界里，气体分子的扩散，是一个从有序到无序的过程，因为原先泾渭分明的两种气体分子彼此交融；水的蒸发，是一个从有序到无序的过程，因为原先有序排列的水分子变得无序；人类的学习，知识的积累与传播，也是在不断地打破原有的知识结构，形成新的认知。自然界大量的现象，都需要我们创造出一个量，用于数学的刻画一个系统无序的程度。这个量就是熵。 假设现在有一个系统，它有n种可能的状态，每一状态的概率为pi">
+<meta property="og:type" content="article">
+<meta property="og:title" content="从最大熵模型到loss的设计">
+<meta property="og:url" content="http://example.com/2025/07/02/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E7%AC%AC%E4%B8%80%E6%AC%A1%EF%BC%9A%E7%86%B5/index.html">
+<meta property="og:site_name" content="鸭蛋仙人的博客">
+<meta property="og:description" content="熵 由来 自然界里，气体分子的扩散，是一个从有序到无序的过程，因为原先泾渭分明的两种气体分子彼此交融；水的蒸发，是一个从有序到无序的过程，因为原先有序排列的水分子变得无序；人类的学习，知识的积累与传播，也是在不断地打破原有的知识结构，形成新的认知。自然界大量的现象，都需要我们创造出一个量，用于数学的刻画一个系统无序的程度。这个量就是熵。 假设现在有一个系统，它有n种可能的状态，每一状态的概率为pi">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2025-07-01T16:00:00.000Z">
+<meta property="article:modified_time" content="2025-07-07T09:30:40.740Z">
+<meta property="article:author" content="bradin">
+<meta property="article:tag" content="机器学习">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>从最大熵模型到loss的设计 - 鸭蛋仙人的博客</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.6","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.5.1/katex.min.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>鸭蛋仙人</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/example/" target="_self">
+                <i class="iconfont icon-slack-fill"></i>
+                <span>example</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="从最大熵模型到loss的设计"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2025-07-02 00:00" pubdate>
+          2025年7月2日 凌晨
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          2.6k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          23 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="busuanzi_container_page_pv" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="busuanzi_value_page_pv"></span> 次
+        </span>
+        
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">从最大熵模型到loss的设计</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="熵">熵</h1>
+<h2 id="由来">由来</h2>
+<p>自然界里，气体分子的扩散，是一个从有序到无序的过程，因为原先泾渭分明的两种气体分子彼此交融；水的蒸发，是一个从有序到无序的过程，因为原先有序排列的水分子变得无序；人类的学习，知识的积累与传播，也是在不断地打破原有的知识结构，形成新的认知。自然界大量的现象，都需要我们创造出一个量，用于数学的刻画一个系统无序的程度。这个量就是熵。</p>
+<p>假设现在有一个系统，它有<span
+class="math inline"><em>n</em></span>种可能的状态，每一状态的概率为<span
+class="math inline"><em>p</em><sub><em>i</em></sub></span>，我们为这个系统引入熵函数<span
+class="math inline"><em>H</em><sub><em>n</em></sub>(<em>p</em><sub>1</sub>, <em>p</em><sub>2</sub>, ...<em>p</em><sub><em>n</em></sub>)</span>。这个量应当满足三个性质（公理）：
+- 1.连续性：<span
+class="math inline"><em>H</em><sub><em>n</em></sub></span>是其变量的连续函数
+- 2.极值性：当所有<span
+class="math inline">$p_i=\frac1n$</span>时，<span
+class="math inline"><em>H</em><sub><em>n</em></sub></span>取最大值 -
+3.可加性：<span
+class="math inline"><em>H</em><sub><em>n</em> + 1</sub>(<em>p</em><sub>1</sub>, …, (1 − <em>q</em>)<em>p</em><sub><em>n</em> + 1</sub>, <em>q</em><em>p</em><sub><em>n</em> + 1</sub>) = <em>H</em><sub><em>n</em></sub>(<em>p</em><sub>1</sub>, …, <em>p</em><sub><em>n</em></sub>) + <em>p</em><sub><em>n</em> + 1</sub><em>H</em><sub>2</sub>(1 − <em>q</em>, <em>q</em>)</span>，其中<span
+class="math inline">0 &lt; <em>q</em> &lt; 1</span>，这一点等价于，对于独立随机变量<span
+class="math inline"><em>X</em>, <em>Y</em></span>, 满足<span
+class="math inline"><em>S</em>[<em>p</em>(<em>x</em>)<em>p</em>(<em>y</em>)] = <em>S</em>[<em>p</em>(<em>x</em>)] + <em>S</em>[<em>p</em>(<em>y</em>)]</span></p>
+<p>在这种假设下，由数学推导，熵可以被唯一地定义为（<span
+class="math inline"><em>α</em></span>是正常数） <span
+class="math display">$$H_n(p_1,p_2,...p_n)=-\alpha \sum_{i=1}^n p_i\log
+p_i$$</span> 对于等概率的情况，即<span
+class="math inline">$p_i=\frac1n$</span>，熵的值为 <span
+class="math display">$$H_n\left(\frac1n,\frac1n,\ldots,\frac1n\right)=
+\alpha \log n$$</span> 这与物理学中的玻尔兹曼熵形式一致，<span
+class="math inline"><em>α</em></span>可以取为<span
+class="math inline"><em>k</em><sub><em>B</em></sub></span>（玻尔兹曼常数）。n就是系统的微观状态数。玻尔兹曼熵定义为
+<span
+class="math display"><em>S</em><sub><em>B</em></sub> = <em>k</em><sub><em>B</em></sub>log <em>Ω</em></span>
+其中<span class="math inline"><em>Ω</em></span>是系统的微观状态数。<span
+class="math inline"><em>k</em><sub><em>B</em></sub></span>是玻尔兹曼常数。</p>
+<p>因此，关于熵的定义，我们总结出如下两种形式</p>
+<p>对于给定分布的离散随机变量<span
+class="math inline"><em>X</em></span>，熵定义为： <span
+class="math display"><em>S</em> = −∑<sub><em>x</em></sub><em>p</em>(<em>x</em>)log <em>p</em>(<em>x</em>)</span>
+对于给定分布的连续随机变量<span
+class="math inline"><em>X</em></span>，熵定义为 <span
+class="math display"><em>S</em> = −∫<em>p</em>(<em>x</em>)log <em>p</em>(<em>x</em>)<em>d</em><em>x</em></span>
+同时，我们可以自然的得到两种特殊的熵的定义，其一是联合熵 <span
+class="math display"><em>S</em><sub><em>X</em><em>Y</em></sub> = −∫∫<em>p</em>(<em>x</em>, <em>y</em>)log <em>p</em>(<em>x</em>, <em>y</em>)<em>d</em><em>x</em><em>d</em><em>y</em></span>
+其二是条件熵，我们已经知道，条件分布就是在联合分布<span
+class="math inline"><em>p</em>(<em>x</em>, <em>y</em>)</span>的基础上，已经知道<span
+class="math inline"><em>p</em>(<em>x</em>)</span>的分布，求<span
+class="math inline"><em>X</em></span>确定时，<span
+class="math inline"><em>Y</em></span>的分布情况。那么条件熵自然是在联合熵的基础上，再引入<span
+class="math inline"><em>X</em></span>的熵，所剩下的熵值：</p>
+<p><span
+class="math display"><em>S</em>(<em>Y</em>|<em>X</em>) = <em>S</em>[<em>p</em>(<em>x</em>, <em>y</em>)] − <em>S</em>[<em>p</em>(<em>x</em>)] = −∑<sub><em>x</em></sub>∑<sub><em>y</em></sub><em>p</em>(<em>x</em>, <em>y</em>)log <em>p</em>(<em>y</em>|<em>x</em>)</span></p>
+<p>一言以蔽之，条件熵就是说本来不确定性有<span
+class="math inline"><em>S</em>[<em>p</em>(<em>x</em>, <em>y</em>)]</span>这么多，引入<span
+class="math inline"><em>p</em>(<em>x</em>)</span>能带来量为<span
+class="math inline"><em>S</em>[<em>p</em>(<em>x</em>)]</span>的信息，减少掉一定的不确定性，剩下的不确定性，就是条件熵。</p>
+<h2 id="应用">应用</h2>
+<h3
+id="任何排序算法时间复杂度不可超过onlog-n">任何排序算法时间复杂度不可超过<span
+class="math inline"><em>O</em>(<em>n</em>log <em>n</em>)</span></h3>
+<p>排序算法的时间复杂度分析是每一个计算机专业学生的必修课。有趣的是，我们可以通过熵直接证明，排序算法的时间复杂度不可能更优于<span
+class="math inline"><em>O</em>(<em>n</em>log <em>n</em>)</span>。</p>
+<p>假设我们现在有<span
+class="math inline"><em>n</em></span>个元素需要排序，也就是说，这一系统的微观状态数为<span
+class="math inline"><em>n</em>!</span>。利用Stirling公式，我们可以将这一系统的熵写为
+<span class="math display">$$\log(n!)\sim\log\left[\sqrt{2\pi
+n}\left(\frac{n}{e}\right)^n\right]\sim\mathcal{O}(n\log n)$$</span></p>
+<p>在排序算法的时间复杂度分析中，以每一次比较数据为一个单位。事实上，每一次比较最多获取1比特信息，（p=0.5时，S=log2=1比特，比较大小消除了这一p=0.5的不确定性，提供了1bit信息）。因此，排序算法的时间复杂度至少为</p>
+<p><span class="math display">𝒪(<em>n</em>log <em>n</em>)</span></p>
+<h3 id="决策树">决策树</h3>
+<p>决策树是机器学习中常用的分类方法。决策树的构建过程可以看作是一个不断地减少不确定性的过程。每一次分裂，都是在选择一个特征，使得分裂后的子集的不确定性（熵）最小化。</p>
+<h3 id="特征选择">特征选择</h3>
+<p>特征选择是机器学习中一个重要的步骤。通过计算特征与目标变量之间的熵，可以选择出最有信息量的特征。常用的方法包括信息增益和信息增益率。</p>
+<h2 id="熵的最大和最小">熵的最大和最小</h2>
+<p>在机器学习中，我们可以使熵最大或者最小，得到两种截然相反的应用。</p>
+<h3 id="最大熵模型">最大熵模型</h3>
+<p>最大熵模型是一种基于信息论的概率模型，它的基本思想是，在已知的条件下，选择熵最大的概率分布。这一思想的出发点，主要基于泛化性能考虑。在训练模型的参数的时候，我们希望模型能够在训练集上表现良好，同时又不希望模型过拟合。这时候，我们就需要最大化模型的熵，把熵最大化意味着选择一种最不确定的分布，信息量最大的分布，<strong>这意味着承认我们的无知，选择最少的先验知识和主观假设</strong></p>
+<h3 id="最小熵模型">最小熵模型</h3>
+<p>最小熵模型则是通过最小化熵来达到特定的目标，什么情况下需要最小呢？比如人类的语言，语言是一种及其有序，有规律的系统，因此在语言模型中，我们希望生成的句子具有较低的熵，即更高的确定性。<strong>这意味着承认别人的聪明，接纳更多的先验知识和系统客观性质</strong></p>
+<h1 id="交叉熵kl散度">交叉熵&amp;KL散度</h1>
+<p>在介绍交叉熵与KL散度之前，我们先回顾一下熵的定义。 <span
+class="math display">$$H_p(X)=\sum_xp(x)\cdot\log\frac{1}{p(x)}$$</span></p>
+<p>众所周知，<span
+class="math inline"><em>p</em>(<em>x</em>)</span>描述事件<span
+class="math inline"><em>x</em></span>发生的概率，那么我们可以把<span
+class="math inline">$\log\frac{1}{p(x)}$</span>看做事件<span
+class="math inline"><em>x</em></span>发生后带来的信息量。当<span
+class="math inline"><em>p</em> = 1</span>时，意味着我们知道此事必然发生，那么这一事件的发生并没有带来什么信息量。反之，一个小概率事件发生了，可以为我们带来很大的的信息量，这一系统就更出乎我们的意料，更混乱，具有更大的熵。</p>
+<p>在这种视角下，我们可以自然地引出交叉熵，这用于衡量两个概率分布的差异，举个例子，给定随机事件<span
+class="math inline"><em>X</em></span>, 其客观真实分布为<span
+class="math inline"><em>p</em>(<em>x</em>)</span>，我们的主观预测分布为<span
+class="math inline"><em>q</em>(<em>x</em>)</span>，当我们带着自己的主观预测，与不断观察<span
+class="math inline"><em>X</em></span>的客观发生，我们收获的信息量应当是</p>
+<p><span class="math display">$$H(p,q)=\sum_x p(x)\log
+\frac{1}{q(x)}$$</span></p>
+<p>什么时候交叉熵会很大？当我们主观上认为一个事情发生的概率很低（<span
+class="math inline"><em>q</em>(<em>x</em>)</span>很大），但是客观上发生概率很高（<span
+class="math inline"><em>p</em>(<em>x</em>)</span>很大）的时候，也就是主观认知和客观现实非常不匹配的时候。因此机器学习使用交叉熵做函数，就是为了最小化<strong>模型的主观预测</strong>与<strong>数据的客观分布</strong>之间的差异。</p>
+<p>交叉熵可以衡量我们基于某种主观认识去感受客观世界时，收获的信息量。但是只要事件仍然随机而非确定，客观信息本身也会有自己的熵0，KL散度（相对熵）就是从收获的全部信息（混乱程度）减去客观信息本身的熵，得到的剩余信息量。定义为</p>
+<p><span
+class="math display">$$\begin{aligned}D_{KL}(p||q)&amp;=H_{p,q}(X)-H_{p}(X)\\&amp;=\int
+p(x)\log\frac{1}{q(x)}dx-\int p(x)\log\frac{1}{p(x)}dx\\&amp;=\int
+p(x)\log\frac{p(x)}{q(x)}dx\end{aligned}$$</span></p>
+<p>不过，在模型优化中直接采用交叉熵作为损失函数就好了，因为客观分布并不随参数变化，后一项在优化过程中为常数，求导为0，优化交叉熵等价于优化KL散度。</p>
+<h1 id="softmax">softmax</h1>
+<p>多分类神经网络中，有一个现实的矛盾。对于预测<span
+class="math inline"><em>n</em></span>个类的任务，我们通过神经网络输出了n个节点的实数值，然而这些值并不能直接表示每个类的概率分布。这为我们使用交叉熵做损失函数提供了不小的麻烦。为了解决这个问题，我们引入了softmax函数，它可以将任意实数向量转换为一个概率分布。
+softmax函数的定义为 <span class="math display">$$\text{softmax}(z_i) =
+\frac{e^{z_i}}{\sum_{j=1}^n e^{z_j}}$$</span> 其中<span
+class="math inline"><em>z</em><sub><em>i</em></sub></span>是神经网络输出的第<span
+class="math inline"><em>i</em></span>个节点的实数值，<span
+class="math inline"><em>n</em></span>是输出节点的数量。softmax函数的输出满足概率分布的性质，即所有输出值之和为1，并且每个输出值都在0到1之间。</p>
+<p>初次看到这一形式，必然感到很困惑，凭什么是指数函数？凭什么是e？凭什么是softmax？实际上，使用softmaxmax拟合概率有一定的道理。</p>
+<ul>
+<li>从物理学的角度来说，softmax与多种能级的气体玻尔兹曼分布形式一模一样</li>
+<li>从熵的角度来说，若认定输出的<span
+class="math inline"><em>z</em><sub><em>i</em></sub></span>就是能量，在能量期望守恒的条件下，softmax就不做任何假设，仅从最大熵原理得出的概率分布形式</li>
+<li>从数值计算的角度来说，softmax函数可以有效地将实数值映射到概率分布，避免了数值计算中的溢出问题。同时，若使用softmax与交叉熵结合，导数形式比较简单：</li>
+</ul>
+<p><span
+class="math display">$$\begin{aligned}l(\mathbf{y},\hat{\mathbf{y}})&amp;=-\sum_{j=1}^qy_j\log\frac{\exp(o_j)}{\sum_{k=1}^q\exp(o_k)}\\&amp;=\sum_{j=1}^qy_j\log\sum_{k=1}^q\exp(o_k)-\sum_{j=1}^qy_jo_j\\&amp;=\log\sum_{k=1}^q\exp(o_k)-\sum_{j=1}^qy_jo_j.\end{aligned}$$</span></p>
+<p><span
+class="math display">$$\partial_{o_j}l(\mathbf{y},\hat{\mathbf{y}})=\frac{\exp(o_j)}{\sum_{k=1}^q\exp(o_k)}-y_j=\mathrm{softmax}(\mathbf{o})_j-y_j.$$</span></p>
+<p>它的梯度正好是目标分布与预测分布之差，只要两者不相等，那么梯度就一直存在，优化就可以持续下去，这是交叉熵的优点。当然，某些情况下这也是缺点，因为Softmax只有在误差几乎为0的时候才会得到one
+hot，换言之正常情况下都不会出现one
+hot，即优化一直不会完全停止，那么就有可能导致过度优化，这也是一些替代品的动机。</p>
+<h1 id="appendix">Appendix</h1>
+<h2
+id="proof.1softmax形式上的深刻意义">Proof.1:softmax形式上的深刻意义</h2>
+<h3 id="机器学习对应">机器学习对应</h3>
+<p>设神经网络输出为 <span
+class="math inline"><strong>o</strong> = (<em>o</em><sub>1</sub>, <em>o</em><sub>2</sub>, …, <em>o</em><sub><em>q</em></sub>)</span>，我们需要将其转换为概率分布
+<span
+class="math inline"><strong>p</strong> = (<em>p</em><sub>1</sub>, <em>p</em><sub>2</sub>, …, <em>p</em><sub><em>q</em></sub>)</span>。从三条基本假设开始推导</p>
+<ul>
+<li>概率归一化：<span class="math inline">$\sum_{i=1}^q p_i =
+1$</span></li>
+<li>特征期望约束：<span class="math inline">$\mathbb{E}_p[o_i] =
+\sum_{i=1}^q p_i o_i = \mu_o$</span> 其中 <span
+class="math inline"><em>μ</em><sub><em>o</em></sub></span>
+是模型输出的期望值。这一点相当于物理里面的能量守恒。</li>
+<li>最大熵原理</li>
+</ul>
+<p><strong>优化目标</strong></p>
+<p>最大化熵： <span class="math display">$$H(p) = -\sum_{i=1}^q p_i \ln
+p_i$$</span> 引入拉格朗日函数 <span
+class="math display">ℒ = −∑<sub><em>i</em></sub><em>p</em><sub><em>i</em></sub>ln <em>p</em><sub><em>i</em></sub> + <em>λ</em>(1 − ∑<sub><em>i</em></sub><em>p</em><sub><em>i</em></sub>) + <em>β</em>(<em>μ</em><sub><em>o</em></sub> − ∑<sub><em>i</em></sub><em>p</em><sub><em>i</em></sub><em>o</em><sub><em>i</em></sub>)</span>
+对 <span class="math inline"><em>p</em><sub><em>k</em></sub></span>
+求偏导： <span class="math display">$$\frac{\partial
+\mathcal{L}}{\partial p_k} = -\ln p_k - 1 - \lambda - \beta o_k =
+0$$</span> <span
+class="math display">ln <em>p</em><sub><em>k</em></sub> = −<em>β</em><em>o</em><sub><em>k</em></sub> − 1 − <em>λ</em></span>
+<span
+class="math display"><em>p</em><sub><em>k</em></sub> = <em>e</em><sup>−<em>β</em><em>o</em><sub><em>k</em></sub></sup> ⋅ <em>e</em><sup>−1 − <em>λ</em></sup></span>
+令 <span
+class="math inline"><em>C</em> = <em>e</em><sup>−1 − <em>λ</em></sup></span>，则：
+<span
+class="math display">∑<sub><em>k</em></sub><em>p</em><sub><em>k</em></sub> = <em>C</em>∑<sub><em>k</em></sub><em>e</em><sup>−<em>β</em><em>o</em><sub><em>k</em></sub></sup> = 1</span>
+<span class="math display">$$C = \frac{1}{\sum_{i=1}^q e^{-\beta
+o_i}}$$</span> <span class="math display">$$p_k = \frac{e^{-\beta
+o_k}}{\sum_{i=1}^q e^{-\beta o_i}}$$</span> 在深度学习中： - 取 <span
+class="math inline"><em>β</em> = −1</span>（相当于负温度参数） - 定义
+<span class="math inline"><em>o</em><sub><em>k</em></sub></span>
+为模型输出值 得到： <span class="math display">$$\boxed{p_k =
+\frac{e^{o_k}}{\sum_{i=1}^q e^{o_i}}}$$</span></p>
+<h3 id="统计力学对应">统计力学对应</h3>
+<p>在正则系综中，状态 <span class="math inline"><em>k</em></span>
+的概率为： <span class="math display">$$p_k =
+\frac{e^{-E_k/kT}}{Z}$$</span></p>
+<p>其中： - <span
+class="math inline"><em>E</em><sub><em>k</em></sub></span> = 状态 <span
+class="math inline"><em>k</em></span> 的能量 - <span
+class="math inline"><em>T</em></span> = 系统温度 - <span
+class="math inline"><em>k</em></span> = 玻尔兹曼常数 - <span
+class="math inline"><em>Z</em> = ∑<em>e</em><sup>−<em>E</em><sub><em>i</em></sub>/<em>k</em><em>T</em></sup></span>
+= 配分函数</p>
+<p>令： - <span
+class="math inline"><em>o</em><sub><em>k</em></sub> = −<em>E</em><sub><em>k</em></sub></span>（模型输出表示负能量）
+- <span
+class="math inline"><em>k</em><em>T</em> = 1</span>（单位温度）</p>
+<p>则： <span class="math display">$$p_k = \frac{e^{o_k}}{\sum e^{o_i}}
+= \text{softmax}(o_k)$$</span></p>
+<p>玻尔兹曼能级分布描述了在热平衡状态下，粒子在不同能级上的分布情况，通常用玻尔兹曼因子表示。一个物理学系统天然满足最大熵原理。</p>
+<h2 id="proof.2">Proof.2</h2>
+<p>最大熵原理往往结合一定的先验假设或者约束条件来推导出概率分布。
+常用的假设为 <span
+class="math display"><em>E</em>[<em>f</em>(<em>x</em>)] = ∑<sub><em>x</em></sub><em>p</em>(<em>x</em>)<em>f</em>(<em>x</em>) = <em>τ</em></span>
+当<span
+class="math inline"><em>f</em>(<em>x</em>) = <em>x</em></span>,式子变为物理中的能量守恒。</p>
+<p>在k个这样的假设下，原问题的拉格朗日函数可以写为 <span
+class="math display">$$\begin{gathered}-\sum_xp(x)\log
+p(x)-\lambda_0\left(\sum_xp(x)-1\right)-\lambda_1\left(\sum_xp(x)f_1(x)-\tau_1\right)\\-\cdots-\lambda_k\left(\sum_xp(x)f_k(x)-\tau_k\right)\end{gathered}$$</span></p>
+<p>解得 <span
+class="math display">$$\begin{aligned}p(x)&amp;=\frac{1}{Z}\mathrm{exp}{\left(-\sum_{i=1}^k\lambda_if_i(x)\right)}\\\\\\Z&amp;=\sum_x\exp{\left(-\sum_{i=1}^k\lambda_if_i(x)\right)}\end{aligned}$$</span></p>
+<p>带入约束条件 <span
+class="math display">∑<sub><em>x</em></sub><em>p</em>(<em>x</em>)<em>f</em><sub><em>i</em></sub>(<em>x</em>) − <em>τ</em><sub><em>i</em></sub> = 0,  (<em>i</em> = 1, 2, …, <em>k</em>)</span>
+可以求得拉格朗日系数，但实际上很难求得，需要付出昂贵的数值计算代价。</p>
+<p><span
+class="math display">$$\frac{n_i}{N}=\frac{g_i/\left[e^{(\varepsilon_i-\mu)/(k_BT)}-1\right]}{\sum_jg_j/\left[e^{(\varepsilon_j-\mu)/(k_BT)}-1\right]}$$</span></p>
+<h1 id="参考文献">参考文献</h1>
+<p>熵的推导与最大熵模型 - https://spaces.ac.cn/archives/3534 -
+https://spaces.ac.cn/archives/3552 - https://spaces.ac.cn/archives/3567
+-
+https://www.zhihu.com/search?type=content&amp;q=softmax%E7%9A%84%E6%9C%AC%E8%B4%A8</p>
+<p>application - https://spaces.ac.cn/archives/3638 -
+从理论上证明，排序算法的时间复杂度不可能更优于<span
+class="math inline"><em>O</em>(<em>n</em><em>l</em><em>o</em><em>g</em><em>n</em>)</span></p>
+<p>为什么是交叉熵？，谈KL散度与交叉熵 -
+理论联系：https://zhuanlan.zhihu.com/p/573385147</p>
+<p>玻尔兹曼分布，玻色分布和爱因斯坦分布 -
+https://wuli.wiki/online/MBsta.html</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" class="category-chain-item">机器学习</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E7%BB%9F%E8%AE%A1%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" class="category-chain-item">统计机器学习</a>
+  
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" class="print-no-link">#机器学习</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>从最大熵模型到loss的设计</div>
+      <div>http://example.com/2025/07/02/机器学习/第一次：熵/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>bradin</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2025年7月2日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2025/07/05/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E5%89%8D%E6%B2%BF%E7%83%AD%E7%82%B9/%E5%81%9APPT%E7%94%A8/" title="深入思考FairMOT及其变体">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">深入思考FairMOT及其变体</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2025/07/01/cs/git%E7%AC%94%E8%AE%B0/" title="git协作开发指南">
+                        <span class="hidden-mobile">git协作开发指南</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+  
+  
+
+
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="busuanzi_container_site_pv" style="display: none">
+        总访问量 
+        <span id="busuanzi_value_site_pv"></span>
+         次
+      </span>
+    
+    
+      <span id="busuanzi_container_site_uv" style="display: none">
+        总访客数 
+        <span id="busuanzi_value_site_uv"></span>
+         人
+      </span>
+    
+    
+  
+</div>
+
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  
+      <script>
+        if (!window.MathJax) {
+          window.MathJax = {
+            tex    : {
+              inlineMath: { '[+]': [['$', '$']] }
+            },
+            loader : {
+              load: ['ui/lazy']
+            },
+            options: {
+              renderActions: {
+                insertedScript: [200, () => {
+                  document.querySelectorAll('mjx-container').forEach(node => {
+                    let target = node.parentNode;
+                    if (target.nodeName.toLowerCase() === 'li') {
+                      target.parentNode.classList.add('has-jax');
+                    }
+                  });
+                }, '', false]
+              }
+            }
+          };
+        } else {
+          MathJax.startup.document.state(0);
+          MathJax.texReset();
+          MathJax.typeset();
+          MathJax.typesetPromise();
+        }
+
+        Fluid.events.registerRefreshCallback(function() {
+          if ('MathJax' in window && MathJax.startup.document && typeof MathJax.startup.document.state === 'function') {
+            MathJax.startup.document.state(0);
+            MathJax.texReset();
+            MathJax.typeset();
+            MathJax.typesetPromise();
+          }
+        });
+      </script>
+    
+
+  <script  src="https://lib.baomitu.com/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

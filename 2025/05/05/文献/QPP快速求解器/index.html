@@ -24,7 +24,7 @@
 <meta property="og:description" content="求解大规模QPP问题，几乎是是每一种基于核方法的机器学习算法最终要面对的问题，求解器的发展也有及其长的历史，本文记录笔者学习过程中遇到的几种代表性，重要的方法。 接着，本文将继续推导其他不限于QPP的经典solver的实现细节。包括内点法等经典方法，以及现代神经网络训练使用到的adam，Nadam等主流优化器。书山有路勤为径，学海无涯苦作舟，机器学习理论与方法正在不断快速迭代，知识也应当是不断更新">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2025-05-05T07:49:34.698Z">
-<meta property="article:modified_time" content="2025-05-05T14:38:50.612Z">
+<meta property="article:modified_time" content="2025-05-07T14:06:54.855Z">
 <meta property="article:author" content="bradin">
 <meta name="twitter:card" content="summary_large_image">
   
@@ -83,7 +83,9 @@
 
 
   
-<meta name="generator" content="Hexo 7.3.0"></head>
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.5.1/katex.min.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.3.0"></head>
 
 
 <body>
@@ -604,37 +606,48 @@ class="math display"><strong>α</strong><sup><em>k</em>, <em>i</em></sup> =�
 class="math inline"><em>α</em></span>表示正在进行第K+1轮迭代，按顺序已经迭代完了前i-1个分量，正准备迭代其中第i个分量。</p>
 <p>DCDM的子问题定义： 固定除<span
 class="math inline"><em>α</em><sub><em>i</em></sub></span>外的所有变量，优化单变量<span
-class="math inline"><em>α</em><sub><em>i</em></sub></span>： <span
-class="math display">min<sub><em>d</em></sub><em>f</em>(<em>α</em> + <em>d</em><em>e</em><sub><em>i</em></sub>)  s.t.  0 ≤ <em>α</em><sub><em>i</em></sub> + <em>d</em> ≤ <em>U</em></span>
-其中<span class="math inline">$f(\alpha) = \frac{1}{2} \alpha^T \bar{Q}
-\alpha - e^T \alpha$</span>。</p>
+class="math inline"><em>α</em><sub><em>i</em></sub></span>：</p>
+<p><span
+class="math display">min<sub><em>d</em></sub><em>f</em>(<em>α</em> + <em>d</em><em>e</em><sub><em>i</em></sub>)  s.t.  0 ≤ <em>α</em><sub><em>i</em></sub> + <em>d</em> ≤ <em>U</em></span></p>
+<p>其中<span class="math inline">$f(\alpha) = \frac{1}{2} \alpha^T
+\bar{Q} \alpha - e^T \alpha$</span>。</p>
 <p>目标函数泰勒展开后(二阶近似)是一个关于<span
-class="math inline"><em>d</em></span>的二次函数： <span
-class="math display">$$
+class="math inline"><em>d</em></span>的二次函数：</p>
+<p><span class="math display">$$
 f(\alpha + d e_i) = \frac{1}{2} \bar{Q}_{ii} d^2 + \nabla_i f(\alpha) d
 + \text{常数项}
-$$</span> 其中梯度分量：<span
-class="math inline">∇<sub><em>i</em></sub><em>f</em>(<em>α</em>) = (<em>Q̄</em><em>α</em>)<sub><em>i</em></sub> − 1 = <em>y</em><sub><em>i</em></sub><em>w</em><sup><em>T</em></sup><em>x</em><sub><em>i</em></sub> − 1 + <em>D</em><sub><em>i</em><em>i</em></sub><em>α</em><sub><em>i</em></sub></span>，<span
+$$</span></p>
+<p>其中梯度分量： <span
+class="math inline">∇<sub><em>i</em></sub><em>f</em>(<em>α</em>) = (<em>Q̄</em><em>α</em>)<sub><em>i</em></sub> − 1 = <em>y</em><sub><em>i</em></sub><em>w</em><sup><em>T</em></sup><em>x</em><sub><em>i</em></sub> − 1 + <em>D</em><sub><em>i</em><em>i</em></sub><em>α</em><sub><em>i</em></sub></span>
+<span
 class="math inline"><em>w</em> = ∑<sub><em>j</em></sub><em>y</em><sub><em>j</em></sub><em>α</em><sub><em>j</em></sub><em>x</em><sub><em>j</em></sub></span>。</p>
 <p>闭式解推导： 1. 二次函数极小值：最优<span
 class="math inline"><em>d</em></span>为无约束解： <span
 class="math display">$$
 d^* = -\frac{\nabla_i f(\alpha)}{\bar{Q}_{ii}}
-$$</span> 2. 投影到可行域：</p>
+$$</span> 1. 投影到可行域：</p>
 <p><span
 class="math display">$$\alpha_i^{k,i+1}=\min\left(\max\left(\alpha_i^{k,i}-\frac{\nabla_if(\boldsymbol{\alpha}^{k,i})}{\bar{Q}_{ii}},0\right),U\right)$$</span></p>
 <p>(即使用clip函数限制在（0，U）区间上)</p>
 <p>此时问题变成了如何高效求解<span
-class="math inline">∇<sub><em>i</em></sub><em>f</em>(<em>α</em>)</span>，自然地想法是直接求解<span
-class="math inline">$\nabla_if(\boldsymbol{\alpha})=(\bar{Q}\boldsymbol{\alpha})_i-1=\sum_{j=1}^l\bar{Q}_{ij}\alpha_j-1$</span>,其中<span
-class="math inline"><em>Q̄</em><sub><em>i</em><em>j</em></sub> = <em>x</em><sub><em>i</em></sub><sup>⊤</sup><em>x</em><sub><em>j</em></sub></span>,时间复杂度是<span
-class="math inline"><em>O</em>(<em>l</em><em>n̄</em>)</span>,<span
-class="math inline"><em>n̄</em></span>是平均非零特征数，这样的计算开销是巨大的。（可能会疑惑为何不预先计算出整个矩阵Q？事实上是因为存储成本太高！若样本数<span
+class="math inline">∇<sub><em>i</em></sub><em>f</em>(<em>α</em>)</span>，</p>
+<p>自然地想法是直接求解<span
+class="math inline">∇<sub><em>i</em></sub><em>f</em>(<strong>α</strong>) = (<em>Q̄</em><strong>α</strong>)<sub><em>i</em></sub> − 1</span>=</p>
+<p><span
+class="math inline">$\sum_{j=1}^l\bar{Q}_{ij}\alpha_j-1$</span>,</p>
+<p>其中<span
+class="math inline"><em>Q̄</em><sub><em>i</em><em>j</em></sub> = <em>x</em><sub><em>i</em></sub><sup>⊤</sup><em>x</em><sub><em>j</em></sub></span>,</p>
+<p>时间复杂度是<span
+class="math inline"><em>O</em>(<em>l</em><em>n̄</em>)</span>,</p>
+<p><span
+class="math inline"><em>n̄</em></span>是平均非零特征数，这样的计算开销是巨大的。</p>
+<p>（可能会疑惑为何不预先计算出整个矩阵Q？事实上是因为存储成本太高！若样本数<span
 class="math inline"><em>l</em> = 10<sup>5</sup></span>, 那么Q存储<span
 class="math inline">10<sup>10</sup></span>个浮点数，粗略记每个单精度浮点数4字节，此时内存开销已经来到将近40GB，完全不可行）</p>
-<p>因此我们计算分量式子 <span
-class="math display">∇<sub><em>i</em></sub><em>f</em>(<strong>α</strong>) = <em>y</em><sub><em>i</em></sub><strong>w</strong><sup><em>T</em></sup><strong>x</strong><sub><em>i</em></sub> − 1 + <em>D</em><sub><em>i</em><em>i</em></sub><em>α</em><sub><em>i</em></sub></span>
-当然，如果按照定义式子<span
+<p>因此我们计算分量式子</p>
+<p><span
+class="math display">∇<sub><em>i</em></sub><em>f</em>(<strong>α</strong>) = <em>y</em><sub><em>i</em></sub><strong>w</strong><sup><em>T</em></sup><strong>x</strong><sub><em>i</em></sub> − 1 + <em>D</em><sub><em>i</em><em>i</em></sub><em>α</em><sub><em>i</em></sub></span></p>
+<p>当然，如果按照定义式子<span
 class="math inline">$\boldsymbol{w}=\sum_{j=1}^ly_j\alpha_j\boldsymbol{x}_j$</span>求解<span
 class="math inline"><em>w</em></span>,复杂度就回到了<span
 class="math inline"><em>O</em>(<em>l</em><em>n̄</em>)</span>,为此作者也对<span
@@ -780,6 +793,8 @@ class="math inline"><em>y</em><sup><em>k</em> + 1</sup> = <em>y</em><sup
 class="math inline">∥<em>r</em><sup><em>k</em></sup>∥ ≤ <em>ϵ</em></span>,
 <span
 class="math inline">∥<em>s</em><sup><em>k</em></sup>∥ ≤ <em>ϵ</em></span></p>
+<p><span
+class="math inline">∇<sub><em>i</em></sub><em>f</em>(<em>α</em>) = (<em>Q̄</em><em>α</em>)<em>i</em> − 1 = <em>y</em><sub><em>i</em></sub><em>w</em><sup><em>T</em></sup><em>x</em><sub><em>i</em></sub> − 1 + <em>D</em><em>i</em><em>i</em><em>α</em><sub><em>i</em></sub><em>w</em> = ∑<sub><em>j</em></sub><em>y</em><sub><em>j</em></sub><em>α</em><sub><em>j</em></sub><em>x</em><sub><em>j</em></sub></span></p>
 
                 
               </div>
@@ -880,8 +895,8 @@ class="math inline">∥<em>s</em><sup><em>k</em></sup>∥ ≤ <em>ϵ</em></s
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2025/03/22/cs/git%E7%AC%94%E8%AE%B0/" title="git协作开发指南">
-                        <span class="hidden-mobile">git协作开发指南</span>
+                      <a href="/2025/03/22/cs/ssh%E8%BF%9E%E6%8E%A5%E6%9C%8D%E5%8A%A1%E5%99%A8/" title="ssh连接服务器（阿里云ECS）">
+                        <span class="hidden-mobile">ssh连接服务器（阿里云ECS）</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
