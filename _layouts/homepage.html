@@ -40,7 +40,8 @@
       <header>
         
         {% if site.avatar %}
-        <a class="image avatar"><img src="{{ site.avatar }}" alt="avatar" /></a>
+        {% assign avatar_src = site.avatar | relative_url %}
+        <a class="image avatar"><img src="{{ avatar_src }}?v={{ site.time | date: '%s' }}" alt="avatar" /></a>
         {% endif %}
 
         <h1>{{ site.title }}</h1>
