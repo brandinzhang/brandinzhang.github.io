@@ -1,0 +1,9 @@
+bundle exec jekyll clean
+bundle exec jekyll serve -H 0.0.0.0 -P 4000 -l
+
+
+git add -A
+git commit -m "Update homepage"
+git push
+
+![20260314182419](https://image-bed-1331150746.cos.ap-beijing.myqcloud.com/20260314182419.png)

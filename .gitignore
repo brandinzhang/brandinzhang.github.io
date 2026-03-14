@@ -4,4 +4,7 @@ Gemfile.lock
 *.gem
 .DS_Store
 .jekyll-cache
+.jekyll-metadata
 git-update.sh
+.bundle
+vendor/bundle

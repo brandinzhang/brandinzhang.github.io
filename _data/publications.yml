@@ -1,22 +1,19 @@
 main:
 
-  - title: Continual Learning for Abdominal Multi-Organ and Tumor Segmentation
-    authors: Yixiao Zhang, Xinyi Li, Huimiao Chen, Alan Yuille, <strong>Yaoyao Liu*</strong>, Zongwei Zhou* (*Corresponding authors)
-    conference_short: MICCAI
-    conference: International Conference on Medical Image Computing and Computer-Assisted Intervention <strong>(MICCAI)</strong>, 2023.
-    pdf: https://arxiv.org/pdf/2306.00988.pdf
-    code: https://github.com/MrGiovanni/ContinualLearning
-    bibtex: https://bib.yliu.me/MICCAI23.txt
-    image: ./assets/img/teaser_example_2.png
-    notes: Early Accept
-
-  - title: "Mnemonics Training: Multi-Class Incremental Learning without Forgetting"
-    authors: <strong>Yaoyao Liu</strong>, Yuting Su, An-An Liu, Bernt Schiele, Qianru Sun
+  - title: Learning through Creation:A Hash-Free Framework for On-the-Fly Category Discovery
+    authors: "<strong>Bohan Zhang*</strong>, Weidong Tang*, Zhixiang Chi, Yi Jin, Zhenbo Li, Yang Wang, Yanan Wu(* means equal contribution)"
     conference_short: CVPR
-    conference: IEEE/CVF Conference on Computer Vision and Pattern Recognition <strong>(CVPR)</strong>, 2020.
-    pdf: https://arxiv.org/pdf/2002.10211.pdf
-    code: https://github.com/yaoyao-liu/class-incremental-learning/tree/main/mnemonics-training
-    page: https://class-il.mpi-inf.mpg.de/mnemonics/
-    bibtex: https://class-il.mpi-inf.mpg.de/mnemonics/
-    notes: Oral Presentation
-    image: ./assets/img/teaser_example.png
+    conference: Findings of IEEE/CVF Conference on Computer Vision and Pattern Recognition <strong>(CVPR Findings)</strong>, 2026
+    pdf: https://arxiv.org/pdf/2306.00988.pdf
+    code: https://github.com/brandinzhang/LTC
+    image: ./assets/img/CVPR2026.png
+    notes: CCF-A
+
+  - title: "Multi-label Twin support vector machine with probabilistic output and its safe screening rule"
+    authors: "<strong>Bohan Zhang</strong>, Xincheng Lv, Chang Xu, Yitian Xu"
+    conference_short: Inf.Sci
+    conference: Information Sciences <strong>(Inf.Sci)</strong>, 2026.
+    pdf: https://www.sciencedirect.com/science/article/pii/S0020025525009612
+    code: https://github.com/brandinzhang/PMLTSVM
+    image: ./assets/img/INS2026.png
+    notes: CCF-B
