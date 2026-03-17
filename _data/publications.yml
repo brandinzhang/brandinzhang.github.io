@@ -4,7 +4,7 @@ main:
     authors: "<strong>Bohan Zhang*</strong>, Weidong Tang*, Zhixiang Chi, Yi Jin, Zhenbo Li, Yang Wang, Yanan Wu(* means equal contribution)"
     conference_short: CVPR
     conference: Findings of IEEE/CVF Conference on Computer Vision and Pattern Recognition <strong>(CVPR Findings)</strong>, 2026
-    pdf: https://arxiv.org/pdf/2306.00988.pdf
+    pdf: https://arxiv.org/pdf/2603.13858v1
     code: https://github.com/brandinzhang/LTC
     image: ./assets/img/CVPR2026.png
     notes: CCF-A
